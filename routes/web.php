@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Usercontroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+// Route::get('/DashboardUser', function () {
+//     return view('DashboardUser.menu');
+// });
+
+// Route::get('/DashboardUser', function () {
+//     return view('DashboardUser.menu');
+// });
+Route::get('daftartoko', function (){return view('DashboardUser.daftartoko');});
+Route::get('menu', function (){return view('DashboardUser.menu');});
+Route::get('/pesanan', function (){ return view('DashboardUser.pesanan');});
+Route::get('riwayat', function() {return view('DashboardUser.riwayat');});
+Route::get('keranjang', function() {return view('DashboardUser.keranjang');}); 
+Route::resource('/DashboardUser', Usercontroller::class);

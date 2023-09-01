@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('menu');
 });
 // Route::get('/DashboardUser', function () {
 //     return view('DashboardUser.menu');
@@ -24,9 +24,9 @@ Route::get('/', function () {
 // Route::get('/DashboardUser', function () {
 //     return view('DashboardUser.menu');
 // });
-Route::get('daftartoko', function (){return view('DashboardUser.daftartoko');});
-Route::get('menu', function (){return view('DashboardUser.menu');});
-Route::get('/pesanan', function (){ return view('DashboardUser.pesanan');});
-Route::get('riwayat', function() {return view('DashboardUser.riwayat');});
-Route::get('keranjang', function() {return view('DashboardUser.keranjang');}); 
+Route::get('daftartoko', function (){return view('DashboardUser.daftartoko')->name('daftartoko');});
+Route::get('menu', function (){return view('DashboardUser.menu')->name('menu');});
+Route::get('pesanan', function (){ return view('DashboardUser.pesanan')->name('pesanan');});
+Route::get('riwayat', function() {return view('DashboardUser.riwayat')->name('riwayat');});
+Route::get('keranjang', function() {return view('DashboardUser.keranjang')->name('keranjang');});
 Route::resource('/DashboardUser', Usercontroller::class);

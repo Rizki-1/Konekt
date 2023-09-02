@@ -6,21 +6,35 @@ use App\Models\dashboardusercontrollers;
 use App\Models\penjual;
 use Illuminate\Http\Request;
 
-class penjualcontroller extends Controller
+class adminpembeliancontroller extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $dashboardusercontrollers = dashboardusercontrollers::where('adminstatus', 'notapprove')->get();
         $penjual = penjual::all();
-        return view('DashboardPenjual.tambahmenu', compact('penjual'));
+        return view('admin.pembelian', compact('dashboardusercontrollers', 'penjual'));
     }
 
-    protected function pesananpenjual()
+    public function terima( $id)
     {
-        $dashboardusercontrollers = dashboardusercontrollers::whereNot('adminstatus', 'notapprove')->get();
-        return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers'));
+         // Temukan data dengan ID tertentu
+    $dashboardusercontrollers = Dashboardusercontrollers::findOrFail($id);
+
+    // Ubah status 'adminstatus' menjadi 'approve'
+    $dashboardusercontrollers->adminstatus = 'approve';
+
+    // Simpan perubahan
+    $dashboardusercontrollers->save();
+
+    // Redirect atau berikan respons sesuai kebutuhan Anda
+    return redirect()->route('admin.index');
+    }
+    public function tolak()
+    {
+
     }
 
     /**
@@ -28,8 +42,6 @@ class penjualcontroller extends Controller
      */
     public function create()
     {
-        $penjual = penjual::all();
-        return view('DashboardPenjual.tambahmenu', compact('penjual'));
     }
 
     /**
@@ -37,10 +49,7 @@ class penjualcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $penjual = $request->all();
-        penjual::create($penjual);
-        // dd($request);
-        return redirect()->route('DashboardPenjual.index')->with('berhasil');
+        //
     }
 
     /**
@@ -70,9 +79,8 @@ class penjualcontroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(penjual $DashboardPenjual)
+    public function destroy(string $id)
     {
-       $DashboardPenjual ->delete();
-       return redirect()->route('DashboardPenjual.index');
+        //
     }
 }

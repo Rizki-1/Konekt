@@ -24,8 +24,6 @@ class dashboardusercontroller extends Controller
     {
         $dashboardusercontrollers = dashboardusercontrollers::all();
         return view('DashboardUser.menu', compact('dashboardusercontrollers',));
-
-
     }
 
     /**
@@ -33,7 +31,14 @@ class dashboardusercontroller extends Controller
      */
     public function store(Request $request)
     {
-        $dashboardusercontrollers = $request->all();
+        $dashboardusercontrollers =
+        [
+            'namamenu' => $request->namamenu,
+            'quantity'=> $request->quantity,
+            'fotobukti'=> $request->fotobukti,
+            'totalharga'=> $request->totalharga,
+            'adminstatus'=> 'notapprove'
+        ];
         dashboardusercontrollers::create($dashboardusercontrollers);
         return redirect()->route('menu.index');
     }

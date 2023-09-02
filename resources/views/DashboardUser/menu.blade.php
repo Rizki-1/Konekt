@@ -53,6 +53,10 @@
                         <label for="kelas" class="form-label fw-bold">foto bukti</label>
                         <input type="text" name="fotobukti" class="form-control">
                     </div>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">total harga</label>
+                        <input type="text" name="totalharga" class="form-control">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

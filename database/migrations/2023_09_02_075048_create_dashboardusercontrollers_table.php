@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('namamenu')->references('id')->on('penjuals')->cascadeOnDelete();
             $table->string('quantity');
             $table->string('fotobukti');
+            $table->string('totalharga');
+            $table->string('adminstatus');
             $table->timestamps();
         });
     }

@@ -13,7 +13,9 @@ class dashboardusercontrollers extends Model
     protected $fillable = [
         'namamenu',
         'quantity',
-        'fotobukti'
+        'fotobukti',
+        'totalharga',
+        'adminstatus'
     ];
 
     public function penjual(): BelongsTo

@@ -63,8 +63,9 @@ class penjualcontroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(penjual $DashboardPenjual)
     {
-        //
+       $DashboardPenjual ->delete();
+       return redirect()->route('DashboardPenjual.index');
     }
 }

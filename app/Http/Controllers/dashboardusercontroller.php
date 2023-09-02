@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\dashboardusercontrollers;
 use App\Models\penjual;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,10 @@ class dashboardusercontroller extends Controller
      */
     public function create()
     {
-        //
+        $dashboardusercontrollers = dashboardusercontrollers::all();
+        return view('DashboardUser.menu', compact('dashboardusercontrollers',));
+
+
     }
 
     /**
@@ -29,7 +33,9 @@ class dashboardusercontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dashboardusercontrollers = $request->all();
+        dashboardusercontrollers::create($dashboardusercontrollers);
+        return redirect()->route('menu.index');
     }
 
     /**
@@ -61,6 +67,6 @@ class dashboardusercontroller extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
     }
 }

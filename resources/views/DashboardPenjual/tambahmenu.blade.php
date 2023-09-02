@@ -266,8 +266,8 @@
           $no = 1;
       @endphp
       @foreach ($penjual as $p)
-      <div class="card-transparent bg-transparent mb-0" >
-         <div class="card-header border-0  ">
+      <div class="card-transparent bg-transparent mb-0">
+         <div class="card-header border-0">
 
             <div class="col-xl-12 col-lg-12 dish-card-horizontal mt-2">
                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
@@ -325,11 +325,11 @@
                                      <span class="text-primary fw-bolder me-2">{{ $p->harga }}</span>
                                      <small class="text-decoration-line-through">$8.49</small>
                                  </div>
-                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <rect class="circle-1" width="24" height="24" rx="12" fill="currentColor"/>
-                                     <rect class="circle-2" x="11.168" y="7" width="1.66667" height="10" rx="0.833333" fill="currentColor"/>
-                                     <rect class="circle-3" x="7" y="12.834" width="1.66666" height="10" rx="0.833332" transform="rotate(-90 7 12.834)" fill="currentColor"/>
-                                 </svg>
+                                 <form action="{{ route('DashboardPenjual.destroy', $p->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger" type="submit"> hapus</button>
+                                </form>
                              </div>
                          </div>
                      </div>                  </div>

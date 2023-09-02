@@ -16,6 +16,53 @@
       <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+    <form action="{{ route('menu.store') }}" method="POST">
+        @csrf
+        <div class="modal" id="myModal" tabindex="-1">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="namamenu" class="form-label fw-bold">Nama menu</label>
+                    <select name="namamenu" class="form-control">
+                        <option value="" disabled selected>nama menu</option>
+                        @foreach ($penjual as $siswa)
+                            <option value="{{ $siswa->id }}">{{ $siswa->namamenu}}</option>
+                        @endforeach
+                    </select>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">kategori</label>
+                        <input type="text" name="kategori" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">harga</label>
+                        <input type="text" name="harga" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">fotomakanan</label>
+                        <input type="text" name="fotomakanan" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">quantity</label>
+                        <input type="text" name="quantity" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">foto bukti</label>
+                        <input type="text" name="fotobukti" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -289,11 +336,7 @@
                                      <span class="text-primary fw-bolder me-2">{{ $p->harga }}</span>
                                      <small class="text-decoration-line-through">$8.49</small>
                                  </div>
-                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <rect class="circle-1" width="24" height="24" rx="12" fill="currentColor"/>
-                                     <rect class="circle-2" x="11.168" y="7" width="1.66667" height="10" rx="0.833333" fill="currentColor"/>
-                                     <rect class="circle-3" x="7" y="12.834" width="1.66666" height="10" rx="0.833332" transform="rotate(-90 7 12.834)" fill="currentColor"/>
-                                 </svg>
+                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">beli</button>
                              </div>
                          </div>
                      </div>                  </div>

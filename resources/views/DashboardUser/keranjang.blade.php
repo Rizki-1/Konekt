@@ -114,11 +114,6 @@
                                 </svg>
                             </i>
                             <span class="item-name">Dashboard</span>
-                            <i class="right-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </i>
                         </a>
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
@@ -191,7 +186,6 @@
                     </li>
                 </ul>
                 <!-- Sidebar Menu End -->
-
             </div>
         </div>
         <div class="sidebar-footer"></div>

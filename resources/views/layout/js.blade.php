@@ -33,3 +33,9 @@
 
    <!-- moment JavaScript -->
    <script src="../assets/vendor/moment.min.js"></script>
+
+   <!-- Masukkan pustaka jQuery terlebih dahulu -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Kemudian masukkan pustaka Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>

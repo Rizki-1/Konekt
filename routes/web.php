@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\penjualcontroller;
 use App\Http\Controllers\Usercontroller;
 use Illuminate\Support\Facades\Route;
 
@@ -15,18 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('menu');
+    return view('welcome');
 });
-// Route::get('/DashboardUser', function () {
-//     return view('DashboardUser.menu');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Route::get('/DashboardUser', function () {
-//     return view('DashboardUser.menu');
-// });
-Route::get('daftartoko', function (){return view('DashboardUser.daftartoko')->name('daftartoko');});
-Route::get('menu', function (){return view('DashboardUser.menu')->name('menu');});
-Route::get('pesanan', function (){ return view('DashboardUser.pesanan')->name('pesanan');});
-Route::get('riwayat', function() {return view('DashboardUser.riwayat')->name('riwayat');});
-Route::get('keranjang', function() {return view('DashboardUser.keranjang')->name('keranjang');});
-Route::resource('/DashboardUser', Usercontroller::class);
+Route::get('daftartoko', function () { return view('DashboardUser.daftartoko');})->name('daftartoko');
+Route::get('pesanan', function () {return view('DashboardUser.pesanan');})->name('pesanan');
+Route::get('riwayat', function () { return view('DashboardUser.riwayat');})->name('riwayat');
+Route::get('keranjang', function () { return view('DashboardUser.keranjang');})->name('keranjang');
+Route::resource('/DashboardPenjual',penjualcontroller::class);
+Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);

@@ -27,14 +27,9 @@
     height: 100vh;
     margin-bottom: 10px;
 }
-
- .container {
-
-  }
-
   .card1 {
-    background-color: #ea68121e; /* Warna latar belakang */
-    color: #000000; /* Warna teks */
+    background-color: #ea68121e;
+    color: #000000;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -43,29 +38,41 @@
     width: 500px;
     margin-bottom: 10px;
     position: fixed;
-  }
+    justify-content: space-between; /* Memisahkan konten dan gambar */
+    align-items: center; /* Pusatkan vertikal */
+    max-width: 500px;
+}
 
-  .card img {
-    max-width: 100px;
-    max-height: 100px;
-    /* border-radius: 100%; */
-    margin-right: 10px;
-  }
+.img {
+    max-width: 130px; /* Atur lebar maksimal gambar */
+    max-height: 330px; /* Atur tinggi maksimal gambar */
+    margin-left: auto; /* Memindahkan gambar ke kanan */
+    align-self: flex-start; /* Memindahkan gambar ke atas */
+}
 
-  .card-content {
+.card-content {
     flex: 1;
-  }
-  .img {
-    text-align: right;
-    justify-content: right;
+}
+.content-container {
+    flex: 1;
+    padding-left: 10px; /* Atur jarak kiri konten dari gambar */
+    margin-bottom: 50px;
+}
 
-  }
   .main-content {
     flex: 1px;
   }
-  footer {
+  .btn-custom {
+    background-color: rgba(234, 106, 18, 0.11);
+    color: #ffffff;
+    padding: 1px 10px; /* Sesuaikan padding sesuai kebutuhan */
+    border-radius: 5px;
+    width: auto; /* Atur lebar tombol sesuai dengan isi */
+    text-align: left; /* Teks di kiri tombol */
+    display: inline-block; /* Ubah elemen menjadi inline-block */
+}
 
-  }
+
 
     </style>
     <meta charset="utf-8">
@@ -106,7 +113,7 @@
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#home" role="button" aria-expanded="false" aria-controls="home">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#" role="button" aria-expanded="false" aria-controls="home">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M16.0756 2H19.4616C20.8639 2 22.0001 3.14585 22.0001 4.55996V7.97452C22.0001 9.38864 20.8639 10.5345 19.4616 10.5345H16.0756C14.6734 10.5345 13.5371 9.38864 13.5371 7.97452V4.55996C13.5371 3.14585 14.6734 2 16.0756 2Z" fill="currentColor"></path>
@@ -114,11 +121,6 @@
                                 </svg>
                             </i>
                             <span class="item-name">Dashboard</span>
-                            <i class="right-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </i>
                         </a>
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
 
@@ -305,31 +307,17 @@
       style="position: relative"
       >
       <h1 class="title">Daftar Toko</h1>
-      <div class="card-container">
-          <div class="container">
-            <div class="card1">
-             <div class="card-content">
-                 <tbody>
-                    <div class="img">
-                        <tr>
-                            <img src="{{ asset('css/img/2dfntai.jpg') }}">
-                        </tr>
-                    </div>
-                    <th>
-                        <tr>jalan karang ploso permata regency</tr><br>
-                        <tr>hubungi kami di : 0987867890</tr>
-                        <br>
-                        <br>
-                        <tr>masakan Tradisional</tr>
-                        <h3>Toko berkah</h3>
-                        <tr>VVVVVVV</tr><br>
-                        <tr>
-                            <div class="btn btn-warning"> 12 menu</div>
-                        </tr>
-                    </th>
-                </tbody>
-             </div>
+      <div class="container">
+        <div class="card1">
+            <div class="card-content">
+                <div class="conten-container">
+                    <p>Jalan Karang Ploso Permata Regency,Hubungi kami di: 0987867890</p>
+                    <h3>Toko berkah</h3>
+                    <p>Masakan Tradisional</p>
+                    <div class="btn-custom"><span>12 menu</span></div>
+                </div>
             </div>
+            <img src="{{ asset('css/img/2dfntai.jpg') }}" alt="Foto Toko" class="img">
         </div>
     </div>
 </div>

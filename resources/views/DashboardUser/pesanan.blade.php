@@ -5,12 +5,6 @@
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 <head>
     <style>
-    .btn{
-        text-align: center;
-        justify-content: center;
-        margin-bottom: 20px;
-        margin-top: 50px;
-    }
  body {
   display: flex;
   flex-direction: column;
@@ -19,7 +13,7 @@
 }
 
  .container {
-        display: flex;
+      display: flex;
   }
 
   .card {
@@ -51,12 +45,6 @@
   .main-content {
     flex: 1px;
   }
-  .footer {
-  flex-shrink: 0;
-}
-.img-content {
-
-}
     </style>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -104,11 +92,6 @@
                                 </svg>
                             </i>
                             <span class="item-name">Dashboard</span>
-                            <i class="right-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </i>
                         </a>
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
 
@@ -315,52 +298,8 @@
                                     <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
                                   </div>
                                   <div class="ms-3">
-                                    <h6 class="mb-0 ">Bni Emma Watson</h6>
+                                    <h6 class="mb-0 ">jbdh</h6>
                                     <small class="float-start font-size-12">13 Jun</small>
-                                  </div>
-                              </div>
-                            </a>
-                            <a href="#" class="iq-sub-card">
-                              <div class="d-flex align-items-center">
-                                  <div class="">
-                                    <img class="avatar-40 rounded-pill" src="../assets/images/layouts/02.png" alt="">
-                                  </div>
-                                  <div class="ms-3">
-                                    <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
-                                    <small class="float-start font-size-12">20 Apr</small>
-                                  </div>
-                              </div>
-                            </a>
-                            <a href="#" class="iq-sub-card">
-                              <div class="d-flex align-items-center">
-                                  <div class="">
-                                    <img class="avatar-40 rounded-pill" src="../assets/images/layouts/03.png" alt="">
-                                  </div>
-                                  <div class="ms-3">
-                                    <h6 class="mb-0 ">Why do we use it?</h6>
-                                    <small class="float-start font-size-12">30 Jun</small>
-                                  </div>
-                              </div>
-                            </a>
-                            <a href="#" class="iq-sub-card">
-                              <div class="d-flex align-items-center">
-                                  <div class="">
-                                    <img class="avatar-40 rounded-pill" src="../assets/images/layouts/04.png" alt="">
-                                  </div>
-                                  <div class="ms-3">
-                                    <h6 class="mb-0 ">Variations Passages</h6>
-                                    <small class="float-start font-size-12">12 Sep</small>
-                                  </div>
-                              </div>
-                            </a>
-                            <a href="#" class="iq-sub-card">
-                              <div class="d-flex align-items-center">
-                                  <div class="">
-                                    <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
-                                  </div>
-                                  <div class="ms-3">
-                                    <h6 class="mb-0 ">Lorem Ipsum generators</h6>
-                                    <small class="float-start font-size-12">5 Dec</small>
                                   </div>
                               </div>
                             </a>
@@ -406,7 +345,7 @@
       data-iq-ease="none"
       style="position: relative"
       >
-      <h3>Kuliner kita <span style="color: #EA6A12">|pembayaran</span></h3>
+      <h3>Kuliner kita <span style="color: #EA6A12">|pesanan</span></h3>
      <div class="container">
         <div class="card d-flex ">
             <hr>

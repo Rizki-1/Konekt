@@ -17,13 +17,32 @@ class dashboardusercontroller extends Controller
         return view('DashboardUser.menu', compact('penjual'));
     }
 
+    public function pembelian()
+    {
+        $penjual = penjual::all();
+        return view('DashboardUser.pembelian', compact('penjual'));
+    }
+
+    public function pesanan()
+    {
+        $user = dashboardusercontrollers::all();
+        $penjual = penjual::all();
+        return view('DashboardUser.pesanan', compact('user', 'penjual'));
+    }
+
+    public function riwayatuser()
+    {
+        $user = dashboardusercontrollers::where('pembelianstatus', 'selesai')->get();
+        return view('DashboardUser.riwayat', compact('user'));
+    }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         $dashboardusercontrollers = dashboardusercontrollers::all();
-        return view('DashboardUser.menu', compact('dashboardusercontrollers',));
+        $penjual = penjual::all();
+        return view('DashboardUser.pembelian', compact('dashboardusercontrollers','penjual'));
     }
 
     /**
@@ -33,11 +52,12 @@ class dashboardusercontroller extends Controller
     {
         $dashboardusercontrollers =
         [
-            'namamenu' => $request->namamenu,
+            'namamenu_id' => $request->namamenu_id,
             'quantity'=> $request->quantity,
             'fotobukti'=> $request->fotobukti,
             'totalharga'=> $request->totalharga,
-            'adminstatus'=> 'notapprove'
+            'adminstatus'=> 'notapprove',
+            'pembelianstatus'=> 'menunggu konfirmasi'
         ];
         dashboardusercontrollers::create($dashboardusercontrollers);
         return redirect()->route('menu.index');

@@ -39,3 +39,15 @@
 
 <!-- Kemudian masukkan pustaka Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.acceptt-btn').click(function() {
+            // Sematkan logika Anda di sini untuk menandai telah diterima
+            // ...
+            // Mengganti tampilan tombol
+            $(this).hide();
+            $(this).siblings('.reject-btn').hide();
+            $(this).siblings('.complete-btn').show();
+        });
+    });
+</script>

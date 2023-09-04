@@ -108,6 +108,9 @@
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+   {{-- <button type="button" class="btn btn-success accept-btn">Terima</button>
+   <button type="button" class="btn btn-danger reject-btn">Tolak</button>
+   <button type="button" class="btn btn-info complete-btn" style="display: none;">Tandakan Telah Selesai</button> --}}
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -151,10 +154,9 @@
                             <span class="item-name">Dashboard</span>
                         </a>
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
-
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="menu">
+                                <a class="nav-link " aria-current="page" href="{{ route('DashboardPenjual.index') }}">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -169,22 +171,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="daftartoko">
-                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                            fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8"
-                                                    fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon">D</i>
-                                    <span class="item-name">Daftar Toko</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="pesanan">
+                                <a class="nav-link active"aria-current="page" href="pesananpenjual">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -199,7 +186,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="riwayat">
+                                <a class="nav-link " href="">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -214,6 +201,21 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link " href="riwayat">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                            fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8"
+                                                    fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon">U</i>
+                                    <span class="item-name">Ulasan</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link " href="keranjang">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -224,15 +226,14 @@
                                             </g>
                                         </svg>
                                     </i>
-                                    <i class="sidenav-mini-icon">K</i>
-                                    <span class="item-name">Keranjang</span>
+                                    <i class="sidenav-mini-icon">P</i>
+                                    <span class="item-name">pembayaran</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <!-- Sidebar Menu End -->
-
             </div>
         </div>
         <div class="sidebar-footer"></div>
@@ -341,8 +342,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
+                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -366,6 +366,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">nama pembeli</th>
+                                    <th scope="col">jumlah pesanan</th>
                                     <th scope="col">total harga</th>
                                     <th scope="col">aksi</th>
                                 </tr>
@@ -377,10 +378,20 @@
                                 @foreach ($dashboardusercontrollers as $s)
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
+                                        <td>test</td>
                                         <td>{{ $s->quantity }}</td>
                                         <td>{{ $s->totalharga }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-secondary">detail</button>
+                                            <form action="{{ route('terimapesanan', ['id'=>$s->id]) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                            @if ($s->pembelianstatus === 'sedang di proses')
+                                            <button type="button" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
+                                        @else
+                                            <button type="submit" class="btn btn-success accept-btn">Terima</button>
+                                            <button type="submit" class="btn btn-danger reject-btn">Tolak</button>
+                                        @endif
+                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -394,5 +405,4 @@
     </main>
     @include('layout.js')
 </body>
-
 </html>

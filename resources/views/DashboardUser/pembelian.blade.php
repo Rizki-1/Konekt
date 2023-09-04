@@ -5,12 +5,6 @@
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 <head>
     <style>
-    .btn{
-        text-align: center;
-        justify-content: center;
-        margin-bottom: 20px;
-        margin-top: 50px;
-    }
  body {
   display: flex;
   flex-direction: column;
@@ -19,7 +13,7 @@
 }
 
  .container {
-        display: flex;
+      display: flex;
   }
 
   .card {
@@ -129,7 +123,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="pesanan">
+                                <a class="nav-link active" href="pesanan">
                                    <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -142,7 +136,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="riwayat">
+                                <a class="nav-link " href="riwayat">
                                    <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -225,6 +219,58 @@
                               <h5 class="mb-0 text-white">All Notifications</h5>
                             </div>
                         </div>
+                        <div class="card-body p-0">
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex align-items-center">
+                                  <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
+                                  <div class="ms-3 w-100">
+                                    <h6 class="mb-0 ">Emma Watson Bni</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">95 MB</p>
+                                        <small class="float-end font-size-12">Just Now</small>
+                                    </div>
+                                  </div>
+                              </div>
+                            </a>
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex align-items-center">
+                                  <div class="">
+                                    <img class="avatar-40 rounded-pill" src="../assets/images/layouts/02.png" alt="">
+                                  </div>
+                                  <div class="ms-3 w-100">
+                                    <h6 class="mb-0 ">New customer is join</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">Cyst Bni</p>
+                                        <small class="float-end font-size-12">5 days ago</small>
+                                    </div>
+                                  </div>
+                              </div>
+                            </a>
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex align-items-center">
+                                  <img class="avatar-40 rounded-pill" src="../assets/images/layouts/03.png" alt="">
+                                  <div class="ms-3 w-100">
+                                    <h6 class="mb-0 ">Two customer is left</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">Cyst Bni</p>
+                                        <small class="float-end font-size-12">2 days ago</small>
+                                    </div>
+                                  </div>
+                              </div>
+                            </a>
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex align-items-center">
+                                  <img class="avatar-40 rounded-pill" src="../assets/images/layouts/04.png" alt="">
+                                  <div class="w-100 ms-3">
+                                    <h6 class="mb-0 ">New Mail from Fenny</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">Cyst Bni</p>
+                                        <small class="float-end font-size-12">3 days ago</small>
+                                    </div>
+                                  </div>
+                              </div>
+                            </a>
+                        </div>
                       </div>
                   </div>
                 </li>
@@ -244,6 +290,19 @@
                             <div class="header-title">
                               <h5 class="mb-0 text-white">All Message</h5>
                             </div>
+                        </div>
+                        <div class="card-body p-0 ">
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex  align-items-center">
+                                  <div class="">
+                                    <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
+                                  </div>
+                                  <div class="ms-3">
+                                    <h6 class="mb-0 ">jbdh</h6>
+                                    <small class="float-start font-size-12">13 Jun</small>
+                                  </div>
+                              </div>
+                            </a>
                         </div>
                       </div>
                   </div>
@@ -286,26 +345,7 @@
       data-iq-ease="none"
       style="position: relative"
       >
-      <h3>Kuliner kita <span style="color: #EA6A12">|Riwayat</span></h3>
-      @foreach ($user as $s)
-      <div class="container">
-         <div class="card d-flex ">
-             <hr>
-             <div class="card-content d-flex">
-                 <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
-                 <div class="img-content">
-                     <h5>{{ $u->namamenu }}</h5>
-                     <tr>{{ $u->$pennjual->kategori }}</tr><br>
-                     <tr>Rp 15.000 1 (menu) dana</tr><br>
-                     <tr class="d-flex" >
-                         <div class="btn btn-warning" style=""><span class="color:#EA6A12">pesanan telah selasai</span></div>
-                     </tr>
-                 </div>
-             </div>
-         </div>
-       </div>
-     </div>
-      @endforeach
+      <div class="container"></div>
 </div>
       </div>
       {{-- @include('layout.footer') --}}

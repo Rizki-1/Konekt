@@ -346,23 +346,26 @@
       style="position: relative"
       >
       <h3>Kuliner kita <span style="color: #EA6A12">|pesanan</span></h3>
-     <div class="container">
-        <div class="card d-flex ">
-            <hr>
-            <div class="card-content d-flex">
-                <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
-                <div class="img-content">
-                    <h5>Masakan nasi - warung berkah</h5>
-                    <tr>Nasi goreng</tr><br>
-                    <tr>Rp 15.000 1 (menu) dana</tr><br>
-                    <tr class="" >
-                        <div class="btn btn-warning" style=" float:right"><span class="color:#EA6A12">sedang di proses</span></div>
-                    </tr>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>
+      @foreach ($user as $u)
+      <div class="container">
+         <div class="card d-flex ">
+             <hr>
+             <div class="card-content d-flex">
+                 <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
+                 <div class="img-content">
+                     <h5>Masakan nasi - warung berkah</h5>
+                     <tr>{{ $u->totalharga }}</tr><br>
+                     <tr>Rp 15.000 1 (menu) dana</tr><br>
+                     <tr>{{ $u->pembelianstatus }}</tr><br>
+                     <tr class="" >
+                         <div class="btn btn-warning" style=" float:right"><span class="color:#EA6A12">sedang di proses</span></div>
+                     </tr>
+                 </div>
+             </div>
+         </div>
+       </div>
+     </div>
+      @endforeach
 </div>
       </div>
       {{-- @include('layout.footer') --}}

@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('dashboardusercontrollers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('namamenu')->references('id')->on('penjuals')->cascadeOnDelete();
+            $table->foreignId('namamenu_id')->references('id')->on('penjuals')->cascadeOnDelete();
             $table->string('quantity');
             $table->string('fotobukti');
             $table->string('totalharga');
             $table->string('adminstatus');
+            $table->string('pembelianstatus');
             $table->timestamps();
         });
     }

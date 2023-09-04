@@ -5,90 +5,52 @@
 
 <head>
     <style>
-        .title {
-            text-align: center;
-            justify-content: center;
-            position: relative;
-        }
+           .btn{
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        margin-top: 50px;
+    }
+ body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
 
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
+ .container {
+        display: flex;
+  }
 
-        .card-container {
-            background-color: #ffffff;
-            /* Warna latar belakang */
-            color: #000000;
-            /* Warna teks */
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            margin: 10px;
-            padding: 10px;
-            height: 100vh;
-            margin-bottom: 10px;
-        }
+  .card {
+    background-color: #EA6A12; /* Warna latar belakang */
+    color: #000000; /* Warna teks */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    width: 500px;
+    margin-bottom: 10px;
+  }
 
-        .card1 {
-            background-color: #ea68121e;
-            color: #000000;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            margin: 10px;
-            padding: 10px;
-            width: 500px;
-            margin-bottom: 10px;
-            position: fixed;
-            justify-content: space-between;
-            /* Memisahkan konten dan gambar */
-            align-items: center;
-            /* Pusatkan vertikal */
-            max-width: 500px;
-        }
+  .card-content {
+    flex: 1;
+  }
+  .img {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: left;
+    justify-content: left;
+  }
 
-        .img {
-            max-width: 130px;
-            /* Atur lebar maksimal gambar */
-            max-height: 330px;
-            /* Atur tinggi maksimal gambar */
-            margin-left: auto;
-            /* Memindahkan gambar ke kanan */
-            align-self: flex-start;
-            /* Memindahkan gambar ke atas */
-        }
-
-        .card-content {
-            flex: 1;
-        }
-
-        .content-container {
-            flex: 1;
-            padding-left: 10px;
-            /* Atur jarak kiri konten dari gambar */
-            margin-bottom: 50px;
-        }
-
-        .main-content {
-            flex: 1px;
-        }
-
-        .btn-custom {
-            background-color: rgba(234, 106, 18, 0.11);
-            color: #ffffff;
-            padding: 1px 10px;
-            /* Sesuaikan padding sesuai kebutuhan */
-            border-radius: 5px;
-            width: auto;
-            /* Atur lebar tombol sesuai dengan isi */
-            text-align: left;
-            /* Teks di kiri tombol */
-            display: inline-block;
-            /* Ubah elemen menjadi inline-block */
-        }
+  .img img {
+    width: 50px;
+    height: 50px;
+  }
+  .main-content {
+    flex: 1px;
+  }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -108,6 +70,9 @@
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+   {{-- <button type="button" class="btn btn-success accept-btn">Terima</button>
+   <button type="button" class="btn btn-danger reject-btn">Tolak</button>
+   <button type="button" class="btn btn-info complete-btn" style="display: none;">Tandakan Telah Selesai</button> --}}
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -151,10 +116,9 @@
                             <span class="item-name">Dashboard</span>
                         </a>
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
-
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="menu">
+                                <a class="nav-link " aria-current="page" href="{{ route('DashboardPenjual.index') }}">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -169,22 +133,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="daftartoko">
-                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                            fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8"
-                                                    fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon">D</i>
-                                    <span class="item-name">Daftar Toko</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="pesanan">
+                                <a class="nav-link "aria-current="page" href="pesananpenjual">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -199,7 +148,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="riwayat">
+                                <a class="nav-link active" href="">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -214,6 +163,21 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link " href="riwayat">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                            fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8"
+                                                    fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon">U</i>
+                                    <span class="item-name">Ulasan</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link " href="keranjang">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -224,15 +188,14 @@
                                             </g>
                                         </svg>
                                     </i>
-                                    <i class="sidenav-mini-icon">K</i>
-                                    <span class="item-name">Keranjang</span>
+                                    <i class="sidenav-mini-icon">P</i>
+                                    <span class="item-name">pembayaran</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <!-- Sidebar Menu End -->
-
             </div>
         </div>
         <div class="sidebar-footer"></div>
@@ -341,8 +304,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
+                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -361,40 +323,23 @@
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">nama pembeli</th>
-                                    <th scope="col">nama menu</th>
-                                    <th scope="col">total harga</th>
-                                    <th scope="col">aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $no = 1;
-                                @endphp
-                                @foreach ($dashboardusercontrollers as $s)
-                                    <tr>
-                                        <th scope="row">{{ $no++ }}</th>
-                                        <td>{{ $s->quantity }}</td>
-                                        <td>{{ $s->fotobukti }}</td>
-                                        <td>{{ $s->totalharga }}</td>
-                                        <td class="d-flex">
-                                            <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="btn btn-success">terima</button>
-                                            </form>
-                                            <form action="">
-                                                <button class="btn btn-danger">tolak</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="container">
+                            <div class="card d-flex ">
+                                <hr>
+                                <div class="card-content d-flex">
+                                    <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
+                                    <div class="img-content">
+                                        <h5>db</h5>
+                                        <tr>df</tr><br>
+                                        <tr>Rp 15.000 1 (menu) dana</tr><br>
+                                        <tr class="d-flex" >
+                                            <div class="btn btn-warning" style=""><span class="color:#EA6A12">pesanan telah selasai</span></div>
+                                        </tr>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -403,5 +348,4 @@
     </main>
     @include('layout.js')
 </body>
-
 </html>

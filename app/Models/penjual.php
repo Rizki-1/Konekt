@@ -17,8 +17,8 @@ class penjual extends Model
         'fotomakanan',
     ];
 
-    public function userm(): HasMany
+    public function dashboardusercontrollers(): HasMany
     {
-        return $this->hasMany(userm::class, 'namamenu');
+        return $this->hasMany(dashboardusercontrollers::class, 'namamenu_id');
     }
 }

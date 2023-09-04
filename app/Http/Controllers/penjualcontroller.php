@@ -13,8 +13,23 @@ class penjualcontroller extends Controller
      */
     public function index()
     {
+        $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi ')->get();
         $penjual = penjual::all();
-        return view('DashboardPenjual.tambahmenu', compact('penjual'));
+        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user'));
+    }
+
+    public function riwayatpenjual()
+    {
+        return view('DashboardPenjual.riwayatpenjual');
+    }
+
+    public function terimapesanan($id)
+    {
+        $dashboardusercontrollers =dashboardusercontrollers::findOrFail($id);
+        $dashboardusercontrollers->pembelianstatus = 'sedang di proses';
+        $dashboardusercontrollers->save();
+
+        return redirect()->route('DashboardPenjual.index');
     }
 
     protected function pesananpenjual()

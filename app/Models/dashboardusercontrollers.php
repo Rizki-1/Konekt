@@ -11,15 +11,16 @@ class dashboardusercontrollers extends Model
     use HasFactory;
 
     protected $fillable = [
-        'namamenu',
+        'namamenu_id',
         'quantity',
         'fotobukti',
         'totalharga',
-        'adminstatus'
+        'adminstatus',
+        'pembelianstatus'
     ];
 
     public function penjual(): BelongsTo
     {
-        return $this->belongsTo(penjual::class, 'namamenu');
+        return $this->belongsTo(penjual::class, 'namamenu_id');
     }
 }

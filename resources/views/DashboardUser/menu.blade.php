@@ -20,31 +20,19 @@
         @csrf
         <div class="modal" id="myModal" tabindex="-1">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <label for="namamenu" class="form-label fw-bold">Nama menu</label>
-                    <select name="namamenu" class="form-control">
-                        <option value="" disabled selected>nama menu</option>
-                        @foreach ($penjual as $siswa)
-                            <option value="{{ $siswa->id }}">{{ $siswa->namamenu}}</option>
-                        @endforeach
-                    </select>
-                    <div class="mb-3">
-                        <label for="kelas" class="form-label fw-bold">kategori</label>
-                        <input type="text" name="kategori" class="form-control">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="modal-body">
+                    @foreach ($penjual as $p)
                     <div class="mb-3">
-                        <label for="kelas" class="form-label fw-bold">harga</label>
-                        <input type="text" name="harga" class="form-control">
+                        <label for="namamenu_id" class="form-label fw-bold">nama menu</label>
+                        <input type="text" name="namamenu_id" value="{{ $p->namamenu }}" class="form-control" >
+                        <input type="hidden" name="namamenu_id" value="{{ $p->id }}" >
                     </div>
-                    <div class="mb-3">
-                        <label for="kelas" class="form-label fw-bold">fotomakanan</label>
-                        <input type="text" name="fotomakanan" class="form-control">
-                    </div>
+                    @endforeach
                     <div class="mb-3">
                         <label for="kelas" class="form-label fw-bold">quantity</label>
                         <input type="text" name="quantity" class="form-control">
@@ -65,7 +53,6 @@
             </div>
         </div>
     </div>
-
 </form>
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -142,7 +129,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="riwayat">
+                                <a class="nav-link " href="riwayatuser">
                                    <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>

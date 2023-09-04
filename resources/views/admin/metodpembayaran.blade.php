@@ -154,7 +154,7 @@
 
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="metodpembayaran">
+                                <a class="nav-link " aria-current="page" href="menu">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -372,27 +372,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $no = 1;
-                                @endphp
-                                @foreach ($dashboardusercontrollers as $s)
-                                    <tr>
-                                        <th scope="row">{{ $no++ }}</th>
-                                        <td>{{ $s->quantity }}</td>
-                                        <td>{{ $s->fotobukti }}</td>
-                                        <td>{{ $s->totalharga }}</td>
-                                        <td class="d-flex">
-                                            <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="btn btn-success">terima</button>
-                                            </form>
-                                            <form action="">
-                                                <button class="btn btn-danger">tolak</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
                             </tbody>
                         </table>
                     </div>

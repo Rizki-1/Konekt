@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\adminmp;
 use App\Models\dashboardusercontrollers;
 use App\Models\penjual;
 use Illuminate\Http\Request;
@@ -16,6 +17,12 @@ class adminpembeliancontroller extends Controller
         $dashboardusercontrollers = dashboardusercontrollers::where('adminstatus', 'notapprove')->get();
         $penjual = penjual::all();
         return view('admin.pembelian', compact('dashboardusercontrollers', 'penjual'));
+    }
+
+    public function metodpembayaran()
+    {
+        $adminmp = adminmp::all();
+        return view('admin.metodpembayaran', compact('adminmp'));
     }
 
     public function terima( $id)
@@ -42,6 +49,8 @@ class adminpembeliancontroller extends Controller
      */
     public function create()
     {
+        $adminmp = adminmp::all();
+        return view('admin.metodpembayaran', compact('adminmp'));
     }
 
     /**
@@ -49,7 +58,9 @@ class adminpembeliancontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $adminmp = $request->all();
+        adminmp::create($adminmp);
+        return redirect()->route('metodpembayaran');
     }
 
     /**

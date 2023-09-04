@@ -25,7 +25,7 @@ class dashboardusercontroller extends Controller
 
     public function pesanan()
     {
-        $user = dashboardusercontrollers::all();
+        $user = dashboardusercontrollers::where('adminstatus', 'approve')->get();
         $penjual = penjual::all();
         return view('DashboardUser.pesanan', compact('user', 'penjual'));
     }
@@ -33,7 +33,8 @@ class dashboardusercontroller extends Controller
     public function riwayatuser()
     {
         $user = dashboardusercontrollers::where('pembelianstatus', 'selesai')->get();
-        return view('DashboardUser.riwayat', compact('user'));
+        $penjual = penjual::all();
+        return view('DashboardUser.riwayat', compact('user', 'penjual'));
     }
     /**
      * Show the form for creating a new resource.

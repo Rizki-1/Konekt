@@ -5,12 +5,14 @@
 
 <head>
     <style>
-           .btn{
-        text-align: center;
-        justify-content: center;
-        margin-bottom: 20px;
-        margin-top: 50px;
-    }
+
+.centered-button {
+    display: flex;
+    justify-content: center; /* Untuk membuat kontennya berada di tengah secara horizontal */
+    align-items: center; /* Untuk membuat kontennya berada di tengah secara vertikal */
+    height: 15%; /* Ini akan mengisi tinggi div dengan class "centered-button" */
+}
+
  body {
   display: flex;
   flex-direction: column;
@@ -22,16 +24,17 @@
         display: flex;
   }
 
-  .card {
-    background-color: #EA6A12; /* Warna latar belakang */
+  .card1 {
+    background-color: #ffffff;
     color: #000000; /* Warna teks */
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     margin: 10px;
     padding: 10px;
-    width: 500px;
+    width: 400px;
     margin-bottom: 10px;
+    height: 400px;
   }
 
   .card-content {
@@ -319,26 +322,27 @@
         </div>
         <div class="content-inner mt-5 py-0">
             <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+                <div class="col-md-24 col-lg-24">
+                    <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
-                        <div class="container">
-                            <div class="card d-flex ">
+                        <div class="container11" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
+                            @foreach ($user as $u)
+                            <div class="card1">
                                 <hr>
-                                <div class="card-content d-flex">
+                                <div class="card-content d-flex flex-column">
                                     <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
                                     <div class="img-content">
-                                        <h5>db</h5>
-                                        <tr>df</tr><br>
-                                        <tr>Rp 15.000 1 (menu) dana</tr><br>
-                                        <tr class="d-flex" >
-                                            <div class="btn btn-warning" style=""><span class="color:#EA6A12">pesanan telah selasai</span></div>
-                                        </tr>
+                                        <p>{{ $u->quantity }}</p>
+                                        <p>{{ $u->fotobukti }}</p>
+                                        <p>{{ $u->totalharga }}</p>
+                                    </div>
+                                    <div class="centered-button">
+                                        <div class="btn btn-warning text-center"><span class="color:#EA6A12">pesanan telah selesai</span></div>
                                     </div>
                                 </div>
                             </div>
-                          </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

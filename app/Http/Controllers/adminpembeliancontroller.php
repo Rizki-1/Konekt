@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\admink;
+use Illuminate\Support\Str;
 use App\Models\adminmp;
 use App\Models\dashboardusercontrollers;
 use App\Models\penjual;
@@ -42,6 +44,32 @@ class adminpembeliancontroller extends Controller
     public function tolak()
     {
 
+    }
+
+    public function kategori()
+    {
+        $admink = admink::all();
+        return view('admin.kategori', compact('admink'));
+    }
+
+    public function kcreate()
+    {
+        $admink = admink::all();
+        return view('admin.kategori', compact('admink'));
+    }
+
+    public function kstore(Request $request)
+    {
+        $admink = $request->all();
+        admink::create($admink);
+
+        return redirect()->route('kategori');
+    }
+
+    public function kdestroy(admink $admink)
+    {
+        $admink->delete();
+        return redirect()->route('kategori');
     }
 
     /**

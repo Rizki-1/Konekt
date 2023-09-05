@@ -37,5 +37,10 @@ Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name
 Route::get('riwayatpenjual', [penjualcontroller::class, 'riwayatpenjual'])->name('riwayatpenjual');
 Route::patch('tandakantelahselesai/{id}', [penjualcontroller::class, 'tandakantelahselesai'])->name('tandakantelahselesai');
 Route::get('metodpembayaran', [adminpembeliancontroller::class, 'metodpembayaran'])->name('metodpembayaran');
+Route::get('kategori', [adminpembeliancontroller::class, 'kategori'])->name('kategori');
+Route::post('kstore', [adminpembeliancontroller::class, 'kstore'])->name('kstore');
+Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
+Route::get('pembayaranpenjual', [penjualcontroller::class, 'pembayaranpenjual'])->name('pembayaranpenjual');
+Route::post('pembayaranpenjual_store', [penjualcontroller::class, 'pembayaranpenjual_store'])->name('pembayaranpenjual_store');
 
 

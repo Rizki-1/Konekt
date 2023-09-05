@@ -22,9 +22,9 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
+@foreach ($penjual as $p)
     <form action="{{ route('menu.store') }}" method="POST">
         @csrf
-        @foreach ($penjual as $p)
         <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -39,9 +39,9 @@
                                     class="form-control">
                                 <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
                             </div>
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">harga</label>
-                            <input type="text" name="harga" class="form-control" value="{{ $p->harga }}">
+                        <div class="mb-3">
+                            <label for="kelas" class="form-label fw-bold">quantity</label>
+                            <input type="text" name="quantity" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">foto bukti</label>
@@ -59,8 +59,8 @@
                 </div>
             </div>
         </div>
-        @endforeach
     </form>
+    @endforeach
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">

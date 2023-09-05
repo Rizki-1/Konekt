@@ -154,7 +154,7 @@
 
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="metodpembayaran">
+                                <a class="nav-link " aria-current="page" href="">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -164,8 +164,8 @@
                                             </g>
                                         </svg>
                                     </i>
-                                    <i class="sidenav-mini-icon">M</i>
-                                    <span class="item-name">Menu</span>
+                                    <i class="sidenav-mini-icon">CP</i>
+                                    <span class="item-name">Calon penjual</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -179,8 +179,8 @@
                                             </g>
                                         </svg>
                                     </i>
-                                    <i class="sidenav-mini-icon">D</i>
-                                    <span class="item-name">Daftar Toko</span>
+                                    <i class="sidenav-mini-icon">P</i>
+                                    <span class="item-name">Pengajuan</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -195,11 +195,11 @@
                                         </svg>
                                     </i>
                                     <i class="sidenav-mini-icon">P</i>
-                                    <span class="item-name">Pesanan</span>
+                                    <span class="item-name">Pembelian</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="riwayat">
+                                <a class="nav-link " href="metodpembayaran">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -209,12 +209,12 @@
                                             </g>
                                         </svg>
                                     </i>
-                                    <i class="sidenav-mini-icon">R</i>
-                                    <span class="item-name">Riwayat</span>
+                                    <i class="sidenav-mini-icon">MP</i>
+                                    <span class="item-name">Metode pembayaran</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="keranjang">
+                                <a class="nav-link " href="kategori">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -225,7 +225,7 @@
                                         </svg>
                                     </i>
                                     <i class="sidenav-mini-icon">K</i>
-                                    <span class="item-name">Keranjang</span>
+                                    <span class="item-name">Kategori</span>
                                 </a>
                             </li>
                         </ul>
@@ -364,7 +364,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">no</th>
                                     <th scope="col">nama pembeli</th>
                                     <th scope="col">nama menu</th>
                                     <th scope="col">total harga</th>

@@ -51,6 +51,7 @@ class dashboardusercontroller extends Controller
      */
     public function store(Request $request)
     {
+        
         $dashboardusercontrollers =
         [
             'namamenu_id' => $request->namamenu_id,

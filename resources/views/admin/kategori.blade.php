@@ -105,10 +105,8 @@
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 
-<body class="  "
-    style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
-    background-size: cover;">
-        <form action="{{ route('admin.store') }}" method="POST">
+<body class=""style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed; background-size: cover;">
+        <form action="{{ route('kstore') }}" method="POST">
             @csrf
               <div class="modal" id="myModal" tabindex="-1">
                 <div class="modal-dialog">
@@ -119,16 +117,12 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
-                                <input type="text" name="metodepembayaran" class="form-control">
+                                <label for="kelas" class="form-label fw-bold">kategori</label>
+                                <input type="text" name="kategori" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">tujuan</label>
-                                <input type="text" name="tujuan" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">keterangan</label>
-                                <input type="text" name="keterangan" class="form-control">
+                                <label for="keterangan" class="form-label fw-bold">keterangan</label>
+                                <textarea name="keterangan" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -230,7 +224,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="metodpembayaran">
+                                <a class="nav-link" href="metodpembayaran">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -245,7 +239,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="kategori">
+                                <a class="nav-link active" href="keranjang">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -397,24 +391,28 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">metode pembayaran</th>
-                                    <th scope="col">tujuan</th>
+                                    <th scope="col">kategori</th>
                                     <th scope="col">keteranagn</th>
                                     <th scope="col">aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php
-                                    $no = 1;
+                                $no = 1;
                                 @endphp
-                                @foreach ($adminmp as $a)
-                                <th scope="row">{{ $no ++ }}</th>
-                                <td>{{ $a->metodepembayaran }}</td>
-                                <td>{{ $a->tujuan }}</td>
-                                <td>{{ $a->keterangan }}</td>
-                                <td>
-                                    <buttonn class="btn btn-danger">hapus</button>
-                                </td>
+                                @foreach ($admink as $a)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $a->kategori }}</td>
+                                    <td>{{ Str::limit($a->keterangan, 10) }}</td>
+                                    <td>
+                                        <form action="{{ route('kdestroy', $a->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>

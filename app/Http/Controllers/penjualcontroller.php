@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\admink;
 use App\Models\dashboardusercontrollers;
+use App\Models\pembayaranpenjual;
 use App\Models\penjual;
 use Illuminate\Http\Request;
 
@@ -15,14 +17,37 @@ class penjualcontroller extends Controller
     {
         $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi ')->get();
         $penjual = penjual::all();
-        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user'));
+        $adminkategori = admink::all();
+        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori'));
     }
 
     public function riwayatpenjual()
     {
         $user = dashboardusercontrollers::where('pembelianstatus' ,'selesai')->get();
-        return view('DashboardPenjual.riwayatpenjual', compact('user'));
+        $adminkategori = admink::all();
+        return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
     }
+
+    public function pembayaranpenjual()
+    {
+        $pembayaranpenjual = pembayaranpenjual::all();
+        return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual'));
+    }
+
+    public function pembayaranpenjual_create()
+    {
+        $pembayaranpenjual = pembayaranpenjual::all();
+        return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual'));
+    }
+
+    public function pembayaranpenjual_store(Request $request)
+    {
+        $pembayaranpenjual = $request->all();
+        pembayaranpenjual::create($pembayaranpenjual);
+        return redirect()->route('pembayaranpenjual');
+    }
+
+
 
     public function terimapesanan($id)
     {

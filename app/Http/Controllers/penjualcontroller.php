@@ -47,7 +47,11 @@ class penjualcontroller extends Controller
         return redirect()->route('pembayaranpenjual');
     }
 
-
+    public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
+    {
+        $pembayaranpenjual->delete();
+        return redirect()->route('pembayaranpenjual');
+    }
 
     public function terimapesanan($id)
     {

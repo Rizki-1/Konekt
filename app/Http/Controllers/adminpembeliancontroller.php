@@ -29,15 +29,12 @@ class adminpembeliancontroller extends Controller
 
     public function terima( $id)
     {
-         // Temukan data dengan ID tertentu
+    // Temukan data dengan ID tertentu
     $dashboardusercontrollers = Dashboardusercontrollers::findOrFail($id);
-
     // Ubah status 'adminstatus' menjadi 'approve'
     $dashboardusercontrollers->adminstatus = 'approve';
-
     // Simpan perubahan
     $dashboardusercontrollers->save();
-
     // Redirect atau berikan respons sesuai kebutuhan Anda
     return redirect()->route('admin.index');
     }
@@ -96,7 +93,7 @@ class adminpembeliancontroller extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**

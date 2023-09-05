@@ -3,22 +3,30 @@
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 
 <head>
-    <style>
-
-    </style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+    body {
+        padding-right: 20px; /* Atur jumlah padding sesuai kebutuhan Anda */
+    }
+    .card.card-transparent {
+    width: 300px; 
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+</style>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kuliner kita</title>
     <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+    <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 
-<body class="  "
+<body class=""
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
@@ -300,72 +308,71 @@
             </nav>
         </div>
         <div class="content-inner mt-5 py-0">
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
-                        @include('layout.bilboard')
-                        <!-- Start Isi Dashboard -->
-                        @php
-                            $no = 1;
-                        @endphp
-                        <div class="card-deck">
-                            @foreach ($penjual as $p)
-                                <div class="card card-transparent bg-transparent mb-0" style="width: 100px; height: 400px;">
-                                    <!-- Sesuaikan lebar (width) dan tinggi (height) di atas sesuai kebutuhan Anda -->
-                                    <div class="card-header border-0">
-                                        <div class="col-xl-12 col-lg-12 dish-card-horizontal mt-2">
-                                            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
-                                                <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
-                                                    data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
-                                                    data-iq-trigger="scroll" data-iq-ease="none">
-                                                    <div class="card card-white dish-card profile-img mb-0">
-                                                        <div class="profile-img21">
-                                                            <!-- tempat foto -->
-                                                            <img src="../assets/images/layouts/16.png"
-                                                                class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
-                                                                alt="profile-image">
-                                                            <img src="../assets/images/layouts/16.png"
-                                                                class="img-fluid rounded-pill avatar-170 hover-image "
-                                                                alt="profile-image" data-iq-gsap="onStart"
-                                                                data-iq-opacity="0" data-iq-scale=".6"
-                                                                data-iq-rotate="180" data-iq-duration="1"
-                                                                data-iq-delay=".6" data-iq-trigger="scroll"
-                                                                data-iq-ease="none">
-                                                        </div>
-                                                        <!-- Menu muter muter Start -->
-                                                        <div class="card-body menu-image">
-                                                            <h6 class="heading-title fw-bolder mt-4 mb-0">
-                                                                {{ $p->namamenu }}</h6>
-                                                            <div class="card-rating stars-ratings">
-                                                                <!-- Star ratings here -->
-                                                            </div>
-                                                            <div class="d-flex justify-content-between mt-3">
-                                                                <div class="d-flex align-items-center">
-                                                                    <span class="text-primary fw-bolder me-2">{{ $p->harga }}</span>
-                                                                    <small class="text-decoration-line-through">$8.49</small>
-                                                                </div>
-                                                                <button class="btn btn-success" data-bs-toggle="modal"
-                                                                    data-bs-target="#myModal-{{ $p->id }}">beli</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+                data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
+                style="position: relative">
+                @include('layout.bilboard')
+                <!-- Start Isi Dashboard -->
+                @php
+                    $no = 1;
+                @endphp
+               
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
+    @foreach ($penjual as $p)
+    <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
+        <!-- Sesuaikan lebar (width) dan tinggi (height) di atas sesuai kebutuhan Anda -->
+        <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
+            data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
+            data-iq-trigger="scroll" data-iq-ease="none">
+            <div class="card card-white dish-card profile-img mb-5">
+                <div class="profile-img21">
+                    <!-- tempat foto -->
+                    <img src="../assets/images/layouts/16.png"
+                        class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                        alt="profile-image">
+                    <img src="../assets/images/layouts/16.png"
+                        class="img-fluid rounded-pill avatar-170 hover-image "
+                        alt="profile-image" data-iq-gsap="onStart"
+                        data-iq-opacity="0" data-iq-scale=".6"
+                        data-iq-rotate="180" data-iq-duration="1"
+                        data-iq-delay=".6" data-iq-trigger="scroll"
+                        data-iq-ease="none">
+                </div>
+                <!-- Menu muter muter Start -->
+                <div class="card-body menu-image">
+                    <h6 class="heading-title fw-bolder mt-4 mb-0">
+                        {{ $p->namamenu }}</h6>
+                    <div class="card-rating stars-ratings">
+                        <!-- Star ratings here -->
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <div class="d-flex align-items-center">
+                            <span class="text-primary fw-bolder me-2">{{ $p->harga }}</span>
+                            <small class="text-decoration-line-through">$8.49</small>
                         </div>
+                        <button class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#myModal-{{ $p->id }}">beli</button>
                     </div>
                 </div>
             </div>
-            @include('layout.footer')
         </div>
+    </div>
+    @endforeach
+</div>
+
+            
+        </div>
+    </div>
+    @include('layout.footer')
+</div>
 
         </main>
     @include('layout.js')
+    <!-- Include Bootstrap and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

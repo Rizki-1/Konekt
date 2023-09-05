@@ -20,7 +20,8 @@ class penjualcontroller extends Controller
 
     public function riwayatpenjual()
     {
-        return view('DashboardPenjual.riwayatpenjual');
+        $user = dashboardusercontrollers::where('pembelianstatus' ,'selesai')->get();
+        return view('DashboardPenjual.riwayatpenjual', compact('user'));
     }
 
     public function terimapesanan($id)
@@ -29,12 +30,22 @@ class penjualcontroller extends Controller
         $dashboardusercontrollers->pembelianstatus = 'sedang di proses';
         $dashboardusercontrollers->save();
 
+        return redirect()->route('pesananpenjual');
+    }
+
+    public function tandakantelahselesai($id)
+    {
+        $dashboardusercontrollers = dashboardusercontrollers::findOrfail($id);
+        $dashboardusercontrollers->adminstatus = 'penjualapprove';
+        $dashboardusercontrollers->pembelianstatus = 'selesai';
+        $dashboardusercontrollers->save();
+
         return redirect()->route('DashboardPenjual.index');
     }
 
-    protected function pesananpenjual()
+    protected function pesananpenjual(Request $request)
     {
-        $dashboardusercontrollers = dashboardusercontrollers::whereNot('adminstatus', 'notapprove')->get();
+        $dashboardusercontrollers = dashboardusercontrollers::where('adminstatus', 'approve')->get();
         return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers'));
     }
 

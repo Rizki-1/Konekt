@@ -29,9 +29,13 @@ Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
 Route::resource('admin' , App\Http\Controllers\adminpembeliancontroller::class);
 Route::get('pesananpenjual', [penjualcontroller::class, 'pesananpenjual'])->name('pesananpenjual');
 Route::patch('terima/{id}', [adminpembeliancontroller::class, 'terima'])->name('admin.terima');
+Route::patch('terimapesanan/{id}', [penjualcontroller::class, 'terimapesanan'])->name('terimapesanan');
 Route::get('tolak', [adminpembeliancontroller::class, 'tolak'])->name('admin.tolak');
 Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
 Route::get('pembelian', [dashboardusercontroller::class, 'pembelian'])->name('pembelian');
-Route::patch('terimapesanan/{id}', [penjualcontroller::class, 'terimapesanan'])->name('terimapesanan');
 Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
 Route::get('riwayatpenjual', [penjualcontroller::class, 'riwayatpenjual'])->name('riwayatpenjual');
+Route::patch('tandakantelahselesai/{id}', [penjualcontroller::class, 'tandakantelahselesai'])->name('tandakantelahselesai');
+Route::get('metodpembayaran', [adminpembeliancontroller::class, 'metodpembayaran'])->name('metodpembayaran');
+
+

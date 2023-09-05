@@ -108,9 +108,50 @@
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
-   {{-- <button type="button" class="btn btn-success accept-btn">Terima</button>
-   <button type="button" class="btn btn-danger reject-btn">Tolak</button>
-   <button type="button" class="btn btn-info complete-btn" style="display: none;">Tandakan Telah Selesai</button> --}}
+@foreach ($dashboardusercontrollers as $s)
+<div class="modal" id="myModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="namamenu_id" class="form-label fw-bold">nama menu</label>
+                    <input type="text" name="namamenu_id" value="" class="form-control">
+                    <input type="hidden" name="namamenu_id" value="">
+                </div>
+                <div class="mb-3">
+                    <label for="kelas" class="form-label fw-bold">quantity</label>
+                    <input type="text" name="quantity" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="kelas" class="form-label fw-bold">foto bukti</label>
+                    <input type="text" name="fotobukti" class="form-control">
+                </div>
+                @if ($s->pembelianstatus === 'menunggu konfirmasi')
+                <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="btn btn-success accept-btn">Terima</button>
+                </form>
+                <button type="button" class="btn btn-danger reject-btn">Tolak</button>
+                @else
+                <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
+                </form>
+                @endif
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -186,7 +227,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="">
+                                <a class="nav-link " href="riwayatpenjual">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -355,6 +396,7 @@
                 </div>
             </nav>
         </div>
+
         <div class="content-inner mt-5 py-0">
             <div class="row">
                 <div class="col-md-12 col-lg-12">
@@ -367,6 +409,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">nama pembeli</th>
                                     <th scope="col">jumlah pesanan</th>
+                                    <th scope="col">status</th>
                                     <th scope="col">total harga</th>
                                     <th scope="col">aksi</th>
                                 </tr>
@@ -380,18 +423,10 @@
                                         <th scope="row">{{ $no++ }}</th>
                                         <td>test</td>
                                         <td>{{ $s->quantity }}</td>
+                                        <td>{{ $s->pembelianstatus }}</td>
                                         <td>{{ $s->totalharga }}</td>
                                         <td>
-                                            <form action="{{ route('terimapesanan', ['id'=>$s->id]) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                            @if ($s->pembelianstatus === 'sedang di proses')
-                                            <button type="button" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
-                                        @else
-                                            <button type="submit" class="btn btn-success accept-btn">Terima</button>
-                                            <button type="submit" class="btn btn-danger reject-btn">Tolak</button>
-                                        @endif
-                                             </form>
+                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">detail</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -401,8 +436,19 @@
                 </div>
             </div>
         </div>
+
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
 </body>
 </html>
+{{-- <form action="{{ route('terimapesanan', ['id'=>$dashboardusercontrollers->id]) }}" method="POST">
+    @csrf
+    @method('PATCH')
+@if ($dashboardusercontrollers->pembelianstatus === 'sedang di proses')
+<button type="button" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
+@else
+<button type="submit" class="btn btn-success accept-btn">Terima</button>
+<button type="submit" class="btn btn-danger reject-btn">Tolak</button>
+@endif
+ </form> --}}

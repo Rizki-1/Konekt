@@ -287,7 +287,7 @@
       style="position: relative"
       >
       <h3>Kuliner kita <span style="color: #EA6A12">|Riwayat</span></h3>
-      @foreach ($user as $s)
+      @foreach ($user as $u)
       <div class="container">
          <div class="card d-flex ">
              <hr>
@@ -295,7 +295,7 @@
                  <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
                  <div class="img-content">
                      <h5>{{ $u->namamenu }}</h5>
-                     <tr>{{ $u->$pennjual->kategori }}</tr><br>
+                     <tr>{{ $u->totalharga }}</tr><br>
                      <tr>Rp 15.000 1 (menu) dana</tr><br>
                      <tr class="d-flex" >
                          <div class="btn btn-warning" style=""><span class="color:#EA6A12">pesanan telah selasai</span></div>

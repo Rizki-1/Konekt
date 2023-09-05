@@ -49,7 +49,7 @@
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Kuliner kita</title>
-
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <!-- Favicon -->
       <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
 
@@ -321,7 +321,7 @@
                     <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
                     <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                    <li><a class="dropdown-item" href="menu">Logout</a></li>
                   </ul>
                 </li>
                 <!-- End Profile-->
@@ -333,20 +333,74 @@
         <!--Nav End-->
       </div>
       <div class="content-inner mt-5 py-0">
-<div class="row">
-   <div class="col-md-12 col-lg-12">
-      <div class=" "
-      data-iq-gsap="onStart"
-      data-iq-opacity="0"
-      data-iq-position-y="-40"
-      data-iq-duration=".6"
-      data-iq-delay=".8"
-      data-iq-trigger="scroll"
-      data-iq-ease="none"
-      style="position: relative"
-      >
-      <div class="container"></div>
-</div>
+   <div class=" card col-md-12 col-lg-12">
+
+        <div class="card-body">
+          <div class="">
+            <h3 class="text-warning">Konfirmasi pesanan</h3>
+          </div>
+          <div class="mb-2 mt-2"><i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px " aria-hidden="true"></i>Masakan warung berkah </div>
+          <div class="d-flex justify-content-between ">
+            <div class=""><img src="{{ asset('assets/img/poto.png') }}"  width="100px" alt="" srcset=""></div>
+            <div class="form-label text-bold"><h5 class="form-label">Nama</h5>
+              <div class=""><p class="form-label">Nasi goreng</p></div>
+            </div>
+            <div class="form-label text-bold px-4"><h5 class="form-label">Harga</h5>
+              <div class=""><p class="form-label">Rp.15,000</p></div>
+            </div>
+            <div class="form-label text-bold px-4"><h5 class="form-label">Jumlah</h5>
+              <div class=""><p class="form-label">01</p></div>
+            </div>
+            <div class="form-label text-bold px-4"><h5 class="form-label">Total</h5>
+              <div class=""><p class="form-label">Rp.15,000</p></div>
+            </div>
+          </div>
+          <hr>
+          <div class="d-flex gap-4 justify-content-header">
+            <div class="text-bold mt-2"><h5>
+                  Pesan :
+            </h5></div>
+            <div class="">
+              <input type="text" class="form-control"  placeholder="(Opsional) Masukkan pesan anda">
+            </div>
+          </div>
+        <div class="d-flex justify-content-between mt-2" >
+          <div class="mt-2"><p class="text-bold">Total pesanan ( 1 Menu ):</p></div>
+          <div class="mt-2"><h5>RP .15.000</h5></div>
+        </div>
+        <div class="d-flex justify-content-between mt-1" >
+          <div class="mt-0"><p class="text-bold">Biaya Layanan :</p></div>
+          <div class="mt-0"><h5>RP .15.000</h5></div>
+        </div>
+        <div class="d-flex justify-content-between mt-1" >
+          <div class="mt-0"><p class="text-bold">Total :</p></div>
+          <div class="mt-0"><h5 class="text-warning">RP .15.000</h5></div>
+        </div>
+        </div>
+        <hr>
+        <div class="card col-md-12 col-lg-12 px-2">
+          <div class="card-body ">
+            <div class="d-flex justify-content-between">
+              <div class="">
+                <i class="fa fa-credit-card-alt" style="font-size:20px "  aria-hidden="true">&nbsp;E-Wallet</i>
+              </div>
+              <div class=""><i class="fa fa-check-circle text-warning" aria-hidden="true" style="color: greenyellow">&nbsp;Rp.15000</i><p></p></div>
+
+            </div>
+            <hr>
+            <img src="{{ asset('assets/images/brands/08.png') }}" alt="" srcset="">
+          </div>
+        </div>
+        <hr>
+        <div class="px-5">
+          <div class=""><h5 class="text-bold">Bukti transfer : </h5></div>
+          <div class="mt-3">
+            <input type="file" name="" class="form-control " id="">
+          </div>
+        </div>
+        <div class="d-flex justify-content-end mt-5">
+          <button type="submit" class="btn btn-warning">Bayar</button>
+        </div>
       </div>
       {{-- @include('layout.footer') --}}
   </main>

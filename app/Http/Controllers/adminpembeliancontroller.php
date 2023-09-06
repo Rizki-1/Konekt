@@ -6,6 +6,7 @@ use App\Models\admink;
 use Illuminate\Support\Str;
 use App\Models\adminmp;
 use App\Models\dashboardusercontrollers;
+use App\Models\notifikasi;
 use App\Models\penjual;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,8 @@ class adminpembeliancontroller extends Controller
     {
         $dashboardusercontrollers = dashboardusercontrollers::where('adminstatus', 'notapprove')->get();
         $penjual = penjual::all();
-        return view('admin.pembelian', compact('dashboardusercontrollers', 'penjual'));
+        $notifikasi = notifikasi::all();
+        return view('admin.pembelian', compact('dashboardusercontrollers', 'penjual', 'notifikasi'));
     }
 
     public function metodpembayaran()
@@ -29,13 +31,15 @@ class adminpembeliancontroller extends Controller
 
     public function terima( $id)
     {
-    // Temukan data dengan ID tertentu
+        $waktuKedaluwarsa = now()->addMinute(5);
+        $notifikasi = notifikasi::findOrFail($id);
+        $notifikasi->keterangan = 'pesanan anda telah disetujui';
+        $notifikasi->isi = 'lihat pesanan anda di menu pesanan';
+        $notifikasi->waktu_kadaluwarsa = $waktuKedaluwarsa;
+        $notifikasi->save();
     $dashboardusercontrollers = Dashboardusercontrollers::findOrFail($id);
-    // Ubah status 'adminstatus' menjadi 'approve'
     $dashboardusercontrollers->adminstatus = 'approve';
-    // Simpan perubahan
     $dashboardusercontrollers->save();
-    // Redirect atau berikan respons sesuai kebutuhan Anda
     return redirect()->route('admin.index');
     }
     public function tolak()

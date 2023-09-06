@@ -32,7 +32,7 @@ Route::patch('terima/{id}', [adminpembeliancontroller::class, 'terima'])->name('
 Route::patch('terimapesanan/{id}', [penjualcontroller::class, 'terimapesanan'])->name('terimapesanan');
 Route::get('tolak', [adminpembeliancontroller::class, 'tolak'])->name('admin.tolak');
 Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
-Route::get('pembelian', [dashboardusercontroller::class, 'pembelian'])->name('pembelian');
+Route::post('pembelian', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
 Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
 Route::get('riwayatpenjual', [penjualcontroller::class, 'riwayatpenjual'])->name('riwayatpenjual');
 Route::patch('tandakantelahselesai/{id}', [penjualcontroller::class, 'tandakantelahselesai'])->name('tandakantelahselesai');
@@ -43,5 +43,6 @@ Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy']
 Route::get('pembayaranpenjual', [penjualcontroller::class, 'pembayaranpenjual'])->name('pembayaranpenjual');
 Route::post('pembayaranpenjual_store', [penjualcontroller::class, 'pembayaranpenjual_store'])->name('pembayaranpenjual_store');
 Route::delete('pembayaranpenjual_destroy/{pembayaranpenjual}', [penjualcontroller::class, 'pembayaranpenjual_destroy'])->name('pembayaranpenjual_destroy');
+Route::patch('tolakpesanan/{id}', [penjualcontroller::class, 'tolakpesanan'])->name('tolakpesanan');
 
 

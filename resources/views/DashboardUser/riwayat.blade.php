@@ -294,11 +294,15 @@
              <div class="card-content d-flex">
                  <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
                  <div class="img-content">
-                     <h5>{{ $u->namamenu }}</h5>
-                     <tr>{{ $u->totalharga }}</tr><br>
+                     <h5>{{ $u->adminstatus }}</h5>
+                     <tr>{{ $u->pembelianstatus }}</tr><br>
                      <tr>Rp 15.000 1 (menu) dana</tr><br>
                      <tr class="d-flex" >
-                         <div class="btn btn-warning" style=""><span class="color:#EA6A12">pesanan telah selasai</span></div>
+                        @if ($u->pembelianstatus === 'selesai')
+                        <div class="btn btn-success" style=""><span class="color:#EA6A12">pesanan telah selasai</span></div>
+                        @else
+                        <div class="btn btn-warning">ajukan pengembalian dana</div>
+                        @endif
                      </tr>
                  </div>
              </div>

@@ -354,7 +354,7 @@
                  <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
                  <div class="img-content">
                      <h5>Masakan nasi - warung berkah</h5>
-                     <tr>{{ $u->totalharga }}</tr><br>
+                     <tr>{{ $u->adminstatus }}</tr><br>
                      <tr>Rp 15.000 1 (menu) dana</tr><br>
                      <tr>{{ $u->pembelianstatus }}</tr><br>
                      <tr class="" >

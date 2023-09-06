@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\dashboardusercontrollers;
+use App\Models\notifikasi;
 use App\Models\penjual;
 use Illuminate\Http\Request;
 
@@ -13,15 +14,20 @@ class dashboardusercontroller extends Controller
      */
     public function index()
     {
+        $users = dashboardusercontrollers::all();
+        $notifikasi = notifikasi::all();
         $penjual = penjual::all();
-        return view('DashboardUser.menu', compact('penjual'));
+        $waktuKadaluwarsa = notifikasi::all();
+
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa'));
     }
 
-    public function pembelian()
+    public function pembelian(Request $request)
     {
         $penjual = penjual::all();
         return view('DashboardUser.pembelian', compact('penjual'));
     }
+
 
     public function pesanan()
     {
@@ -32,10 +38,11 @@ class dashboardusercontroller extends Controller
 
     public function riwayatuser()
     {
-        $user = dashboardusercontrollers::where('pembelianstatus', 'selesai')->get();
+        $user = dashboardusercontrollers::where('pembelianstatus', 'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
         $penjual = penjual::all();
         return view('DashboardUser.riwayat', compact('user', 'penjual'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -51,16 +58,26 @@ class dashboardusercontroller extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $dashboardusercontrollers =
         [
             'namamenu_id' => $request->namamenu_id,
-            'quantity'=> $request->quantity,
-            'fotobukti'=> $request->fotobukti,
-            'totalharga'=> $request->totalharga,
             'adminstatus'=> 'notapprove',
-            'pembelianstatus'=> 'menunggu konfirmasi'
+            'pembelianstatus'=> 'menunggu konfirmasi',
+
         ];
+
+    if ($dashboardusercontrollers['pembelianstatus'] != 'anda berhasil membuat pesanan')
+     {
+        $waktuKadaluwarsa = now()->addMinutes(5);
+
+        $notifikasi = [
+            'keterangan' => 'anda berhasil membuat pesanan',
+            'isi' => 'lihat pesanan anda di menu pesanan',
+            'waktu_kadaluwarsa' => $waktuKadaluwarsa,
+        ];
+    }
+        notifikasi::create($notifikasi);
         dashboardusercontrollers::create($dashboardusercontrollers);
         return redirect()->route('menu.index');
     }

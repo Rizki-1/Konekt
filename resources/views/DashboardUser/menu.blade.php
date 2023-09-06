@@ -8,10 +8,10 @@
         padding-right: 20px; /* Atur jumlah padding sesuai kebutuhan Anda */
     }
     .card.card-transparent {
-    width: 300px; 
-    white-space: nowrap; 
+    width: 300px;
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 </style>
    <meta charset="utf-8">
@@ -31,33 +31,33 @@
     background-size: cover;">
 
 @foreach ($penjual as $p)
-    <form action="{{ route('menu.store') }}" method="POST">
-        @csrf
+        <form action="{{ route('menu.store') }}" method="POST">
+            @csrf
         <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Konfirmasi pembayaran</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                             <div class="mb-3">
                                 <label for="namamenu_id" class="form-label fw-bold">nama menu</label>
                                 <input type="text" name="namamenu_id" value="{{ $p->namamenu }}"
-                                    class="form-control">
+                                    class="form-control" disabled>
                                 <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
                             </div>
                         <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">quantity</label>
-                            <input type="text" name="quantity" class="form-control">
+                            <label for="kelas" class="form-label fw-bold">harga</label>
+                            <input type="text" name="" value="{{ $p->harga }}"
+                            class="form-control" disabled>
+                        <input type="hidden" name="" value="{{ $p->id }}">
                         </div>
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">foto bukti</label>
-                            <input type="text" name="fotobukti" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">total harga</label>
-                            <input type="text" name="totalharga" class="form-control">
+                            <input type="text" name="" value="{{ $p->fotomakanan }}"
+                            class="form-control" disabled>
+                        <input type="hidden" name="" value="{{ $p->id }}">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -246,42 +246,37 @@
                                     </svg>
                                     <span class="bg-danger dots"></span>
                                 </a>
-                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
-                                    aria-labelledby="notification-drop">
+                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="notification-drop">
                                     <div class="card shadow-none m-0">
                                         <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
                                             <div class="header-title">
                                                 <h5 class="mb-0 text-white">All Notifications</h5>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link" id="mail-drop2" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path opacity="0.4"
-                                            d="M20 13.441C20 16.231 17.76 18.491 14.97 18.501H14.96H5.05C2.27 18.501 0 16.251 0 13.461V13.451C0 13.451 0.006 9.02498 0.014 6.79898C0.015 6.38098 0.495 6.14698 0.822 6.40698C3.198 8.29198 7.447 11.729 7.5 11.774C8.21 12.343 9.11 12.664 10.03 12.664C10.95 12.664 11.85 12.343 12.56 11.763C12.613 11.728 16.767 8.39398 19.179 6.47798C19.507 6.21698 19.989 6.45098 19.99 6.86798C20 9.07698 20 13.441 20 13.441Z"
-                                            fill="currentColor" />
-                                        <path
-                                            d="M19.4769 3.174C18.6109 1.542 16.9069 0.5 15.0309 0.5H5.05086C3.17486 0.5 1.47086 1.542 0.60486 3.174C0.41086 3.539 0.50286 3.994 0.82586 4.252L8.25086 10.191C8.77086 10.611 9.40086 10.82 10.0309 10.82C10.0349 10.82 10.0379 10.82 10.0409 10.82C10.0439 10.82 10.0479 10.82 10.0509 10.82C10.6809 10.82 11.3109 10.611 11.8309 10.191L19.2559 4.252C19.5789 3.994 19.6709 3.539 19.4769 3.174Z"
-                                            fill="currentColor" />
-                                    </svg>
-                                    <span class="bg-primary count-mail"></span>
-                                </a>
-                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
-                                    aria-labelledby="mail-drop2">
-                                    <div class="card shadow-none m-0">
-                                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
-                                            <div class="header-title">
-                                                <h5 class="mb-0 text-white">All Message</h5>
+                                        @php
+                                        $latestNotifications = $notifikasi->sortByDesc('created_at')->take(3);
+                                        @endphp
+
+                                        @foreach ($latestNotifications as $notif)
+                                            <div class="card-body p-0 notifikasi-belum-kedaluwarsa" data-waktu-kadaluwarsa="{{ $waktuKadaluwarsa }}">
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
+                                                        <div class="ms-3 w-100">
+                                                            <h6 class="mb-0">{{ $notif->keterangan }}</h6>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <p class="mb-0">{{ $notif->isi }}</p>
+                                                                <small class="float-end font-size-12">Just Now</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
+
                             </li>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -318,7 +313,7 @@
                 @php
                     $no = 1;
                 @endphp
-               
+
                 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
     @foreach ($penjual as $p)
     <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
@@ -362,7 +357,7 @@
     @endforeach
 </div>
 
-            
+
         </div>
     </div>
     @include('layout.footer')

@@ -378,9 +378,9 @@
                                 @foreach ($dashboardusercontrollers as $s)
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
-                                        <td>{{ $s->quantity }}</td>
-                                        <td>{{ $s->fotobukti }}</td>
-                                        <td>{{ $s->totalharga }}</td>
+                                        <td>{{ $s->adminstatus }}</td>
+                                        <td>{{ $s->pembelistatus }}</td>
+                                        <td>{{ $s->namamenu_id }}</td>
                                         <td class="d-flex">
                                             <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
                                                 @csrf

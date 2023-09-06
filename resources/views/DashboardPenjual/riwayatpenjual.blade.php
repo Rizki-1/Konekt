@@ -333,9 +333,9 @@
                                 <div class="card-content d-flex flex-column">
                                     <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
                                     <div class="img-content">
-                                        <p>{{ $u->quantity }}</p>
-                                        <p>{{ $u->fotobukti }}</p>
-                                        <p>{{ $u->totalharga }}</p>
+                                        <p>{{ $u->adminstatus }}</p>
+                                        <p>{{ $u->pembelianstatus }}</p>
+                                        <p>fghrf</p>
                                     </div>
                                     <div class="centered-button">
                                         <div class="btn btn-warning text-center"><span class="color:#EA6A12">pesanan telah selesai</span></div>

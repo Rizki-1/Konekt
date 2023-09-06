@@ -307,11 +307,17 @@
                 </div>
             </nav>
         </div>
-        <div class="content-inner mt-5 py-0">
+    <div class="content-inner mt-5 py-0">
     <div class="row">
         <div class="col-md-12 col-lg-12">
-            <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
+            <div class="" 
+            data-iq-gsap="onStart" 
+            data-iq-opacity="0" 
+            data-iq-position-y="-40"
+                data-iq-duration=".6" 
+                data-iq-delay=".8" 
+                data-iq-trigger="scroll" 
+                data-iq-ease="none"
                 style="position: relative">
                 @include('layout.bilboard')
                 <!-- Start Isi Dashboard -->
@@ -320,14 +326,18 @@
                 @endphp
                
                 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
-    @foreach ($penjual as $p)
-    <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
-        <!-- Sesuaikan lebar (width) dan tinggi (height) di atas sesuai kebutuhan Anda -->
-        <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
-            data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
-            data-iq-trigger="scroll" data-iq-ease="none">
-            <div class="card card-white dish-card profile-img mb-5">
-                <div class="profile-img21">
+               @foreach ($penjual as $p)
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
+                        <div class="col active" 
+                        data-iq-gsap="onStart" 
+                        data-iq-opacity="0"
+                        data-iq-position-y="-40" 
+                        data-iq-duration=".6" 
+                        data-iq-delay=".6"
+                        data-iq-trigger="scroll" 
+                        data-iq-ease="none">
+                        <div class="card card-white dish-card profile-img mb-5">
+                        <div class="profile-img21">
                     <!-- tempat foto -->
                     <img src="../assets/images/layouts/16.png"
                         class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
@@ -363,10 +373,10 @@
 </div>
 
             
-        </div>
     </div>
-    @include('layout.footer')
-</div>
+        </div>
+         @include('layout.footer')
+        </div>
 
         </main>
     @include('layout.js')

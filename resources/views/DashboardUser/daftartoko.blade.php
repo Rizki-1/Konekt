@@ -17,7 +17,7 @@
   margin: 0;
 }
 .card-container{
-    background-color: #ffffff; /* Warna latar belakang */
+    background-color: #F66F0C; /* Warna latar belakang */
     color: #000000; /* Warna teks */
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -27,27 +27,33 @@
     height: 100vh;
     margin-bottom: 10px;
 }
-  .card1 {
+.card1 {
+    /* Tambahkan CSS sesuai kebutuhan untuk card 1 */
     background-color: #ea68121e;
     color: #000000;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
-    margin: 10px;
-    padding: 10px;
-    width: 500px;
-    margin-bottom: 10px;
-    position: fixed;
+    flex-direction: column; /* Tambahkan ini agar konten dan gambar dalam satu kolom */
     justify-content: space-between; /* Memisahkan konten dan gambar */
     align-items: center; /* Pusatkan vertikal */
-    max-width: 500px;
+    max-width: 100%;
+    height: 350px;
+    margin: 10px;
+    padding: 10px;
 }
 
+/*  */
 .img {
-    max-width: 130px; /* Atur lebar maksimal gambar */
+    max-width: 165px; /* Atur lebar maksimal gambar */
     max-height: 330px; /* Atur tinggi maksimal gambar */
+    margin-top: auto;
     margin-left: auto; /* Memindahkan gambar ke kanan */
     align-self: flex-start; /* Memindahkan gambar ke atas */
+    border-radius: 5px;
+    vertical-align: top;
+    margin-top: -1000px;
+
 }
 
 .card-content {
@@ -64,20 +70,51 @@
   }
   .btn-custom {
     background-color: rgba(234, 106, 18, 0.11);
-    color: #ffffff;
+    color: #F66F0C;
     padding: 1px 10px; /* Sesuaikan padding sesuai kebutuhan */
     border-radius: 5px;
     width: auto; /* Atur lebar tombol sesuai dengan isi */
     text-align: left; /* Teks di kiri tombol */
     display: inline-block; /* Ubah elemen menjadi inline-block */
 }
+.my-custom-card {
+      height: auto; /* Atur tinggi card sesuai kebutuhan Anda */
+   }
 
+.nav-link.active {
+    color: #F66F0C; /* Ganti dengan kode warna yang Anda inginkan */
+}
+.gray-text {
+    color: gray; /* You can use a different shade of gray if needed */
+}
+.custom-button {
+    background-color: #F66F0C; /* Warna latar belakang tombol (sesuaikan dengan preferensi Anda) */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border tombol */
+    padding: 10px 20px; /* Padding tombol */
+    cursor: pointer; /* Mengubah cursor saat mengarahkan ke tombol */
+    border-radius: 10px;
+  }
 
+  .custom-button:hover {
+    background-color: #FF9901; /* Warna latar belakang tombol saat dihover */
+  }
+  
+  p, h5 {
+    margin: 0;
+  }
+  
+  .stars {
+    color: gold; /* Warna bintang (misalnya, emas) */
+    font-size: 24px; /* Ukuran bintang */
+}
 
     </style>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Kuliner kita</title>
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
       <!-- Favicon -->
       <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
@@ -139,7 +176,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active"aria-current="page" href="daftartoko">
+                                <a class="nav-link active"aria-current="page" href="daftartoko" >
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -294,38 +331,46 @@
         </nav>
       </div>
       <div class="content-inner mt-5 py-0">
-<div class="row">
-   <div class="col-md-12 col-lg-12">
-      <div class=" "
-      data-iq-gsap="onStart"
-      data-iq-opacity="0"
-      data-iq-position-y="-40"
-      data-iq-duration=".6"
-      data-iq-delay=".8"
-      data-iq-trigger="scroll"
-      data-iq-ease="none"
-      style="position: relative"
-      >
-      <h1 class="title">Daftar Toko</h1>
-      <div class="container">
-        <div class="card1">
-            <div class="card-content">
-                <div class="conten-container">
-                    <p>Jalan Karang Ploso Permata Regency,Hubungi kami di: 0987867890</p>
-                    <h3>Toko berkah</h3>
-                    <p>Masakan Tradisional</p>
-                    <div class="btn-custom"><span>12 menu</span></div>
+    <div class="card col-md-12 col-lg-12 my-custom-card">
+        <div class="card-body">
+            <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+                data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
+                style="position: relative">
+                <h1 class="title">Daftar Toko</h1>
+                <div class="container">
+                 
+                        <!-- card 1 -->
+                        <div class="col-md-6 col-lg-6">
+                        <div class="card1">
+                            <div class="card-content">
+                                <div class="conten-container">
+                                <p><i class="fa-solid fa-location-dot"></i> <span style="color: gray;">Perum Permata Regency 1 Blok 10/28, Perun Gpa, Ngijo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65152</span></p>
+                                    <p style="text-align: left;"><i class="fa-solid fa-phone"></i>  <span style="color: gray;">Hubungi kami di: 0987867890</span></p>
+                                    <p style="margin: 0;">Masakan Tradisional</p>
+                                    <h4 style="margin: 0;">Toko berkah</h4>
+                                    <!-- <span class="star">&#9733;</span>  -->
+                                    <span class="stars">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
+                                    <p></p>
+                                    <button class="custom-button custom-font">Detail</button>
+                                </div>
+                            </div>
+                            <img src="{{ asset('css/img/2dfntai.jpg') }}" alt="Foto Toko" class="img">
+                          </div>
+                        </div>
+                      </div>  
+                        <!-- card 2 -->
+                  
                 </div>
+              </div>
             </div>
-            <img src="{{ asset('css/img/2dfntai.jpg') }}" alt="Foto Toko" class="img">
         </div>
     </div>
 </div>
-    </div>
-</div>
-      </div>
-      {{-- @include('layout.footer') --}}
-   </main>
- @include('layout.js')
- </body>
+ 
+<!-- @include('layout.footer') -->
+</main>
+@include('layout.js')
+</body>
+
 </html>
+

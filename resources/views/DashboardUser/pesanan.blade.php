@@ -332,7 +332,7 @@
           <!-- Nav Header Component End -->
         <!--Nav End-->
       </div>
-      <div class="content-inner mt-5 py-0">
+    <div class="content-inner mt-5 py-0">
 <div class="row">
    <div class="col-md-12 col-lg-12">
       <div class=" "
@@ -348,7 +348,7 @@
       <h3>Kuliner kita <span style="color: #EA6A12">|pesanan</span></h3>
       @foreach ($user as $u)
       <div class="container">
-         <div class="card d-flex ">
+         <div class="card d-flex">
              <hr>
              <div class="card-content d-flex">
                  <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">

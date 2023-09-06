@@ -328,10 +328,13 @@
               </ul>
             </div>
           </div>
-        </nav>          <!-- Nav Header Component Start -->
-          <!-- Nav Header Component End -->
-        <!--Nav End-->
+        </nav>
       </div>
+      @foreach ($penjual as $p)
+
+
+      <form action="{{ route('menu.store') }}" method="POST">
+        @csrf
       <div class="content-inner mt-5 py-0">
    <div class=" card col-md-12 col-lg-12">
 
@@ -342,14 +345,14 @@
           <div class="mb-2 mt-2"><i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px " aria-hidden="true"></i>Masakan warung berkah </div>
           <div class="d-flex justify-content-between ">
             <div class=""><img src="{{ asset('assets/img/poto.png') }}"  width="100px" alt="" srcset=""></div>
-            <div class="form-label text-bold"><h5 class="form-label">Nama</h5>
-              <div class=""><p class="form-label">Nasi goreng</p></div>
+            <div class="form-label text-bold"><h5 class="form-label">{{ $p->namamenu }}</h5>
+              <div class=""><p class="form-label">{{ $p->namamenu }}</p></div>
             </div>
             <div class="form-label text-bold px-4"><h5 class="form-label">Harga</h5>
-              <div class=""><p class="form-label">Rp.15,000</p></div>
+              <div class=""><p class="form-label">{{ $p->harga }}</p></div>
             </div>
-            <div class="form-label text-bold px-4"><h5 class="form-label">Jumlah</h5>
-              <div class=""><p class="form-label">01</p></div>
+            <div class="form-label text-bold px-4"><h5 class="form-label">beli</h5>
+              <div class=""><p class="form-label">{{ session('jumlahpembelian') }}</p></div>
             </div>
             <div class="form-label text-bold px-4"><h5 class="form-label">Total</h5>
               <div class=""><p class="form-label">Rp.15,000</p></div>
@@ -365,8 +368,8 @@
             </div>
           </div>
         <div class="d-flex justify-content-between mt-2" >
-          <div class="mt-2"><p class="text-bold">Total pesanan ( 1 Menu ):</p></div>
-          <div class="mt-2"><h5>RP .15.000</h5></div>
+          <div class="mt-2"><p class="text-bold">Total pesanan:</p></div>
+          <div class="mt-2"><h5>{{ $p->harga }}</h5></div>
         </div>
         <div class="d-flex justify-content-between mt-1" >
           <div class="mt-0"><p class="text-bold">Biaya Layanan :</p></div>
@@ -392,17 +395,37 @@
           </div>
         </div>
         <hr>
+        <div class="mb-3">
+            <label for="kelas" class="form-label fw-bold">kategori</label>
+            <select name="namamenu_id" class="form-control">
+                <option value="" disabled selected>Pilih kategori</option>
+                @foreach ($penjual as $siswa)
+                    <option value="{{ $siswa->id }}">{{ $siswa->namamenu }}</option>
+                @endforeach
+        </div>
         <div class="px-5">
           <div class=""><h5 class="text-bold">Bukti transfer : </h5></div>
           <div class="mt-3">
-            <input type="file" name="" class="form-control " id="">
+            {{-- <input type="file" name="" class="form-control " id=""> --}}
+            <input type="text" name="fotobuktipembayaran" class="form-control " id="">
           </div>
         </div>
+        <div class="px-5">
+          <div class=""><h5 class="text-bold">total harga </h5></div>
+          <div class="mt-3">
+            {{-- <input type="file" name="" class="form-control " id=""> --}}
+            <input type="text" name="totalharga" class="form-control " id="">
+          </div>
+        </div>
+
         <div class="d-flex justify-content-end mt-5">
           <button type="submit" class="btn btn-warning">Bayar</button>
         </div>
-      </div>
+   </div>
+</form>
+@endforeach
       {{-- @include('layout.footer') --}}
+
   </main>
   @include('layout.js')
   </body>

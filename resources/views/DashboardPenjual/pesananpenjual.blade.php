@@ -109,7 +109,7 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 @foreach ($dashboardusercontrollers as $s)
-<div class="modal" id="myModal" tabindex="-1">
+<div class="modal" id="myModal_{{ $s->id }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -134,9 +134,13 @@
                 <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
                     @csrf
                     @method('PATCH')
-                    <button type="submit" class="btn btn-success accept-btn">Terima</button>
+                    <button type="submit" class="btn btn-success accept-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Terima</button>
                 </form>
-                <button type="button" class="btn btn-danger reject-btn">Tolak</button>
+                <form action="{{ route('tolakpesanan', ['id'=>$s->id]) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                <button type="submit" class="btn btn-danger reject-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Tolak</button>
+                </form>
                 @else
                 <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">
                     @csrf
@@ -422,11 +426,11 @@
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
                                         <td>test</td>
-                                        <td>{{ $s->quantity }}</td>
+                                        <td>{{ $s->adminstatus}}</td>
                                         <td>{{ $s->pembelianstatus }}</td>
-                                        <td>{{ $s->totalharga }}</td>
+                                        <td>dwfgfrewrqe</td>
                                         <td>
-                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">detail</button>
+                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">detail</button>
                                         </td>
                                     </tr>
                                 @endforeach

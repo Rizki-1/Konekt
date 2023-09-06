@@ -12,9 +12,9 @@ class dashboardusercontrollers extends Model
 
     protected $fillable = [
         'namamenu_id',
-        'quantity',
-        'fotobukti',
+        'jumlahpembelian',
         'totalharga',
+        'fotobuktipembayaran',
         'adminstatus',
         'pembelianstatus'
     ];

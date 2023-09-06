@@ -16,6 +16,8 @@
       <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+    <form action="{{ route('pembayaranpenjual_store') }}" method="POST">
+    @csrf
     <div class="modal" id="myModal" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -24,15 +26,29 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>Modal body text goes here.</p>
+                <div class="mb-3">
+                    <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
+                    <input type="text" name="metodepembayaran" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="kelas" class="form-label fw-bold">tujuan</label>
+                    <input type="text" name="tujuan" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="kelas" class="form-label fw-bold">keterangan</label>
+                    <input type="text" name="keterangan" class="form-control">
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
       </div>
+    </div>
+</form>
+
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -69,7 +85,7 @@
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{ route('DashboardPenjual.index') }}">
+                                <a class="nav-link " aria-current="page" href="{{ route('DashboardPenjual.index') }}">
                                   <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -121,7 +137,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="keranjang">
+                                <a class="nav-link active" href="keranjang">
                                    <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -244,11 +260,10 @@
       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Success</button>
       <!-- The modal itself -->
       <!-- Start Isi Dashboard -->
-      <div class="card-transparent bg-transparent mb-0">
-         <div class="card-header border-0">
+      <div class="content-inner mt-5 py-0">
+         <div class="row">
+            <div class="col-md-12 col-lg-12">
 
-            <div class="col-xl-12 col-lg-12 dish-card-horizontal mt-2">
-               <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
                   <div class="col active"
                      data-iq-gsap="onStart"
                      data-iq-opacity="0"
@@ -260,30 +275,37 @@
                   >
                   <table class="table">
                     <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">metode pembayaran</th>
-                            <th scope="col">tujuan</th>
-                            <th scope="col">keteranagn</th>
-                            <th scope="col">aksi</th>
-                        </tr>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">metode pembayaran</th>
+                        <th scope="col">tujuan</th>
+                        <th scope="col">keterangan</th>
+                        <th scope="col">aksi</th>
+                      </tr>
                     </thead>
                     <tbody>
                         @php
                             $no = 1;
                         @endphp
-                        @foreach ( $pembayaranpenjual as $a)
+                        @foreach ($pembayaranpenjual as $p)
+                      <tr>
                         <th scope="row">{{ $no ++ }}</th>
-                        <td>{{ $a->metodepembayaran }}</td>
-                        <td>{{ $a->tujuan }}</td>
-                        <td>{{ $a->keterangan }}</td>
+                        <td>{{ $p->metodepembayaran }}</td>
+                        <td>{{ $p->tujuan }}</td>
+                        <td>{{ $p->keterangan }}</td>
                         <td>
-                            <buttonn class="btn btn-danger">hapus</button>
+                            <form action="{{ route('pembayaranpenjual_destroy', $p->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"> hapus </button>
+                            </form>
+                            <button class="btn btn-warning"> edit </button>
                         </td>
-                        @endforeach
+                    </tr>
+                    @endforeach
                     </tbody>
-                </table>
-               </div>
+                  </table>
+
                </div>
             </div>
          </div>

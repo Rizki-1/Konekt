@@ -25,6 +25,11 @@ class penjualcontroller extends Controller
         return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual'));
     }
 
+    public function DashboardPenjual()
+    {
+        return view('DashboardPenjual.dashboardpenjual');
+    }
+
     public function riwayatpenjual()
     {
         $user = dashboardusercontrollers::where('pembelianstatus' ,'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();

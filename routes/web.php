@@ -26,6 +26,9 @@ Route::middleware(['ceklogin'])->group(function () {
 
     Route::patch('terima/{id}', [adminpembeliancontroller::class, 'terima'])->name('admin.terima');
     Route::patch('tolak/{id}', [adminpembeliancontroller::class, 'tolak'])->name('admin.tolak');
+
+
+
 Route::middleware(['AdminMiddleware'])->group(function ()
     {
 Route::resource('admin' , App\Http\Controllers\adminpembeliancontroller::class);
@@ -33,6 +36,7 @@ Route::get('metodpembayaran', [adminpembeliancontroller::class, 'metodpembayaran
 Route::get('kategori', [adminpembeliancontroller::class, 'kategori'])->name('kategori');
 Route::post('kstore', [adminpembeliancontroller::class, 'kstore'])->name('kstore');
 Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
+Route::get('DashboardAdmin', [adminpembeliancontroller::class, 'DashboardAdmin'])->name('DashboardAdmin');
     });
 
 
@@ -44,6 +48,7 @@ Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->
 Route::get('pembelian', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
 Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
 Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
+Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
 });
 
 
@@ -59,6 +64,7 @@ Route::get('pembayaranpenjual', [penjualcontroller::class, 'pembayaranpenjual'])
 Route::post('pembayaranpenjual_store', [penjualcontroller::class, 'pembayaranpenjual_store'])->name('pembayaranpenjual_store');
 Route::delete('pembayaranpenjual_destroy/{pembayaranpenjual}', [penjualcontroller::class, 'pembayaranpenjual_destroy'])->name('pembayaranpenjual_destroy');
 Route::patch('tolakpesanan/{id}', [penjualcontroller::class, 'tolakpesanan'])->name('tolakpesanan');
+Route::get('DashboardPenjual_', [penjualcontroller::class, 'DashboardPenjual'])->name('DashboardPenjual_');
     });
 
 
@@ -70,6 +76,6 @@ Route::get('register', [UserController::class, 'register'])->name('register');
 Route::resource('penjualrole', rolepenjualcontroller::class);
 Route::post('authenticate', [logincontroller::class, 'authenticate'])->name('authenticate');
 Route::resource('user', UserController::class);
-Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
+
 
 

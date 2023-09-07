@@ -154,7 +154,7 @@
 
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="DashboardAdmin">
+                                <a class="nav-link active" aria-current="page" href="DashboardAdmin">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -199,7 +199,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="pesanan">
+                                <a class="nav-link " href="pesanan">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -397,42 +397,7 @@
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">no</th>
-                                    <th scope="col">nama pembeli</th>
-                                    <th scope="col">nama menu</th>
-                                    <th scope="col">total harga</th>
-                                    <th scope="col">aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $no = 1;
-                                @endphp
-                                @foreach ($dashboardusercontrollers as $s)
-                                    <tr>
-                                        <th scope="row">{{ $no++ }}</th>
-                                        <td>{{ $s->adminstatus }}</td>
-                                        <td>{{ $s->pembelistatus }}</td>
-                                        <td>{{ $s->namamenu_id }}</td>
-                                        <td class="d-flex">
-                                            <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="btn btn-success">terima</button>
-                                            </form>
-                                            <form action="{{ route('admin.tolak', ['id' =>$s->id]) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="btn btn-danger">tolak</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                       <!-- isi content -->
                     </div>
                 </div>
             </div>

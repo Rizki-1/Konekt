@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\dashboardusercontrollers;
 use App\Models\notifikasi;
+use App\Models\adminnotifikasi;
+use App\Models\notifikasipenjual;
+
 use App\Models\penjual;
 use Illuminate\Http\Request;
 
@@ -17,9 +20,10 @@ class dashboardusercontroller extends Controller
         $users = dashboardusercontrollers::all();
         $notifikasi = notifikasi::all();
         $penjual = penjual::all();
+        $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi' ));
     }
 
     public function pembelian(Request $request)
@@ -41,6 +45,12 @@ class dashboardusercontroller extends Controller
         $user = dashboardusercontrollers::where('pembelianstatus', 'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
         $penjual = penjual::all();
         return view('DashboardUser.riwayat', compact('user', 'penjual'));
+    }
+
+    public function Userkeranjang()
+    {
+        $user = dashboardusercontrollers::all();
+        return view('DashboardUser.keranjang', compact('user'));
     }
 
     /**
@@ -67,6 +77,13 @@ class dashboardusercontroller extends Controller
 
         ];
 
+        $adminnotifikasi =  [
+            'keterangan_admin' => 'ada pesanan  masuk',
+            'isi_admin' => 'cek tabel pembelian untuk konfirmasi'
+        ];
+
+
+
     if ($dashboardusercontrollers['pembelianstatus'] != 'anda berhasil membuat pesanan')
      {
         $waktuKadaluwarsa = now()->addMinutes(5);
@@ -77,6 +94,8 @@ class dashboardusercontroller extends Controller
             'waktu_kadaluwarsa' => $waktuKadaluwarsa,
         ];
     }
+
+        adminnotifikasi::create($adminnotifikasi);
         notifikasi::create($notifikasi);
         dashboardusercontrollers::create($dashboardusercontrollers);
         return redirect()->route('menu.index');

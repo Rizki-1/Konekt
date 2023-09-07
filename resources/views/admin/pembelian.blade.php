@@ -154,6 +154,21 @@
 
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
+                                <a class="nav-link " aria-current="page" href="DashboardAdmin">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                            fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8"
+                                                    fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon">D</i>
+                                    <span class="item-name">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link " aria-current="page" href="">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -169,7 +184,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="daftartoko">
+                                <a class="nav-link "aria-current="page" href="">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -296,6 +311,24 @@
                                                 <h5 class="mb-0 text-white">All Notifications</h5>
                                             </div>
                                         </div>
+                                        @php
+                                            $latestNotifications = $adminnotifikasi->sortByDesc('created_at')->take(3);
+                                        @endphp
+                                        @foreach ($latestNotifications as $adminnotif)
+                                        <div class="card-body p-0 notifikasi-belum-kedaluwarsa">
+                                            <div class="d-flex align-items-center">
+                                                <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
+                                                <div class="ms-3 w-100">
+                                                    <h6 class="mb-0">{{ $adminnotif->keterangan_admin }}</h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mb-0">{{ $adminnotif->isi_admin }}</p>
+                                                        <small class="float-end font-size-12">{{ $adminnotif->created_at }}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
                                     </div>
                                 </div>
                             </li>
@@ -346,7 +379,10 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                    <li><button type="submit" class="dropdown-item">logout</button></li>
+                                   </form>
                                 </ul>
                             </li>
                             <!-- End Profile-->
@@ -387,8 +423,10 @@
                                                 @method('PATCH')
                                                 <button type="submit" class="btn btn-success">terima</button>
                                             </form>
-                                            <form action="">
-                                                <button class="btn btn-danger">tolak</button>
+                                            <form action="{{ route('admin.tolak', ['id' =>$s->id]) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-danger">tolak</button>
                                             </form>
                                         </td>
                                     </tr>

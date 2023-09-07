@@ -1,74 +1,81 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 
 <head>
-<style>
-    body {
-        padding-right: 20px; /* Atur jumlah padding sesuai kebutuhan Anda */
-    }
-    .card.card-transparent {
-    width: 300px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    <style>
+
+.centered-button {
+    display: flex;
+    justify-content: center; /* Untuk membuat kontennya berada di tengah secara horizontal */
+    align-items: center; /* Untuk membuat kontennya berada di tengah secara vertikal */
+    height: 15%; /* Ini akan mengisi tinggi div dengan class "centered-button" */
 }
-</style>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+ body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+ .container {
+        display: flex;
+  }
+
+  .card1 {
+    background-color: #ffffff;
+    color: #000000; /* Warna teks */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    width: 400px;
+    margin-bottom: 10px;
+    height: 400px;
+  }
+
+  .card-content {
+    flex: 1;
+  }
+  .img {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: left;
+    justify-content: left;
+  }
+
+  .img img {
+    width: 50px;
+    height: 50px;
+  }
+  .main-content {
+    flex: 1px;
+  }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kuliner kita</title>
+
     <!-- Favicon -->
-    <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+    <link rel="shortcut icon"
+        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 
-<body class=""
+<body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
-
-@foreach ($penjual as $p)
-        <form action="{{ route('menu.store') }}" method="POST">
-            @csrf
-        <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Konfirmasi pembayaran</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="namamenu_id" class="form-label fw-bold">nama menu</label>
-                                <input type="text" name="namamenu_id" value="{{ $p->namamenu }}"
-                                    class="form-control" disabled>
-                                <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
-                            </div>
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">harga</label>
-                            <input type="text" name="" value="{{ $p->harga }}"
-                            class="form-control" disabled>
-                        <input type="hidden" name="" value="{{ $p->id }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">foto bukti</label>
-                            <input type="text" name="" value="{{ $p->fotomakanan }}"
-                            class="form-control" disabled>
-                        <input type="hidden" name="" value="{{ $p->id }}">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    @endforeach
+   {{-- <button type="button" class="btn btn-success accept-btn">Terima</button>
+   <button type="button" class="btn btn-danger reject-btn">Tolak</button>
+   <button type="button" class="btn btn-info complete-btn" style="display: none;">Tandakan Telah Selesai</button> --}}
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -96,7 +103,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#home" role="button"
+                        <a class="nav-link" data-bs-toggle="collapse" href="#" role="button"
                             aria-expanded="false" aria-controls="home">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none"
@@ -114,7 +121,7 @@
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.html">
+                                <a class="nav-link " aria-current="page" href="{{ route('DashboardPenjual.index') }}">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -129,22 +136,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="pembelian">
-                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                            fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8"
-                                                    fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon">D</i>
-                                    <span class="item-name">Daftar Toko</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="pesanan">
+                                <a class="nav-link "aria-current="page" href="pesananpenjual">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -159,7 +151,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="riwayatuser">
+                                <a class="nav-link active" href="">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -174,7 +166,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="UserKeranjang">
+                                <a class="nav-link " href="riwayat">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -184,8 +176,23 @@
                                             </g>
                                         </svg>
                                     </i>
-                                    <i class="sidenav-mini-icon">K</i>
-                                    <span class="item-name">Keranjang</span>
+                                    <i class="sidenav-mini-icon">U</i>
+                                    <span class="item-name">Ulasan</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="keranjang">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                            fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8"
+                                                    fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon">P</i>
+                                    <span class="item-name">pembayaran</span>
                                 </a>
                             </li>
                         </ul>
@@ -233,6 +240,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
+                            <!-- isi dari notifikasi-->
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
                                     <svg width="18" height="21" viewBox="0 0 18 21" fill="none"
@@ -246,37 +254,47 @@
                                     </svg>
                                     <span class="bg-danger dots"></span>
                                 </a>
-                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="notification-drop">
+                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
+                                    aria-labelledby="notification-drop">
                                     <div class="card shadow-none m-0">
                                         <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
                                             <div class="header-title">
                                                 <h5 class="mb-0 text-white">All Notifications</h5>
                                             </div>
                                         </div>
-                                        @php
-                                        $latestNotifications = $notifikasi->sortByDesc('created_at')->take(3);
-                                        @endphp
-
-                                        @foreach ($latestNotifications as $notif)
-                                            <div class="card-body p-0 notifikasi-belum-kedaluwarsa" data-waktu-kadaluwarsa="{{ $waktuKadaluwarsa }}">
-                                                    <div class="d-flex align-items-center">
-                                                        <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
-                                                        <div class="ms-3 w-100">
-                                                            <h6 class="mb-0">{{ $notif->keterangan }}</h6>
-                                                            <div class="d-flex justify-content-between align-items-center">
-                                                                <p class="mb-0">{{ $notif->isi }}</p>
-                                                                <small class="float-end font-size-12">Just Now</small>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        @endforeach
                                     </div>
                                 </div>
-
                             </li>
+                            <!-- End notifikasi -->
+                            <!-- start pesan -->
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link" id="mail-drop2" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.4"
+                                            d="M20 13.441C20 16.231 17.76 18.491 14.97 18.501H14.96H5.05C2.27 18.501 0 16.251 0 13.461V13.451C0 13.451 0.006 9.02498 0.014 6.79898C0.015 6.38098 0.495 6.14698 0.822 6.40698C3.198 8.29198 7.447 11.729 7.5 11.774C8.21 12.343 9.11 12.664 10.03 12.664C10.95 12.664 11.85 12.343 12.56 11.763C12.613 11.728 16.767 8.39398 19.179 6.47798C19.507 6.21698 19.989 6.45098 19.99 6.86798C20 9.07698 20 13.441 20 13.441Z"
+                                            fill="currentColor" />
+                                        <path
+                                            d="M19.4769 3.174C18.6109 1.542 16.9069 0.5 15.0309 0.5H5.05086C3.17486 0.5 1.47086 1.542 0.60486 3.174C0.41086 3.539 0.50286 3.994 0.82586 4.252L8.25086 10.191C8.77086 10.611 9.40086 10.82 10.0309 10.82C10.0349 10.82 10.0379 10.82 10.0409 10.82C10.0439 10.82 10.0479 10.82 10.0509 10.82C10.6809 10.82 11.3109 10.611 11.8309 10.191L19.2559 4.252C19.5789 3.994 19.6709 3.539 19.4769 3.174Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    <span class="bg-primary count-mail"></span>
+                                </a>
+                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
+                                    aria-labelledby="mail-drop2">
+                                    <div class="card shadow-none m-0">
+                                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
+                                            <div class="header-title">
+                                                <h5 class="mb-0 text-white">All Message</h5>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- End Pesan-->
+                            <!-- Start Profile-->
                             <li class="nav-item dropdown">
                                 <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -289,98 +307,34 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
+                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
-                                   </form>
+                                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
                                 </ul>
                             </li>
+                            <!-- End Profile-->
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
-    <div class="content-inner mt-5 py-0">
-    <div class="row">
-        <div class="col-md-12 col-lg-12">
-            <div class="" 
-            data-iq-gsap="onStart" 
-            data-iq-opacity="0" 
-            data-iq-position-y="-40"
-                data-iq-duration=".6" 
-                data-iq-delay=".8" 
-                data-iq-trigger="scroll" 
-                data-iq-ease="none"
-                style="position: relative">
-                @include('layout.bilboard')
-                <!-- Start Isi Dashboard -->
-                @php
-                    $no = 1;
-                @endphp
-
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
-               @foreach ($penjual as $p)
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
-                        <div class="col active" 
-                        data-iq-gsap="onStart" 
-                        data-iq-opacity="0"
-                        data-iq-position-y="-40" 
-                        data-iq-duration=".6" 
-                        data-iq-delay=".6"
-                        data-iq-trigger="scroll" 
-                        data-iq-ease="none">
-                        <div class="card card-white dish-card profile-img mb-5">
-                        <div class="profile-img21">
-                    <!-- tempat foto -->
-                    <img src="../assets/images/layouts/16.png"
-                        class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
-                        alt="profile-image">
-                    <img src="../assets/images/layouts/16.png"
-                        class="img-fluid rounded-pill avatar-170 hover-image "
-                        alt="profile-image" data-iq-gsap="onStart"
-                        data-iq-opacity="0" data-iq-scale=".6"
-                        data-iq-rotate="180" data-iq-duration="1"
-                        data-iq-delay=".6" data-iq-trigger="scroll"
-                        data-iq-ease="none">
-                </div>
-                <!-- Menu muter muter Start -->
-                <div class="card-body menu-image">
-                    <h6 class="heading-title fw-bolder mt-4 mb-0">
-                        {{ $p->namamenu }}</h6>
-                    <div class="card-rating stars-ratings">
-                        <!-- Star ratings here -->
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <div class="d-flex align-items-center">
-                            <span class="text-primary fw-bolder me-2">{{ $p->harga }}</span>
-                            <small class="text-decoration-line-through">$8.49</small>
+        <div class="content-inner mt-5 py-0">
+            <div class="row">
+                <div class="col-md-24 col-lg-24">
+                    <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+                        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
+                        style="position: relative">
+                        <div class="container11" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
+                         
                         </div>
-                        <button class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#myModal-{{ $p->id }}">beli</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    @endforeach
-</div>
-
-            
-        </div>
-    </div>
-    @include('layout.footer')
-</div>
-
-        </main>
+        {{-- @include('layout.footer') --}}
+    </main>
     @include('layout.js')
-    <!-- Include Bootstrap and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

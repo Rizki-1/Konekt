@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\admink;
 use Illuminate\Support\Str;
 use App\Models\adminmp;
+use App\Models\adminnotifikasi;
 use App\Models\dashboardusercontrollers;
 use App\Models\notifikasi;
+use App\Models\notifikasipenjual;
 use App\Models\penjual;
 use Illuminate\Http\Request;
 
@@ -19,14 +21,22 @@ class adminpembeliancontroller extends Controller
     {
         $dashboardusercontrollers = dashboardusercontrollers::where('adminstatus', 'notapprove')->get();
         $penjual = penjual::all();
+        $adminnotifikasi = adminnotifikasi::all();
+        $notifikasi_penjual=notifikasipenjual::all();
         $notifikasi = notifikasi::all();
-        return view('admin.pembelian', compact('dashboardusercontrollers', 'penjual', 'notifikasi'));
+        return view('admin.pembelian', compact('dashboardusercontrollers', 'penjual', 'notifikasi', 'notifikasi_penjual', 'adminnotifikasi'));
     }
 
     public function metodpembayaran()
     {
         $adminmp = adminmp::all();
         return view('admin.metodpembayaran', compact('adminmp'));
+    }
+
+    public function DashboardAdmin()
+    {
+        $adminnotifikasi = adminnotifikasi::all();
+        return view('admin.dashboard', compact('adminnotifikasi'));
     }
 
     public function terima( $id)
@@ -37,13 +47,37 @@ class adminpembeliancontroller extends Controller
         $notifikasi->isi = 'lihat pesanan anda di menu pesanan';
         $notifikasi->waktu_kadaluwarsa = $waktuKedaluwarsa;
         $notifikasi->save();
+
+
     $dashboardusercontrollers = Dashboardusercontrollers::findOrFail($id);
     $dashboardusercontrollers->adminstatus = 'approve';
     $dashboardusercontrollers->save();
+
+    $adminnotifikasi = adminnotifikasi::findOrFail($id);
+    $adminnotifikasi->keterangan_admin = 'pesanan berhasil di konfirmasi';
+    $adminnotifikasi->isi_admin = 'pesanan akan di sampaikan ke penjual';
+    $adminnotifikasi->save();
+
+    $notifikasi_penjual =
+    [
+        'keterangan_penjual' => 'ada pesanan',
+        'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut'
+    ];
+     notifikasipenjual::create($notifikasi_penjual);
     return redirect()->route('admin.index');
     }
-    public function tolak()
+    public function tolak($id)
     {
+        $dashboardusercontrollers = dashboardusercontrollers::findOrFail($id);
+        $dashboardusercontrollers->adminstatus = 'notapprove';
+        $dashboardusercontrollers->save();
+
+        $notifikasi = notifikasi::FindOrFail($id);
+        $notifikasi->keterangan = 'pesanan anda di tolak ';
+        $notifikasi->isi = 'periksa tabel pesanan anda untuk konfirmasi';
+        $notifikasi->save();
+
+        return redirect()->back();
 
     }
 

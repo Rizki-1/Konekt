@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\admink;
 use App\Models\dashboardusercontrollers;
 use App\Models\notifikasi;
+use App\Models\notifikasipenjual;
 use App\Models\pembayaranpenjual;
 use App\Models\penjual;
 use Illuminate\Http\Request;
@@ -16,24 +17,24 @@ class penjualcontroller extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
         $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi ')->get();
         $notifikasi = notifikasi::all();
-=======
         $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi')->get();
->>>>>>> Stashed changes
+        $notifikasi_penjual = notifikasipenjual::all();
         $penjual = penjual::all();
         $adminkategori = admink::all();
-        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi'));
+        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual'));
+    }
+
+    public function DashboardPenjual()
+    {
+        return view('DashboardPenjual.dashboardpenjual');
     }
 
     public function riwayatpenjual()
     {
-<<<<<<< Updated upstream
         $user = dashboardusercontrollers::where('pembelianstatus' ,'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
-=======
         $user = dashboardusercontrollers::where('pembelianstatus','selesai')->get();
->>>>>>> Stashed changes
         $adminkategori = admink::all();
         return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
     }

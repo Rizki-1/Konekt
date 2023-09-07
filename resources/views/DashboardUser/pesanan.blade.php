@@ -356,17 +356,6 @@
       <center><h3>Kuliner kita <span style="color: #EA6A12">|pesanan</span></h3></center>
       @foreach ($user as $u)
       <div class="container">
-<<<<<<< Updated upstream
-         <div class="card d-flex">
-             <hr>
-             <div class="card-content d-flex">
-                 <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
-                 <div class="img-content">
-                     <h5>Masakan nasi - warung berkah</h5>
-                     <tr>{{ $u->adminstatus }}</tr><br>
-                     <tr>Rp 15.000 1 (menu) dana</tr><br>
-                     <tr>{{ $u->pembelianstatus }}</tr><br>
-=======
          <div class="card d-flex ">
             <div class="">
              <div class="card-content d-flex ">
@@ -374,10 +363,10 @@
                  <img src="{{ asset('css/img/cafe.jpeg') }}" class="foto"  alt="">
                  <div class="img-content">
                      <a class="tgl">27-08-2023</a>
-                     <h5 >Masakan nasi - warung berkah</h5>
+                     <h5  class="mt-12">Masakan nasi - warung berkah</h5>
                      <tr>Nasi Goreng</tr><br>
                      <tr> Rp.{{ $u->totalharga }} 1 (menu)- Dana</tr><br>
->>>>>>> Stashed changes
+
                      <tr class="" >
                          <div class="btn btn-warning" style=" float:right"><span class="color:#EA6A12">sedang di proses</span></div>
                      </tr>

@@ -34,16 +34,16 @@
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
-<<<<<<< Updated upstream
+
     flex-direction: column; /* Tambahkan ini agar konten dan gambar dalam satu kolom */
-=======
+
     margin: 10px;
     padding: 10px;
     margin-left: 100px;
     width: 600px;
     margin-bottom: 10px;
     position: fixed;
->>>>>>> Stashed changes
+
     justify-content: space-between; /* Memisahkan konten dan gambar */
     align-items: center; /* Pusatkan vertikal */
     max-width: 100%;
@@ -56,7 +56,7 @@
 /*  */
 .img {
     max-width: 165px; /* Atur lebar maksimal gambar */
-=======
+{
 .card5{
     background-color: #ea68121e;
     color: #000000;
@@ -74,20 +74,20 @@
 
 .img {
     max-width: 150px; /* Atur lebar maksimal gambar */
->>>>>>> Stashed changes
+
     max-height: 330px; /* Atur tinggi maksimal gambar */
     margin-top: auto;
     margin-left: auto; /* Memindahkan gambar ke kanan */
     align-self: flex-start; /* Memindahkan gambar ke atas */
-<<<<<<< Updated upstream
+
     border-radius: 5px;
     vertical-align: top;
     margin-top: -1000px;
 
-=======
+
     margin-right: 10px;
     margin-top: 10px;
->>>>>>> Stashed changes
+
 }
 
 .card-content {
@@ -115,7 +115,7 @@
       height: auto; /* Atur tinggi card sesuai kebutuhan Anda */
    }
 
-<<<<<<< Updated upstream
+
 .nav-link.active {
     color: #F66F0C; /* Ganti dengan kode warna yang Anda inginkan */
 }
@@ -130,21 +130,19 @@
     cursor: pointer; /* Mengubah cursor saat mengarahkan ke tombol */
     border-radius: 10px;
   }
-=======
+
 .my-custom-card{
     height: auto;
 }
 
->>>>>>> Stashed changes
-
   .custom-button:hover {
     background-color: #FF9901; /* Warna latar belakang tombol saat dihover */
   }
-  
+
   p, h5 {
     margin: 0;
   }
-  
+
   .stars {
     color: gold; /* Warna bintang (misalnya, emas) */
     font-size: 24px; /* Ukuran bintang */
@@ -155,11 +153,9 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Kuliner kita</title>
 
-<<<<<<< Updated upstream
+
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-=======
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
->>>>>>> Stashed changes
 
       <!-- Favicon -->
       <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
@@ -375,7 +371,7 @@
           </div>
         </nav>
       </div>
-<<<<<<< Updated upstream
+
       <div class="content-inner mt-5 py-0">
     <div class="card col-md-12 col-lg-12 my-custom-card">
         <div class="card-body">
@@ -384,7 +380,7 @@
                 style="position: relative">
                 <h1 class="title">Daftar Toko</h1>
                 <div class="container">
-                 
+
                         <!-- card 1 -->
                         <div class="col-md-6 col-lg-6">
                         <div class="card1">
@@ -403,10 +399,9 @@
                             <img src="{{ asset('css/img/2dfntai.jpg') }}" alt="Foto Toko" class="img">
                           </div>
                         </div>
-                      </div>  
+                      </div>
                         <!-- card 2 -->
-                  
-=======
+
     <div class="content-inner mt-5 py-0">
    <div class="card col-md-12 col-lg-12 my-custom-card">
     <div class="card-body">
@@ -438,21 +433,21 @@
                     {{-- <div class="btn-custom"><span>12 menu</span></div> --}}
                     <div><button type="submit" class="btn btn-warning">Detail</button>
                     </div>
->>>>>>> Stashed changes
+
                 </div>
               </div>
             </div>
-<<<<<<< Updated upstream
+
         </div>
     </div>
 </div>
- 
+
 <!-- @include('layout.footer') -->
 </main>
 @include('layout.js')
 </body>
 
-=======
+
             <img src="{{ asset('css/img/copi.jpg') }}" alt="Foto Toko" class="img">
         </div>
     </div>

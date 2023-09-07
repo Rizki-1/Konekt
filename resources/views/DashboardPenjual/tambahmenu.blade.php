@@ -297,7 +297,6 @@
       >
     </div>
 </div>
-
       {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')

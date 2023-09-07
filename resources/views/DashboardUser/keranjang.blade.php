@@ -4,7 +4,7 @@
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 <head>
-<style>
+{{-- <style>
     .title{
         text-align: center;
         justify-content: center;
@@ -27,9 +27,19 @@
     height: 100vh;
     margin-bottom: 10px;
 }
-
+ .kr{
+    margin-top: -80px;
+    margin-ri: 120px;
+ }
  .container {
 
+  }
+
+  .card{
+    padding: 110px;
+    margin-top: -25px;
+    width: 1350px;
+    left: -90px;
   }
 
   .card1 {
@@ -67,11 +77,41 @@
 
   }
 
+    </style> --}}
+    <style>
+        .quantity-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+}
+
+.quantity-button {
+  width: 30px;
+  height: 30px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+}
+
+.quantity-button:hover {
+  background-color: #ddd;
+}
+
+.coy {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  height: 30px;
+}
+
     </style>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Kuliner kita</title>
-
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <!-- Favicon -->
       <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
 
@@ -297,7 +337,7 @@
       data-iq-ease="none"
       style="position: relative"
       >
-      <h1 class="title">Daftar Toko</h1>
+      {{-- <h1 class="title">Keranjang</h1>
       <div class="card-container">
           <div class="container">
             <div class="card1">
@@ -305,7 +345,7 @@
                  <tbody>
                     <div class="img">
                         <tr>
-                            <img src="foto.jpg">
+                            <img src="{{ asset('css/img/2dfntai.jpg') }}" alt="">
                         </tr>
                     </div>
                     <th>
@@ -325,12 +365,84 @@
             </div>
         </div>
     </div>
-</div>
-    </div>
-</div>
-      </div>
-      {{-- @include('layout.footer') --}}
+</div> --}}
+        <div class="card">
+            <div class="card-body">
+                <div class="">
+                    <h5 style="color: red">Keranjang saya</h5><br>
+                    <div class="mb-2 mt-2"><i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px " aria-hidden="true"></i>Masakan Nasi-Warung Berkah </div>
+                     <hr>
+                     <div class="d-flex justify-content-between ">
+                     <div class=""><img src="{{ asset('css/img/airmineral.jpg') }}" style="width: 80px; height:75px;" alt=""> Air Putih</div>
+                     <div class="form-label text-bold"><h5 class="form-label">Harga satuan</h5>
+                        <div class=""><p class="form-label">Rp.15,000</p></div>
+                      </div>
+                     <div class="form-label text-bold"><h5 class="form-label">Kuantitas</h5>
+                        <div class="quantity-input">
+                            <button class="quantity-button minus quantity-minus">-</button>
+                            <input type="text" name="quantity" id="quantity" class="coy" value="1">
+                            <button class="quantity-button plus quantity-plus">+</button>
+                          </div>
+                      </div>
+                     <div class="form-label text-bold"><h5 class="form-label">Total Harga</h5>
+                        <div class=""><p class="form-label">Rp.15,000</p></div>
+                      </div>
+                     <div class="form-label text-bold"><h5 class="form-label" style="width: 80px;">Aksi</h5>
+                        <div class=""><center><i class="fa fa-trash"  aria-hidden="true" ></i></center></div>
+                      </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <br>
+                    <div class="d-flex justify-content-between ">
+                        <div class=""><img src="{{ asset('css/img/airmineral.jpg') }}" style="width: 80px; height:75px;" alt=""> Air Putih</div>
+                        <div class="form-label text-bold"><h5 class="form-label">Harga satuan</h5>
+                           <div class=""><p class="form-label">Rp.15,000</p></div>
+                         </div>
+                        <div class="form-label text-bold"><h5 class="form-label">Kuantitas</h5>
+                           <div class="quantity-input">
+                               <button class="quantity-button minus quantity-minus">-</button>
+                               <input type="text" name="quantity" id="quantity" class="coy" value="1">
+                               <button class="quantity-button plus quantity-plus">+</button>
+                             </div>
+                         </div>
+                        <div class="form-label text-bold"><h5 class="form-label">Total Harga</h5>
+                           <div class=""><p class="form-label">Rp.15,000</p></div>
+                         </div>
+                        <div class="form-label text-bold"><h5 class="form-label" style="width: 80px;">Aksi</h5>
+                           <div class=""><center><i class="fa fa-trash" style="width: 30px;"  aria-hidden="true" ></i></center></div>
+                         </div>
+                       </div>
+                   <hr>
+                   <input type="radio"> Pilih Semua
+                   <div class="d-flex justify-content-end">
+                   <div class="form-label"><h5 class="form-label">Total(Produk): Rp.18,000
+                 <button type="button" class="btn btn-warning"> Beli</button></h5></div>
+                </div>
+            </div>
+        </div>
+        {{-- @include('layout.footer') --}}
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const quantityInput = document.getElementById("quantity");
+        const quantityMinus = document.querySelector(".quantity-minus");
+        const quantityPlus = document.querySelector(".quantity-plus");
+
+        quantityMinus.addEventListener("click", function () {
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        quantityPlus.addEventListener("click", function () {
+            const currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+        });
+    });
+  </script>
    </main>
  @include('layout.js')
+
  </body>
 </html>

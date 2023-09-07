@@ -16,8 +16,12 @@ class penjualcontroller extends Controller
      */
     public function index()
     {
+<<<<<<< Updated upstream
         $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi ')->get();
         $notifikasi = notifikasi::all();
+=======
+        $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi')->get();
+>>>>>>> Stashed changes
         $penjual = penjual::all();
         $adminkategori = admink::all();
         return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi'));
@@ -25,7 +29,11 @@ class penjualcontroller extends Controller
 
     public function riwayatpenjual()
     {
+<<<<<<< Updated upstream
         $user = dashboardusercontrollers::where('pembelianstatus' ,'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
+=======
+        $user = dashboardusercontrollers::where('pembelianstatus','selesai')->get();
+>>>>>>> Stashed changes
         $adminkategori = admink::all();
         return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
     }

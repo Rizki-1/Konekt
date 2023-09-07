@@ -212,7 +212,7 @@
                       </svg>
                       <span class="bg-danger dots"></span>
                   </a>
-                  <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="notification-drop">
+                    <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="notification-drop">
                       <div class="card shadow-none m-0">
                         <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
                             <div class="header-title">

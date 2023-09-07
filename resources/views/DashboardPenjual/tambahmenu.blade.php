@@ -209,6 +209,21 @@
                               <h5 class="mb-0 text-white">All Notifications</h5>
                             </div>
                         </div>
+
+                        @foreach ($notifikasi_penjual as $np )
+                        <div class="card-body p-0 notifikasi-belum-kedaluwarsa" >
+                            <div class="d-flex align-items-center">
+                                <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
+                                <div class="ms-3 w-100">
+                                    <h6 class="mb-0">{{ $np->keterangan_penjual }}</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">{{ $np->isi_penjual }}</p>
+                                        <small class="float-end font-size-12">Just Now</small>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
                       </div>
                   </div>
                 </li>
@@ -242,7 +257,10 @@
                     <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
                     <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                    <li><button type="submit" class="dropdown-item"></button></li>
+                </form>
                   </ul>
                 </li>
               </ul>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\admink;
 use App\Models\dashboardusercontrollers;
 use App\Models\notifikasi;
+use App\Models\notifikasipenjual;
 use App\Models\pembayaranpenjual;
 use App\Models\penjual;
 use Illuminate\Http\Request;
@@ -18,9 +19,10 @@ class penjualcontroller extends Controller
     {
         $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi ')->get();
         $notifikasi = notifikasi::all();
+        $notifikasi_penjual = notifikasipenjual::all();
         $penjual = penjual::all();
         $adminkategori = admink::all();
-        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi'));
+        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual'));
     }
 
     public function riwayatpenjual()

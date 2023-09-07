@@ -129,7 +129,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="daftartoko">
+                                <a class="nav-link "aria-current="page" href="pembelian">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -174,7 +174,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="keranjang">
+                                <a class="nav-link " href="UserKeranjang">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -294,7 +294,10 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
+                                   </form>
                                 </ul>
                             </li>
                         </ul>

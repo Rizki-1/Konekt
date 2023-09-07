@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class Usercontroller extends Controller
+class rolepenjualcontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,15 +13,8 @@ class Usercontroller extends Controller
     public function index()
     {
         $user = User::all();
-        return view('loginregister.index', compact('user'));
+        return view('loginregister.register_penjual', compact('user'));
     }
-
-    public function register()
-    {
-        $user = User::all();
-        return view('loginregister.register', compact('user'));
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -30,7 +22,7 @@ class Usercontroller extends Controller
     public function create()
     {
         $user = User::all();
-        return view('loginregister.register', compact('user'));
+        return view('loginregister.register_penjual', compact('user'));
     }
 
     /**
@@ -38,10 +30,15 @@ class Usercontroller extends Controller
      */
     public function store(Request $request)
     {
-        
-        $user = $request->all();
-        $user['password'] = Hash::make($user['password']);
+        $user =
+        [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'role' => 'penjual',
+        ];
         User::create($user);
+
         return redirect()->route('user.index');
     }
 

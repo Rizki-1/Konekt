@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\dashboardusercontrollers;
 use App\Models\notifikasi;
+use App\Models\notifikasipenjual;
 use App\Models\penjual;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class dashboardusercontroller extends Controller
         $penjual = penjual::all();
         $waktuKadaluwarsa = notifikasi::all();
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', ));
     }
 
     public function pembelian(Request $request)
@@ -41,6 +42,12 @@ class dashboardusercontroller extends Controller
         $user = dashboardusercontrollers::where('pembelianstatus', 'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
         $penjual = penjual::all();
         return view('DashboardUser.riwayat', compact('user', 'penjual'));
+    }
+
+    public function Userkeranjang()
+    {
+        $user = dashboardusercontrollers::all();
+        return view('DashboardUser.keranjang', compact('user'));
     }
 
     /**
@@ -67,6 +74,8 @@ class dashboardusercontroller extends Controller
 
         ];
 
+
+
     if ($dashboardusercontrollers['pembelianstatus'] != 'anda berhasil membuat pesanan')
      {
         $waktuKadaluwarsa = now()->addMinutes(5);
@@ -77,6 +86,7 @@ class dashboardusercontroller extends Controller
             'waktu_kadaluwarsa' => $waktuKadaluwarsa,
         ];
     }
+       
         notifikasi::create($notifikasi);
         dashboardusercontrollers::create($dashboardusercontrollers);
         return redirect()->route('menu.index');

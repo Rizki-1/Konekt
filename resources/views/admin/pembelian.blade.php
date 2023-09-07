@@ -346,7 +346,10 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                    <li><button type="submit" class="dropdown-item">logout</button></li>
+                                   </form>
                                 </ul>
                             </li>
                             <!-- End Profile-->
@@ -387,8 +390,10 @@
                                                 @method('PATCH')
                                                 <button type="submit" class="btn btn-success">terima</button>
                                             </form>
-                                            <form action="">
-                                                <button class="btn btn-danger">tolak</button>
+                                            <form action="{{ route('admin.tolak', ['id' =>$s->id]) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-danger">tolak</button>
                                             </form>
                                         </td>
                                     </tr>

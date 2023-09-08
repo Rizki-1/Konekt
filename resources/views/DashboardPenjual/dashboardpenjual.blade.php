@@ -181,7 +181,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="keranjang">
+                                <a class="nav-link " href="pembayaran">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -327,7 +327,7 @@
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
                         <div class="container11" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
-                         
+
                         </div>
                     </div>
                 </div>

@@ -24,7 +24,7 @@ class adminpembeliancontroller extends Controller
         $dashboardusercontrollers = dashboardusercontrollers::where('adminstatus', 'notapprove')->get();
         $penjual = penjual::all();
         $adminnotifikasi = adminnotifikasi::all();
-        $notifikasi_penjual=notifikasipenjual::all();
+        $notifikasi_penjual = notifikasipenjual::all();
         $notifikasi = notifikasi::all();
         return view('admin.pembelian', compact('dashboardusercontrollers', 'penjual', 'notifikasi', 'notifikasi_penjual', 'adminnotifikasi'));
     }
@@ -41,7 +41,7 @@ class adminpembeliancontroller extends Controller
         return view('admin.dashboard', compact('adminnotifikasi'));
     }
 
-    public function terima( $id)
+    public function terima($id)
     {
         $waktuKedaluwarsa = now()->addMinute(5);
         $notifikasi = notifikasi::findOrFail($id);
@@ -51,22 +51,22 @@ class adminpembeliancontroller extends Controller
         $notifikasi->save();
 
 
-    $dashboardusercontrollers = Dashboardusercontrollers::findOrFail($id);
-    $dashboardusercontrollers->adminstatus = 'approve';
-    $dashboardusercontrollers->save();
+        $dashboardusercontrollers = Dashboardusercontrollers::findOrFail($id);
+        $dashboardusercontrollers->adminstatus = 'approve';
+        $dashboardusercontrollers->save();
 
-    $adminnotifikasi = adminnotifikasi::findOrFail($id);
-    $adminnotifikasi->keterangan_admin = 'pesanan berhasil di konfirmasi';
-    $adminnotifikasi->isi_admin = 'pesanan akan di sampaikan ke penjual';
-    $adminnotifikasi->save();
+        $adminnotifikasi = adminnotifikasi::findOrFail($id);
+        $adminnotifikasi->keterangan_admin = 'pesanan berhasil di konfirmasi';
+        $adminnotifikasi->isi_admin = 'pesanan akan di sampaikan ke penjual';
+        $adminnotifikasi->save();
 
-    $notifikasi_penjual =
-    [
-        'keterangan_penjual' => 'ada pesanan',
-        'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut'
-    ];
-     notifikasipenjual::create($notifikasi_penjual);
-    return redirect()->route('admin.index');
+        $notifikasi_penjual =
+            [
+                'keterangan_penjual' => 'ada pesanan',
+                'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut'
+            ];
+        notifikasipenjual::create($notifikasi_penjual);
+        return redirect()->route('admin.index');
     }
     public function tolak($id)
     {
@@ -80,22 +80,23 @@ class adminpembeliancontroller extends Controller
         $notifikasi->save();
 
         return redirect()->back();
-
     }
 
-    public function terimapenjual($id)
+    public function terimapenjual(string $id)
     {
-        $user = User::FindOrFail($id);
+        // $user = User::FindOrFail($id);
+        $calonPenjual = penjuallogin::where('id', $id)->first()->user_id;
+        $user = User::where('id', $calonPenjual)->first();
         $user->role = 'penjual';
         $user->save();
-        dd($user->name);
-        // return redirect()->back();
+       
+        // dd($user->name);
+        return redirect()->route('calonpenjual');
     }
 
     public function calonpenjual(Request $request)
     {
-
-        $penjuallogin = penjuallogin::all();
+        $penjuallogin = penjuallogin::with('user')->get();
         $user = User::all();
         return view('admin.calonpenjual', compact('penjuallogin', 'user'));
     }
@@ -163,7 +164,6 @@ class adminpembeliancontroller extends Controller
      */
     public function show(string $id)
     {
-
     }
 
     /**
@@ -171,7 +171,6 @@ class adminpembeliancontroller extends Controller
      */
     public function edit(string $id)
     {
-
     }
 
     /**
@@ -179,7 +178,6 @@ class adminpembeliancontroller extends Controller
      */
     public function update(Request $request, string $id)
     {
-
     }
 
     /**
@@ -187,6 +185,5 @@ class adminpembeliancontroller extends Controller
      */
     public function destroy(string $id)
     {
-
     }
 }

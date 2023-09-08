@@ -91,7 +91,7 @@
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{ route('DashboardPenjual_') }}">
+                                <a class="nav-link " aria-current="page" href="">
                                   <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -104,7 +104,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="{{ route('DashboardPenjual.index') }}">
+                                <a class="nav-link active" aria-current="page" href="{{ route('DashboardPenjual.index') }}">
                                   <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -274,7 +274,7 @@
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                     <li><button type="submit" class="dropdown-item"></button></li>
-                </form>
+                    </form>
                   </ul>
                 </li>
               </ul>
@@ -296,6 +296,7 @@
       style="position: relative"
       >
     </div>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Success</button>
 </div>
       {{-- @include('layout.footer') --}}
     </main>

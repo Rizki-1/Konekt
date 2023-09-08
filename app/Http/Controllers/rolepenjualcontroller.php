@@ -39,6 +39,7 @@ class rolepenjualcontroller extends Controller
             'email' => $request->email,
             'password' => $request->password,
             'role' => 'penjualnotapprove',
+            // 'role' => 'penjual',
         ]);
 
         User::find($user->id)->penjuallogin()->create([

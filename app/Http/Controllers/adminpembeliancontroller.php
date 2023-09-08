@@ -85,14 +85,11 @@ class adminpembeliancontroller extends Controller
 
     public function terimapenjual($id)
     {
-        // $penjuallogin = penjuallogin::FindOrFail($id);
-        // $penjuallogin->role = 'penjual';
-        // $penjuallogin->save();
-
         $user = User::FindOrFail($id);
         $user->role = 'penjual';
         $user->save();
-        return redirect()->back();
+        dd($user->name);
+        // return redirect()->back();
     }
 
     public function calonpenjual(Request $request)

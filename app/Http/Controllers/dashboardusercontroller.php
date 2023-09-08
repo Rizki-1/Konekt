@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 
 class dashboardusercontroller extends Controller
 {
+    protected $penjual;
+
+    public function __construct()
+    {
+        $this->penjual = penjual::all();
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +35,7 @@ class dashboardusercontroller extends Controller
 
     public function pembelian(Request $request)
     {
-        $penjual = penjual::all();
+        // $penjual = penjual::all();
         return view('DashboardUser.pembelian', compact('penjual'));
     }
 

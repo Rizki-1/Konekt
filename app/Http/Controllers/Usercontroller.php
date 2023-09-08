@@ -13,8 +13,9 @@ class Usercontroller extends Controller
      */
     public function index()
     {
-        $user = User::all();
-        return view('loginregister.index', compact('user'));
+
+        $User = User::all();
+        return view('DashboardUser.menu', compact('User'));
     }
 
     public function register()
@@ -38,7 +39,7 @@ class Usercontroller extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $user = $request->all();
         $user['password'] = Hash::make($user['password']);
         User::create($user);

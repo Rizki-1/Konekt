@@ -38,12 +38,20 @@
     justify-content: left;
   }
 
-  .img img {
-    width: 50px;
-    height: 50px;
+  .foto {
+    width: 130px;
+    height: 100px;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-top: 15px;
+  }
+  .tgl{
+    color: rgb(140, 112, 112);
+    margin-left: 200px;
+
   }
   .main-content {
-    flex: 1px;
+    flex: 2px;
   }
     </style>
     <meta charset="utf-8">
@@ -332,7 +340,7 @@
           <!-- Nav Header Component End -->
         <!--Nav End-->
       </div>
-      <div class="content-inner mt-5 py-0">
+    <div class="content-inner mt-5 py-0">
 <div class="row">
    <div class="col-md-12 col-lg-12">
       <div class=" "
@@ -345,24 +353,27 @@
       data-iq-ease="none"
       style="position: relative"
       >
-      <h3>Kuliner kita <span style="color: #EA6A12">|pesanan</span></h3>
+      <center><h3>Kuliner kita <span style="color: #EA6A12">|pesanan</span></h3></center>
       @foreach ($user as $u)
       <div class="container">
          <div class="card d-flex ">
-             <hr>
-             <div class="card-content d-flex">
-                 <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
+            <div class="">
+             <div class="card-content d-flex ">
+                {{-- class="h-10 w-50 p-2 mb-10" --}}
+                 <img src="{{ asset('css/img/cafe.jpeg') }}" class="foto"  alt="">
                  <div class="img-content">
-                     <h5>Masakan nasi - warung berkah</h5>
-                     <tr>{{ $u->adminstatus }}</tr><br>
-                     <tr>Rp 15.000 1 (menu) dana</tr><br>
-                     <tr>{{ $u->pembelianstatus }}</tr><br>
+                     <a class="tgl">27-08-2023</a>
+                     <h5  class="mt-12">Masakan nasi - warung berkah</h5>
+                     <tr>Nasi Goreng</tr><br>
+                     <tr> Rp.{{ $u->totalharga }} 1 (menu)- Dana</tr><br>
+
                      <tr class="" >
                          <div class="btn btn-warning" style=" float:right"><span class="color:#EA6A12">sedang di proses</span></div>
                      </tr>
                  </div>
              </div>
          </div>
+        </div>
        </div>
      </div>
       @endforeach

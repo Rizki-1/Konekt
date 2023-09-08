@@ -17,9 +17,19 @@ class penjualcontroller extends Controller
      */
     public function index()
     {
+
         $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi ')->get();
         $notifikasi = notifikasi::all();
+        $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi')->get();
         $notifikasi_penjual = notifikasipenjual::all();
+
+
+        $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi ')->get();
+        $notifikasi = notifikasi::all();
+
+        $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi')->get();
+
+
         $penjual = penjual::all();
         $adminkategori = admink::all();
         return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual'));
@@ -32,7 +42,15 @@ class penjualcontroller extends Controller
 
     public function riwayatpenjual()
     {
+
         $user = dashboardusercontrollers::where('pembelianstatus' ,'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
+        $user = dashboardusercontrollers::where('pembelianstatus','selesai')->get();
+
+
+        $user = dashboardusercontrollers::where('pembelianstatus' ,'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
+
+        $user = dashboardusercontrollers::where('pembelianstatus','selesai')->get();
+
         $adminkategori = admink::all();
         return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
     }

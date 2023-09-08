@@ -40,16 +40,16 @@
                         </div>
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">harga</label>
-                            <input type="text" name="harga" class="form-control">
+                            <input type="text" name="harga" class="form-control" >
                         </div>
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">foto makanan</label>
                             <input type="text" name="fotomakanan" class="form-control">
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -297,7 +297,6 @@
       >
     </div>
 </div>
-      </div>
       {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')

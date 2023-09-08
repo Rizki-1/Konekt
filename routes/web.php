@@ -26,6 +26,7 @@ Route::middleware(['ceklogin'])->group(function () {
 
     Route::patch('terima/{id}', [adminpembeliancontroller::class, 'terima'])->name('admin.terima');
     Route::patch('tolak/{id}', [adminpembeliancontroller::class, 'tolak'])->name('admin.tolak');
+    Route::patch('terimapenjual/{id}', [adminpembeliancontroller::class, 'terimapenjual'])->name('terimapenjual');
 
 
 
@@ -37,6 +38,7 @@ Route::get('kategori', [adminpembeliancontroller::class, 'kategori'])->name('kat
 Route::post('kstore', [adminpembeliancontroller::class, 'kstore'])->name('kstore');
 Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
 Route::get('DashboardAdmin', [adminpembeliancontroller::class, 'DashboardAdmin'])->name('DashboardAdmin');
+Route::get('calonpenjual', [adminpembeliancontroller::class, 'calonpenjual'])->name('calonpenjual');
     });
 
 
@@ -72,6 +74,7 @@ Route::post('logout', [logincontroller::class, 'logout'])->name('logout');
 
 
 });
+Route::post('calonpenjual_store', [adminpembeliancontroller::class, 'calonpenjual_store'])->name('calonpenjual_store');
 Route::get('register', [UserController::class, 'register'])->name('register');
 Route::resource('penjualrole', rolepenjualcontroller::class);
 Route::post('authenticate', [logincontroller::class, 'authenticate'])->name('authenticate');

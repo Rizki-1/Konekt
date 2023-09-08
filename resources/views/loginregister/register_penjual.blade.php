@@ -497,12 +497,12 @@
                      </a>
                      <h2 class="mb-2 text-center">Sign Up</h2>
                      <p class="text-center">Create your Aprycot account.</p>
-                     <form action="{{ route('penjualrole.index') }}" method="POST">
+                     <form action="{{ route('penjualrole.store') }}" method="POST">
                         @csrf
                         <div class="row">
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label for="full-name" class="form-label">Full Name</label>
+                                 <label for="full-name" class="form-label">User Name</label>
                                  <input type="text" name="name" class="form-control form-control-sm" id="full-name" placeholder=" ">
                               </div>
                            </div>
@@ -521,7 +521,25 @@
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label for="phone" class="form-label">Phone No.</label>
-                                 <input type="text" class="form-control form-control-sm" id="phone" placeholder=" ">
+                                 <input type="text" name="notlp" class="form-control form-control-sm" id="phone" placeholder=" ">
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="phone" class="form-label">Nama toko</label>
+                                 <input type="text" name="nama_toko" class="form-control form-control-sm" id="phone" placeholder=" ">
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="phone" class="form-label">Foto toko</label>
+                                 <input type="text" name="foto_toko" class="form-control form-control-sm" id="phone" placeholder=" ">
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="phone" class="form-label">alamat toko</label>
+                                 <input type="text" name="alamat_toko" class="form-control form-control-sm" id="phone" placeholder=" ">
                               </div>
                            </div>
                            <div class="col-lg-6">

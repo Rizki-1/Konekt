@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\penjual;
+use App\Models\penjuallogin;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,8 @@ class rolepenjualcontroller extends Controller
     public function create()
     {
         $user = User::all();
-        return view('loginregister.register_penjual', compact('user'));
+        $penjuallogin = penjuallogin::all();
+        return view('loginregister.register_penjual', compact('user'), 'penjuallogin');
     }
 
     /**
@@ -30,14 +33,21 @@ class rolepenjualcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $user =
-        [
+
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
-            'role' => 'penjual',
-        ];
-        User::create($user);
+            'role' => 'penjualnotapprove',
+        ]);
+
+        User::find($user->id)->penjuallogin()->create([
+            'nama_toko' => $request->nama_toko,
+            'foto_toko' => $request->foto_toko,
+            'alamat_toko' => $request->alamat_toko,
+            'notlp' => $request->notlp
+        ]);
+
 
         return redirect()->route('user.index');
     }

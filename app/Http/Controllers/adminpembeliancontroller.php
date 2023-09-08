@@ -10,6 +10,8 @@ use App\Models\dashboardusercontrollers;
 use App\Models\notifikasi;
 use App\Models\notifikasipenjual;
 use App\Models\penjual;
+use App\Models\penjuallogin;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class adminpembeliancontroller extends Controller
@@ -81,6 +83,39 @@ class adminpembeliancontroller extends Controller
 
     }
 
+    public function terimapenjual($id)
+    {
+        // $penjuallogin = penjuallogin::FindOrFail($id);
+        // $penjuallogin->role = 'penjual';
+        // $penjuallogin->save();
+
+        $user = User::FindOrFail($id);
+        $user->role = 'penjual';
+        $user->save();
+        return redirect()->back();
+    }
+
+    public function calonpenjual(Request $request)
+    {
+
+        $penjuallogin = penjuallogin::all();
+        $user = User::all();
+        return view('admin.calonpenjual', compact('penjuallogin', 'user'));
+    }
+
+    public function calonpenjuallogin_create()
+    {
+        $penjuallogin = penjuallogin::all();
+        return view('admin.calonpenjual', compact('penjuallogin'));
+    }
+
+    public function calonpenjual_store(Request $request)
+    {
+        $penjuallogin = $request->all();
+        penjuallogin::create($penjuallogin);
+        return redirect()->route('user.index');
+    }
+
     public function kategori()
     {
         $admink = admink::all();
@@ -139,7 +174,7 @@ class adminpembeliancontroller extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
@@ -147,7 +182,7 @@ class adminpembeliancontroller extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**
@@ -155,6 +190,6 @@ class adminpembeliancontroller extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
     }
 }

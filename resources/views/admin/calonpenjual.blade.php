@@ -169,7 +169,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="calonpenjual">
+                                <a class="nav-link " aria-current="page" href="">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -311,23 +311,19 @@
                                                 <h5 class="mb-0 text-white">All Notifications</h5>
                                             </div>
                                         </div>
-                                        @php
-                                            $latestNotifications = $adminnotifikasi->sortByDesc('created_at')->take(3);
-                                        @endphp
-                                        @foreach ($latestNotifications as $adminnotif)
                                         <div class="card-body p-0 notifikasi-belum-kedaluwarsa">
                                             <div class="d-flex align-items-center">
                                                 <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
                                                 <div class="ms-3 w-100">
-                                                    <h6 class="mb-0">{{ $adminnotif->keterangan_admin }}</h6>
+                                                    <h6 class="mb-0"></h6>
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="mb-0">{{ $adminnotif->isi_admin }}</p>
-                                                        <small class="float-end font-size-12">{{ $adminnotif->created_at }}</small>
+                                                        <p class="mb-0"></p>
+                                                        <small class="float-end font-size-12"></small>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
+
                                     </div>
                                     </div>
                                 </div>
@@ -401,9 +397,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col">no</th>
-                                    <th scope="col">nama pembeli</th>
-                                    <th scope="col">nama menu</th>
-                                    <th scope="col">total harga</th>
+                                    <th scope="col">nama calon penjual</th>
+                                    <th scope="col">nama toko</th>
+                                    <th scope="col">alamat toko</th>
+                                    <th scope="col">no telephone</th>
                                     <th scope="col">aksi</th>
                                 </tr>
                             </thead>
@@ -411,19 +408,20 @@
                                 @php
                                     $no = 1;
                                 @endphp
-                                @foreach ($dashboardusercontrollers as $s)
+                                @foreach ($penjuallogin as $s)
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
-                                        <td>{{ $s->adminstatus }}</td>
-                                        <td>{{ $s->pembelistatus }}</td>
-                                        <td>{{ $s->namamenu_id }}</td>
+                                        <td>{{ $s->user_id}}</td>
+                                        <td>{{ $s->nama_toko }}</td>
+                                        <td>{{ $s->alamat_toko }}</td>
+                                        <td>{{ $s->notlp }}</td>
                                         <td class="d-flex">
-                                            <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
+                                            <form action="{{ route('terimapenjual', ['id' => $s->id] ) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
                                                 <button type="submit" class="btn btn-success">terima</button>
                                             </form>
-                                            <form action="{{ route('admin.tolak', ['id' =>$s->id]) }}" method="POST">
+                                            <form action="" method="POST">
                                                 @csrf
                                                 @method('PATCH')
                                                 <button type="submit" class="btn btn-danger">tolak</button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\penjuallogin;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class logincontroller extends Controller
     public function index()
     {
         $user = User::all();
-        return view('loginregister.index', compact('user'));
+        $penjuallogin = penjuallogin::all();
+        return view('loginregister.index', compact('user', 'penjuallogin'));
     }
 
     public function authenticate(Request $request): RedirectResponse
@@ -27,16 +29,27 @@ class logincontroller extends Controller
             'password' => ['required'],
         ]);
 
-        if(Auth::attempt($user)) {
-            if (auth()->user()->role == 'admin') {
-                return redirect()->route('admin.index');
-            }
-        }
-        if(Auth::attempt($user)) {
+        $penjuallogin = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($penjuallogin)) {
             if (auth()->user()->role == 'penjual') {
                 return redirect()->route('DashboardPenjual.index');
             }
         }
+
+        if (Auth::attempt($user)) {
+            if (auth()->user()->role == 'admin') {
+                return redirect()->route('admin.index');
+            }
+        }
+        // if(Auth::attempt($user)) {
+        //     if (auth()->user()->role == 'penjual') {
+        //         return redirect()->route('DashboardPenjual.index');
+        //     }
+        // }
         if (Auth::attempt($user)) {
 
             if (auth()->user()->role == 'user') {

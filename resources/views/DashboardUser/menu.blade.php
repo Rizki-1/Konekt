@@ -129,7 +129,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="pembelian">
+                                <a class="nav-link "aria-current="page" href="daftartoko">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -308,13 +308,13 @@
     <div class="content-inner mt-5 py-0">
     <div class="row">
         <div class="col-md-12 col-lg-12">
-            <div class="" 
-            data-iq-gsap="onStart" 
-            data-iq-opacity="0" 
+            <div class=""
+            data-iq-gsap="onStart"
+            data-iq-opacity="0"
             data-iq-position-y="-40"
-                data-iq-duration=".6" 
-                data-iq-delay=".8" 
-                data-iq-trigger="scroll" 
+                data-iq-duration=".6"
+                data-iq-delay=".8"
+                data-iq-trigger="scroll"
                 data-iq-ease="none"
                 style="position: relative">
                 @include('layout.bilboard')
@@ -326,13 +326,13 @@
                 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
                @foreach ($penjual as $p)
                     <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
-                        <div class="col active" 
-                        data-iq-gsap="onStart" 
+                        <div class="col active"
+                        data-iq-gsap="onStart"
                         data-iq-opacity="0"
-                        data-iq-position-y="-40" 
-                        data-iq-duration=".6" 
+                        data-iq-position-y="-40"
+                        data-iq-duration=".6"
                         data-iq-delay=".6"
-                        data-iq-trigger="scroll" 
+                        data-iq-trigger="scroll"
                         data-iq-ease="none">
                         <div class="card card-white dish-card profile-img mb-5">
                         <div class="profile-img21">
@@ -370,7 +370,7 @@
     @endforeach
 </div>
 
-            
+
         </div>
     </div>
     @include('layout.footer')

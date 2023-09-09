@@ -1,12 +1,19 @@
 <?php
 
-use App\Http\Controllers\adminpembeliancontroller;
-use App\Http\Controllers\dashboardusercontroller;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Usercontroller;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\logincontroller;
+use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Controllers\penjualcontroller;
 use App\Http\Controllers\rolepenjualcontroller;
-use App\Http\Controllers\Usercontroller;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\dashboardusercontroller;
+use App\Http\Controllers\adminpembeliancontroller;
+use App\Http\Controllers\mailcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +58,7 @@ Route::get('pembelian', [dashboardusercontroller::class, 'pembelian'])->name('pe
 Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
 Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
 Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
+
 });
 
 
@@ -74,11 +82,20 @@ Route::post('logout', [logincontroller::class, 'logout'])->name('logout');
 
 
 });
+Route::get('/forgot-password',[logincontroller::class, 'forgotpassword'])->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', [logincontroller::class, 'forgotpassword_store'] )->middleware('guest')->name('password.email');
+
+Route::get('/reset-password/{token}', [logincontroller::class, 'resetpassword_token'])->middleware('guest')->name('password.reset');
+
+Route::post('/reset-password', [logincontroller::class, 'resetpassword'])->middleware('guest')->name('password.update');
 Route::post('calonpenjual_store', [adminpembeliancontroller::class, 'calonpenjual_store'])->name('calonpenjual_store');
 Route::get('register', [UserController::class, 'register'])->name('register');
 Route::resource('penjualrole', rolepenjualcontroller::class);
 Route::post('authenticate', [logincontroller::class, 'authenticate'])->name('authenticate');
 Route::resource('user', UserController::class);
+Route::get('send-email',[mailcontroller::class, 'index'] );
+
 
 
 

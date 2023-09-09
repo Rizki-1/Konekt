@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\penjuallogin;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
+use App\Models\penjuallogin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Auth\Events\PasswordReset;
 
 class logincontroller extends Controller
 {
@@ -65,6 +69,54 @@ class logincontroller extends Controller
     {
         Auth::logout();
         return redirect()->route('user.index');
+    }
+
+    public function forgotpassword()
+    {
+        return view('auth.forgot-password');
+    }
+
+    public function forgotpassword_store(Request $request)
+    {
+        $request->validate([ 'email'=> 'required|email']);
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+        ? back()->with(['status' => __($status)])
+        : back()->withErrors(['email'=>__($status)]);
+    }
+
+    public function resetpassword_token(string $token)
+    {
+    return view('auth.reset-password', ['token' => $token]);
+    }
+
+    public function resetpassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+        ? redirect()->route('user.index')->with('status',  __($status))
+        : back()->withErrors(['email'=> __($status)]);
     }
 
     /**

@@ -169,7 +169,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="">
+                                <a class="nav-link active" aria-current="page" href="">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -199,7 +199,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="pesanan">
+                                <a class="nav-link " href="pesanan">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">

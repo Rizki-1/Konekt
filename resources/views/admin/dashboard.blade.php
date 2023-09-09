@@ -397,7 +397,9 @@
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
-                       <!-- isi content -->
+                        <div>
+                            <canvas id="myChart"></canvas>
+                          </div>
                     </div>
                 </div>
             </div>
@@ -405,6 +407,31 @@
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'december'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3, 5, 6, 7, 8, 1, 2],
+        backgroundColor: '#9BD0F5',
+        borderWidth: 5
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
 </body>
 
 </html>

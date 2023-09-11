@@ -58,6 +58,7 @@ Route::get('pembelian', [dashboardusercontroller::class, 'pembelian'])->name('pe
 Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
 Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
 Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
+Route::get('pengajuanuser', [dashboardusercontroller::class, 'pengajuanuser'])->name('pengajuanuser');
 
 });
 

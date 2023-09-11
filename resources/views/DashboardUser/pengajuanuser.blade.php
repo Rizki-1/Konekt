@@ -4,32 +4,20 @@
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 <head>
-<style>
-    .title{
-        text-align: center;
-        justify-content: center;
-        position: relative;
-    }
-     body {
+    <style>
+ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
 }
-.card-container{
-    background-color: #ffffff; /* Warna latar belakang */
-    color: #000000; /* Warna teks */
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    margin: 10px;
-    padding: 10px;
-    height: 100vh;
-    margin-bottom: 10px;
-}
 
-  .card1 {
-    background-color: #ea68121e; /* Warna latar belakang */
+ .container {
+      display: flex;
+  }
+
+  .card {
+    background-color: #EA6A12; /* Warna latar belakang */
     color: #000000; /* Warna teks */
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -38,82 +26,30 @@
     padding: 10px;
     width: 500px;
     margin-bottom: 10px;
-    position: fixed;
-  }
-
-  .card img {
-    max-width: 100px;
-    max-height: 100px;
-    /* border-radius: 100%; */
-    margin-right: 10px;
   }
 
   .card-content {
     flex: 1;
   }
   .img {
-    width: 80px;
-    height: 80px;
-    text-align: right;
-    justify-content: right;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: left;
+    justify-content: left;
+  }
 
+  .img img {
+    width: 50px;
+    height: 50px;
   }
   .main-content {
     flex: 1px;
   }
-  .text-left{
-    color:#F66F0C;
-    font-family: "sans-serif";
-  }
-  input[type="checkbox"] {
-    width: 20px; /* Ubah ukuran sesuai kebutuhan */
-    height: 20px; /* Ubah ukuran sesuai kebutuhan */
-    margin-right: 15px;
-  }
-
-  i.fa-solid {
-  margin-right: 10px; /* Ubah jumlah margin sesuai kebutuhan */
-  font-size: 20px;
-}
-.text {
-  font-family: "sans-serif";
-  font-size: 16px;
-  
-}
-.centered-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10px;
-    color: #000000; /* Membuat div menutupi tinggi seluruh viewport (tinggi layar) */
-  }
-  
-  .content{
-    margin-right: 50px;
-  }
-  .form-label {
-    color: grey;
-    
-  }
-  strong {
-  font-weight: bold;
-  font-size: 16px; /* Adjust the text size */
-}
-  
-  .form-label {
-    margin-left: 50px; 
-    margin-right: 0px;
-    /* text-align: justify; */
-
-}
-
     </style>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Kuliner kita</title>
-
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <!-- Favicon -->
       <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
 
@@ -121,8 +57,7 @@
       <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
 
       <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  
-    </head>
+      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
@@ -130,14 +65,14 @@
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
             <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
-                <i class="icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.25 12.2744L19.25 12.2744" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </i>
-            </div>
-    </div>
+                    <i class="icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.25 12.2744L19.25 12.2744" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </i>
+                </div>
+        </div>
         <div class="sidebar-body pt-0 data-scrollbar">
             <div class="navbar-collapse" id="sidebar">
                 <!-- Sidebar Menu Start -->
@@ -159,6 +94,7 @@
                             <span class="item-name">Dashboard</span>
                         </a>
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
+
                         <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
                                 <a class="nav-link " aria-current="page" href="menu">
@@ -174,7 +110,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="daftartoko">
+                                <a class="nav-link  "aria-current="page" href="daftartoko">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -187,7 +123,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="pesanan">
+                                <a class="nav-link active" href="pesanan">
                                    <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -213,18 +149,18 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-    <a class="nav-link active" href="/keranjang"> <!-- Tambahkan / sebelum keranjang -->
-        <i class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                <g>
-                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                </g>
-            </svg>
-        </i>
-        <i class="sidenav-mini-icon">K</i>
-        <span class="item-name">Keranjang</span>
-    </a>
-</li>
+                                <a class="nav-link " href="keranjang">
+                                   <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                   <i class="sidenav-mini-icon">K</i>
+                                   <span class="item-name">Keranjang</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -238,7 +174,7 @@
         <!--Nav Start-->
         <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar">
           <div class="container-fluid navbar-inner">
-          @include('layout.logo')
+            @include('layout.logo')
             <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
                 <i class="icon">
                  <svg width="20px" height="20px" viewBox="0 0 24 24">
@@ -265,6 +201,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
                   <!-- isi dari notifikasi-->
+
+
+
                 <li class="nav-item dropdown">
                   <a href="#"  class="nav-link" id="notification-drop" data-bs-toggle="dropdown" >
                      <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -273,12 +212,64 @@
                       </svg>
                       <span class="bg-danger dots"></span>
                   </a>
-                  <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="notification-drop">
+                    <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="notification-drop">
                       <div class="card shadow-none m-0">
                         <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
                             <div class="header-title">
                               <h5 class="mb-0 text-white">All Notifications</h5>
                             </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex align-items-center">
+                                  <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
+                                  <div class="ms-3 w-100">
+                                    <h6 class="mb-0 ">Emma Watson Bni</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">95 MB</p>
+                                        <small class="float-end font-size-12">Just Now</small>
+                                    </div>
+                                  </div>
+                              </div>
+                            </a>
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex align-items-center">
+                                  <div class="">
+                                    <img class="avatar-40 rounded-pill" src="../assets/images/layouts/02.png" alt="">
+                                  </div>
+                                  <div class="ms-3 w-100">
+                                    <h6 class="mb-0 ">New customer is join</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">Cyst Bni</p>
+                                        <small class="float-end font-size-12">5 days ago</small>
+                                    </div>
+                                  </div>
+                              </div>
+                            </a>
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex align-items-center">
+                                  <img class="avatar-40 rounded-pill" src="../assets/images/layouts/03.png" alt="">
+                                  <div class="ms-3 w-100">
+                                    <h6 class="mb-0 ">Two customer is left</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">Cyst Bni</p>
+                                        <small class="float-end font-size-12">2 days ago</small>
+                                    </div>
+                                  </div>
+                              </div>
+                            </a>
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex align-items-center">
+                                  <img class="avatar-40 rounded-pill" src="../assets/images/layouts/04.png" alt="">
+                                  <div class="w-100 ms-3">
+                                    <h6 class="mb-0 ">New Mail from Fenny</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">Cyst Bni</p>
+                                        <small class="float-end font-size-12">3 days ago</small>
+                                    </div>
+                                  </div>
+                              </div>
+                            </a>
                         </div>
                       </div>
                   </div>
@@ -300,7 +291,19 @@
                               <h5 class="mb-0 text-white">All Message</h5>
                             </div>
                         </div>
-
+                        <div class="card-body p-0 ">
+                            <a href="#" class="iq-sub-card">
+                              <div class="d-flex  align-items-center">
+                                  <div class="">
+                                    <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
+                                  </div>
+                                  <div class="ms-3">
+                                    <h6 class="mb-0 ">jbdh</h6>
+                                    <small class="float-start font-size-12">13 Jun</small>
+                                  </div>
+                              </div>
+                            </a>
+                        </div>
                       </div>
                   </div>
                 </li>
@@ -318,7 +321,7 @@
                     <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
                     <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                    <li><a class="dropdown-item" href="menu">Logout</a></li>
                   </ul>
                 </li>
                 <!-- End Profile-->
@@ -327,94 +330,49 @@
           </div>
         </nav>
       </div>
+        @csrf
       <div class="content-inner mt-5 py-0">
-  <div class="card col-md-12 col-lg-12">
-    <div class="card-body">
-      <div>
-      <h4 class="card-title" style="color:#F66F0C">
-    <i class="fas fa-shopping-cart"></i> Keranjang Saya
-  </h4>
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="col active"
-        data-iq-gsap="onStart"
-        data-iq-opacity="0"
-        data-iq-position-y="-40"
-        data-iq-duration=".6"
-        data-iq-delay=".6"
-        data-iq-trigger="scroll"
-        data-iq-ease="none">
-        <div>
-          <input type="checkbox"><i class="fa-solid fa-home" style="color:#000000;"></i><strong>Masakkan nasi-Warung berkah</strong>
-       </div>
-        <hr>
-        <div class="d-flex justify-content-between ">
-        <div class="align-self-center"><input type="checkbox"></div>
-            <div class=""><img src="{{ asset('assets/img/poto.png') }}"  width="100px" alt="" srcset="">nasi goreng</div>
-            <div class="form-label text-bold"><span class="form-label">Harga</span>
-              <div class=""><p class="form-label"></p></div>
-            </div>
-            <div class="form-label text-bold px-4"><span class="form-label">jumlah</span>
-              <div class="input-step">
-              <button type="button" class="minus" onclick="decrementQuantity(this.nextElementSibling)">–</button>
-                <input type="number" class="product-quantity" value="2" min="0" max="100" readonly onchange="updateTotal(this)">
-              <button type="button" class="plus" onclick="incrementQuantity(this.previousElementSibling)">+</button>
-              </div>
-            </div>
-            <div class="form-label text-bold px-4"><span class="form-label">total</span>
-              <div class=""><p class="form-label"></p></div>
-            </div>
-            <div class="form-label text-bold px-4"><span class="form-label">Aksi</span>
+   <div class=" card col-md-12 col-lg-12">
+
+        <div class="card-body">
             <div class="">
-              <form action="" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger" style="border-radius: 10%;">hapus</button>
-              </form>
+                <h3 class="text-warning">Pengajuan Pengembalian Dana</h3>
             </div>
+            <div class="mb-2 mt-2"><i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px " aria-hidden="true"></i>Masakan warung berkah </div>
+                <div class="d-flex justify-content-between ">
+                    <div class=""><img src="{{ asset('assets/img/poto.png') }}"  width="100px" alt="" srcset=""></div>
+                    <div class="text-bold px-4"><h5 class="form-label">Jumlah Menu</h5>
+                    <div class=""><p class="form-label">{{ session('jumlahpembelian') }}</p></div>
+                </div>
+                <div class="form-label text-bold px-4"><h5 class="form-label">Total</h5>
+                </div>
             </div>
-          </div>
-          <hr>
-          <div class="align-self-center">
-          <input type="checkbox" >
-          <span style="color: black;">pilih semua</span>
+            <hr>
+            <div class="d-flex justify-content-between mt-2" >
+                <div class="mt-2"><p class="text-bold">Dana yang di ajukkan</p></div>
+                <div class="mt-2"><p class="form-label">Rp.15,000</p></div>
+            </div>
+            <hr>
+            <div class="d-flex gap-4 justify-content-header">
+                <div class="text-bold mt-2"><h5>Pesan</h5></div>
+                <input type="text" class="form-control"  placeholder="(Opsional) Alasan pengajuan dana">
+            </div>
+            <hr>
+            <div class="d-flex gap-4 justify-content-header">
+                <div class="text-bold mt-2"><h5>Bukti</h5>
+                    <input type="file" class="form-control" name="">
+                </div>
+            </div>
+            <hr>
+            
+            <div class="d-flex justify-content-end mt-5">
+                <button type="submit" class="btn btn-warning">Ajukkan</button>
+            </div>
         </div>
-          <div class="text-end">
-            <button type="button" class="btn btn-primary" id="beli">Beli</button>
-          </div>
-      </div>
-    </div>
-  </div>
-</div>
-                  <!--  @include('layout.footer')  -->
+   </div>
+      {{-- @include('layout.footer') --}}
+
   </main>
-         @include('layout.js')
-      </body>
-  </html>
-  <script>
-    // Fungsi untuk menangani penambahan jumlah
-    function incrementQuantity(input) {
-        var newValue = parseInt(input.value) + 1;
-        input.value = newValue;
-        updateTotal(input);
-    }
-
-    // Fungsi untuk menangani pengurangan jumlah
-    function decrementQuantity(input) {
-        var newValue = parseInt(input.value) - 1;
-        if (newValue >= 0) {
-            input.value = newValue;
-            updateTotal(input);
-        }
-    }
-
-    // Fungsi untuk mengupdate total ketika jumlah berubah
-    function updateTotal(input) {
-        var row = input.closest('tr');
-        var pricePerUnit = parseFloat(row.querySelector('.price-per-unit').textContent.replace('Rp ', '').replace(',', ''));
-        var quantity = parseInt(input.value);
-        var total = pricePerUnit * quantity;
-        row.querySelector('.total').textContent = 'Rp ' + total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    }
-    </script>            
+  @include('layout.js')
+  </body>
+</html>

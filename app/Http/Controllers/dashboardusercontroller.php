@@ -60,6 +60,13 @@ class dashboardusercontroller extends Controller
         return view('DashboardUser.keranjang', compact('user'));
     }
 
+    public function pengajuanuser()
+    {
+        $user = dashboardusercontrollers::all();
+        return view('DashboardUser.pengajuanuser', compact('user'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */

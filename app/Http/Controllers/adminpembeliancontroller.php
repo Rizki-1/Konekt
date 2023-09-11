@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\admink;
+use App\Models\adminkategori;
 use Illuminate\Support\Str;
-use App\Models\adminmp;
+use App\Models\adminmetodepembayaran;
 use App\Models\adminnotifikasi;
-use App\Models\dashboardusercontrollers;
+use App\Models\barangpenjual;
+use App\Models\userindex;
 use App\Models\notifikasi;
 use App\Models\notifikasipenjual;
 use App\Models\penjual;
 use App\Models\penjuallogin;
 use App\Models\User;
+use App\Models\userOrder;
 use Illuminate\Http\Request;
 
 class adminpembeliancontroller extends Controller
@@ -21,8 +23,8 @@ class adminpembeliancontroller extends Controller
      */
     public function index()
     {
-        $dashboardusercontrollers = dashboardusercontrollers::where('adminstatus', 'notapprove')->get();
-        $penjual = penjual::all();
+        $dashboardusercontrollers = userOrder::where('adminstatus', 'notapprove')->get();
+        $penjual = barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
         $notifikasi_penjual = notifikasipenjual::all();
         $notifikasi = notifikasi::all();
@@ -31,7 +33,7 @@ class adminpembeliancontroller extends Controller
 
     public function metodpembayaran()
     {
-        $adminmp = adminmp::all();
+        $adminmp = adminmetodepembayaran::all();
         return view('admin.metodpembayaran', compact('adminmp'));
     }
 
@@ -51,7 +53,7 @@ class adminpembeliancontroller extends Controller
         $notifikasi->save();
 
 
-        $dashboardusercontrollers = Dashboardusercontrollers::findOrFail($id);
+        $dashboardusercontrollers = userOrder::findOrFail($id);
         $dashboardusercontrollers->adminstatus = 'approve';
         $dashboardusercontrollers->save();
 
@@ -70,7 +72,7 @@ class adminpembeliancontroller extends Controller
     }
     public function tolak($id)
     {
-        $dashboardusercontrollers = dashboardusercontrollers::findOrFail($id);
+        $dashboardusercontrollers = userOrder::findOrFail($id);
         $dashboardusercontrollers->adminstatus = 'notapprove';
         $dashboardusercontrollers->save();
 
@@ -89,7 +91,7 @@ class adminpembeliancontroller extends Controller
         $user = User::where('id', $calonPenjual)->first();
         $user->role = 'penjual';
         $user->save();
-       
+
         // dd($user->name);
         return redirect()->route('calonpenjual');
     }
@@ -116,25 +118,25 @@ class adminpembeliancontroller extends Controller
 
     public function kategori()
     {
-        $admink = admink::all();
+        $admink = adminkategori::all();
         return view('admin.kategori', compact('admink'));
     }
 
     public function kcreate()
     {
-        $admink = admink::all();
+        $admink = adminkategori::all();
         return view('admin.kategori', compact('admink'));
     }
 
     public function kstore(Request $request)
     {
         $admink = $request->all();
-        admink::create($admink);
+        adminkategori::create($admink);
 
         return redirect()->route('kategori');
     }
 
-    public function kdestroy(admink $admink)
+    public function kdestroy(adminkategori $admink)
     {
         $admink->delete();
         return redirect()->route('kategori');
@@ -145,7 +147,7 @@ class adminpembeliancontroller extends Controller
      */
     public function create()
     {
-        $adminmp = adminmp::all();
+        $adminmp = adminmetodepembayaran::all();
         return view('admin.metodpembayaran', compact('adminmp'));
     }
 
@@ -155,7 +157,7 @@ class adminpembeliancontroller extends Controller
     public function store(Request $request)
     {
         $adminmp = $request->all();
-        adminmp::create($adminmp);
+        adminmetodepembayaran::create($adminmp);
         return redirect()->route('metodpembayaran');
     }
 

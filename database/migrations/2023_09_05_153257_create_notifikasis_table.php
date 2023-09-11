@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('keterangan');
             $table->string('isi');
-            $table->timestamp('waktu_kadaluwarsa');
             $table->timestamps();
         });
     }

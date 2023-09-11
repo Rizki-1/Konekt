@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dashboardusercontrollers', function (Blueprint $table) {
+        Schema::create('adminmetodepembayarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('namamenu_id')->references('id')->on('penjuals')->cascadeOnDelete();
-            $table->string('adminstatus');
-            $table->string('pembelianstatus');
+            $table->string('metodepembayaran');
+            $table->string('tujuan');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dashboardusercontrollers');
+        Schema::dropIfExists('adminmetodepembayarans');
     }
 };

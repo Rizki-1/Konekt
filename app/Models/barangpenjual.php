@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class penjual extends Model
+class barangpenjual extends Model
 {
     use HasFactory;
 
@@ -18,12 +18,12 @@ class penjual extends Model
         'fotomakanan',
     ];
 
-    public function admink(): BelongsTo
+    public function adminkategori(): BelongsTo
     {
-        return $this->belongsTo(admink::class, 'kategori_id');
+        return $this->belongsTo(adminkategori::class, 'kategori_id');
     }
 
-    public function dashboardusercontrollers(): HasMany
+    public function userindex(): HasMany
     {
         return $this->hasMany(dashboardusercontrollers::class, 'namamenu_id');
     }

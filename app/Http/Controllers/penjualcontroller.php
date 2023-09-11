@@ -55,10 +55,32 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_store(Request $request)
     {
-        $pembayaranpenjual = $request->all();
-        pembayaranpenjual::create($pembayaranpenjual);
-        return redirect()->route('pembayaranpenjual');
+        $metodePembayaran = $request->input('metodepembayaran');
+        $data = [
+            'metodepembayaran' => $metodePembayaran,
+        ];
+    
+        if ($metodePembayaran === 'e-wallet') {
+            $data['tujuan'] = $request->input('tujuan_e_wallet');
+            $data['keterangan'] = $request->input('keterangan_e_wallet');
+        } elseif ($metodePembayaran === 'bank') {
+            $data['tujuan'] = $request->input('tujuan_bank');
+            $data['keterangan'] = $request->input('keterangan_bank');
+        } else {
+            return redirect()->route('pembayaranpenjual')->with('error', 'Metode pembayaran tidak valid.');
+        }
+    
+        // Simpan data ke database
+        PembayaranPenjual::create($data);
+    
+        // Redirect atau tampilkan pesan sukses
+        return redirect()->route('pembayaranpenjual')->with('success', 'Data pembayaran berhasil disimpan.');
     }
+    // {
+    //     $pembayaranpenjual = $request->all();
+    //     pembayaranpenjual::create($pembayaranpenjual);
+    //     return redirect()->route('pembayaranpenjual');
+    // }
 
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {

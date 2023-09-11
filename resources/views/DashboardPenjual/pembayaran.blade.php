@@ -3,11 +3,85 @@
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 <head>
     <style>
-
     </style>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Kuliner kita</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+    $(document).ready(function () {
+        $('#metode').change(function () {
+            var selectedOption = $(this).val();
+            
+            if (selectedOption === 'e-wallet') {
+                $('#e-wallet-fields').show();
+                $('#bank-fields').hide();
+            } else if (selectedOption === 'bank') {
+                $('#e-wallet-fields').hide();
+                $('#bank-fields').show();
+            } else {
+                $('#e-wallet-fields').hide();
+                $('#bank-fields').hide();
+            }
+        });
+    });
+
+  
+    $(document).ready(function () {
+  // Tangani perubahan pada elemen select
+  $("#selectMetode").change(function () {
+    // Dapatkan nilai yang dipilih
+    var selectedMetode = $(this).val();
+
+    // Sembunyikan semua modals
+    $(".modal").modal("hide");
+
+    // Jika yang dipilih adalah "bank", tampilkan modal bank
+    if (selectedMetode === "bank") {
+      $("#myModalBank").modal("show");
+    } else {
+      // Jika yang dipilih adalah "ewallet", tampilkan modal E-Wallet
+      $("#myModal2").modal("show");
+    }
+     
+  });
+
+  // Tangani klik pada tombol "Next" di dalam modal pertama
+  $("#nextButton").click(function () {
+    // Dapatkan atribut data-target yang menentukan modal selanjutnya
+    var targetModalId = $(this).data("target");
+    
+    $("#myModal2").modal("show");
+
+  });
+
+  // Tangani klik pada tombol "Next" di dalam modal kedua (opsional jika diperlukan)
+  $("#nextButton2").click(function () {
+    // Dapatkan atribut data-target yang menentukan modal selanjutnya (jika ada)
+    var targetModalId = $(this).data("target");
+
+    // Sembunyikan modal saat ini (yaitu modal kedua)
+    $("#myModal2").modal("hide");
+
+    // Tampilkan modal selanjutnya berdasarkan data-target
+    $(targetModalId).modal("show");
+  });
+});
+
+
+  
+  // document.getElementById("selectMetode").addEventListener("change", function () {
+  //   var selectedOption = this.value;
+  //   var targetModalId = document.querySelector("option[value='" + selectedOption + "']").getAttribute("data-target");
+  //   var modals = document.querySelectorAll(".modal");
+    
+  //   modals.forEach(function (modal) {
+  //     modal.style.display = "none";
+  //   });
+    
+  //   document.querySelector(targetModalId).style.display = "block";
+  // });
+</script>
       <!-- Favicon -->
       <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
       <!-- Library / Plugin Css Build -->
@@ -22,32 +96,84 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
+              <h5 class="modal-title">Metode Pembayaran</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
-                    <input type="text" name="metodepembayaran" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">tujuan</label>
-                    <input type="text" name="tujuan" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">keterangan</label>
-                    <input type="text" name="keterangan" class="form-control">
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
+            <div class="modal-body" style="border: none;">
+          <div class="container m-0 p-0 d-flex justify-content-between">
+            <div class="d-grid" style="display: flex; justify-content: space-between;">
+              <label for="metode" class="form-label fw-bold" style="align-self: center; font-size: 16px;"> PIlih Metode Pembayaran</label>
+              <select class="form-select form-select-lg mb-3" name="metodepembayaran" style="width: 200px; height: 40px; font-size: 16px;" aria-label=".form-select-lg example" id="selectMetode">
+                <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
+                <option value="e-wallet" data-target="#myModal2">E-Wallet</option>
+                <option value="bank" data-target="myModalBank">Bank</option>
+              </select>
             </div>
           </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary" id="nextButton">Next</button> -->
         </div>
       </div>
     </div>
-</form>
+  </div>
+
+<div class="modal" id="myModal2" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Metode Pembayaran E-wallet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <!-- <div class="mb-3">
+            <label for="fotoqris" class="form-label fw-bold">upload</label>
+            <input type="file" class="form-control" id="fotoqris" name="fotoqris">
+          </div> -->
+          <div class="mb-3">
+            <label for="tujuan_e_wallet" class="form-label fw-bold">Tujuan</label>
+            <input type="text" class="form-control" id="tujuan_e_wallet" name="tujuan_e_wallet">
+          </div>
+          <div class="mb-3">
+            <label for="keterangan_e_wallet" class="form-label fw-bold">Keterangan</label>
+            <textarea class="form-control" id="keterangan_e_wallet" name="keterangan_e_wallet" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="myModalBank" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Metode Pembayaran Bank</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="mb-3">
+            <label for="tujuan_bank" class="form-label fw-bold">Tujuan</label>
+            <input type="text" class="form-control" id="tujuan_bank" name="tujuan_bank">
+          </div>
+          <div class="mb-3">
+            <label for="keterangan_bank" class="form-label fw-bold">Keterangan</label>
+            <textarea class="form-control" id="keterangan_bank" name="keterangan_bank" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </form>
 
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -280,6 +406,7 @@
                         <th scope="col">metode pembayaran</th>
                         <th scope="col">tujuan</th>
                         <th scope="col">keterangan</th>
+                        <!-- <th scope="col">Foto</th> -->
                         <th scope="col">aksi</th>
                       </tr>
                     </thead>
@@ -293,6 +420,7 @@
                         <td>{{ $p->metodepembayaran }}</td>
                         <td>{{ $p->tujuan }}</td>
                         <td>{{ $p->keterangan }}</td>
+                        <!-- <td>{{ $p->fotoqris }}</td> -->
                         <td>
                             <form action="{{ route('pembayaranpenjual_destroy', $p->id) }}" method="POST">
                                 @csrf

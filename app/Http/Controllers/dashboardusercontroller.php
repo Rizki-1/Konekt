@@ -35,7 +35,7 @@ class dashboardusercontroller extends Controller
 
     public function pembelian(Request $request)
     {
-        // $penjual = penjual::all();
+        $penjual = penjual::all();
         return view('DashboardUser.pembelian', compact('penjual'));
     }
 

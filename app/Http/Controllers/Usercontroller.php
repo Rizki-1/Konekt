@@ -18,6 +18,9 @@ class Usercontroller extends Controller
         return view('loginregister.index', compact('User'));
     }
 
+   public function dashboard(){
+    return view('dashboard');
+   }
     public function register()
     {
         $user = User::all();

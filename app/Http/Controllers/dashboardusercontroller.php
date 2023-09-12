@@ -35,7 +35,7 @@ class dashboardusercontroller extends Controller
 
     public function pembelian(Request $request)
     {
-        $penjual = penjual::all();
+        $penjual = barangpenjual::all();
         return view('DashboardUser.pembelian', compact('penjual'));
     }
 
@@ -62,7 +62,7 @@ class dashboardusercontroller extends Controller
 
     public function pengajuanuser()
     {
-        $user = dashboardusercontrollers::all();
+        $user = userOrder::all();
         return view('DashboardUser.pengajuanuser', compact('user'));
     }
 
@@ -103,6 +103,16 @@ class dashboardusercontroller extends Controller
         userOrder::create($dashboardusercontrollers);
         return redirect()->route('menu.index');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $results = userOrder::where('namamenu', 'like', '%' . $query . '%')->get();
+
+        return response()->json($results);
+    }
+
+
 
     /**
      * Display the specified resource.

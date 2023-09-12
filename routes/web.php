@@ -26,7 +26,6 @@ use App\Http\Controllers\mailcontroller;
 |
 */
 
-<<<<<<< Updated upstream
 Route::middleware(['ceklogin'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
@@ -58,7 +57,10 @@ Route::get('pembelian', [dashboardusercontroller::class, 'pembelian'])->name('pe
 Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
 Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
 Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
+Route::get('/menu/search', [dashboardusercontroller::class, 'search'])->name('menu.search');
+
 });
+
 
 
 
@@ -79,11 +81,8 @@ Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
     Route::post('logout', [logincontroller::class, 'logout'])->name('logout');
 });
 Route::get('/forgot-password',[logincontroller::class, 'forgotpassword'])->middleware('guest')->name('password.request');
-
 Route::post('/forgot-password', [logincontroller::class, 'forgotpassword_store'] )->middleware('guest')->name('password.email');
-
 Route::get('/reset-password/{token}', [logincontroller::class, 'resetpassword_token'])->middleware('guest')->name('password.reset');
-
 Route::post('/reset-password', [logincontroller::class, 'resetpassword'])->middleware('guest')->name('password.update');
 Route::post('calonpenjual_store', [adminpembeliancontroller::class, 'calonpenjual_store'])->name('calonpenjual_store');
 Route::get('register', [UserController::class, 'register'])->name('register');

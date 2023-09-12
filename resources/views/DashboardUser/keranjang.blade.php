@@ -78,7 +78,7 @@
 .text {
   font-family: "sans-serif";
   font-size: 16px;
-  
+
 }
 .centered-container {
     display: flex;
@@ -87,21 +87,21 @@
     height: 10px;
     color: #000000; /* Membuat div menutupi tinggi seluruh viewport (tinggi layar) */
   }
-  
+
   .content{
     margin-right: 50px;
   }
   .form-label {
     color: grey;
-    
+
   }
   strong {
   font-weight: bold;
   font-size: 16px; /* Adjust the text size */
 }
-  
+
   .form-label {
-    margin-left: 50px; 
+    margin-left: 50px;
     margin-right: 0px;
     /* text-align: justify; */
 
@@ -121,7 +121,7 @@
       <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
 
       <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  
+      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
     </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
@@ -200,7 +200,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="riwayat">
+                                <a class="nav-link " href="riwayatuser">
                                    <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -417,4 +417,4 @@
         var total = pricePerUnit * quantity;
         row.querySelector('.total').textContent = 'Rp ' + total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     }
-    </script>            
+    </script>

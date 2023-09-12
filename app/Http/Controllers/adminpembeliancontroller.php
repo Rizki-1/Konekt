@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\adminkategori;
-use Illuminate\Support\Str;
-use App\Models\adminmetodepembayaran;
-use App\Models\adminnotifikasi;
-use App\Models\barangpenjual;
-use App\Models\userindex;
-use App\Models\notifikasi;
-use App\Models\notifikasipenjual;
-use App\Models\penjual;
-use App\Models\penjuallogin;
-use App\Models\User;
 use Exception;
+use App\Models\User;
+use App\Models\userOrder;
+use App\Models\notifikasi;
+use Illuminate\Support\Str;
+use App\Models\penjuallogin;
 use Illuminate\Http\Request;
+use App\Models\adminkategori;
+use App\Models\barangpenjual;
+use App\Models\adminnotifikasi;
+use App\Models\notifikasipenjual;
+use App\Models\adminmetodepembayaran;
 
 class adminpembeliancontroller extends Controller
 {
@@ -185,6 +184,7 @@ class adminpembeliancontroller extends Controller
      */
     public function update(Request $request, string $id)
     {
+
     }
 
     /**
@@ -192,5 +192,6 @@ class adminpembeliancontroller extends Controller
      */
     public function destroy(string $id)
     {
+
     }
 }

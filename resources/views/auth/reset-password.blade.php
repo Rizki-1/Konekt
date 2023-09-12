@@ -26,10 +26,10 @@
         @csrf
         <input type="hidden" name="token" value="{{ request()->token }}" id="">
         <input type="hidden" name="email" value="{{ request()->email }}" id="">
-        <label for="password">password</label>
+        <label for="password">Password</label>
         <input type="password"  class="form-control" name="password">
-        <label for="password_confirmation">password confirmation</label>
-        <input type="password_confirmation" name="password_confirmation" id="">
+        <label for="password_confirmation">Password Confirmation</label>
+        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation">
         <input type="submit" value="Update password">
     </form>
 </body>

@@ -45,22 +45,24 @@ Route::middleware(['ceklogin'])->group(function () {
         Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
         Route::get('DashboardAdmin',[adminpembeliancontroller::class, 'DashboardAdmin'])->name('DashboardAdmin');
         Route::get('calonpenjual', [adminpembeliancontroller::class, 'calonpenjual'])->name('calonpenjual');
+        Route::get('pengajuanpembeliad', [adminpembeliancontroller::class, 'pengajuanpembeliad'])->name('pengajuanpembeliad');
+        Route::get('pengajuanpenjualad', [adminpembeliancontroller::class, 'pengajuanpenjualad'])->name('pengajuanpenjualad');
     });
 
 
-    Route::middleware(['userMiddleware'])->group(function () {
-        Route::get('daftartoko', function () {
-            return view('DashboardUser.daftartoko');
-        })->name('daftartoko');
-        Route::get('keranjang', function () {
-            return view('DashboardUser.keranjang');
-        })->name('keranjang');
-        Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('UserKeranjang');
-        Route::get('pembelian', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
-        Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
-        Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
-        Route::resource('menu', App\Http\Controllers\dashboardusercontroller::class);
-    });
+Route::middleware(['userMiddleware'])->group(function ()
+    {
+Route::get('daftartoko', function () { return view('DashboardUser.daftartoko');})->name('daftartoko');
+Route::get('keranjang', function () { return view('DashboardUser.keranjang');})->name('keranjang');
+Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('UserKeranjang');
+Route::get('pembelian', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
+Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
+Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
+Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
+Route::get('/menu/search', [dashboardusercontroller::class, 'search'])->name('menu.search');
+
+});
+
 
 
 
@@ -75,20 +77,20 @@ Route::middleware(['ceklogin'])->group(function () {
         Route::delete('pembayaranpenjual_destroy/{pembayaranpenjual}', [penjualcontroller::class, 'pembayaranpenjual_destroy'])->name('pembayaranpenjual_destroy');
         Route::patch('tolakpesanan/{id}', [penjualcontroller::class, 'tolakpesanan'])->name('tolakpesanan');
         Route::get('DashboardPenjual_', [penjualcontroller::class, 'DashboardPenjual'])->name('DashboardPenjual_');
-    });
+        Route::get('pengajuanpenjual', [penjualcontroller::class, 'pengajuanpenjual'])->name('pengajuanpenjual');    });
 
 
     Route::post('logout', [logincontroller::class, 'logout'])->name('logout');
 });
 Route::get('/forgot-password',[logincontroller::class, 'forgotpassword'])->middleware('guest')->name('password.request');
-
 Route::post('/forgot-password', [logincontroller::class, 'forgotpassword_store'] )->middleware('guest')->name('password.email');
-
 Route::get('/reset-password/{token}', [logincontroller::class, 'resetpassword_token'])->middleware('guest')->name('password.reset');
-
 Route::post('/reset-password', [logincontroller::class, 'resetpassword'])->middleware('guest')->name('password.update');
 Route::post('calonpenjual_store', [adminpembeliancontroller::class, 'calonpenjual_store'])->name('calonpenjual_store');
 Route::get('register', [UserController::class, 'register'])->name('register');
 Route::resource('penjualrole', rolepenjualcontroller::class);
 Route::post('authenticate', [logincontroller::class, 'authenticate'])->name('authenticate');
 Route::resource('user', UserController::class);
+
+
+

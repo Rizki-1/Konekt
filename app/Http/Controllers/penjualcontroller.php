@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\admink;
+use App\Models\adminkategori;
+use App\Models\barangpenjual;
 use App\Models\dashboardusercontrollers;
 use App\Models\notifikasi;
 use App\Models\notifikasipenjual;
 use App\Models\pembayaranpenjual;
 use App\Models\penjual;
+use App\Models\userOrder;
 use Illuminate\Http\Request;
 
 class penjualcontroller extends Controller
@@ -18,12 +21,12 @@ class penjualcontroller extends Controller
     public function index()
     {
 
-        $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi ')->get();
+        $user = userOrder::where('pembelianstatus', 'menunggu konfirmasi ')->get();
         $notifikasi = notifikasi::all();
-        $user = dashboardusercontrollers::where('pembelianstatus', 'menunggu konfirmasi')->get();
+        $user = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->get();
         $notifikasi_penjual = notifikasipenjual::all();
-        $penjual = penjual::all();
-        $adminkategori = admink::all();
+        $penjual = barangpenjual::all();
+        $adminkategori = adminkategori::all();
         return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual'));
     }
 
@@ -35,9 +38,9 @@ class penjualcontroller extends Controller
     public function riwayatpenjual()
     {
 
-        $user = dashboardusercontrollers::where('pembelianstatus' ,'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
-        $user = dashboardusercontrollers::where('pembelianstatus','selesai')->get();
-        $adminkategori = admink::all();
+        $user = userOrder::where('pembelianstatus' ,'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
+        $user = userOrder::where('pembelianstatus','selesai')->get();
+        $adminkategori = adminkategori::all();
         return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
     }
 
@@ -94,7 +97,7 @@ class penjualcontroller extends Controller
         $notifikasi->keterangan = 'pesanan anda sedang di proses';
         $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
         $notifikasi->save();
-        $dashboardusercontrollers =dashboardusercontrollers::findOrFail($id);
+        $dashboardusercontrollers =userOrder::findOrFail($id);
         $dashboardusercontrollers->pembelianstatus = 'sedang di proses';
         $dashboardusercontrollers->save();
 
@@ -108,7 +111,7 @@ class penjualcontroller extends Controller
         $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
         $notifikasi->save();
 
-        $dashboardusercontrollers = dashboardusercontrollers::findOrFail($id);
+        $dashboardusercontrollers = userOrder::findOrFail($id);
         $dashboardusercontrollers->pembelianstatus = 'pesanan di tolak';
         $dashboardusercontrollers->save();
 
@@ -121,7 +124,7 @@ class penjualcontroller extends Controller
         $notifikasi->keterangan = 'pesanan anda telah selesai ';
         $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
         $notifikasi->save();
-        $dashboardusercontrollers = dashboardusercontrollers::findOrfail($id);
+        $dashboardusercontrollers = userOrder::findOrfail($id);
         $dashboardusercontrollers->adminstatus = 'penjualapprove';
         $dashboardusercontrollers->pembelianstatus = 'selesai';
         $dashboardusercontrollers->save();
@@ -131,8 +134,14 @@ class penjualcontroller extends Controller
 
     protected function pesananpenjual(Request $request)
     {
-        $dashboardusercontrollers = dashboardusercontrollers::where('adminstatus', 'approve')->get();
+        $dashboardusercontrollers = userOrder::where('adminstatus', 'approve')->get();
         return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers'));
+    }
+
+    protected function pengajuanpenjual(Request $request)
+    {
+        $penjual = penjual::all();
+        return view('DashboardPenjual.pengajuanpenjual', compact('penjual'));
     }
 
     /**
@@ -140,7 +149,7 @@ class penjualcontroller extends Controller
      */
     public function create()
     {
-        $penjual = penjual::all();
+        $penjual = barangpenjual::all();
         return view('DashboardPenjual.tambahmenu', compact('penjual'));
     }
 
@@ -150,7 +159,7 @@ class penjualcontroller extends Controller
     public function store(Request $request)
     {
         $penjual = $request->all();
-        penjual::create($penjual);
+        barangpenjual::create($penjual);
         // dd($request);
         return redirect()->route('DashboardPenjual.index')->with('berhasil');
     }
@@ -182,7 +191,7 @@ class penjualcontroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(penjual $DashboardPenjual)
+    public function destroy(barangpenjual $DashboardPenjual)
     {
        $DashboardPenjual ->delete();
        return redirect()->route('DashboardPenjual.index');

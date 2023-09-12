@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('adminmps', function (Blueprint $table) {
+        Schema::create('user_Orders', function (Blueprint $table) {
             $table->id();
-            $table->string('metodepembayaran');
-            $table->string('tujuan');
-            $table->string('keterangan');
+            $table->foreignId('namamenu_id')->references('id')->on('barangpenjuals')->cascadeOnDelete();
+            $table->string('adminstatus');
+            $table->string('pembelianstatus');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('adminmps');
+        Schema::dropIfExists('userOrders');
     }
 };

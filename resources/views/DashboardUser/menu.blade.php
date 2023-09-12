@@ -3,6 +3,7 @@
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 
 <head>
+
 <style>
     body {
         padding-right: 20px; /* Atur jumlah padding sesuai kebutuhan Anda */
@@ -183,7 +184,7 @@
                                     stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
-                        <input type="search" class="form-control" placeholder="Search...">
+                        <input type="search" id="search" class="form-control" placeholder="Search...">
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -282,6 +283,7 @@
                 style="position: relative">
                 @include('layout.bilboard')
                 <!-- Start Isi Dashboard -->
+                <ul id="results"></ul>
                 @php
                     $no = 1;
                 @endphp
@@ -340,6 +342,31 @@
 </div>
 
         </main>
+        <script>
+            $(document).ready(function() {
+                $('#search').keyup(function() {
+                    var query = $(this).val();
+                    if (query != '') {
+                        $.ajax({
+                            url: "{{ route('menu.search') }}",
+                            method: 'GET',
+                            data: { query: query },
+                            success: function(data) {
+                                $('#results').html('');
+                                data.forEach(function(menu) {
+                                    var listItem = '<li>' + menu.namamenu + '</li>';
+                                    $('#results').append(listItem);
+                                });
+                            }
+                        });
+                    } else {
+                        
+                        $('#results').html('');
+                    }
+                });
+            });
+        </script>
+
     @include('layout.js')
     <!-- Include Bootstrap and jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

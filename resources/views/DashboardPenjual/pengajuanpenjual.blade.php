@@ -5,90 +5,55 @@
 
 <head>
     <style>
-        .title {
-            text-align: center;
-            justify-content: center;
-            position: relative;
-        }
 
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
+.centered-button {
+    display: flex;
+    justify-content: center; /* Untuk membuat kontennya berada di tengah secara horizontal */
+    align-items: center; /* Untuk membuat kontennya berada di tengah secara vertikal */
+    height: 15%; /* Ini akan mengisi tinggi div dengan class "centered-button" */
+}
 
-        .card-container {
-            background-color: #ffffff;
-            /* Warna latar belakang */
-            color: #000000;
-            /* Warna teks */
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            margin: 10px;
-            padding: 10px;
-            height: 100vh;
-            margin-bottom: 10px;
-        }
+ body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
 
-        .card1 {
-            background-color: #ea68121e;
-            color: #000000;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            margin: 10px;
-            padding: 10px;
-            width: 500px;
-            margin-bottom: 10px;
-            position: fixed;
-            justify-content: space-between;
-            /* Memisahkan konten dan gambar */
-            align-items: center;
-            /* Pusatkan vertikal */
-            max-width: 500px;
-        }
+ .container {
+        display: flex;
+  }
 
-        .img {
-            max-width: 130px;
-            /* Atur lebar maksimal gambar */
-            max-height: 330px;
-            /* Atur tinggi maksimal gambar */
-            margin-left: auto;
-            /* Memindahkan gambar ke kanan */
-            align-self: flex-start;
-            /* Memindahkan gambar ke atas */
-        }
+  .card1 {
+    background-color: #ffffff;
+    color: #000000; /* Warna teks */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    width: 400px;
+    margin-bottom: 10px;
+    height: 400px;
+  }
 
-        .card-content {
-            flex: 1;
-        }
+  .card-content {
+    flex: 1;
+  }
+  .img {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: left;
+    justify-content: left;
+  }
 
-        .content-container {
-            flex: 1;
-            padding-left: 10px;
-            /* Atur jarak kiri konten dari gambar */
-            margin-bottom: 50px;
-        }
-
-        .main-content {
-            flex: 1px;
-        }
-
-        .btn-custom {
-            background-color: rgba(234, 106, 18, 0.11);
-            color: #ffffff;
-            padding: 1px 10px;
-            /* Sesuaikan padding sesuai kebutuhan */
-            border-radius: 5px;
-            width: auto;
-            /* Atur lebar tombol sesuai dengan isi */
-            text-align: left;
-            /* Teks di kiri tombol */
-            display: inline-block;
-            /* Ubah elemen menjadi inline-block */
-        }
+  .img img {
+    width: 50px;
+    height: 50px;
+  }
+  .main-content {
+    flex: 1px;
+  }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -108,54 +73,8 @@
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
-@foreach ($dashboardusercontrollers as $s)
-<div class="modal" id="myModal_{{ $s->id }}" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="namamenu_id" class="form-label fw-bold">nama menu</label>
-                    <input type="text" name="namamenu_id" value="" class="form-control">
-                    <input type="hidden" name="namamenu_id" value="">
-                </div>
-                <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">quantity</label>
-                    <input type="text" name="quantity" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">foto bukti</label>
-                    <input type="text" name="fotobukti" class="form-control">
-                </div>
-                @if ($s->pembelianstatus === 'menunggu konfirmasi')
-                <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-success accept-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Terima</button>
-                </form>
-                <form action="{{ route('tolakpesanan', ['id'=>$s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                <button type="submit" class="btn btn-danger reject-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Tolak</button>
-                </form>
-                @else
-                <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
-                </form>
-                @endif
-            </div>
-            <div class="modal-footer"></div>
-        </div>
-    </div>
-</div>
-@endforeach
-
-
+   {{-- <button type="button" class="btn btn-success accept-btn">Terima</button>
+   <button type="button" class="btn btn-danger reject-btn">Tolak</button>--}}
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -183,7 +102,7 @@
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link "  href="DasbhboardPenjual" >
+                        <a class="nav-link"  href="DasbhboardPenjual" >
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M16.0756 2H19.4616C20.8639 2 22.0001 3.14585 22.0001 4.55996V7.97452C22.0001 9.38864 20.8639 10.5345 19.4616 10.5345H16.0756C14.6734 10.5345 13.5371 9.38864 13.5371 7.97452V4.55996C13.5371 3.14585 14.6734 2 16.0756 2Z" fill="currentColor"></path>
@@ -204,10 +123,10 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active"aria-current="page" href="pesananpenjual">
+                                <a class="nav-link "aria-current="page" href="pesananpenjual">
                                     <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 26 23" fill="none">
-                                            <path d="M2.55044 0C1.13495 0 0 1.13495 0 2.55044V7.65133C0 9.06683 1.13495 10.2018 2.55044 10.2018H7.65133C9.06683 10.2018 10.2018 9.06683 10.2018 7.65133V2.55044C10.2018 1.13495 9.06683 0 7.65133 0M7.90637 1.91283L9.25811 3.25182L4.16997 8.28894L0.943664 5.03713L2.30815 3.69814L4.18273 5.59822M2.55044 12.7522C1.13495 12.7522 0 13.8872 0 15.3027V20.4035C0 21.819 1.13495 22.954 2.55044 22.954H7.65133C9.06683 22.954 10.2018 21.819 10.2018 20.4035V15.3027C10.2018 13.8872 9.06683 12.7522 7.65133 12.7522M2.55044 15.3027H7.65133V20.4035H2.55044M12.7522 2.55044H25.5044V5.10089H12.7522M12.7522 20.4035V17.8531H25.5044V20.4035M12.7522 10.2018H25.5044V12.7522H12.7522V10.2018Z" fill="white"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="28" viewBox="0 0 20 21" fill="none">
+                                            <path d="M16.3712 11.067C16.3712 11.5236 15.9417 11.9346 15.4644 11.9346H4.58203C4.10474 11.9346 3.67517 11.5236 3.67517 11.067V10.1994C3.67517 9.74277 4.10474 9.33181 4.58203 9.33181H15.5121C15.9894 9.33181 16.419 9.74277 16.419 10.1994V11.067H16.3712ZM14.5575 16.2725C14.5575 16.7291 14.1279 17.14 13.6506 17.14H4.58203C4.10474 17.14 3.67517 16.7291 3.67517 16.2725V15.4049C3.67517 14.9483 4.10474 14.5373 4.58203 14.5373H13.6984C14.1757 14.5373 14.6052 14.9483 14.6052 15.4049V16.2725H14.5575ZM3.67517 4.94825C3.67517 4.49163 4.10474 4.08067 4.58203 4.08067H13.6984C14.1757 4.08067 14.6052 4.49163 14.6052 4.94825V5.81583C14.6052 6.27245 14.1757 6.68341 13.6984 6.68341H4.58203C4.10474 6.68341 3.67517 6.27245 3.67517 5.81583V4.94825ZM17.2781 0.610352H2.76831C1.24097 0.610352 0 1.79757 0 3.21309V18.0076C0 19.4231 1.24097 20.6104 2.72058 20.6104H17.2781C18.7577 20.6104 19.9987 19.4231 19.9987 18.0076V3.21309C20.0464 1.79757 18.8054 0.610352 17.2781 0.610352Z" fill="#959895"/>
                                             </svg>
                                     </i>
                                     <span class="item-name">pesanan</span>
@@ -226,18 +145,18 @@
                             <li class="nav-item">
                                 <a class="nav-link " href="pembayaranpenjual">
                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="30" viewBox="0 0 25 26" fill="none">
-                                            <path d="M18.75 5.51367H6.25C4.52411 5.51367 3.125 6.91278 3.125 8.63867V16.972C3.125 18.6979 4.52411 20.097 6.25 20.097H18.75C20.4759 20.097 21.875 18.6979 21.875 16.972V8.63867C21.875 6.91278 20.4759 5.51367 18.75 5.51367Z" stroke="#959895" stroke-width="1.23" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M3.125 10.7207H21.875" stroke="#959895" stroke-width="1.23" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M7.29248 15.9297H7.30248" stroke="#959895" stroke-width="1.23" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M11.4575 15.9297H13.5409" stroke="#959895" stroke-width="1.23" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" fill="none">
+                                        <path d="M18.75 5.51367H6.25C4.52411 5.51367 3.125 6.91278 3.125 8.63867V16.972C3.125 18.6979 4.52411 20.097 6.25 20.097H18.75C20.4759 20.097 21.875 18.6979 21.875 16.972V8.63867C21.875 6.91278 20.4759 5.51367 18.75 5.51367Z" stroke="white" stroke-width="1.23" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M3.125 10.7207H21.875" stroke="white" stroke-width="1.23" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M7.29224 15.9297H7.30224" stroke="white" stroke-width="1.23" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.4578 15.9297H13.5411" stroke="white" stroke-width="1.23" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
                                     </i>
                                    <span class="item-name">Pembayaran</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="pengajuanpenjual">
+                                <a class="nav-link active" href="pengajuanpenjual">
                                    <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 21 22" fill="none">
                                         <path d="M5.25 4.04688H13.125V5.35938H5.25V4.04688Z" fill="#959895"/>
@@ -375,59 +294,62 @@
                 </div>
             </nav>
         </div>
-
+        @csrf
         <div class="content-inner mt-5 py-0">
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">nama pembeli</th>
-                                    <th scope="col">jumlah pesanan</th>
-                                    <th scope="col">status</th>
-                                    <th scope="col">total harga</th>
-                                    <th scope="col">aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $no = 1;
-                                @endphp
-                                @foreach ($dashboardusercontrollers as $s)
-                                    <tr>
-                                        <th scope="row">{{ $no++ }}</th>
-                                        <td>test</td>
-                                        <td>{{ $s->adminstatus}}</td>
-                                        <td>{{ $s->pembelianstatus }}</td>
-                                        <td>dwfgfrewrqe</td>
-                                        <td>
-                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">detail</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+    <h2 style="color: red">Pengajuan</h2>
 
-        {{-- @include('layout.footer') --}}
-    </main>
-    @include('layout.js')
-</body>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h3 class="text-warning">Pengajuan Bank</h3>
+                    </div>
+                    <hr>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="namaPemilikRekening" class="text-bold mt-2">Nama Pemilik Rekening</label>
+                                    <input type="text" class="form-control" id="namaPemilikRekening" placeholder="Masukkan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="tujuan" class="text-bold mt-2">Tujuan</label>
+                                    <input type="text" class="form-control" id="tujuan" placeholder="Tujuan bank">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class ="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="noRekening" class="text-bold mt-2">No Rekening</label>
+                                    <input type="text" class="form-control" id="noRekening" placeholder="No rekening">
+                                </div>
+                            </div>
+                            <div class ="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="noPesanan" class="text-bold mt-2">No. Pesanan</label>
+                                    <input type="text" class="form-control" id="noPesanan" placeholder="No pesanan pembeli">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-danger">Batalkan</button>
+                            <button type="submit" class="btn btn-warning">Kirim</button>
+                        </div>
+                    </form>
+                </div> {{-- Tutup div card-body --}}
+            </div> {{-- Tutup div card --}}
+        </div>
+    </div>
+</div>
+   </div>
+      {{-- @include('layout.footer') --}}
+
+  </main>
+  @include('layout.js')
+  </body>
 </html>
-{{-- <form action="{{ route('terimapesanan', ['id'=>$dashboardusercontrollers->id]) }}" method="POST">
-    @csrf
-    @method('PATCH')
-@if ($dashboardusercontrollers->pembelianstatus === 'sedang di proses')
-<button type="button" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
-@else
-<button type="submit" class="btn btn-success accept-btn">Terima</button>
-<button type="submit" class="btn btn-danger reject-btn">Tolak</button>
-@endif
- </form> --}}

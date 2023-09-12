@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dashboardusercontrollers;
+use App\Models\userOrder;
 use App\Models\notifikasi;
 use App\Models\adminnotifikasi;
 use App\Models\notifikasipenjual;
 
-use App\Models\penjual;
+use App\Models\barangpenjual;
 use Illuminate\Http\Request;
 
 class dashboardusercontroller extends Controller
 {
-    protected $penjual;
+    // protected $penjual;
 
-    public function __construct()
-    {
-        $this->penjual = penjual::all();
-    }
+    // public function __construct()
+    // {
+    //     $this->penjual = barangpenjual::all();
+    // }
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = dashboardusercontrollers::all();
+        $users = userOrder::all();
         $notifikasi = notifikasi::all();
-        $penjual = penjual::all();
+        $penjual =  barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
 
@@ -35,34 +35,34 @@ class dashboardusercontroller extends Controller
 
     public function pembelian(Request $request)
     {
-        $penjual = penjual::all();
+        $penjual = barangpenjual::all();
         return view('DashboardUser.pembelian', compact('penjual'));
     }
 
 
     public function pesanan()
     {
-        $user = dashboardusercontrollers::where('adminstatus', 'approve')->get();
-        $penjual = penjual::all();
+        $user = userOrder::where('adminstatus', 'approve')->get();
+        $penjual = barangpenjual::all();
         return view('DashboardUser.pesanan', compact('user', 'penjual'));
     }
 
     public function riwayatuser()
     {
-        $user = dashboardusercontrollers::where('pembelianstatus', 'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
-        $penjual = penjual::all();
+        $user = userOrder::where('pembelianstatus', 'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
+        $penjual = barangpenjual::all();
         return view('DashboardUser.riwayat', compact('user', 'penjual'));
     }
 
     public function Userkeranjang()
     {
-        $user = dashboardusercontrollers::all();
+        $user = userOrder::all();
         return view('DashboardUser.keranjang', compact('user'));
     }
 
     public function pengajuanuser()
     {
-        $user = dashboardusercontrollers::all();
+        $user = userOrder::all();
         return view('DashboardUser.pengajuanuser', compact('user'));
     }
 
@@ -72,8 +72,8 @@ class dashboardusercontroller extends Controller
      */
     public function create()
     {
-        $dashboardusercontrollers = dashboardusercontrollers::all();
-        $penjual = penjual::all();
+        $dashboardusercontrollers = userOrder::all();
+        $penjual = barangpenjual::all();
         return view('DashboardUser.pembelian', compact('dashboardusercontrollers','penjual'));
     }
 
@@ -90,30 +90,29 @@ class dashboardusercontroller extends Controller
             'pembelianstatus'=> 'menunggu konfirmasi',
 
         ];
-
         $adminnotifikasi =  [
             'keterangan_admin' => 'ada pesanan  masuk',
             'isi_admin' => 'cek tabel pembelian untuk konfirmasi'
         ];
-
-
-
-    if ($dashboardusercontrollers['pembelianstatus'] != 'anda berhasil membuat pesanan')
-     {
-        $waktuKadaluwarsa = now()->addMinutes(5);
-
         $notifikasi = [
             'keterangan' => 'anda berhasil membuat pesanan',
             'isi' => 'lihat pesanan anda di menu pesanan',
-            'waktu_kadaluwarsa' => $waktuKadaluwarsa,
         ];
-    }
-
         adminnotifikasi::create($adminnotifikasi);
         notifikasi::create($notifikasi);
-        dashboardusercontrollers::create($dashboardusercontrollers);
+        userOrder::create($dashboardusercontrollers);
         return redirect()->route('menu.index');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $results = userOrder::where('namamenu', 'like', '%' . $query . '%')->get();
+
+        return response()->json($results);
+    }
+
+
 
     /**
      * Display the specified resource.

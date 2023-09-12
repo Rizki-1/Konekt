@@ -137,7 +137,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="pembayaranpenjual">
+                                <a class="nav-link " href="pengajuanpenjual">
                                    <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 21 22" fill="none">
                                         <path d="M5.25 4.04688H13.125V5.35938H5.25V4.04688Z" fill="#959895"/>

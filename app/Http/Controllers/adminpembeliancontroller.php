@@ -146,6 +146,18 @@ class adminpembeliancontroller extends Controller
         }
     }
 
+    protected function pengajuanpembeliad(Request $request)
+    {
+        $user = User::all();
+        return view('admin.pengajuanpembeliad', compact('user'));
+    }
+
+    protected function pengajuanpenjualad(Request $request)
+    {
+        $penjual = penjual::all();
+        return view('admin.pengajuanpenjualad', compact('penjual'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -138,6 +138,12 @@ class penjualcontroller extends Controller
         return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers'));
     }
 
+    protected function pengajuanpenjual(Request $request)
+    {
+        $penjual = penjual::all();
+        return view('DashboardPenjual.pengajuanpenjual', compact('penjual'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -108,37 +108,6 @@
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
-        <form action="{{ route('pembelianadmin.store') }}" method="POST">
-            @csrf
-              <div class="modal" id="myModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
-                                <input type="text" name="metodepembayaran" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">tujuan</label>
-                                <input type="text" name="tujuan" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">keterangan</label>
-                                <input type="text" name="keterangan" class="form-control">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -183,7 +152,7 @@
                         </a>
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="calonpenjual">
+                                <a class="nav-link" aria-current="page" href="calonpenjual">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 17" fill="none">
                                             <path d="M3.6 7.2C4.92375 7.2 6 6.12375 6 4.8C6 3.47625 4.92375 2.4 3.6 2.4C2.27625 2.4 1.2 3.47625 1.2 4.8C1.2 6.12375 2.27625 7.2 3.6 7.2ZM20.4 7.2C21.7238 7.2 22.8 6.12375 22.8 4.8C22.8 3.47625 21.7238 2.4 20.4 2.4C19.0763 2.4 18 3.47625 18 4.8C18 6.12375 19.0763 7.2 20.4 7.2ZM21.6 8.4H19.2C18.54 8.4 17.9438 8.66625 17.5088 9.0975C19.02 9.92625 20.0925 11.4225 20.325 13.2H22.8C23.4638 13.2 24 12.6637 24 12V10.8C24 9.47625 22.9237 8.4 21.6 8.4ZM12 8.4C14.3212 8.4 16.2 6.52125 16.2 4.2C16.2 1.87875 14.3212 0 12 0C9.67875 0 7.8 1.87875 7.8 4.2C7.8 6.52125 9.67875 8.4 12 8.4ZM14.88 9.6H14.5688C13.7888 9.975 12.9225 10.2 12 10.2C11.0775 10.2 10.215 9.975 9.43125 9.6H9.12C6.735 9.6 4.8 11.535 4.8 13.92V15C4.8 15.9937 5.60625 16.8 6.6 16.8H17.4C18.3938 16.8 19.2 15.9937 19.2 15V13.92C19.2 11.535 17.265 9.6 14.88 9.6ZM6.49125 9.0975C6.05625 8.66625 5.46 8.4 4.8 8.4H2.4C1.07625 8.4 0 9.47625 0 10.8V12C0 12.6637 0.53625 13.2 1.2 13.2H3.67125C3.9075 11.4225 4.98 9.92625 6.49125 9.0975Z" fill="#959895"/>
@@ -193,7 +162,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="pengajuanpembeliad">
+                                <a class="nav-link active"aria-current="page" href="pengajuanpembeliad">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 24 24" fill="none">
                                             <path d="M17.5948 5.59835V3.19906C17.5948 2.77484 17.4263 2.36799 17.1263 2.06802C16.8263 1.76805 16.4195 1.59953 15.9953 1.59953H3.19906C2.77522 1.60079 2.36911 1.76972 2.06942 2.06942C1.76972 2.36911 1.60079 2.77522 1.59953 3.19906V20.7939C1.60079 21.2177 1.76972 21.6238 2.06942 21.9235C2.36911 22.2232 2.77522 22.3921 3.19906 22.3934H15.9953C16.4191 22.3921 16.8252 22.2232 17.1249 21.9235C17.4246 21.6238 17.5935 21.2177 17.5948 20.7939C17.5948 20.5818 17.6791 20.3783 17.8291 20.2283C17.979 20.0784 18.1825 19.9941 18.3946 19.9941C18.6067 19.9941 18.8101 20.0784 18.9601 20.2283C19.1101 20.3783 19.1943 20.5818 19.1943 20.7939C19.1949 21.2141 19.1125 21.6304 18.9519 22.0187C18.7913 22.4071 18.5557 22.76 18.2585 23.0571C17.9614 23.3543 17.6085 23.5899 17.2201 23.7505C16.8318 23.9111 16.4155 23.9935 15.9953 23.9929H3.19906C2.35061 23.9929 1.53692 23.6559 0.936982 23.0559C0.337043 22.456 0 21.6423 0 20.7939V3.19906C0 2.35061 0.337043 1.53692 0.936982 0.936982C1.53692 0.337043 2.35061 0 3.19906 0L15.9953 0C16.8437 0 17.6574 0.337043 18.2574 0.936982C18.8573 1.53692 19.1943 2.35061 19.1943 3.19906V5.59835C19.1943 5.81046 19.1101 6.01388 18.9601 6.16387C18.8101 6.31385 18.6067 6.39811 18.3946 6.39811C18.1825 6.39811 17.979 6.31385 17.8291 6.16387C17.6791 6.01388 17.5948 5.81046 17.5948 5.59835Z" fill="#959895"/>
@@ -223,7 +192,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="metodpembayaran">
+                                <a class="nav-link " href="metodpembayaran">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 28 28" fill="none">
                                             <path d="M22.1673 5.83203H5.83398C4.90573 5.83203 4.01549 6.20078 3.35911 6.85716C2.70273 7.51354 2.33398 8.40377 2.33398 9.33203V18.6654C2.33398 19.5936 2.70273 20.4839 3.35911 21.1402C4.01549 21.7966 4.90573 22.1654 5.83398 22.1654H22.1673C23.0956 22.1654 23.9858 21.7966 24.6422 21.1402C25.2986 20.4839 25.6673 19.5936 25.6673 18.6654V9.33203C25.6673 8.40377 25.2986 7.51354 24.6422 6.85716C23.9858 6.20078 23.0956 5.83203 22.1673 5.83203ZM12.834 17.4987H8.16732C7.8579 17.4987 7.56115 17.3758 7.34236 17.157C7.12357 16.9382 7.00065 16.6415 7.00065 16.332C7.00065 16.0226 7.12357 15.7259 7.34236 15.5071C7.56115 15.2883 7.8579 15.1654 8.16732 15.1654H12.834C13.1434 15.1654 13.4401 15.2883 13.6589 15.5071C13.8777 15.7259 14.0007 16.0226 14.0007 16.332C14.0007 16.6415 13.8777 16.9382 13.6589 17.157C13.4401 17.3758 13.1434 17.4987 12.834 17.4987ZM19.834 17.4987H17.5007C17.1912 17.4987 16.8945 17.3758 16.6757 17.157C16.4569 16.9382 16.334 16.6415 16.334 16.332C16.334 16.0226 16.4569 15.7259 16.6757 15.5071C16.8945 15.2883 17.1912 15.1654 17.5007 15.1654H19.834C20.1434 15.1654 20.4401 15.2883 20.6589 15.5071C20.8777 15.7259 21.0007 16.0226 21.0007 16.332C21.0007 16.6415 20.8777 16.9382 20.6589 17.157C20.4401 17.3758 20.1434 17.4987 19.834 17.4987ZM23.334 10.4987H4.66732V9.33203C4.66732 9.02261 4.79023 8.72587 5.00903 8.50707C5.22782 8.28828 5.52456 8.16536 5.83398 8.16536H22.1673C22.4767 8.16536 22.7735 8.28828 22.9923 8.50707C23.2111 8.72587 23.334 9.02261 23.334 9.33203V10.4987Z" fill="#959895"/>
@@ -316,97 +285,110 @@
                                                 <h5 class="mb-0 text-white">All Notifications</h5>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- End notifikasi -->
-                            <!-- start pesan -->
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link" id="mail-drop2" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path opacity="0.4"
-                                            d="M20 13.441C20 16.231 17.76 18.491 14.97 18.501H14.96H5.05C2.27 18.501 0 16.251 0 13.461V13.451C0 13.451 0.006 9.02498 0.014 6.79898C0.015 6.38098 0.495 6.14698 0.822 6.40698C3.198 8.29198 7.447 11.729 7.5 11.774C8.21 12.343 9.11 12.664 10.03 12.664C10.95 12.664 11.85 12.343 12.56 11.763C12.613 11.728 16.767 8.39398 19.179 6.47798C19.507 6.21698 19.989 6.45098 19.99 6.86798C20 9.07698 20 13.441 20 13.441Z"
-                                            fill="currentColor" />
-                                        <path
-                                            d="M19.4769 3.174C18.6109 1.542 16.9069 0.5 15.0309 0.5H5.05086C3.17486 0.5 1.47086 1.542 0.60486 3.174C0.41086 3.539 0.50286 3.994 0.82586 4.252L8.25086 10.191C8.77086 10.611 9.40086 10.82 10.0309 10.82C10.0349 10.82 10.0379 10.82 10.0409 10.82C10.0439 10.82 10.0479 10.82 10.0509 10.82C10.6809 10.82 11.3109 10.611 11.8309 10.191L19.2559 4.252C19.5789 3.994 19.6709 3.539 19.4769 3.174Z"
-                                            fill="currentColor" />
-                                    </svg>
-                                    <span class="bg-primary count-mail"></span>
-                                </a>
-                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
-                                    aria-labelledby="mail-drop2">
-                                    <div class="card shadow-none m-0">
-                                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
-                                            <div class="header-title">
-                                                <h5 class="mb-0 text-white">All Message</h5>
+                                        <div class="card-body p-0 notifikasi-belum-kedaluwarsa">
+                                            <div class="d-flex align-items-center">
+                                                <img class="avatar-40 rounded-pill"
+                                                    src="../assets/images/layouts/01.png" alt="">
+                                                <div class="ms-3 w-100">
+                                                    <h6 class="mb-0"></h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mb-0"></p>
+                                                        <small class="float-end font-size-12"></small>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
-                            </li>
-                            <!-- End Pesan-->
-                            <!-- Start Profile-->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="../assets/images/avatars/01.png" alt="User-Profile"
-                                        class="img-fluid avatar avatar-50 avatar-rounded">
-                                    <div class="caption ms-3 d-none d-md-block ">
-                                        <h6 class="mb-0 caption-title">Austin Robertson</h6>
-                                        <p class="mb-0 caption-sub-title">Marketing Administrator</p>
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
-                                </ul>
-                            </li>
-                            <!-- End Profile-->
-                        </ul>
                     </div>
+                    </li>
+                    <!-- End notifikasi -->
+                    <!-- start pesan -->
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link" id="mail-drop2" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.4"
+                                    d="M20 13.441C20 16.231 17.76 18.491 14.97 18.501H14.96H5.05C2.27 18.501 0 16.251 0 13.461V13.451C0 13.451 0.006 9.02498 0.014 6.79898C0.015 6.38098 0.495 6.14698 0.822 6.40698C3.198 8.29198 7.447 11.729 7.5 11.774C8.21 12.343 9.11 12.664 10.03 12.664C10.95 12.664 11.85 12.343 12.56 11.763C12.613 11.728 16.767 8.39398 19.179 6.47798C19.507 6.21698 19.989 6.45098 19.99 6.86798C20 9.07698 20 13.441 20 13.441Z"
+                                    fill="currentColor" />
+                                <path
+                                    d="M19.4769 3.174C18.6109 1.542 16.9069 0.5 15.0309 0.5H5.05086C3.17486 0.5 1.47086 1.542 0.60486 3.174C0.41086 3.539 0.50286 3.994 0.82586 4.252L8.25086 10.191C8.77086 10.611 9.40086 10.82 10.0309 10.82C10.0349 10.82 10.0379 10.82 10.0409 10.82C10.0439 10.82 10.0479 10.82 10.0509 10.82C10.6809 10.82 11.3109 10.611 11.8309 10.191L19.2559 4.252C19.5789 3.994 19.6709 3.539 19.4769 3.174Z"
+                                    fill="currentColor" />
+                            </svg>
+                            <span class="bg-primary count-mail"></span>
+                        </a>
+                        <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="mail-drop2">
+                            <div class="card shadow-none m-0">
+                                <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
+                                    <div class="header-title">
+                                        <h5 class="mb-0 text-white">All Message</h5>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                    <!-- End Pesan-->
+                    <!-- Start Profile-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="../assets/images/avatars/01.png" alt="User-Profile"
+                                class="img-fluid avatar avatar-50 avatar-rounded">
+                            <div class="caption ms-3 d-none d-md-block ">
+                                <h6 class="mb-0 caption-title">Austin Robertson</h6>
+                                <p class="mb-0 caption-sub-title">Marketing Administrator</p>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
+                            <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
+                                    Setting</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <li><button type="submit" class="dropdown-item">logout</button></li>
+                            </form>
+                        </ul>
+                    </li>
+                    <!-- End Profile-->
+                    </ul>
                 </div>
-            </nav>
+        </div>
+        </nav>
         </div>
         <div class="content-inner mt-5 py-0">
             <div class="row">
+            <h3 class="mt-1">Pengajuan</h3>
+            <div class="mb-4"></div> <!-- jarak -->
                 <div class="col-md-12 col-lg-12">
-                    <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Success</button>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">metode pembayaran</th>
-                                    <th scope="col">tujuan</th>
-                                    <th scope="col">keteranagn</th>
-                                    <th scope="col">aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $no = 1;
-                                @endphp
-                                @foreach ($adminmp as $a)
-                                <th scope="row">{{ $no ++ }}</th>
-                                <td>{{ $a->metodepembayaran }}</td>
-                                <td>{{ $a->tujuan }}</td>
-                                <td>{{ $a->keterangan }}</td>
-                                <td>
-                                    <button class="btn btn-danger">hapus</button>
-                                </td>
-                                @endforeach
-                            </tbody>
-                        </table>
+                <a href="{{ route('pengajuanpembeliad') }}" class="btn btn-outline-warning">Pembeli</a>
+                <a href="{{ route('pengajuanpenjualad') }}" class="btn btn-outline-warning">Penjual</a>
+                <div class="mb-4"></div> <!-- jarak -->
+                    <div class="card border-0 shadow rounded">
+                        <div class="card-body">
+                            <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+                                data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
+                                style="position: relative">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">no</th>
+                                            <th scope="col">nama toko</th>
+                                            <th scope="col">pembeli</th>
+                                            <th scope="col">jumlah</th>
+                                            <th scope="col">total harga</th>
+                                            <th scope="col">pembayaran</th>
+                                            <th scope="col">aksi</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

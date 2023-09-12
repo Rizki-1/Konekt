@@ -12,6 +12,7 @@ use App\Models\notifikasipenjual;
 use App\Models\penjual;
 use App\Models\penjuallogin;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class adminpembeliancontroller extends Controller
@@ -89,7 +90,7 @@ class adminpembeliancontroller extends Controller
         $user = User::where('id', $calonPenjual)->first();
         $user->role = 'penjual';
         $user->save();
-       
+
         // dd($user->name);
         return redirect()->route('calonpenjual');
     }
@@ -136,8 +137,13 @@ class adminpembeliancontroller extends Controller
 
     public function kdestroy(admink $admink)
     {
-        $admink->delete();
-        return redirect()->route('kategori');
+        try {
+            $admink->delete();
+            return redirect()->route('kategori');
+        } catch (Exception $e) {
+            return back()->with('error','data masih terhubung');
+
+        }
     }
 
     /**

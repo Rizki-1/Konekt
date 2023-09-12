@@ -13,7 +13,7 @@ use App\Models\notifikasipenjual;
 use App\Models\penjual;
 use App\Models\penjuallogin;
 use App\Models\User;
-use App\Models\userOrder;
+use Exception;
 use Illuminate\Http\Request;
 
 class adminpembeliancontroller extends Controller
@@ -138,8 +138,13 @@ class adminpembeliancontroller extends Controller
 
     public function kdestroy(adminkategori $admink)
     {
-        $admink->delete();
-        return redirect()->route('kategori');
+        try {
+            $admink->delete();
+            return redirect()->route('kategori');
+        } catch (Exception $e) {
+            return back()->with('error','data masih terhubung');
+
+        }
     }
 
     /**

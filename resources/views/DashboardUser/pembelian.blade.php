@@ -60,7 +60,7 @@
       <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
-    @include('layout.logoloader')
+    {{-- @include('layout.logoloader') --}}
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -330,104 +330,63 @@
           </div>
         </nav>
       </div>
-      @foreach ($penjual as $p)
 
-
-      <form action="{{ route('menu.store') }}" method="POST">
-        @csrf
-      <div class="content-inner mt-5 py-0">
-   <div class=" card col-md-12 col-lg-12">
-
-        <div class="card-body">
-          <div class="">
-            <h3 class="text-warning">Konfirmasi pesanan</h3>
-          </div>
-          <div class="mb-2 mt-2"><i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px " aria-hidden="true"></i>Masakan warung berkah </div>
-          <div class="d-flex justify-content-between ">
-            <div class=""><img src="{{ asset('assets/img/poto.png') }}"  width="100px" alt="" srcset=""></div>
-            <div class="form-label text-bold"><h5 class="form-label">{{ $p->namamenu }}</h5>
-              <div class=""><p class="form-label">{{ $p->namamenu }}</p></div>
+<!-- Loop through pembelian records -->
+@foreach ($pembelian as $p)
+<form action="{{ route('menu.store') }}" method="POST">
+    @csrf
+    <div class="content-inner mt-5 py-0">
+        <div class=" card col-md-12 col-lg-12">
+            <div class="card-body">
+                <div class="">
+                    <h3 class="text-primary">Konfirmasi pesanan</h3>
+                </div>
+                <!-- Menampilkan nama penjual (belum ada informasi penjual di data pembelian) -->
+                <div class="mb-2 mt-2"><i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px " aria-hidden="true"></i>Masakan warung berkah </div>
+                <!-- Menampilkan detail menu -->
+                <div class="d-flex justify-content-between">
+                    <div class=""><img src="{{ asset('assets/img/poto.png') }}" width="100px" alt="" srcset=""></div>
+                    <div class="form-label text-bold"><h5 class="form-label">Nama Menu</h5>
+                        <div class=""><p class="form-label">{{ $p->namamenu }}</p></div>
+                    </div>
+                    <div class="form-label text-bold px-4"><h5 class="form-label">Harga</h5>
+                        <div class=""><p class="form-label">{{ $p->harga }}</p></div>
+                    </div>
+                    <div class="form-label text-bold px-4"><h5 class="form-label">Jumlah</h5>
+                        <div class=""><p class="form-label">{{ $p->jumlah }}</p></div>
+                    </div>
+                    <!-- Total harga belum dihitung -->
+                    <div class="form-label text-bold px-4"><h5 class="form-label">Total</h5>
+                        <div class=""><p class="form-label">Rp. {{ number_format($p->harga) }}</p></div>
+                    </div>
+                </div>
+                <hr>
+                <!-- Total pesanan dan biaya layanan belum dihitung -->
+                <!-- Input bukti transfer (file) dan total harga belum diimplementasikan -->
+                <div class="mb-3">
+                    <div class=""><h5 class="text-bold">Pesan :</h5></div>
+                    <div class="mt-3">
+                        <input type="text" name="catatan" class="form-control" id="catatan" placeholder="Beri catatan (opsional)">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class=""><h5 class="text-bold">Bukti transfer :</h5></div>
+                    <div class="mt-3">
+                        <input type="file" name="fotobuktipembayaran" class="form-control" id="fotobuktipembayaran">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class=""><h5 class="text-bold">Total harga</h5></div>
+                    <div class="mt-3">
+                        <input type="text" name="totalharga" class="form-control" id="totalharga">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-5">
+                    <button type="submit" class="btn btn-primary">Bayar</button>
+                </div>
             </div>
-            <div class="form-label text-bold px-4"><h5 class="form-label">Harga</h5>
-              <div class=""><p class="form-label">{{ $p->harga }}</p></div>
-            </div>
-            <div class="form-label text-bold px-4"><h5 class="form-label">beli</h5>
-              <div class=""><p class="form-label">{{ session('jumlahpembelian') }}</p></div>
-            </div>
-            <div class="form-label text-bold px-4"><h5 class="form-label">Total</h5>
-              <div class=""><p class="form-label">Rp.15,000</p></div>
-            </div>
-          </div>
-          <hr>
-          <div class="d-flex gap-4 justify-content-header">
-            <div class="text-bold mt-2"><h5>
-                  Pesan :
-            </h5></div>
-            <div class="">
-              <input type="text" class="form-control"  placeholder="(Opsional) Masukkan pesan anda">
-            </div>
-          </div>
-        <div class="d-flex justify-content-between mt-2" >
-          <div class="mt-2"><p class="text-bold">Total pesanan:</p></div>
-          <div class="mt-2"><h5>{{ $p->harga }}</h5></div>
-
-          <div class="d-flex justify-content-between mt-2" >
-            <div class="mt-2"><p class="text-bold">Total pesanan ( 1 Menu ):</p></div>
-            <div class="mt-2"><h5>RP .15.000</h5></div>
         </div>
-        <div class="d-flex justify-content-between mt-1" >
-          <div class="mt-0"><p class="text-bold">Biaya Layanan :</p></div>
-          <div class="mt-0"><h5>RP .15.000</h5></div>
-        </div>
-        <div class="d-flex justify-content-between mt-1" >
-          <div class="mt-0"><p class="text-bold">Total :</p></div>
-          <div class="mt-0"><h5 class="text-warning">RP .15.000</h5></div>
-        </div>
-        </div>
-        <hr>
-        <div class="card col-md-12 col-lg-12 px-2">
-          <div class="card-body ">
-            <div class="d-flex justify-content-between">
-              <div class="">
-                <i class="fa fa-credit-card-alt" style="font-size:20px "  aria-hidden="true">&nbsp;E-Wallet</i>
-              </div>
-              <div class=""><i class="fa fa-check-circle text-warning" aria-hidden="true" style="color: greenyellow">&nbsp;Rp.15000</i><p></p></div>
-
-            </div>
-            <hr>
-            <img src="{{ asset('assets/images/brands/08.png') }}" alt="" srcset="">
-          </div>
-        </div>
-        <hr>
-        <div class="mb-3">
-            <label for="kelas" class="form-label fw-bold">kategori</label>
-            <select name="namamenu_id" class="form-control">
-                <option value="" disabled selected>Pilih kategori</option>
-                @foreach ($penjual as $siswa)
-                    <option value="{{ $siswa->id }}">{{ $siswa->namamenu }}</option>
-                @endforeach
-        </div>
-        <div class="px-5">
-          <div class=""><h5 class="text-bold">Bukti transfer : </h5></div>
-          <div class="mt-3">
-            {{-- <input type="file" name="" class="form-control " id=""> --}}
-            <input type="text" name="fotobuktipembayaran" class="form-control " id="">
-            <input type="file" name="" class="form-control" id="">
-
-          </div>
-        </div>
-        <div class="px-5">
-          <div class=""><h5 class="text-bold">total harga </h5></div>
-          <div class="mt-3">
-            {{-- <input type="file" name="" class="form-control " id=""> --}}
-            <input type="text" name="totalharga" class="form-control " id="">
-          </div>
-        </div>
-
-        <div class="d-flex justify-content-end mt-5">
-          <button type="submit" class="btn btn-warning">Bayar</button>
-        </div>
-   </div>
+    </div>
 </form>
 @endforeach
       {{-- @include('layout.footer') --}}

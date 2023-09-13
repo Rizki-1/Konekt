@@ -16,45 +16,99 @@
       <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
-    <form action="{{ route('DashboardPenjual.store') }}" method="POST">
-        @csrf
-          <div class="modal" id="myModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+{{-- Modal Start --}}
+<form action="{{ route('DashboardPenjual.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="modal" id="myModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">Nama Menu</label>
+                        <input type="text" name="namamenu" class="form-control @error('namamenu') is-invalid @enderror" value="{{ old('namamenu') }}">
+                        @error('namamenu')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">nama menu</label>
-                            <input type="text" name="namamenu" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">kategori</label>
-                            <select name="kategori_id" class="form-control">
-                                <option value="" disabled selected>Pilih kategori</option>
-                                @foreach ($adminkategori as $siswa)
-                                    <option value="{{ $siswa->id }}">{{ $siswa->kategori }}</option>
-                                @endforeach
-                        </div>
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">harga</label>
-                            <input type="text" name="harga" class="form-control" >
-                        </div>
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">foto makanan</label>
-                            <input type="text" name="fotomakanan" class="form-control">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">Kategori</label>
+                        <select name="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
+                            <option value="" disabled selected>Pilih kategori</option>
+                            @foreach ($adminkategori as $siswa)
+                                <option value="{{ $siswa->id }}" {{ old('kategori_id') == $siswa->id ? 'selected' : '' }}>{{ $siswa->kategori }}</option>
+                            @endforeach
+                        </select>
+                        @error('kategori_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">Harga</label>
+                        <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror" value="{{ old('harga') }}">
+                        @error('harga')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">Foto Makanan</label>
+                        <input type="file" name="fotomakanan" class="form-control @error('fotomakanan') is-invalid @enderror" id="previewImage">
+                        @error('fotomakanan')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div id="imagePreview" class="mb-3"></div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+</form>
+
+{{-- Script for image preview --}}
+<script>
+    // Fungsi untuk menampilkan pratinjau gambar
+    function previewImage() {
+        var fileInput = document.getElementById('previewImage');
+        var imagePreview = document.getElementById('imagePreview');
+
+        fileInput.addEventListener('change', function () {
+            while (imagePreview.firstChild) {
+                imagePreview.removeChild(imagePreview.firstChild);
+            }
+
+            var file = fileInput.files[0];
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'img-thumbnail';
+                    imagePreview.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // Panggil fungsi pratinjau gambar
+    previewImage();
+</script>
+{{-- Script for image preview --}}
+
+{{-- Modal End --}}
+
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -280,7 +334,7 @@
       style="position: relative"
       >
     </div>
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Success</button>
+    <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#myModal">Tambah Menu</button>
 </div>
       {{-- @include('layout.footer') --}}
     </main>

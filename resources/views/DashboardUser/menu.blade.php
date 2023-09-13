@@ -25,41 +25,82 @@
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
 <body class=""
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
-@foreach ($penjual as $p)
-        <form action="{{ route('menu.store') }}" method="POST">
+    {{-- Modal Start --}}
+    {{-- @foreach ($penjual as $p)
+        <form action="{{ route('menu.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
         <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Konfirmasi pembayaran</h5>
+                        <h5 class="modal-title">Konfirmasi Pembayaran</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="namamenu_id" class="form-label fw-bold">nama menu</label>
-                                <input type="text" name="namamenu_id" value="{{ $p->namamenu }}"
-                                    class="form-control" disabled>
-                                <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
-                            </div>
                         <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">harga</label>
-                            <input type="text" name="" value="{{ $p->harga }}"
+                            <label for="namamenu_id" class="form-label fw-bold">Nama menu</label>
+                            <input type="text" name="namamenu_id" value="{{ $p->namamenu }}"
+                                class="form-control" disabled>
+                            <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="kelas" class="form-label fw-bold">Harga</label>
+                            <input type="text" name="" value="{{ ($p->harga) }}"
                             class="form-control" disabled>
                         <input type="hidden" name="" value="{{ $p->id }}">
                         </div>
                         <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">foto bukti</label>
-                            <input type="text" name="" value="{{ $p->fotomakanan }}"
-                            class="form-control" disabled>
-                        <input type="hidden" name="" value="{{ $p->id }}">
+                            <img src="{{ asset('storage/' . $p->fotomakanan) }}" alt="Foto Menu" style="width: 200px">
                         </div>
+                        <input type="hidden" name="fotomakanan" value="{{ $p->fotomakanan }}">
+                        <div class="mb-3">
+                            <label for="jumlah" class="form-label fw-bold">Jumlah</label>
+                            <input type="number" name="jumlah" class="form-control" id="jumlah-{{$p->id}}" value="1" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="keterangan" class="form-label fw-bold">Catatan Penjual (opsional)</label>
+                            <textarea name="keterangan" class="form-control" id="keterangan" rows="4"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="foto" class="form-label fw-bold">Bukti Pembayaran</label>
+                            <input type="file" name="foto" class="form-control" id="foto">
+                        </div>
+                        <div class="mb-3">
+                            <label for="total-harga" class="form-label fw-bold">Total Harga</label>
+                            <input type="text" name="total-harga" class="form-control" id="total-harga-{{$p->id}}" value="{{ $p->harga }}" readonly>
+                        </div>
+
+                        <script>
+                            // Fungsi untuk menghitung total harga
+                            function hitungTotalHarga(id) {
+                                var jumlahInput = document.getElementById('jumlah-' + id);
+                                var hargaInput = document.getElementById('total-harga-' + id);
+                                var hargaPerItem = {{ $p->harga }};
+
+                                // Menghitung total harga
+                                var totalHarga = parseFloat(jumlahInput.value) * hargaPerItem;
+
+                                // Menampilkan total harga
+                                hargaInput.value = totalHarga;
+                            }
+
+                            // Menambahkan event listener untuk input jumlah di setiap modal
+                            @foreach ($penjual as $p)
+                            var jumlahInput{{$p->id}} = document.getElementById('jumlah-{{$p->id}}');
+                            jumlahInput{{$p->id}}.addEventListener('input', function() {
+                                hitungTotalHarga({{$p->id}});
+                            });
+                            @endforeach
+                        </script>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -69,8 +110,85 @@
             </div>
         </div>
     </form>
-    @endforeach
-    @include('layout.logoloader')
+    @endforeach --}}
+    {{-- Modal End --}}
+
+{{-- Modal Start --}}
+@foreach ($penjual as $p)
+    <form action="{{ route('createPembelian') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="penjual_id" value="{{ $p->id }}">
+        <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tambah Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img src="{{ asset('storage/' . $p->fotomakanan) }}" alt="Foto Menu" class="img-fluid">
+                                </div>
+                                <div class="col-8">
+                                    <p class="fs-4 text-dark">
+                                        {{ $p->namamenu }}
+                                        <input type="hidden" name="namamenu" value="{{ $p->id }}">
+                                    </p>
+                                    <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
+                                    <p class="fs-6 text-primary">
+                                        Harga :
+                                        Rp. {{ $p->harga }}
+                                        <input type="hidden" id="harga-{{$p->id}}" name="harga" value="{{ $p->harga }}">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="keterangan" class="form-label fw-bold">Catatan Penjual (opsional)</label>
+                            <textarea name="keterangan" class="form-control" id="keterangan-{{$p->id}}" rows="4" style="height: 80px" placeholder="Beri catatan"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jumlah" class="form-label fw-bold">Jumlah</label>
+                            <input type="number" name="jumlah" class="form-control" placeholder="Masukan jumlah" oninput="hitungTotalHarga({{ $p->id }})">
+                        </div>
+                        <div class="mb-3">
+                            <label for="totalHarga" class="form-label fw-bold">Total Harga</label>
+                            <input type="number" name="totalHarga" class="form-control" id="totalHarga-{{ $p->id }}" readonly>
+                        </div>
+                        </div>
+
+                        {{-- js untuk total harga --}}
+                        <script>
+                            function hitungTotalHarga(penjualId) {
+                                // Ambil nilai jumlah dari input
+                                var jumlahInput = document.getElementById('jumlah-' + penjualId).value;
+
+                                // Ambil harga dari input yang tersembunyi
+                                var harga = document.getElementById('harga-' + penjualId).value;
+
+                                // Hitung total harga
+                                var totalHarga = jumlahInput * harga;
+
+                                // Setel nilai total harga ke input totalHarga
+                                document.getElementById('totalHarga-' + penjualId).value = totalHarga;
+                            }
+                        </script>
+                        {{-- js untuk total harga --}}
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+@endforeach
+{{-- Modal End --}}
+
+    {{-- @include('layout.logoloader') --}}
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -112,6 +230,17 @@
                             </i>
                             <span class="item-name">Dashboard</span>
                         </a>
+                            <li class="nav-item">
+                                <a class="nav-link "aria-current="page" href="daftartoko">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 27 23" fill="none">
+                                            <path d="M26.1895 6.67998L24.377 1.24248C24.3139 1.05491 24.1912 0.893125 24.0276 0.781849C23.8639 0.670572 23.6684 0.615917 23.4707 0.626232H3.53323C3.33561 0.615917 3.14004 0.670572 2.9764 0.781849C2.81276 0.893125 2.69004 1.05491 2.62698 1.24248L0.81448 6.67998C0.801423 6.77621 0.801423 6.87376 0.81448 6.96998V12.4075C0.81448 12.6478 0.909959 12.8783 1.07991 13.0483C1.24987 13.2183 1.48038 13.3137 1.72073 13.3137H2.62698V22.3762H4.43948V13.3137H9.87698V22.3762H24.377V13.3137H25.2832C25.5236 13.3137 25.7541 13.2183 25.924 13.0483C26.094 12.8783 26.1895 12.6478 26.1895 12.4075V6.96998C26.2025 6.87376 26.2025 6.77621 26.1895 6.67998ZM22.5645 20.5637H11.6895V13.3137H22.5645V20.5637ZM24.377 11.5012H20.752V7.87623H18.9395V11.5012H14.4082V7.87623H12.5957V11.5012H8.06448V7.87623H6.25198V11.5012H2.62698V7.11498L4.18573 2.43873H22.8182L24.377 7.11498V11.5012Z" fill="#959895"/>
+                                            </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon">M</i>
+                                    <span class="item-name">Menu</span>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link "aria-current="page" href="daftartoko">
                                     <i class="icon">
@@ -322,10 +451,10 @@
                     </div>
                     <div class="d-flex justify-content-between mt-3">
                         <div class="d-flex align-items-center">
-                            <span class="text-primary fw-bolder me-2">{{ $p->harga }}</span>
-                            <small class="text-decoration-line-through">$8.49</small>
+                            <span class="text-primary fw-bolder me-2">Rp. {{ number_format($p->harga) }}</span>
+                            {{-- <small class="text-decoration-line-through">$8.49</small> --}}
                         </div>
-                        <button class="btn btn-success" data-bs-toggle="modal"
+                        <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
                             data-bs-target="#myModal-{{ $p->id }}">beli</button>
                     </div>
                 </div>

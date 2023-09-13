@@ -15,6 +15,6 @@ class adminkategori extends Model
 
     public function penjual(): HasMany
     {
-        return $this->hasMany(penjual::class, 'kategori_id');
+        return $this->hasMany(barangpenjual::class, 'kategori_id');
     }
 }

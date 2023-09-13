@@ -12,9 +12,9 @@ class userOrder extends Model
 
     protected $fillable = [
         'namamenu_id',
-        'jumlahpembelian',
-        'totalharga',
-        'fotobuktipembayaran',
+        'jumlah',
+        'foto',
+        'keterangan',
         'adminstatus',
         'pembelianstatus'
     ];

@@ -12,6 +12,7 @@ use App\Models\pembayaranpenjual;
 use App\Models\penjual;
 use App\Models\userOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class penjualcontroller extends Controller
 {
@@ -62,7 +63,7 @@ class penjualcontroller extends Controller
         $data = [
             'metodepembayaran' => $metodePembayaran,
         ];
-    
+
         if ($metodePembayaran === 'e-wallet') {
             $data['tujuan'] = $request->input('tujuan_e_wallet');
             $data['keterangan'] = $request->input('keterangan_e_wallet');
@@ -72,10 +73,10 @@ class penjualcontroller extends Controller
         } else {
             return redirect()->route('pembayaranpenjual')->with('error', 'Metode pembayaran tidak valid.');
         }
-    
+
         // Simpan data ke database
         PembayaranPenjual::create($data);
-    
+
         // Redirect atau tampilkan pesan sukses
         return redirect()->route('pembayaranpenjual')->with('success', 'Data pembayaran berhasil disimpan.');
     }
@@ -140,7 +141,7 @@ class penjualcontroller extends Controller
 
     protected function pengajuanpenjual(Request $request)
     {
-        $penjual = penjual::all();
+        $penjual = barangpenjual::all();
         return view('DashboardPenjual.pengajuanpenjual', compact('penjual'));
     }
 
@@ -158,10 +159,39 @@ class penjualcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $penjual = $request->all();
-        barangpenjual::create($penjual);
-        // dd($request);
-        return redirect()->route('DashboardPenjual.index')->with('berhasil');
+        // Validasi input dari request dengan pesan kustom
+        $validated = $request->validate([
+            'namamenu' => 'required|string|max:255',
+            'kategori_id' => 'required',
+            'harga' => 'required|numeric|min:0',
+            'fotomakanan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'namamenu.required' => 'Nama makanan wajib diisi.',
+            'namamenu.string' => 'Nama makanan harus berupa teks.',
+            'namamenu.max' => 'Nama makanan tidak boleh lebih dari :max karakter.',
+            'kategori_id.required' => 'Kategori wajib diisi.',
+            'harga.required' => 'Harga wajib diisi.',
+            'harga.numeric' => 'Harga harus berupa angka.',
+            'harga.min' => 'Harga harus minimal :min.',
+            'fotomakanan.required' => 'Foto makanan wajib diunggah.',
+            'fotomakanan.image' => 'Foto makanan harus berupa file gambar.',
+            'fotomakanan.mimes' => 'Foto makanan harus berformat jpeg, png, jpg, atau gif.',
+            'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
+        ]);
+
+        if ($request->hasFile('fotomakanan')) {
+            $filePath = Storage::disk('public')->put('penjual/menu', $request->file('fotomakanan'));
+            $validated['fotomakanan'] = $filePath;
+        }
+
+        $create = barangpenjual::create($validated);
+
+        if ($create) {
+            session()->flash('notif.success', 'Menu berhasil ditambahkan!');
+            return redirect()->route('DashboardPenjual.index');
+        }
+
+        return abort(500);
     }
 
     /**

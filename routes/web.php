@@ -61,6 +61,7 @@ Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesana
 Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
 Route::get('/menu/search', [dashboardusercontroller::class, 'search'])->name('menu.search');
 
+        Route::post('/create-pembelian', [dashboardusercontroller::class, 'createPembelian'])->name('createPembelian');
 });
 
 

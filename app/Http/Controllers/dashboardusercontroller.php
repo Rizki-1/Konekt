@@ -6,9 +6,10 @@ use App\Models\userOrder;
 use App\Models\notifikasi;
 use App\Models\adminnotifikasi;
 use App\Models\notifikasipenjual;
-
+use illuminate\Support\Facades\Storage;
 use App\Models\barangpenjual;
 use Illuminate\Http\Request;
+use App\Models\Pembelian;
 
 class dashboardusercontroller extends Controller
 {
@@ -36,9 +37,30 @@ class dashboardusercontroller extends Controller
     public function pembelian(Request $request)
     {
         $penjual = barangpenjual::all();
-        return view('DashboardUser.pembelian', compact('penjual'));
+        $pembelian = pembelian::all();
+        return view('DashboardUser.pembelian', compact('pembelian', 'penjual'));
     }
 
+    public function createPembelian(Request $request)
+    {
+        // Cari menu (Penjual) berdasarkan nama menu
+        $menu = Penjual::find($request->input('namamenu'));
+
+        if ($menu) {
+            // Jika menu ditemukan, buat pembelian
+            $pembelian = new Pembelian;
+            $pembelian->penjual_id = $menu->id;
+            $pembelian->jumlah = $request->input('jumlah');
+            $pembelian->harga = $menu->harga;
+            $pembelian->catatan = $request->input('catatan');
+            $pembelian->save();
+
+            return redirect()->route('pembelian');
+        } else {
+            // Menu tidak ditemukan, mungkin perlu menangani ini sesuai kebutuhan Anda
+            return redirect()->back()->with('error', 'Menu tidak ditemukan.');
+        }
+    }
 
     public function pesanan()
     {
@@ -83,13 +105,25 @@ class dashboardusercontroller extends Controller
     public function store(Request $request)
     {
 
-        $dashboardusercontrollers =
-        [
-            'namamenu_id' => $request->namamenu_id,
-            'adminstatus'=> 'notapprove',
-            'pembelianstatus'=> 'menunggu konfirmasi',
+        // Validasi data yang masuk
+        $request->validate([
+            'jumlah' => 'required|integer|min:1',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Sesuaikan validasi ini dengan kebutuhan Anda
+        ]);
 
+        // Ambil data dari permintaan HTTP dan masukkan ke dalam array $dashboardusercontrollers
+        $dashboardusercontrollers = [
+            'namamenu_id' => $request->namamenu_id,
+            'adminstatus' => 'notapprove',
+            'pembelianstatus' => 'menunggu konfirmasi',
+            'jumlah' => $request->jumlah, // Ambil nilai dari input 'jumlah'
+            'catatan' => $request->catatan, // Ambil nilai dari input 'catatan'
         ];
+
+        if ($request->hasFile('foto')) {
+            $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
+            $validated['foto'] = $filePath;
+        }
         $adminnotifikasi =  [
             'keterangan_admin' => 'ada pesanan  masuk',
             'isi_admin' => 'cek tabel pembelian untuk konfirmasi'

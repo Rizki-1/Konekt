@@ -24,15 +24,32 @@ class dashboardusercontroller extends Controller
         $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi' ));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi'));
+    }
+    
+
+    public function pembelian(Request $request)
+    {
+        // Mencari data penjual
+        $penjual = barangpenjual::where('id', $request->id)->get();
+
+        // Membuat entitas userOrder
+        $userOrderData = [
+            'namamenu_id' => $request->namamenu_id,
+            'jumlah' => $request->jumlah,
+            'adminstatus' => 'notactive',
+            'pembelianstatus' => 'notactive',
+        ];
+
+        $userOrder = userOrder::create($userOrderData);
+
+        // Sekarang kita bisa mengambil data userOrder yang sesuai setelah membuatnya
+        $userOrders = userOrder::where('jumlah', $request->namamenu_id)->get();
+
+        return view('DashboardUser.pembelian', compact('penjual', 'userOrders'));
     }
 
-    public function pembelian(Request $request, $id)
-    {
-        // $penjual = barangpenjual::findOrFail($id);
-        $penjual = barangpenjual::all();
-        return view('DashboardUser.pembelian', compact('penjual'));
-    }
+
 
     public function pesanan()
     {
@@ -68,7 +85,7 @@ class dashboardusercontroller extends Controller
     {
         $dashboardusercontrollers = userOrder::all();
         $penjual = barangpenjual::all();
-        return view('DashboardUser.pembelian', compact('dashboardusercontrollers','penjual'));
+        return view('DashboardUser.pembelian', compact('dashboardusercontrollers', 'penjual'));
     }
 
     /**
@@ -149,6 +166,5 @@ class dashboardusercontroller extends Controller
      */
     public function destroy(string $id)
     {
-
     }
 }

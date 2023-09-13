@@ -33,86 +33,6 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
-    {{-- Modal Start --}}
-    {{-- @foreach ($penjual as $p)
-        <form action="{{ route('menu.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-        <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Konfirmasi Pembayaran</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="namamenu_id" class="form-label fw-bold">Nama menu</label>
-                            <input type="text" name="namamenu_id" value="{{ $p->namamenu }}"
-                                class="form-control" disabled>
-                            <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">Harga</label>
-                            <input type="text" name="" value="{{ ($p->harga) }}"
-                            class="form-control" disabled>
-                        <input type="hidden" name="" value="{{ $p->id }}">
-                        </div>
-                        <div class="mb-3">
-                            <img src="{{ asset('storage/' . $p->fotomakanan) }}" alt="Foto Menu" style="width: 200px">
-                        </div>
-                        <input type="hidden" name="fotomakanan" value="{{ $p->fotomakanan }}">
-                        <div class="mb-3">
-                            <label for="jumlah" class="form-label fw-bold">Jumlah</label>
-                            <input type="number" name="jumlah" class="form-control" id="jumlah-{{$p->id}}" value="1" min="1">
-                        </div>
-                        <div class="mb-3">
-                            <label for="keterangan" class="form-label fw-bold">Catatan Penjual (opsional)</label>
-                            <textarea name="keterangan" class="form-control" id="keterangan" rows="4"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="foto" class="form-label fw-bold">Bukti Pembayaran</label>
-                            <input type="file" name="foto" class="form-control" id="foto">
-                        </div>
-                        <div class="mb-3">
-                            <label for="total-harga" class="form-label fw-bold">Total Harga</label>
-                            <input type="text" name="total-harga" class="form-control" id="total-harga-{{$p->id}}" value="{{ $p->harga }}" readonly>
-                        </div>
-
-                        <script>
-                            // Fungsi untuk menghitung total harga
-                            function hitungTotalHarga(id) {
-                                var jumlahInput = document.getElementById('jumlah-' + id);
-                                var hargaInput = document.getElementById('total-harga-' + id);
-                                var hargaPerItem = {{ $p->harga }};
-
-                                // Menghitung total harga
-                                var totalHarga = parseFloat(jumlahInput.value) * hargaPerItem;
-
-                                // Menampilkan total harga
-                                hargaInput.value = totalHarga;
-                            }
-
-                            // Menambahkan event listener untuk input jumlah di setiap modal
-                            @foreach ($penjual as $p)
-                            var jumlahInput{{$p->id}} = document.getElementById('jumlah-{{$p->id}}');
-                            jumlahInput{{$p->id}}.addEventListener('input', function() {
-                                hitungTotalHarga({{$p->id}});
-                            });
-                            @endforeach
-                        </script>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    @endforeach --}}
-    {{-- Modal End --}}
-
 {{-- Modal Start --}}
 @foreach ($penjual as $p)
     <form action="{{ route('pembelian', $p->id) }}" method="POST" enctype="multipart/form-data">
@@ -132,9 +52,11 @@
                                     <img src="{{ asset('storage/' . $p->fotomakanan) }}" alt="Foto Menu" class="img-fluid">
                                 </div>
                                 <div class="col-8">
+
                                     <p class="fs-4 text-dark">
                                         {{ $p->namamenu }}
                                         <input type="hidden" name="namamenu" value="{{ $p->id }}">
+                                        <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
                                     </p>
                                     <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
                                     <p class="fs-6 text-primary">

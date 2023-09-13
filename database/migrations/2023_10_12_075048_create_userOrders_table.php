@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_Orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('namamenu_id')->references('id')->on('barangpenjuals')->cascadeOnDelete();
-            $table->foreignId('namamenu_id')->references('id')->on('penjuals')->cascadeOnDelete();
+            $table->foreignId('namamenu_id')->references('id')->on('barangpenjuals')->cascadeOnDelet();
             $table->integer('jumlah');
             $table->string('foto')->nullable();
             $table->text('catatan')->nullable();

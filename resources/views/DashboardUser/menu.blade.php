@@ -115,14 +115,14 @@
 
 {{-- Modal Start --}}
 @foreach ($penjual as $p)
-    <form action="{{ route('createPembelian') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('pembelian', $p->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <input type="hidden" name="penjual_id" value="{{ $p->id }}">
+        <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
         <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah Menu</h5>
+                        <h5 class="modal-title">Tambah Pesanan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -140,51 +140,26 @@
                                     <p class="fs-6 text-primary">
                                         Harga :
                                         Rp. {{ $p->harga }}
-                                        <input type="hidden" id="harga-{{$p->id}}" name="harga" value="{{ $p->harga }}">
+                                        <input type="hidden" id="harga-{{$p->id}}" name="harga" value="{{ $p->id }}">
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="keterangan" class="form-label fw-bold">Catatan Penjual (opsional)</label>
-                            <textarea name="keterangan" class="form-control" id="keterangan-{{$p->id}}" rows="4" style="height: 80px" placeholder="Beri catatan"></textarea>
-                        </div>
+                        <form action=""></form>
                         <div class="mb-3">
                             <label for="jumlah" class="form-label fw-bold">Jumlah</label>
-                            <input type="number" name="jumlah" class="form-control" placeholder="Masukan jumlah" oninput="hitungTotalHarga({{ $p->id }})">
-                        </div>
-                        <div class="mb-3">
-                            <label for="totalHarga" class="form-label fw-bold">Total Harga</label>
-                            <input type="number" name="totalHarga" class="form-control" id="totalHarga-{{ $p->id }}" readonly>
+                            <input type="number" name="jumlah" class="form-control" placeholder="Masukan jumlah">
+                            <input type="hidden" name="jumlah" value="{{$p->id}}">
                         </div>
                         </div>
-
-                        {{-- js untuk total harga --}}
-                        <script>
-                            function hitungTotalHarga(penjualId) {
-                                // Ambil nilai jumlah dari input
-                                var jumlahInput = document.getElementById('jumlah-' + penjualId).value;
-
-                                // Ambil harga dari input yang tersembunyi
-                                var harga = document.getElementById('harga-' + penjualId).value;
-
-                                // Hitung total harga
-                                var totalHarga = jumlahInput * harga;
-
-                                // Setel nilai total harga ke input totalHarga
-                                document.getElementById('totalHarga-' + penjualId).value = totalHarga;
-                            }
-                        </script>
-                        {{-- js untuk total harga --}}
-
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn btn-primary">Pesan</button>
                     </div>
                 </div>
             </div>
         </div>
-</form>
+    </form>
 @endforeach
 {{-- Modal End --}}
 
@@ -230,17 +205,6 @@
                             </i>
                             <span class="item-name">Dashboard</span>
                         </a>
-                            <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="daftartoko">
-                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 27 23" fill="none">
-                                            <path d="M26.1895 6.67998L24.377 1.24248C24.3139 1.05491 24.1912 0.893125 24.0276 0.781849C23.8639 0.670572 23.6684 0.615917 23.4707 0.626232H3.53323C3.33561 0.615917 3.14004 0.670572 2.9764 0.781849C2.81276 0.893125 2.69004 1.05491 2.62698 1.24248L0.81448 6.67998C0.801423 6.77621 0.801423 6.87376 0.81448 6.96998V12.4075C0.81448 12.6478 0.909959 12.8783 1.07991 13.0483C1.24987 13.2183 1.48038 13.3137 1.72073 13.3137H2.62698V22.3762H4.43948V13.3137H9.87698V22.3762H24.377V13.3137H25.2832C25.5236 13.3137 25.7541 13.2183 25.924 13.0483C26.094 12.8783 26.1895 12.6478 26.1895 12.4075V6.96998C26.2025 6.87376 26.2025 6.77621 26.1895 6.67998ZM22.5645 20.5637H11.6895V13.3137H22.5645V20.5637ZM24.377 11.5012H20.752V7.87623H18.9395V11.5012H14.4082V7.87623H12.5957V11.5012H8.06448V7.87623H6.25198V11.5012H2.62698V7.11498L4.18573 2.43873H22.8182L24.377 7.11498V11.5012Z" fill="#959895"/>
-                                            </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon">M</i>
-                                    <span class="item-name">Menu</span>
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link "aria-current="page" href="daftartoko">
                                     <i class="icon">
@@ -489,7 +453,7 @@
                             }
                         });
                     } else {
-                        
+
                         $('#results').html('');
                     }
                 });

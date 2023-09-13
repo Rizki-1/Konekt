@@ -28,8 +28,8 @@ class barangpenjual extends Model
         return $this->hasMany(dashboardusercontrollers::class, 'namamenu_id');
     }
 
-    public function pembelian()
-    {
-        return $this->hasMany(Pembelian::class, 'penjual_id');
-    }
+    // public function pembelian(): HasMany
+    // {
+    //     return $this->hasMany(Pembelian::class, 'penjual_id');
+    // }
 }

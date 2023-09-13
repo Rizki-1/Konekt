@@ -21,6 +21,6 @@ class userOrder extends Model
 
     public function penjual(): BelongsTo
     {
-        return $this->belongsTo(penjual::class, 'namamenu_id');
+        return $this->belongsTo(barangpenjual::class, 'namamenu_id');
     }
 }

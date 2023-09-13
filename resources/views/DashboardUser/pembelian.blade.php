@@ -332,7 +332,7 @@
       </div>
 
 <!-- Loop through pembelian records -->
-@foreach ($pembelian as $p)
+@foreach ($penjual as $p)
 <form action="{{ route('menu.store') }}" method="POST">
     @csrf
     <div class="content-inner mt-5 py-0">

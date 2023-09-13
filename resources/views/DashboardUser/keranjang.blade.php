@@ -357,9 +357,9 @@
             </div>
             <div class="form-label text-bold px-4"><span class="form-label">jumlah</span>
               <div class="input-step">
-              <button type="button" class="minus" onclick="decrementQuantity(this.nextElementSibling)">–</button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="decrementQuantity(this.nextElementSibling)">–</button>
                 <input type="number" class="product-quantity" value="2" min="0" max="100" readonly onchange="updateTotal(this)">
-              <button type="button" class="plus" onclick="incrementQuantity(this.previousElementSibling)">+</button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="incrementQuantity(this.previousElementSibling)">+</button>
               </div>
             </div>
             <div class="form-label text-bold px-4"><span class="form-label">total</span>

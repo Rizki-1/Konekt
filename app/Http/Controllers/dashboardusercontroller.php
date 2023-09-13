@@ -13,13 +13,6 @@ use App\Models\Pembelian;
 
 class dashboardusercontroller extends Controller
 {
-    // protected $penjual;
-
-    // public function __construct()
-    // {
-    //     $this->penjual = barangpenjual::all();
-    // }
-
     /**
      * Display a listing of the resource.
      */
@@ -34,32 +27,11 @@ class dashboardusercontroller extends Controller
         return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi' ));
     }
 
-    public function pembelian(Request $request)
+    public function pembelian(Request $request, $id)
     {
+        // $penjual = barangpenjual::findOrFail($id);
         $penjual = barangpenjual::all();
-        $pembelian = pembelian::all();
-        return view('DashboardUser.pembelian', compact('pembelian', 'penjual'));
-    }
-
-    public function createPembelian(Request $request)
-    {
-        // Cari menu (Penjual) berdasarkan nama menu
-        $menu = Penjual::find($request->input('namamenu'));
-
-        if ($menu) {
-            // Jika menu ditemukan, buat pembelian
-            $pembelian = new Pembelian;
-            $pembelian->penjual_id = $menu->id;
-            $pembelian->jumlah = $request->input('jumlah');
-            $pembelian->harga = $menu->harga;
-            $pembelian->catatan = $request->input('catatan');
-            $pembelian->save();
-
-            return redirect()->route('pembelian');
-        } else {
-            // Menu tidak ditemukan, mungkin perlu menangani ini sesuai kebutuhan Anda
-            return redirect()->back()->with('error', 'Menu tidak ditemukan.');
-        }
+        return view('DashboardUser.pembelian', compact('penjual'));
     }
 
     public function pesanan()

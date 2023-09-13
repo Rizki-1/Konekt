@@ -154,7 +154,7 @@ class adminpembeliancontroller extends Controller
 
     protected function pengajuanpenjualad(Request $request)
     {
-        $penjual = penjual::all();
+        $penjual = barangpenjual::all();
         return view('admin.pengajuanpenjualad', compact('penjual'));
     }
 

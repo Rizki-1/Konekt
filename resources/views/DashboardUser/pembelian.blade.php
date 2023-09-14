@@ -174,7 +174,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="keranjang">
+                                <a class="nav-link " href="{{ asset('UserKeranjang') }}">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -371,7 +371,7 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
+                                    <li><a class="dropdown-item" href="profileuser">Profile</a></li>
                                     <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
                                             Setting</a></li>
                                     <li>

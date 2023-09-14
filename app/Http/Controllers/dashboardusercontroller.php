@@ -8,6 +8,7 @@ use App\Models\adminnotifikasi;
 use App\Models\notifikasipenjual;
 use illuminate\Support\Facades\Storage;
 use App\Models\barangpenjual;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Pembelian;
 
@@ -95,6 +96,12 @@ class dashboardusercontroller extends Controller
     {
         $user = userOrder::all();
         return view('DashboardUser.pengajuanuser', compact('user'));
+    }
+
+    public function profileuser()
+    {
+        $user = User::all();
+        return view('DashboardUser.profileuser', compact('user'));
     }
 
 

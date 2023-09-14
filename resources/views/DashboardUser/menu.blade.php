@@ -267,7 +267,7 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
+                                    <li><a class="dropdown-item" href="profileuser">Profile</a></li>
                                     <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
                                             Setting</a></li>
                                     <li>

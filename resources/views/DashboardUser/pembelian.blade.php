@@ -250,72 +250,35 @@
                                     </svg>
                                     <span class="bg-danger dots"></span>
                                 </a>
-                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
-                                    aria-labelledby="notification-drop">
+                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="notification-drop">
                                     <div class="card shadow-none m-0">
                                         <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
                                             <div class="header-title">
                                                 <h5 class="mb-0 text-white">All Notifications</h5>
                                             </div>
                                         </div>
-                                        <div class="card-body p-0">
-                                            <a href="#" class="iq-sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded-pill"
-                                                        src="../assets/images/layouts/01.png" alt="">
-                                                    <div class="ms-3 w-100">
-                                                        <h6 class="mb-0 ">Emma Watson Bni</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">95 MB</p>
-                                                            <small class="float-end font-size-12">Just Now</small>
+                                        @php
+                                        $latestNotifications = $notifikasi->sortByDesc('created_at')->take(3);
+                                        @endphp
+
+                                        @foreach ($latestNotifications as $notif)
+                                            <div class="card-body p-0 notifikasi-belum-kedaluwarsa" >
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
+                                                        <div class="ms-3 w-100">
+                                                            <h6 class="mb-0">{{ $notif->keterangan }}</h6>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <p class="mb-0">{{ $notif->isi }}</p>
+                                                                <small class="float-end font-size-12">Just Now</small>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="iq-sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="">
-                                                        <img class="avatar-40 rounded-pill"
-                                                            src="../assets/images/layouts/02.png" alt="">
-                                                    </div>
-                                                    <div class="ms-3 w-100">
-                                                        <h6 class="mb-0 ">New customer is join</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">Cyst Bni</p>
-                                                            <small class="float-end font-size-12">5 days ago</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="iq-sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded-pill"
-                                                        src="../assets/images/layouts/03.png" alt="">
-                                                    <div class="ms-3 w-100">
-                                                        <h6 class="mb-0 ">Two customer is left</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">Cyst Bni</p>
-                                                            <small class="float-end font-size-12">2 days ago</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="iq-sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="avatar-40 rounded-pill"
-                                                        src="../assets/images/layouts/04.png" alt="">
-                                                    <div class="w-100 ms-3">
-                                                        <h6 class="mb-0 ">New Mail from Fenny</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">Cyst Bni</p>
-                                                            <small class="float-end font-size-12">3 days ago</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                                </a>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
+
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
@@ -441,42 +404,90 @@
                             </div>
                             <hr>
                             <div class="mb-3">
-                                <div class="">
-                                    <h5 class="text-bold">Pesan :</h5>
-                                </div>
-                                <div class="mt-3">
-                                    <input type="text" name="catatan" class="form-control" id="catatan"
-                                        placeholder="Beri catatan (opsional)">
-                                </div>
+                            <div>
+                                <h5 class="text-bold">Pesan :</h5>
                             </div>
-                            <div class="mb-3">
-                                <div class="">
-                                    <h5 class="text-bold">Bukti transfer :</h5>
+                            <div class="mt-3">
+                                <input type="text" name="catatan" class="form-control" id="catatan" placeholder="Beri catatan (opsional)">
+                            </div>
+                        </div>
+
+                        <div class="container m-0 p-0 d-flex justify-content-between">
+                            <div class="">
+                                <h5 class="text-bold">Metode Pembayaran</h5>
+                                <select class="form-select form-select-lg mb-3" name="metodepembayaran" style="width: 300px; height: 50px; font-size: 18px;" aria-label=".form-select-lg example" id="selectMetode">
+                                    <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
+                                    <option value="e-wallet" data-target="ewalletInput">E-Wallet</option>
+                                    <option value="bank" data-target="bankInput">Bank</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3" id="ewalletInput" style="display: none;">
+                            <div class="">
+                                    <p class="text-bold">Masukkan Bukti pembayaran Anda</p>
                                 </div>
                                 <div class="mt-3">
                                     <input type="file" name="foto" class="form-control"
                                         id="fotobuktipembayaran">
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <div class="">
-                                    <h5 class="text-bold">Total harga</h5>
+
+                        <div class="mb-3" id="bankInput" style="display: none;">
+                            <div>
+                                <p class="text-bold">Nomor Rekening Bank</p>
+                            </div>
+                            <div class="mt-3">
+                                <input type="text" name="bank" class="form-control" id="bank" placeholder="Masukkan nomor rekening bank">
+                            </div>
+                            <div class="">
+                                    <p class="text-bold">Bukti transfer</>
                                 </div>
                                 <div class="mt-3">
-                                    {{-- <input type="text" name="totalharga" class="form-control" id="totalharga"> --}}
+                                    <input type="file" name="foto" class="form-control"
+                                        id="fotobuktipembayaran">
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-end mt-5">
-                                <button type="submit" class="btn btn-primary">Bayar</button>
+
+                        <div class="mb-3">
+                            <div>
+                                <h5 class="text-bold">Total harga</h5>
                             </div>
+                            <div class="mt-3">
+                                {{-- <input type="text" name="totalharga" class="form-control" id="totalharga"> --}}
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-5">
+                            <button type="submit" class="btn btn-primary">Bayar</button>
+                        </div>
                         </div>
                     </div>
                 </div>
             </form>
-        {{-- @endforeach --}}
-        {{-- @include('layout.footer') --}}
-    </main>
-    @include('layout.js')
-</body>
+            {{-- @endforeach --}}
+            {{-- @include('layout.footer') --}}
+        </main>
+        @include('layout.js')
+    </body>
+    
+    </html>
+    <script>
+    const selectMetode = document.getElementById('selectMetode');
+    const ewalletInput = document.getElementById('ewalletInput');
+    const bankInput = document.getElementById('bankInput');
 
-</html>
+    selectMetode.addEventListener('change', function () {
+        if (this.value === 'e-wallet') {
+            ewalletInput.style.display = 'block';
+            bankInput.style.display = 'none';
+        } else if (this.value === 'bank') {
+            ewalletInput.style.display = 'none';
+            bankInput.style.display = 'block';
+        } else {
+            ewalletInput.style.display = 'none';
+            bankInput.style.display = 'none';
+        }
+    });
+</script>
+ 

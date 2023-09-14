@@ -5,6 +5,7 @@
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/auth/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:54:56 GMT -->
 <head>
+   
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Aprycot | Responsive Bootstrap 5 Admin Dashboard Template</title>
@@ -493,79 +494,98 @@
                <div class="d-flex justify-content-center mb-0">
                   <div class="card-body mt-5">
                      <a href="../index-2.html">
-                        <img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/logo.svg" class="img-fluid logo-img" alt="img5">
+                        <img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/logo.svg" class="img-fluid logo-img" alt="img5" style="margin-left: 55px;">
                      </a>
                      <h2 class="mb-2 text-center">Sign Up</h2>
                      <p class="text-center">Create your Aprycot account.</p>
                      <form action="{{ route('penjualrole.store') }}" method="POST">
                         @csrf
-                        <div class="row">
-                           <div class="col-lg-6">
+                        <div class="row" style="margin-left: 110px;">
+                           <div class="tab-content" id="pills-tabContent">
+                           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                           <div class="col-lg-6 d-flex flex-row justify-content-center align-items-center">
                               <div class="form-group">
                                  <label for="full-name" class="form-label">User Name</label>
-                                 <input type="text" name="name" class="form-control form-control-sm" id="full-name" placeholder=" ">
+                                 <input type="text" name="name" style="width:150px;" class="form-control form-control-sm" id="full-name" placeholder=" ">
                               </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label for="last-name" class="form-label">Last Name</label>
-                                 <input type="text" class="form-control form-control-sm" id="last-name" placeholder=" ">
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
+                              <div class="form-group" style="margin-left: 30px; margin-top:1px;">
                                  <label for="email" class="form-label">Email</label>
-                                 <input type="email" name="email" class="form-control form-control-sm" id="email" placeholder=" ">
+                                 <input type="email" name="email" style="width:150px;" class="form-control form-control-sm" id="email" placeholder=" ">
+                              </div>
+                           </div>
+                           <div class="col-lg-6 d-flex flex-row justify-content-center align-items-center">
+                           <div class="form-group">
+                                 <label for="password" class="form-label">Password</label>
+                                 <input type="password" name="password" style="width:150px;" class="form-control form-control-sm" id="password" placeholder=" ">
+                              </div>
+                              <div class="form-group" style="margin-left: 20px; margin-bottom:40px;">
+                                 <label for="confirm-password" class="form-label">Confirm Password</label>
+                                 <input type="text"  style="width:150px;" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
+                              </div>
+                           </div>
+                           <!-- <div class="col-lg-6">
+                              
+                           </div>
+                           <div class="col-lg-6">
+                             
+                           </div> -->
+                           </div>
+                           <div class="tab-pane fade" class="row" style="margin-left:-135px;" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+                            <div class="d-flex">
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="phone" class="form-label">Nama Toko</label>
+                                 <input type="text" name="nama_toko" style="width:150px;" class="form-control form-control-sm" id="phone" placeholder=" ">
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label for="phone" class="form-label">Phone No.</label>
-                                 <input type="text" name="notlp" class="form-control form-control-sm" id="phone" placeholder=" ">
+                                 <input type="number" name="notlp" style="width:150px;" class="form-control form-control-sm" id="phone" placeholder=" ">
+                              </div>
+                           </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="phone" class="form-label">Alamat Toko</label>
+                                 <textarea type="text" name="alamat_toko" style="width:335px;" class="form-control form-control-sm" id="phone" placeholder=" "></textarea>
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label for="phone" class="form-label">Nama toko</label>
-                                 <input type="text" name="nama_toko" class="form-control form-control-sm" id="phone" placeholder=" ">
+                                 <label for="phone" class="form-label">Foto Toko</label>
+                                 <input type="file" name="foto_toko" style="width:335px;" id="" class="form-control">
                               </div>
                            </div>
                            <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label for="phone" class="form-label">Foto toko</label>
-                                 <input type="text" name="foto_toko" class="form-control form-control-sm" id="phone" placeholder=" ">
-                              </div>
+                              <button type="submit" class="btn btn-primary">Sign Up</button>
                            </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label for="phone" class="form-label">alamat toko</label>
-                                 <input type="text" name="alamat_toko" class="form-control form-control-sm" id="phone" placeholder=" ">
-                              </div>
                            </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label for="password" class="form-label">Password</label>
-                                 <input type="password" name="password" class="form-control form-control-sm" id="password" placeholder=" ">
-                              </div>
                            </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label for="confirm-password" class="form-label">Confirm Password</label>
-                                 <input type="text" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
+                           <div style="margin-left:85px; margin-top:4px;">
+                           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
+                              <li class="nav-item" role="presentation">
+                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">previous</button>
+                              </li>
+                              <li class="nav-item" role="presentation">
+                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Next</button>
+                              </li>
+                              </ul>
+                             
                               </div>
-                           </div>
-                           <div class="col-lg-12 d-flex justify-content-center">
-                              <div class="form-check mb-3">
-                                 <input type="checkbox" class="form-check-input" id="customCheck1">
-                                 <label class="form-check-label" for="customCheck1">I agree with the terms of use</label>
+                           <div class="col-lg-12 d-flex justify-content-center" style="margin-top: 1em">
+                              <div class="form-check mb-3" >
+                                 <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-left: -155px;">
+                                 <label class="form-check-label" for="customCheck1" style="margin-left: -135px;">I agree with the terms of use</label>
+                                 <p class="text-center my-3" style="margin-left: -140px;">or sign in with other accounts?</p>
                               </div>
                            </div>
                         </div>
-                        <div class="d-flex justify-content-center">
+                        <!-- <div class="d-flex justify-content-center">
                            <button type="submit" class="btn btn-primary">Sign Up</button>
-                        </div>
-                    </form>
-                        <p class="text-center my-3">or sign in with other accounts?</p>
+                        </div> -->
+                    <!-- </form>
+                        <p class="text-center my-3">or sign in with other accounts?</p> -->
                         <div class="d-flex justify-content-center">
                            <ul class="list-group list-group-horizontal list-group-flush">
                               <li class="list-group-item border-0 pb-0">
@@ -582,10 +602,13 @@
                               </li>
                            </ul>
                         </div>
+                        <div>
+                           <!-- <a href="" class="previous">&laquo;Previous</a>
+                           <a href="" class="next">Next&raquo;</a> -->
+                        </div>
                         <p class="mt-3 text-center">
                            Already have an Account <a href="sign-in.html" class="text-underline">Sign In</a>
                         </p>
-
                   </div>
                </div>
             </div>

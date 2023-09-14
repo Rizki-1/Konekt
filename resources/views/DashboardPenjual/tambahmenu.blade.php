@@ -191,7 +191,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="pengajuanpenjual">
+                                <a class="nav-link " href="pengajuandana">
                                    <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 21 22" fill="none">
                                         <path d="M5.25 4.04688H13.125V5.35938H5.25V4.04688Z" fill="#959895"/>
@@ -306,7 +306,7 @@
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
+                    <li><a class="dropdown-item" href="profilepenjual">Profile</a></li>
                     <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <form action="{{ route('logout') }}" method="POST">

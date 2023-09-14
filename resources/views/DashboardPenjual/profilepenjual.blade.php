@@ -105,56 +105,6 @@
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 
-<body class="  "
-    style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
-    background-size: cover;">
-@foreach ($dashboardusercontrollers as $s)
-<div class="modal" id="myModal_{{ $s->id }}" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="namamenu_id" class="form-label fw-bold">nama menu</label>
-                    <input type="text" name="namamenu_id" value="" class="form-control">
-                    <input type="hidden" name="namamenu_id" value="">
-                </div>
-                <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">quantity</label>
-                    <input type="text" name="quantity" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">foto bukti</label>
-                    <input type="text" name="fotobukti" class="form-control">
-                </div>
-                @if ($s->pembelianstatus === 'menunggu konfirmasi')
-                <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-success accept-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Terima</button>
-                </form>
-                <form action="{{ route('tolakpesanan', ['id'=>$s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                <button type="submit" class="btn btn-danger reject-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Tolak</button>
-                </form>
-                @else
-                <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
-                </form>
-                @endif
-            </div>
-            <div class="modal-footer"></div>
-        </div>
-    </div>
-</div>
-@endforeach
-
 
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -204,12 +154,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active"aria-current="page" href="pesananpenjual">
+                                <a class="nav-link "aria-current="page" href="pesananpenjual">
                                     <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 26 23" fill="none">
-                                            <path d="M2.55044 0C1.13495 0 0 1.13495 0 2.55044V7.65133C0 9.06683 1.13495 10.2018 2.55044 10.2018H7.65133C9.06683 10.2018 10.2018 9.06683 10.2018 7.65133V2.55044C10.2018 1.13495 9.06683 0 7.65133 0M7.90637 1.91283L9.25811 3.25182L4.16997 8.28894L0.943664 5.03713L2.30815 3.69814L4.18273 5.59822M2.55044 12.7522C1.13495 12.7522 0 13.8872 0 15.3027V20.4035C0 21.819 1.13495 22.954 2.55044 22.954H7.65133C9.06683 22.954 10.2018 21.819 10.2018 20.4035V15.3027C10.2018 13.8872 9.06683 12.7522 7.65133 12.7522M2.55044 15.3027H7.65133V20.4035H2.55044M12.7522 2.55044H25.5044V5.10089H12.7522M12.7522 20.4035V17.8531H25.5044V20.4035M12.7522 10.2018H25.5044V12.7522H12.7522V10.2018Z" fill="white"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="28" viewBox="0 0 20 21" fill="none">
+                                            <path d="M16.3712 11.067C16.3712 11.5236 15.9417 11.9346 15.4644 11.9346H4.58203C4.10474 11.9346 3.67517 11.5236 3.67517 11.067V10.1994C3.67517 9.74277 4.10474 9.33181 4.58203 9.33181H15.5121C15.9894 9.33181 16.419 9.74277 16.419 10.1994V11.067H16.3712ZM14.5575 16.2725C14.5575 16.7291 14.1279 17.14 13.6506 17.14H4.58203C4.10474 17.14 3.67517 16.7291 3.67517 16.2725V15.4049C3.67517 14.9483 4.10474 14.5373 4.58203 14.5373H13.6984C14.1757 14.5373 14.6052 14.9483 14.6052 15.4049V16.2725H14.5575ZM3.67517 4.94825C3.67517 4.49163 4.10474 4.08067 4.58203 4.08067H13.6984C14.1757 4.08067 14.6052 4.49163 14.6052 4.94825V5.81583C14.6052 6.27245 14.1757 6.68341 13.6984 6.68341H4.58203C4.10474 6.68341 3.67517 6.27245 3.67517 5.81583V4.94825ZM17.2781 0.610352H2.76831C1.24097 0.610352 0 1.79757 0 3.21309V18.0076C0 19.4231 1.24097 20.6104 2.72058 20.6104H17.2781C18.7577 20.6104 19.9987 19.4231 19.9987 18.0076V3.21309C20.0464 1.79757 18.8054 0.610352 17.2781 0.610352Z" fill="#959895"/>
                                             </svg>
                                     </i>
+                                    {{-- <i class="sidenav-mini-icon">D</i> --}}
                                     <span class="item-name">pesanan</span>
                                 </a>
                             </li>
@@ -237,7 +188,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="pengajuandana">
+                                <a class="nav-link" href="pengajuandana">
                                    <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 21 22" fill="none">
                                         <path d="M5.25 4.04688H13.125V5.35938H5.25V4.04688Z" fill="#959895"/>
@@ -366,12 +317,7 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
-                                   </form>
-                                    </li>
+                                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
                                 </ul>
                             </li>
                             <!-- End Profile-->
@@ -380,59 +326,161 @@
                 </div>
             </nav>
         </div>
-
-        <div class="content-inner mt-5 py-0">
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">nama pembeli</th>
-                                    <th scope="col">jumlah pesanan</th>
-                                    <th scope="col">status</th>
-                                    <th scope="col">total harga</th>
-                                    <th scope="col">aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $no = 1;
-                                @endphp
-                                @foreach ($dashboardusercontrollers as $s)
-                                    <tr>
-                                        <th scope="row">{{ $no++ }}</th>
-                                        <td>test</td>
-                                        <td>{{ $s->adminstatus}}</td>
-                                        <td>{{ $s->pembelianstatus }}</td>
-                                        <td>dwfgfrewrqe</td>
-                                        <td>
-                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">detail</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+      <div class="content-inner mt-5 py-0">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="iq-main">
+               <div class="card mb-0 iq-content rounded-bottom">
+                  <div class="d-flex flex-wrap align-items-center justify-content-between mx-3 my-3">
+                     <div class="d-flex flex-wrap align-items-center">
+                        <div class="profile-img22 position-relative me-3 mb-3 mb-lg-0">
+                           <img src="../../assets/images/User-profile/1.png" class="img-fluid avatar avatar-100 avatar-rounded" alt="profile-image">
+                        </div>
+                        <div class="d-flex align-items-center mb-3 mb-sm-0">
+                           <div>
+                              <h6 class="me-2 text-primary">namaku</h6>
+                              <span><svg width="19" height="19" class="me-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <path d="M21 10.8421C21 16.9172 12 23 12 23C12 23 3 16.9172 3 10.8421C3 4.76697 7.02944 1 12 1C16.9706 1 21 4.76697 21 10.8421Z" stroke="#07143B" stroke-width="1.5"/>
+                                 <circle cx="12" cy="9" r="3" stroke="#07143B" stroke-width="1.5"/>
+                                 </svg><small class="mb-0 text-dark">Jl Ngijo GPA</small></span>
+                           </div>
+                           <div class="ms-4">
+                              <p class="me-2 mb-0 text-primary">Warung Berkah</p>
+                              <p class="me-2 mb-0 text-dark">wb@gmail.com</p>
+                              <p class="mb-0 text-dark">Masakkan Nasi</p>
+                           </div> 
+                        </div>
+                     </div>
+                     <ul class="d-flex mb-0 text-center ">
+                        <li class="badge bg-primary py-2 me-2">
+                           <p class="mb-3 mt-2">142</p>
+                           <small class="mb-1 fw-normal">Ulasan</small>
+                        </li>
+                        <li class="badge bg-primary py-2 me-2">
+                           <p class="mb-3 mt-2">5</p>
+                           <small class="mb-1 fw-normal">Menu</small>
+                        </li>
+                        <li class="badge bg-primary py-2 me-2">
+                           <p class="mb-3 mt-2">3.1k</p>
+                           <small class="mb-1 fw-normal">Followers</small>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="iq-header-img">
+                  <img src="../../assets/images/User-profile/01.png" alt="header" class="img-fluid w-100 rounded" style="object-fit: contain;">
+               </div>
+            </div>
+         </div>
+         <div class="row">
+<!-- Menu Items -->
+<div class="col-lg-15">
+    <div class="card">
+        <div>
+            <h2 class="text-primary text-special">Menu</h2>
+        </div>
+         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
+               @foreach ($penjual as $p)
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
+                        <div class="col active"
+                        data-iq-gsap="onStart"
+                        data-iq-opacity="0"
+                        data-iq-position-y="-40"
+                        data-iq-duration=".6"
+                        data-iq-delay=".6"
+                        data-iq-trigger="scroll"
+                        data-iq-ease="none">
+                        <div class="card card-white dish-card profile-img mb-5">
+                        <div class="profile-img21">
+                    <!-- tempat foto -->
+                    <img src="../assets/images/layouts/16.png"
+                        class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                        alt="profile-image">
+                    <img src="../assets/images/layouts/16.png"
+                        class="img-fluid rounded-pill avatar-170 hover-image "
+                        alt="profile-image" data-iq-gsap="onStart"
+                        data-iq-opacity="0" data-iq-scale=".6"
+                        data-iq-rotate="180" data-iq-duration="1"
+                        data-iq-delay=".6" data-iq-trigger="scroll"
+                        data-iq-ease="none">
+                </div>
+                <!-- Menu muter muter Start -->
+                <div class="card-body menu-image">
+                    <h6 class="heading-title fw-bolder mt-4 mb-0">
+                        {{ $p->namamenu }}</h6>
+                    <div class="card-rating stars-ratings">
+                        <!-- Star ratings here -->
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <div class="d-flex align-items-center">
+                            <span class="text-primary fw-bolder me-2">Rp. {{ number_format($p->harga) }}</span>
+                            {{-- <small class="text-decoration-line-through">$8.49</small> --}}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        {{-- @include('layout.footer') --}}
+    </div>
+    @endforeach
+</div>
+      </div>
+      <!-- Footer Section Start -->
+      <footer class="footer">
+          <div class="footer-body">
+              <ul class="left-panel list-inline mb-0 p-0">
+                  <li class="list-inline-item"><a href="../extra/privacy-policy.html">Privacy Policy</a></li>
+                  <li class="list-inline-item"><a href="../extra/terms-of-service.html">Terms of Use</a></li>
+              </ul>
+              <div class="right-panel">
+                  ©<script>document.write(new Date().getFullYear())</script> Aprycot, Made with
+                  <span class="text-gray">
+                      <svg width="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z" fill="currentColor"></path>
+                      </svg>
+                  </span> by <a href="https://iqonic.design/">Konekt</a>.
+              </div>
+          </div>
+      </footer>
+      <!-- Footer Section End -->    
     </main>
-    @include('layout.js')
-</body>
+    <!-- Wrapper End-->
+    <!-- offcanvas start -->
+
+    <!-- Required Library Bundle Script -->
+    <script src="../../assets/js/core/libs.min.js"></script>
+    
+    <!-- External Library Bundle Script -->
+    <script src="../../assets/js/core/external.min.js"></script>
+    
+    <!-- Widgetchart JavaScript -->
+    <script src="../../assets/js/charts/widgetcharts.js"></script>
+    
+    <!-- Mapchart JavaScript -->
+    <script src="../../assets/js/charts/vectore-chart.js"></script>
+    <script src="../../assets/js/charts/dashboard.js"></script>
+    
+    <!-- Admin Dashboard Chart -->
+    <script src="../../assets/js/charts/admin.js"></script>
+    
+    <!-- fslightbox JavaScript -->
+    <script src="../../assets/js/fslightbox.js"></script>
+    
+    <!-- GSAP Animation -->
+    <script src="../../assets/vendor/gsap/gsap.min.js"></script>
+    <script src="../../assets/vendor/gsap/ScrollTrigger.min.js"></script>
+    <script src="../../assets/js/animation/gsap-init.js"></script>
+    
+    <!-- Stepper Plugin -->
+    <script src="../../assets/js/stepper.js"></script>
+    
+    <!-- Form Wizard Script -->
+    <script src="../../assets/js/form-wizard.js"></script>
+    
+    <!-- app JavaScript -->
+    <script src="../../assets/js/app.js"></script>
+    
+    <!-- moment JavaScript -->
+    <script src="../../assets/vendor/moment.min.js"></script>  </body>
+
+<!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/app/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:55:19 GMT -->
 </html>
-{{-- <form action="{{ route('terimapesanan', ['id'=>$dashboardusercontrollers->id]) }}" method="POST">
-    @csrf
-    @method('PATCH')
-@if ($dashboardusercontrollers->pembelianstatus === 'sedang di proses')
-<button type="button" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
-@else
-<button type="submit" class="btn btn-success accept-btn">Terima</button>
-<button type="submit" class="btn btn-danger reject-btn">Tolak</button>
-@endif
- </form> --}}

@@ -105,56 +105,6 @@
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 
-<body class="  "
-    style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
-    background-size: cover;">
-@foreach ($dashboardusercontrollers as $s)
-<div class="modal" id="myModal_{{ $s->id }}" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="namamenu_id" class="form-label fw-bold">nama menu</label>
-                    <input type="text" name="namamenu_id" value="" class="form-control">
-                    <input type="hidden" name="namamenu_id" value="">
-                </div>
-                <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">quantity</label>
-                    <input type="text" name="quantity" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">foto bukti</label>
-                    <input type="text" name="fotobukti" class="form-control">
-                </div>
-                @if ($s->pembelianstatus === 'menunggu konfirmasi')
-                <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-success accept-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Terima</button>
-                </form>
-                <form action="{{ route('tolakpesanan', ['id'=>$s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                <button type="submit" class="btn btn-danger reject-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Tolak</button>
-                </form>
-                @else
-                <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
-                </form>
-                @endif
-            </div>
-            <div class="modal-footer"></div>
-        </div>
-    </div>
-</div>
-@endforeach
-
 
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -204,12 +154,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active"aria-current="page" href="pesananpenjual">
+                                <a class="nav-link "aria-current="page" href="pesananpenjual">
                                     <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 26 23" fill="none">
-                                            <path d="M2.55044 0C1.13495 0 0 1.13495 0 2.55044V7.65133C0 9.06683 1.13495 10.2018 2.55044 10.2018H7.65133C9.06683 10.2018 10.2018 9.06683 10.2018 7.65133V2.55044C10.2018 1.13495 9.06683 0 7.65133 0M7.90637 1.91283L9.25811 3.25182L4.16997 8.28894L0.943664 5.03713L2.30815 3.69814L4.18273 5.59822M2.55044 12.7522C1.13495 12.7522 0 13.8872 0 15.3027V20.4035C0 21.819 1.13495 22.954 2.55044 22.954H7.65133C9.06683 22.954 10.2018 21.819 10.2018 20.4035V15.3027C10.2018 13.8872 9.06683 12.7522 7.65133 12.7522M2.55044 15.3027H7.65133V20.4035H2.55044M12.7522 2.55044H25.5044V5.10089H12.7522M12.7522 20.4035V17.8531H25.5044V20.4035M12.7522 10.2018H25.5044V12.7522H12.7522V10.2018Z" fill="white"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="28" viewBox="0 0 20 21" fill="none">
+                                            <path d="M16.3712 11.067C16.3712 11.5236 15.9417 11.9346 15.4644 11.9346H4.58203C4.10474 11.9346 3.67517 11.5236 3.67517 11.067V10.1994C3.67517 9.74277 4.10474 9.33181 4.58203 9.33181H15.5121C15.9894 9.33181 16.419 9.74277 16.419 10.1994V11.067H16.3712ZM14.5575 16.2725C14.5575 16.7291 14.1279 17.14 13.6506 17.14H4.58203C4.10474 17.14 3.67517 16.7291 3.67517 16.2725V15.4049C3.67517 14.9483 4.10474 14.5373 4.58203 14.5373H13.6984C14.1757 14.5373 14.6052 14.9483 14.6052 15.4049V16.2725H14.5575ZM3.67517 4.94825C3.67517 4.49163 4.10474 4.08067 4.58203 4.08067H13.6984C14.1757 4.08067 14.6052 4.49163 14.6052 4.94825V5.81583C14.6052 6.27245 14.1757 6.68341 13.6984 6.68341H4.58203C4.10474 6.68341 3.67517 6.27245 3.67517 5.81583V4.94825ZM17.2781 0.610352H2.76831C1.24097 0.610352 0 1.79757 0 3.21309V18.0076C0 19.4231 1.24097 20.6104 2.72058 20.6104H17.2781C18.7577 20.6104 19.9987 19.4231 19.9987 18.0076V3.21309C20.0464 1.79757 18.8054 0.610352 17.2781 0.610352Z" fill="#959895"/>
                                             </svg>
                                     </i>
+                                    {{-- <i class="sidenav-mini-icon">D</i> --}}
                                     <span class="item-name">pesanan</span>
                                 </a>
                             </li>
@@ -237,7 +188,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="pengajuandana">
+                                <a class="nav-link active" href="pengajuandana">
                                    <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 21 22" fill="none">
                                         <path d="M5.25 4.04688H13.125V5.35938H5.25V4.04688Z" fill="#959895"/>
@@ -366,12 +317,7 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
-                                   </form>
-                                    </li>
+                                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
                                 </ul>
                             </li>
                             <!-- End Profile-->
@@ -393,28 +339,27 @@
                                     <th scope="col">#</th>
                                     <th scope="col">nama pembeli</th>
                                     <th scope="col">jumlah pesanan</th>
-                                    <th scope="col">status</th>
-                                    <th scope="col">total harga</th>
+                                    <th scope="col">total</th>
+                                    <th scope="col">metode pembayaran</th>
                                     <th scope="col">aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $no = 1;
-                                @endphp
-                                @foreach ($dashboardusercontrollers as $s)
-                                    <tr>
-                                        <th scope="row">{{ $no++ }}</th>
-                                        <td>test</td>
-                                        <td>{{ $s->adminstatus}}</td>
-                                        <td>{{ $s->pembelianstatus }}</td>
-                                        <td>dwfgfrewrqe</td>
-                                        <td>
-                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">detail</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>aku sih</td>
+                                <td>1</td>
+                                <td>15.000</td>
+                                <td>Qris</td>
+                                <td>
+                                    <a href="pengajuanpenjual" class="btn btn-primary">Detail</a>
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Tambahkan baris-baris lain sesuai kebutuhan -->
+                        </tbody>
                         </table>
                     </div>
                 </div>
@@ -426,13 +371,3 @@
     @include('layout.js')
 </body>
 </html>
-{{-- <form action="{{ route('terimapesanan', ['id'=>$dashboardusercontrollers->id]) }}" method="POST">
-    @csrf
-    @method('PATCH')
-@if ($dashboardusercontrollers->pembelianstatus === 'sedang di proses')
-<button type="button" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
-@else
-<button type="submit" class="btn btn-success accept-btn">Terima</button>
-<button type="submit" class="btn btn-danger reject-btn">Tolak</button>
-@endif
- </form> --}}

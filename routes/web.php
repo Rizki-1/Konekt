@@ -58,6 +58,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::post('pembelian/{id}', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
     Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
     Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
+    Route::get('profileuser', [dashboardusercontroller::class, 'profileuser'])->name('profileuser');
     Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
     Route::get('/menu/search', [dashboardusercontroller::class, 'search'])->name('menu.search');
     Route::post('beli', [dashboardusercontroller::class, 'beli'])->name('beli');
@@ -80,6 +81,8 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::patch('tolakpesanan/{id}', [penjualcontroller::class, 'tolakpesanan'])->name('tolakpesanan');
     Route::get('DashboardPenjual_', [penjualcontroller::class, 'DashboardPenjual'])->name('DashboardPenjual_');
     Route::get('pengajuanpenjual', [penjualcontroller::class, 'pengajuanpenjual'])->name('pengajuanpenjual');
+    Route::get('pengajuandana', [penjualcontroller::class, 'pengajuandana'])->name('pengajuandana');
+    Route::get('profilepenjual', [penjualcontroller::class, 'profilepenjual'])->name('profilepenjual');
 });
 
 

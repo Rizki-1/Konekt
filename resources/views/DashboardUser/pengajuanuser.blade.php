@@ -321,7 +321,12 @@
                     <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
                     <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="menu">Logout</a></li>
+                    <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
+                                   </form>
+                    </li>
                   </ul>
                 </li>
                 <!-- End Profile-->

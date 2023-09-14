@@ -366,7 +366,12 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                                    <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
+                                   </form>
+                                    </li>
                                 </ul>
                             </li>
                             <!-- End Profile-->

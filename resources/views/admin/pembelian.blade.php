@@ -374,11 +374,11 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">no</th>
-                                    <th scope="col">nama pembeli</th>
-                                    <th scope="col">nama menu</th>
-                                    <th scope="col">total harga</th>
-                                    <th scope="col">aksi</th>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Nama Makanan</th>
+                                    <th scope="col">Nama Menu</th>
+                                    <th scope="col">Total Harga</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -18,5 +18,17 @@ class DatabaseSeeder extends Seeder
             'password' => 'adminpassword',
             'role' => 'admin',
         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'yapi',
+            'email' => 'yafihabibi22@gmail.com',
+            'password' => '12345678',
+            'role' => 'user',
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'kambing',
+            'email' => 'kambinglucu@gmail.com',
+            'password' => '12345678',
+            'role' => 'penjual',
+        ]);
     }
 }

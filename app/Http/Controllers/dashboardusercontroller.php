@@ -54,15 +54,19 @@ class dashboardusercontroller extends Controller
         ];
         $userOrders =  userOrder::create($userOrderData);
 
-        return redirect()->route('konfimasipembelian', ['id' => $userOrders->barangpenjual_id]);
+        return redirect()->route('konfimasipembelian', ['id' => $userOrders->id]);
 
     }
 
     public function konfimasipembelian(Request $request)
     {
-        $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
-        $userOrders = userOrder::where('barangpenjual_id', $request->input('barangpenjual_id'))->get();
-        return view('DashboardUser.pembelian', compact('userOrders', 'penjual'));
+        // Mengambil data userOrder dengan ID yang sesuai
+        $userOrder = userOrder::findOrFail($request->id);
+
+        // Mengambil data barangpenjual yang terkait dengan userOrder melalui barangpenjual_id
+        $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
+
+        return view('DashboardUser.pembelian', compact('userOrder', 'penjual'));
     }
 
 
@@ -110,13 +114,6 @@ class dashboardusercontroller extends Controller
     public function store(Request $request)
     {
 
-        // Validasi data yang masuk
-        // $request->validate([
-        //     'jumlah' => 'required|integer|min:1',
-        //     'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        // ]);
-
-
         $dashboardusercontrollers = [
             'barangpenjual_id' => $request->barangpenjual_id,
             'adminstatus' => 'notapprove',
@@ -124,7 +121,7 @@ class dashboardusercontroller extends Controller
             'jumlah' => $request->jumlah, // Ambil nilai dari input 'jumlah'
             'catatan' => $request->catatan, // Ambil nilai dari input 'catatan'
         ];
-     
+
         if ($request->hasFile('foto')) {
             $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
             $validated['foto'] = $filePath;

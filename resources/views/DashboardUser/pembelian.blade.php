@@ -392,7 +392,7 @@
             </nav>
         </div>
         <!-- Loop through pembelian records -->
-        @foreach ($penjual as $p)
+        {{-- @foreach ($penjual as $p) --}}
             <form action="{{ route('menu.store') }}" method="POST">
                 @csrf
                 <div class="content-inner mt-5 py-0">
@@ -401,41 +401,40 @@
                             <div class="">
                                 <h3 class="text-primary">Konfirmasi pesanan</h3>
                             </div>
-                            <!-- Menampilkan nama penjual (belum ada informasi penjual di data pembelian) -->
-                            <div class="mb-2 mt-2"><i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px "
-                                    aria-hidden="true"></i>Masakan warung berkah </div>
-                            <!-- Menampilkan detail menu -->
-                            <div class="d-flex justify-content-between">
-                                <div class=""><img src="{{ asset('assets/img/poto.png') }}" width="100px"
-                                        alt="" srcset=""></div>
-                                <div class="form-label text-bold">
-                                    <h5 class="form-label">Nama Menu</h5>
-                                    <div class="">
-                                        <p class="form-label">{{ $p->namamenu }}</p>
-                                        <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
-                                    </div>
+                                <!-- Menampilkan nama penjual dan detail menu dari barangpenjual -->
+                                <div class="mb-2 mt-2">
+                                    <i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px" aria-hidden="true"></i>
+                                    {{-- {{ $p->namapenjual }} <!-- Menampilkan nama penjual --> --}}
                                 </div>
-                                <div class="form-label text-bold px-4">
-                                    <h5 class="form-label">Harga</h5>
-                                    <div class="">
-                                        <p class="form-label">{{ $p->harga }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <!-- Menampilkan detail menu -->
+                                    <div class=""><img src="{{ asset('assets/img/poto.png') }}" width="100px" alt="" srcset=""></div>
+                                    <div class="form-label text-bold">
+                                        <h5 class="form-label">Nama Menu</h5>
+                                        <div class="">
+                                            <p class="form-label">{{ $penjual->namamenu }}</p> <!-- Menampilkan nama menu -->
+                                            <input type="hidden" name="barangpenjual_id" value="{{ $penjual->id }}">
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="form-label text-bold px-4">
+                                        <h5 class="form-label">Harga</h5>
+                                        <div class="">
+                                            <p class="form-label">{{ $penjual->harga }}</p> <!-- Menampilkan harga -->
+                                        </div>
+                                    </div>
                                 <div class="form-label text-bold px-4">
                                     <h5 class="form-label">Jumlah</h5>
                                     <div class="">
-                                        @foreach ($p->userOrders as $userOrder)
                                             <p class="form-label">{{ $userOrder->jumlah }}</p>
                                             <input type="hidden" name="jumlah" value="{{ $userOrder->jumlah }}">
-                                        @endforeach
                                     </div>
                                 </div>
                                 <!-- Total harga belum dihitung -->
                                 <div class="form-label text-bold px-4">
                                     <h5 class="form-label">Total</h5>
-                                    <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
+                                    <input type="hidden" name="namamenu_id" value="{{ $penjual->id }}">
                                     <div class="">
-                                        <p class="form-label">Rp. {{ number_format($p->harga) }}</p>
+                                        <p class="form-label">Rp. {{ number_format($penjual->harga) }}</p>
 
                                     </div>
                                 </div>
@@ -474,7 +473,7 @@
                     </div>
                 </div>
             </form>
-        @endforeach
+        {{-- @endforeach --}}
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')

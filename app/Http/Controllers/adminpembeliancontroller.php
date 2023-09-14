@@ -45,12 +45,12 @@ class adminpembeliancontroller extends Controller
     public function terima($id)
     {
 
-        $notifikasi = notifikasi::findOrFail($id);
-        $notifikasi->keterangan = 'pesanan anda telah disetujui';
-        $notifikasi->isi = 'lihat pesanan anda di menu pesanan';
-        $notifikasi->save();
+        // $notifikasi = notifikasi::findOrFail($id);
+        // $notifikasi->keterangan = 'pesanan anda telah disetujui';
+        // $notifikasi->isi = 'lihat pesanan anda di menu pesanan';
+        // $notifikasi->save();
 
-
+ 
         $dashboardusercontrollers = userOrder::findOrFail($id);
         $dashboardusercontrollers->adminstatus = 'approve';
         $dashboardusercontrollers->save();

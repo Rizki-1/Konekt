@@ -26,14 +26,10 @@ class dashboardusercontroller extends Controller
 
         return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi'));
     }
-    
 
-    public function pembelian(Request $request)
+    public function beli(Request $request)
     {
-        // Mencari data penjual
         $penjual = barangpenjual::where('id', $request->id)->get();
-
-        // Membuat entitas userOrder
         $userOrderData = [
             'namamenu_id' => $request->namamenu_id,
             'jumlah' => $request->jumlah,
@@ -41,12 +37,32 @@ class dashboardusercontroller extends Controller
             'pembelianstatus' => 'notactive',
         ];
 
-        $userOrder = userOrder::create($userOrderData);
+        userOrder::create($userOrderData);
+        dd($request->$penjual->id);
+        return redirect()->route('pembelian', ['id' => $request->id]);
+    }
 
-        // Sekarang kita bisa mengambil data userOrder yang sesuai setelah membuatnya
-        $userOrders = userOrder::where('jumlah', $request->namamenu_id)->get();
 
-        return view('DashboardUser.pembelian', compact('penjual', 'userOrders'));
+    public function pembelian(Request $request)
+    {
+        $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
+        $userOrderData = [
+            'barangpenjual_id' => $request->barangpenjual_id,
+            'jumlah' => $request->jumlah,
+            'adminstatus' => 'notactive',
+            'pembelianstatus' => 'notactive',
+        ];
+        $userOrders =  userOrder::create($userOrderData);
+
+        return redirect()->route('konfimasipembelian', ['id' => $userOrders->barangpenjual_id]);
+
+    }
+
+    public function konfimasipembelian(Request $request)
+    {
+        $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
+        $userOrders = userOrder::where('barangpenjual_id', $request->input('barangpenjual_id'))->get();
+        return view('DashboardUser.pembelian', compact('userOrders', 'penjual'));
     }
 
 
@@ -95,20 +111,20 @@ class dashboardusercontroller extends Controller
     {
 
         // Validasi data yang masuk
-        $request->validate([
-            'jumlah' => 'required|integer|min:1',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Sesuaikan validasi ini dengan kebutuhan Anda
-        ]);
+        // $request->validate([
+        //     'jumlah' => 'required|integer|min:1',
+        //     'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        // ]);
 
-        // Ambil data dari permintaan HTTP dan masukkan ke dalam array $dashboardusercontrollers
+
         $dashboardusercontrollers = [
-            'namamenu_id' => $request->namamenu_id,
+            'barangpenjual_id' => $request->barangpenjual_id,
             'adminstatus' => 'notapprove',
             'pembelianstatus' => 'menunggu konfirmasi',
             'jumlah' => $request->jumlah, // Ambil nilai dari input 'jumlah'
             'catatan' => $request->catatan, // Ambil nilai dari input 'catatan'
         ];
-
+     
         if ($request->hasFile('foto')) {
             $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
             $validated['foto'] = $filePath;
@@ -124,6 +140,8 @@ class dashboardusercontroller extends Controller
         adminnotifikasi::create($adminnotifikasi);
         notifikasi::create($notifikasi);
         userOrder::create($dashboardusercontrollers);
+
+
         return redirect()->route('menu.index');
     }
 

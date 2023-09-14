@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_Orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('namamenu_id')->references('id')->on('barangpenjuals')->cascadeOnDelet();
+            $table->foreignId('barangpenjual_id')->constrained()->onUpdate('cascade');
             $table->integer('jumlah');
             $table->string('foto')->nullable();
             $table->text('catatan')->nullable();

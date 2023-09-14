@@ -389,8 +389,8 @@
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
                                         <td>{{ $s->adminstatus }}</td>
-                                        <td>{{ $s->penjual->namamenu }}</td>
-                                        <td><div style="margin-left:40px;">{{ $s->namamenu_id }}</div></td>
+                                        <td>test</td>
+                                        <td><div style="margin-left:40px;">{{ $s->barangpenjual_id }}</div></td>
                                         <td class="d-flex">
                                             <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
                                                 @csrf

@@ -35,7 +35,8 @@
 
 {{-- Modal Start --}}
 @foreach ($penjual as $p)
-    <form action="{{ route('pembelian', $p->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('pembelian', ['id' => $p->id]) }}" method="POST" enctype="multipart/form-data">
+
         @csrf
         <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
         <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
@@ -55,10 +56,9 @@
 
                                     <p class="fs-4 text-dark">
                                         {{ $p->namamenu }}
-                                        <input type="hidden" name="namamenu" value="{{ $p->id }}">
                                         <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
                                     </p>
-                                    <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
+                                    <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
                                     <p class="fs-6 text-primary">
                                         Harga :
                                         Rp. {{ $p->harga }}
@@ -71,7 +71,7 @@
                         <div class="mb-3">
                             <label for="jumlah" class="form-label fw-bold">Jumlah</label>
                             <input type="number" name="jumlah" class="form-control" placeholder="Masukan jumlah">
-                            <input type="hidden" name="jumlah" value="{{$p->id}}">
+
                         </div>
                         </div>
                     <div class="modal-footer">

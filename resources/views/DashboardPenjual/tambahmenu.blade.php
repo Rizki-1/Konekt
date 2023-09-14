@@ -311,7 +311,7 @@
                     <li><hr class="dropdown-divider"></li>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                    <li><button type="submit" class="dropdown-item"></button></li>
+                    <li><button type="submit" class="dropdown-item">logout</button></li>
                     </form>
                   </ul>
                 </li>
@@ -320,7 +320,7 @@
           </div>
         </nav>
     </div>
-    
+
     <div class="content-inner mt-5 py-0">
         <div class="row">
             <div class="col-md-12 col-lg-12">
@@ -343,14 +343,14 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
     @foreach ($penjual as $p)
             <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
-           
-                    <div class="col active" 
-                        data-iq-gsap="onStart" 
+
+                    <div class="col active"
+                        data-iq-gsap="onStart"
                         data-iq-opacity="0"
-                        data-iq-position-y="-40" 
-                        data-iq-duration=".6" 
+                        data-iq-position-y="-40"
+                        data-iq-duration=".6"
                         data-iq-delay=".6"
-                        data-iq-trigger="scroll" 
+                        data-iq-trigger="scroll"
                         data-iq-ease="none">
                     </div>
                     <div class="card card-white dish-card profile-img mb-0">
@@ -369,7 +369,7 @@
                              data-iq-ease="none"
                              >
                          </div>
-            
+
             <!-- Menu muter muter Start -->
             <div class="card-body menu-image">
                 <h6 class="heading-title fw-bolder mt-4 mb-0">{{ $p->namamenu }}</h6>

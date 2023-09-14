@@ -11,9 +11,10 @@ class userOrder extends Model
     use HasFactory;
 
     protected $fillable = [
-        'namamenu_id',
+        'barangpenjual_id',
         'jumlah',
         'foto',
+        'catatan',
         'keterangan',
         'adminstatus',
         'pembelianstatus'
@@ -21,6 +22,6 @@ class userOrder extends Model
 
     public function penjual(): BelongsTo
     {
-        return $this->belongsTo(barangpenjual::class, 'namamenu_id');
+        return $this->belongsTo(barangpenjual::class);
     }
 }

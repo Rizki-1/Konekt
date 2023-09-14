@@ -21,8 +21,6 @@ class penjualcontroller extends Controller
      */
     public function index()
     {
-
-        $user = userOrder::where('pembelianstatus', 'menunggu konfirmasi ')->get();
         $notifikasi = notifikasi::all();
         $user = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->get();
         $notifikasi_penjual = notifikasipenjual::all();
@@ -80,11 +78,7 @@ class penjualcontroller extends Controller
         // Redirect atau tampilkan pesan sukses
         return redirect()->route('pembayaranpenjual')->with('success', 'Data pembayaran berhasil disimpan.');
     }
-    // {
-    //     $pembayaranpenjual = $request->all();
-    //     pembayaranpenjual::create($pembayaranpenjual);
-    //     return redirect()->route('pembayaranpenjual');
-    // }
+    
 
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {

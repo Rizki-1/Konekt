@@ -49,11 +49,6 @@ class logincontroller extends Controller
                 return redirect()->route('DashboardAdmin');
             }
         }
-        // if(Auth::attempt($user)) {
-        //     if (auth()->user()->role == 'penjual') {
-        //         return redirect()->route('DashboardPenjual.index');
-        //     }
-        // }
         if (Auth::attempt($user)) {
 
             if (auth()->user()->role == 'user') {

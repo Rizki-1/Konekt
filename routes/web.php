@@ -60,6 +60,8 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
     Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
     Route::get('/menu/search', [dashboardusercontroller::class, 'search'])->name('menu.search');
+    Route::post('beli', [dashboardusercontroller::class, 'beli'])->name('beli');
+    Route::get('konfimasipembelian/{id}', [dashboardusercontroller::class, 'konfimasipembelian'])->name('konfimasipembelian');
 
 });
 

@@ -23,9 +23,9 @@ class barangpenjual extends Model
         return $this->belongsTo(adminkategori::class, 'kategori_id');
     }
 
-    public function userindex(): HasMany
+    public function userOrders(): HasMany
     {
-        return $this->hasMany(dashboardusercontrollers::class, 'namamenu_id');
+        return $this->hasMany(userOrder::class);
     }
 
     // public function pembelian(): HasMany

@@ -386,7 +386,6 @@
                 </div>
             </nav>
         </div>
-
         <!-- Loop through pembelian records -->
         @foreach ($penjual as $p)
             <form action="{{ route('menu.store') }}" method="POST">
@@ -408,6 +407,7 @@
                                     <h5 class="form-label">Nama Menu</h5>
                                     <div class="">
                                         <p class="form-label">{{ $p->namamenu }}</p>
+                                        <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
                                     </div>
                                 </div>
                                 <div class="form-label text-bold px-4">
@@ -418,11 +418,12 @@
                                 </div>
                                 <div class="form-label text-bold px-4">
                                     <h5 class="form-label">Jumlah</h5>
-                                    @foreach ($userOrders  as $s)
                                     <div class="">
-                                        <p class="form-label">{{ $s->jumlah }}</p>
+                                        @foreach ($p->userOrders as $userOrder)
+                                            <p class="form-label">{{ $userOrder->jumlah }}</p>
+                                            <input type="hidden" name="jumlah" value="{{ $userOrder->jumlah }}">
+                                        @endforeach
                                     </div>
-                                    @endforeach
                                 </div>
                                 <!-- Total harga belum dihitung -->
                                 <div class="form-label text-bold px-4">
@@ -430,12 +431,11 @@
                                     <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
                                     <div class="">
                                         <p class="form-label">Rp. {{ number_format($p->harga) }}</p>
+
                                     </div>
                                 </div>
                             </div>
                             <hr>
-                            <!-- Total pesanan dan biaya layanan belum dihitung -->
-                            <!-- Input bukti transfer (file) dan total harga belum diimplementasikan -->
                             <div class="mb-3">
                                 <div class="">
                                     <h5 class="text-bold">Pesan :</h5>
@@ -450,7 +450,7 @@
                                     <h5 class="text-bold">Bukti transfer :</h5>
                                 </div>
                                 <div class="mt-3">
-                                    <input type="file" name="fotobuktipembayaran" class="form-control"
+                                    <input type="file" name="foto" class="form-control"
                                         id="fotobuktipembayaran">
                                 </div>
                             </div>
@@ -459,7 +459,7 @@
                                     <h5 class="text-bold">Total harga</h5>
                                 </div>
                                 <div class="mt-3">
-                                    <input type="text" name="totalharga" class="form-control" id="totalharga">
+                                    {{-- <input type="text" name="totalharga" class="form-control" id="totalharga"> --}}
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end mt-5">
@@ -471,7 +471,6 @@
             </form>
         @endforeach
         {{-- @include('layout.footer') --}}
-
     </main>
     @include('layout.js')
 </body>

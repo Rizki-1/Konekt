@@ -44,11 +44,10 @@ class adminpembeliancontroller extends Controller
 
     public function terima($id)
     {
-        $waktuKedaluwarsa = now()->addMinute(5);
+
         $notifikasi = notifikasi::findOrFail($id);
         $notifikasi->keterangan = 'pesanan anda telah disetujui';
         $notifikasi->isi = 'lihat pesanan anda di menu pesanan';
-        $notifikasi->waktu_kadaluwarsa = $waktuKedaluwarsa;
         $notifikasi->save();
 
 

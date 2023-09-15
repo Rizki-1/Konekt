@@ -12,7 +12,7 @@
     $(document).ready(function () {
         $('#metode').change(function () {
             var selectedOption = $(this).val();
-            
+
             if (selectedOption === 'e-wallet') {
                 $('#e-wallet-fields').show();
                 $('#bank-fields').hide();
@@ -26,7 +26,7 @@
         });
     });
 
-  
+
     $(document).ready(function () {
   // Tangani perubahan pada elemen select
   $("#selectMetode").change(function () {
@@ -43,14 +43,14 @@
       // Jika yang dipilih adalah "ewallet", tampilkan modal E-Wallet
       $("#myModal2").modal("show");
     }
-     
+
   });
 
   // Tangani klik pada tombol "Next" di dalam modal pertama
   $("#nextButton").click(function () {
     // Dapatkan atribut data-target yang menentukan modal selanjutnya
     var targetModalId = $(this).data("target");
-    
+
     $("#myModal2").modal("show");
 
   });
@@ -69,27 +69,57 @@
 });
 
 
-  
+
   // document.getElementById("selectMetode").addEventListener("change", function () {
   //   var selectedOption = this.value;
   //   var targetModalId = document.querySelector("option[value='" + selectedOption + "']").getAttribute("data-target");
   //   var modals = document.querySelectorAll(".modal");
-    
+
   //   modals.forEach(function (modal) {
   //     modal.style.display = "none";
   //   });
-    
+
   //   document.querySelector(targetModalId).style.display = "block";
   // });
 </script>
-      <!-- Favicon -->
-      <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
-      <!-- Library / Plugin Css Build -->
-      <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-      <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+    <!-- Library / Plugin Css Build -->
+    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+    <!-- Include the SweetAlert 2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+    <!-- Include the SweetAlert 2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+
+        {{-- Alert --}}
+        @if(Session::has('notif.error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ Session::get('notif.error') }}",
+                });
+                </script>
+        @endif
+
+        @if(Session::has('notif.success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: "{{ Session::get('notif.success') }}",
+            });
+            </script>
+        @endif
+        {{-- Alert --}}
+
     <form action="{{ route('pembayaranpenjual_store') }}" method="POST">
     @csrf
     <div class="modal" id="myModal" tabindex="-1">

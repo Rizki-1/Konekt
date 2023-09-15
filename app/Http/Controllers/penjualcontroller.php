@@ -262,18 +262,21 @@ class penjualcontroller extends Controller
     {
         $barangPenjual = BarangPenjual::find($id);
 
+
         if (!$barangPenjual) {
             return abort(404);
         }
 
         if ($barangPenjual->isUsed()) {
-            session()->flash('notif.error', 'Data masih digunakan!');
+            session()->flash('notif.error', 'Ada User yang sedang memesan menu ini!');
             return redirect()->route('DashboardPenjual.index');
         }
 
+        Storage::disk('public')->delete($barangPenjual->fotomakanan);
+
         $barangPenjual->delete();
 
-        session()->flash('notif.success', 'Berhasil Menghapus Makanan!');
+        session()->flash('notif.success', 'Berhasil menghapus menu!');
         return redirect()->route('DashboardPenjual.index');
     }
 

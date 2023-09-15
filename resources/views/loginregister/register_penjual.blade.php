@@ -5,7 +5,7 @@
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/auth/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:54:56 GMT -->
 <head>
-   
+
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Aprycot | Responsive Bootstrap 5 Admin Dashboard Template</title>
@@ -498,7 +498,7 @@
                      </a>
                      <h2 class="mb-2 text-center">Sign Up</h2>
                      <p class="text-center">Create your Aprycot account.</p>
-                     <form action="{{ route('penjualrole.store') }}" method="POST">
+                     <form action="{{ route('penjualrole.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row" style="margin-left: 110px;">
                            <div class="tab-content" id="pills-tabContent">
@@ -524,10 +524,10 @@
                               </div>
                            </div>
                            <!-- <div class="col-lg-6">
-                              
+
                            </div>
                            <div class="col-lg-6">
-                             
+
                            </div> -->
                            </div>
                            <div class="tab-pane fade" class="row" style="margin-left:-135px;" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
@@ -571,7 +571,7 @@
                                  <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Next</button>
                               </li>
                               </ul>
-                             
+
                               </div>
                            <div class="col-lg-12 d-flex justify-content-center" style="margin-top: 1em">
                               <div class="form-check mb-3" >

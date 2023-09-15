@@ -94,6 +94,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kuliner kita</title>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
     <!-- Favicon -->
     <link rel="shortcut icon"
         href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
@@ -374,6 +376,7 @@
                                     <th scope="col">nama calon penjual</th>
                                     <th scope="col">nama toko</th>
                                     <th scope="col">alamat toko</th>
+                                    <th scope="col">Foto Toko</th>
                                     <th scope="col">no telephone</th>
                                     <th scope="col">aksi</th>
                                 </tr>
@@ -384,21 +387,28 @@
                                 @endphp
                                 @foreach ($penjuallogin as $s)
                                     <tr>
-                                        <th scope="row">{{ $no++ }}</th>
+                                        <td scope="row">{{ $no++ }}</td>
                                         <td>{{ $s->user->name}}</td>
                                         <td>{{ $s->nama_toko }}</td>
                                         <td>{{ $s->alamat_toko }}</td>
+                                        <td>
+                                            @if($s->foto_toko)
+                                                <img src="{{ asset('storage/' . $s->foto_toko) }}" alt="Foto Toko" style="width: 200px">
+                                            @else
+                                                Tidak Ada Gambar
+                                            @endif
+                                        </td>
                                         <td>{{ $s->notlp }}</td>
-                                        <td class="d-flex">
+                                        <td>
                                             <form action="{{ route('terimapenjual', $s->id) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type="submit" class="btn btn-success">terima</button>
+                                                <button type="submit" class="btn btn-outline-success my-3"><i class="bi bi-check-circle"></i></button>
                                             </form>
                                             <form action="" method="POST">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type="submit" class="btn btn-danger">tolak</button>
+                                                <button type="submit" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i></button>
                                             </form>
                                         </td>
                                     </tr>

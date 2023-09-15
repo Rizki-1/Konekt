@@ -12,7 +12,7 @@ use App\Models\barangpenjual;
 use App\Models\adminnotifikasi;
 use App\Models\notifikasipenjual;
 use Illuminate\Support\Facades\Auth;
-use illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage;
 
 class dashboardusercontroller extends Controller
 {
@@ -217,38 +217,48 @@ class dashboardusercontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Ambil data userOrder yang akan diupdate
-        $userOrder = userOrder::findOrFail($id);
+        // Cari pesanan yang ingin diedit berdasarkan ID
+        $order = userOrder::findOrFail($id);
 
-        // Update nilai-nilai yang sesuai
-        $userOrder->barangpenjual_id = $request->barangpenjual_id;
-        $userOrder->jumlah = $request->jumlah;
-        $userOrder->catatan = $request->catatan;
+        // Validasi data yang diterima dari form
+        $validatedData = $request->validate([
+            'barangpenjual_id' => 'required',
+            'jumlah' => 'required|integer',
+            'catatan' => 'nullable|string',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'toko_id' => 'required',
+            'user_id' => 'required',
+        ]);
 
-        // Cek apakah foto saat ini adalah null
-        if (is_null($userOrder->foto)) {
-            // Jika foto saat ini adalah null, unggah foto baru
-            if ($request->hasFile('foto')) {
-                $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
-                $userOrder->foto = $filePath;
-            }
-        } else {
-            // Jika foto saat ini tidak null, hapus foto lama jika ada foto baru yang diunggah
-            if ($request->hasFile('foto')) {
-                Storage::disk('public')->delete($userOrder->foto);
-                $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
-                $userOrder->foto = $filePath;
-            }
+        // set status
+        $order->adminstatus = 'notapprove';
+        $order->pembelianstatus = 'menunggu konfirmasi';
+
+        // Simpan data yang diperbarui ke dalam pesanan
+        $order->update($validatedData);
+
+        // Simpan foto jika ada
+        if ($request->hasFile('foto')) {
+            $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', $request->file('foto'));
+            $order->foto = $filePath;
+            $order->save();
         }
 
-        // Update adminstatus dan pembelianstatus menjadi 'notapprove'
-        $userOrder->adminstatus = 'notapprove';
-        $userOrder->pembelianstatus = 'notapprove';
+        // Kirim notifikasi kepada admin
+        $adminNotification = new adminnotifikasi();
+        $adminNotification->keterangan_admin = 'Ada pesanan masuk!';
+        $adminNotification->isi_admin = 'Cek halaman pembelian untuk konfirmasi';
+        $adminNotification->save();
 
-        // Simpan perubahan ke database
-        $userOrder->save();
+        // Kirim notifikasi kepada user
+        $userNotification = new notifikasi();
+        $userNotification->keterangan = 'Anda berhasil membuat pesanan!';
+        $userNotification->isi = 'Lihat pesanan Anda di halaman pesanan';
+        $userNotification->user_id_notifikasi = $request->user_id;
+        $userNotification->save();
 
-        // Redirect ke halaman yang sesuai setelah update
+        // Redirect ke halaman yang sesuai setelah pengeditan
+        session()->flash('notif.success', 'Anda berhasil membuat pesanan!');
         return redirect()->route('menu.index');
     }
 

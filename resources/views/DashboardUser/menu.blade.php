@@ -15,23 +15,40 @@
     text-overflow: ellipsis;
 }
 </style>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Kuliner kita</title>
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Kuliner kita</title>
+<!-- Favicon -->
+<link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
 
-    <!-- Library / Plugin Css Build -->
-    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+<!-- Library / Plugin Css Build -->
+<link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+<!-- Custom Css -->
+<link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<!-- Include the SweetAlert 2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+<!-- Include the SweetAlert 2 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+{{-- bootstrap icon --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+{{-- jquery --}}
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+{{-- bootstrap --}}
+{{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
+
+{{--  --}}
 </head>
 
 <body class=""
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+
+@include('layout.sweetalert')
 
 {{-- Modal Start --}}
 @foreach ($penjual as $p)
@@ -61,7 +78,6 @@
                                     </p>
                                     <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
                                     <input type="hidden" name="id_toko" value="{{ $p->id }}">
-                                    @dump($p->id)
                                     <p class="fs-6 text-primary">
                                         Harga :
                                         Rp. {{ $p->harga }}
@@ -395,8 +411,9 @@
                             {{-- <small class="text-decoration-line-through">$8.49</small> --}}
                         </div>
                         <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
-                            data-bs-target="#myModal-{{ $p->id }}">beli</button>
-                            <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $Penjual->barangpenjual_id]) }}">Detail</a>
+                            data-bs-target="#myModal-{{ $p->id }}">beli
+                        </button>
+                        <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $Penjual->barangpenjual_id]) }}">Detail</a>
                     </div>
                 </div>
             </div>
@@ -412,6 +429,10 @@
 </div>
 
         </main>
+        {{-- js untuk anchor detail --}}
+
+        {{-- js untuk anchor detail --}}
+
         <script>
             $(document).ready(function() {
                 $('#search').keyup(function() {
@@ -438,9 +459,6 @@
         </script>
 
     @include('layout.js')
-    <!-- Include Bootstrap and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

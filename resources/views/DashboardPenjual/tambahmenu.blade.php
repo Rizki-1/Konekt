@@ -2,20 +2,29 @@
 <html lang="en" dir="ltr">
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 <head>
-    <style>
-
-    </style>
     <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Kuliner kita</title>
-      <!-- Favicon -->
-      <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
-      <!-- Library / Plugin Css Build -->
-      <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-      <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kuliner kita</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+    <!-- Library / Plugin Css Build -->
+    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+    <!-- Include the SweetAlert 2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+    <!-- Include the SweetAlert 2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {{-- bootstrap icon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+
+@include('layout.sweetalert')
 
 {{-- Modal Start --}}
 <form action="{{ route('DashboardPenjual.store') }}" method="POST" enctype="multipart/form-data">
@@ -29,7 +38,6 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        @dump($penjualId)
                         <label for="kelas" class="form-label fw-bold">Nama Menu</label>
                         <input type="hidden" name="toko_id" value="{{ $penjualId }}">
                         <input type="text" name="namamenu" class="form-control @error('namamenu') is-invalid @enderror" value="{{ old('namamenu') }}">
@@ -38,7 +46,6 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        {{-- @dump($penjualId) --}}
                         <label for="kelas" class="form-label fw-bold">Kategori</label>
                         <select name="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
                             <option value="" disabled selected>Pilih kategori</option>
@@ -361,9 +368,9 @@
                     <div class="card card-white dish-card profile-img mb-0">
                          <div class="profile-img21">
                             <!-- tempat foto -->
-                             <img src="../assets/images/layouts/16.png" class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                             <img src="{{ Storage::url($p->fotomakanan) }}" class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
                                  alt="profile-image">
-                             <img src="../assets/images/layouts/16.png" class="img-fluid rounded-pill avatar-170 hover-image " alt="profile-image"
+                             <img src="{{ Storage::url($p->fotomakanan) }}" class="img-fluid rounded-pill avatar-170 hover-image " alt="profile-image"
                              data-iq-gsap="onStart"
                              data-iq-opacity="0"
                              data-iq-scale=".6"
@@ -391,10 +398,10 @@
                         <span class="text-primary fw-bolder me-2">{{ $p->harga }}</span>
                         <small class="text-decoration-line-through">{{ $p->kategori }}</small>
                     </div>
-                    <form action="{{ route('DashboardPenjual.destroy', $p->id) }}" method="POST">
+                    <form id="delete-form-{{ $p->id }}" action="{{ route('DashboardPenjual.destroy', $p->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">hapus</button>
+                        <button type="submit" class="btn btn-sm btn-outline-danger delete-btn" data-id="{{ $p->id }}"><i class="bi bi-trash"></i></button>
                     </form>
                 </div>
             </div>
@@ -403,6 +410,32 @@
     @endforeach
 </div>
 
+{{-- ALERT DELETE --}}
+<script>
+    // Tambahkan event listener untuk tombol delete dengan class 'delete-btn'
+    document.querySelectorAll('.delete-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var id = this.getAttribute('data-id');
+
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: 'Data akan terhapus selamanya!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Lanjutkan!',
+                cancelButtonText: 'Batalkan!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika user mengonfirmasi, submit form delete dengan ID yang sesuai
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        });
+    });
+</script>
+{{-- ALERT DELETE --}}
 
       {{-- @include('layout.footer') --}}
     </main>

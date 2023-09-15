@@ -71,14 +71,16 @@ class penjualcontroller extends Controller
             $data['tujuan'] = $request->input('tujuan_bank');
             $data['keterangan'] = $request->input('keterangan_bank');
         } else {
-            return redirect()->route('pembayaranpenjual')->with('error', 'Metode pembayaran tidak valid.');
+            session()->flash('notif.error', 'Data pembayaran tidak valid!.');
+            return redirect()->route('pembayaranpenjual');
         }
 
         // Simpan data ke database
         PembayaranPenjual::create($data);
 
         // Redirect atau tampilkan pesan sukses
-        return redirect()->route('pembayaranpenjual')->with('success', 'Data pembayaran berhasil disimpan.');
+        session()->flash('notif.success', 'Data pembayaran berhasil disimpan.');
+        return redirect()->route('pembayaranpenjual');
     }
 
 
@@ -190,7 +192,6 @@ class penjualcontroller extends Controller
             'kategori_id' => 'required',
             'harga' => 'required|numeric|min:0',
             'fotomakanan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'id_toko'  => 'test'
         ], [
             'namamenu.required' => 'Nama makanan wajib diisi.',
             'namamenu.string' => 'Nama makanan harus berupa teks.',
@@ -205,6 +206,7 @@ class penjualcontroller extends Controller
             'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
         ]);
 
+
         if ($request->hasFile('fotomakanan')) {
             $filePath = Storage::disk('public')->put('penjual/menu', $request->file('fotomakanan'));
             $validated['fotomakanan'] = $filePath;
@@ -214,11 +216,10 @@ class penjualcontroller extends Controller
             'namamenu' => $request->namamenu,
             'kategori_id' => $request->kategori_id,
             'harga' => $request->harga,
-            'fotomakanan' => $request->fotomakanan,
+            'fotomakanan' => $filePath,
             'toko_id' => $request->toko_id
         ];
 
-        // dd($request->toko_id);
 
         $create = barangpenjual::create($penjual);
 
@@ -257,9 +258,23 @@ class penjualcontroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(barangpenjual $DashboardPenjual)
+    public function destroy($id)
     {
-       $DashboardPenjual ->delete();
-       return redirect()->route('DashboardPenjual.index');
+        $barangPenjual = BarangPenjual::find($id);
+
+        if (!$barangPenjual) {
+            return abort(404);
+        }
+
+        if ($barangPenjual->isUsed()) {
+            session()->flash('notif.error', 'Data masih digunakan!');
+            return redirect()->route('DashboardPenjual.index');
+        }
+
+        $barangPenjual->delete();
+
+        session()->flash('notif.success', 'Berhasil Menghapus Makanan!');
+        return redirect()->route('DashboardPenjual.index');
     }
+
 }

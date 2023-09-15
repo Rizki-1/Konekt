@@ -61,6 +61,8 @@ class dashboardusercontroller extends Controller
             'user_id' => $request->user_id,
         ];
 
+
+
         // dd($request->user_id);
         $userOrders =  userOrder::create($userOrderData);
 
@@ -74,8 +76,9 @@ class dashboardusercontroller extends Controller
         $userOrder = userOrder::findOrFail($request->id);
         // $userOrder = userOrder::all
         $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
+        $notifikasi = notifikasi::all();
 
-        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'penjualId'));
+        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'penjualId', 'notifikasi'));
     }
 
 

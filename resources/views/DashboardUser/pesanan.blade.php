@@ -345,6 +345,7 @@
                      <h5  class="mt-12">Masakan nasi - warung berkah</h5>
                      <tr>Nasi Goreng</tr><br>
                      <tr> Rp.{{ $u->totalharga }} 1 (menu)- Dana</tr><br>
+                     @dump($u->user_id)
 
                      <tr class="" >
                          <div class="btn btn-warning" style=" float:right"><span class="color:#EA6A12">sedang di proses</span></div>

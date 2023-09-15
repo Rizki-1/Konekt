@@ -308,7 +308,7 @@
                     style="position: relative"> --}}
                     <h2 style="color: red">Riwayat</h2>
                         <div class="container11" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
-                            @foreach ($user as $u)
+                            {{-- @foreach ($user as $u) --}}
                             {{-- <div class="card1">
                                 <div class="card-content d-flex flex-column">
                                     <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
@@ -329,7 +329,7 @@
                                     <img src="{{ asset('css/img/baru.webp') }}" style="width: 80px; margin-left:20px; border-radius: 10px;" alt="">
                                    <div class="">
                                        <p style="margin-left: 110px; margin-top:-60px;">Nasi Goreng</p>
-                                       <p style="margin-left: 110px; margin-top:-20px; font-family:arial; opacity:0.7;">Warung Samporna</p>
+                                       <p style="margin-left: 110px; margin-top:-20px; font-family:arial; opacity:0.7;">suhadi</p>
                                        <p style="margin-top: -135px; margin-left:310px;">Selesai</p>
                                        <p style="margin-left: 292px; margin-top:65px;">Rp.10,000</p>
                                        <p style="margin-left: 330px; margin-top:-70px;">( 1 )</p>
@@ -342,7 +342,7 @@
                                   <div>
                                   </div>
                             </div>
-                            @endforeach
+                            {{-- @endforeach --}}
                         </div>
                     </div>
                 </div>

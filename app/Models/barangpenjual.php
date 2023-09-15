@@ -39,4 +39,14 @@ class barangpenjual extends Model
     {
         return $this->hasMany(ulasan::class);
     }
+    public function keranjang(): HasMany
+    {
+        return $this->hasMany(keranjang::class);
+    }
+
+    public function isUsed()
+    {
+    return $this->userOrders()->exists();
+    }
+
 }

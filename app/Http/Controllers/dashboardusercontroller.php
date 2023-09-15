@@ -114,6 +114,12 @@ class dashboardusercontroller extends Controller
         return view('DashboardUser.profileuser', compact('user'));
     }
 
+    public function detailmenu()
+    {
+        $user = User::all();
+        $penjual =  barangpenjual::all();
+        return view('DashboardUser.detailmenu', compact('user', 'penjual'));
+    }
 
     /**
      * Show the form for creating a new resource.

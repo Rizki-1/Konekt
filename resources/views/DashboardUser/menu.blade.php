@@ -396,8 +396,7 @@
                         </div>
                         <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
                             data-bs-target="#myModal-{{ $p->id }}">beli</button>
-                            <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
-                            data-bs-target="#myModaldetail-{{ $Penjual->barangpenjual_id }}">detail</button>
+                            <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $Penjual->barangpenjual_id]) }}">Detail</a>
                     </div>
                 </div>
             </div>

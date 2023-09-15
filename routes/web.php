@@ -64,7 +64,8 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::post('beli', [dashboardusercontroller::class, 'beli'])->name('beli');
     Route::get('konfimasipembelian/{id}', [dashboardusercontroller::class, 'konfimasipembelian'])->name('konfimasipembelian');
     Route::post('ulasan', [dashboardusercontroller::class, 'ulasan'])->name('ulasan');
-
+    Route::get('detailmenu', [dashboardusercontroller::class, 'detailmenu'])->name('detailmenu');
+    
 });
 
 

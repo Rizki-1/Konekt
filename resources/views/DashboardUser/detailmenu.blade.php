@@ -4,7 +4,7 @@
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 <head>
-    <style>
+    <!-- <style>
  body {
   display: flex;
   flex-direction: column;
@@ -45,7 +45,9 @@
   .main-content {
     flex: 1px;
   }
-    </style>
+    </style> -->
+</head>
+
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Kuliner kita</title>
@@ -333,79 +335,150 @@
             </div>
           </div>
         </nav>
+          <!-- Nav Header Component End -->
+        <!--Nav End-->
       </div>
       <div class="content-inner mt-5 py-0">
-      <div class="row">
-         <div class="col-lg-12">
-            <div class="iq-main">
-               <div class="card mb-0 iq-content rounded-bottom">
-                  <div class="d-flex flex-wrap align-items-center justify-content-between mx-3 my-3">
-                     <div class="d-flex flex-wrap align-items-center">
-                      <div class="profile-img-edit position-relative">
-                            <img class="profile-pic rounded avatar-100" src="../../assets/images/avatars/06.png" alt="profile-pic">
-                              <div class="upload-icone bg-primary">
-                                 <svg class="upload-button" width="14" height="14" viewBox="0 0 24 24">
-                                    <path fill="#ffffff" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                 </svg>
-                                 <input class="file-upload" type="file" accept="image/*">
-                              </div>
-                           </div>
-                           <div class="d-flex align-items-center mb-3 mb-sm-0 ms-sm-4">                           <div>
-                              <h6 class="me-2 text-primary">namaku</h6>
-                              <span><svg width="19" height="19" class="me-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M21 10.8421C21 16.9172 12 23 12 23C12 23 3 16.9172 3 10.8421C3 4.76697 7.02944 1 12 1C16.9706 1 21 4.76697 21 10.8421Z" stroke="#07143B" stroke-width="1.5"/>
-                                 <circle cx="12" cy="9" r="3" stroke="#07143B" stroke-width="1.5"/>
-                                 </svg><small class="mb-0 text-dark">Jl Wendit</small></span>
-                           </div>
-                           <div class="ms-4">
-                              <p class="me-2 mb-0 text-primary">08154154402432</p>
-                              <p class="me-2 mb-0 text-dark">namaku@gmail.com</p>
-                              <p class="mb-0 text-dark">030306</p>
-                           </div> 
+      @foreach ($penjual as $p)
+    <div class="row">
+        <div class="col-lg-6 col-xl-7">
+            <div class="card">
+                <div class="card-header border-bottom-0 pb-0">
+                    <h2 class="card-title">Detail Menu</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-5  mb-4 mt-xl-0">
+                        <img src="{{asset('Storage/' . $p->fotomakanan)}}"
+                        class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                        alt="profile-image">
+                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
+                        class="img-fluid rounded-pill avatar-170 hover-image "
+                        alt="profile-image" data-iq-gsap="onStart"
+                        data-iq-opacity="0" data-iq-scale=".6"
+                        data-iq-rotate="180" data-iq-duration="1"
+                        data-iq-delay=".6" data-iq-trigger="scroll"
+                        data-iq-ease="none">
                         </div>
-                     </div>
-                     <ul class="d-flex mb-0 text-center ">
-                     <li class="badge bg-primary py-2 me-2">
-                          <button class="btn btn-primary" id="edit-profile-button">Edit Profil</button>
-                      </li>
-                        <li class="badge bg-primary py-2 me-2">
-                           <p class="mb-3 mt-2">5</p>
-                           <small class="mb-1 fw-normal">Menu</small>
-                        </li>
-                        <li class="badge bg-primary py-2 me-2">
-                           <p class="mb-3 mt-2">3.1k</p>
-                           <small class="mb-1 fw-normal">Followers</small>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-               <div class="iq-header-img">
-                  <img src="../../assets/images/User-profile/01.png" alt="header" class="img-fluid w-100 rounded" style="object-fit: contain;">
-                  <svg class="upload-button" width="14" height="14" viewBox="0 0 24 24">
-                    <path fill="#ffffff" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                  </svg>
-
-               </div>
+                        <div class="col-lg-12 col-xl-7">
+                            <h4 class="mb-2">tentang menu</h4>
+                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu erat adipiscing convallis libero elit et eros pellentesque. Sapien, fringilla eget egestas eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu erat adipiscing convallis libero elit et eros pellentesque. Sapien, fringilla eget egestas eget. </p>
+                            <div class="d-flex align-items-center">
+                            <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
+                            data-bs-target="#myModal-{{ $p->id }}">beli</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="row">
-      <!-- Footer Section Start -->
-      <footer class="footer">
-          <div class="footer-body">
-              <ul class="left-panel list-inline mb-0 p-0">
-                  <li class="list-inline-item"><a href="../extra/privacy-policy.html">Privacy Policy</a></li>
-                  <li class="list-inline-item"><a href="../extra/terms-of-service.html">Terms of Use</a></li>
-              </ul>
-              <div class="right-panel">
-                  ©<script>document.write(new Date().getFullYear())</script> Aprycot, Made with
-                  <span class="text-gray">
-                      <svg width="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z" fill="currentColor"></path>
-                      </svg>
-                  </span> by <a href="https://iqonic.design/">Konekt</a>.
-              </div>
-          </div>
-      </footer>
+        </div>
+        <div class="col-lg-6 col-xl-5">
+        <div class="card" style="max-height: 450px; overflow-y: scroll;">                
+            <div class="card-header">
+                    <h4 class="card-title">Ulasan Makanan</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Tambahkan ulasan makanan di sini -->
+                    <div class="media">
+                        <div class="media-body">
+                            <h6 class="mb-0">Jepri</h6>
+                            <div class="rating">
+                                <!-- Tambahkan bintang ulasan di sini -->
+                                <span class="star">&#9733;</span>
+                                <span class="star">&#9733;</span>
+                                <span class="star">&#9733;</span>
+                                <span class="star">&#9733;</span>
+                                <span class="star">&#9734;</span>
+                            </div>
+                            <p class="mt-2">enak mantap slur rekomend.</p>
+                        </div>
+                    </div>
+                    <!-- Tambahkan informasi ulasan makanan lainnya di sini -->
+                    <div class="media">
+                        <div class="media-body">
+                            <h6 class="mb-0">Riski</h6>
+                            <div class="rating">
+                                <!-- Tambahkan bintang ulasan di sini -->
+                                <span class="star">&#9733;</span>
+                                <span class="star">&#9733;</span>
+                                <span class="star">&#9733;</span>
+                                <span class="star">&#9733;</span>
+                                <span class="star">&#9734;</span>
+                            </div>
+                            <p class="mt-2">muantappp pwoll masakkan e woyy.</p>
+                        </div>
+                    </div>
+
+                        <div class="media">
+                            <div class="media-body">
+                                <h6 class="mb-0">yapi</h6>
+                                <div class="rating">
+                                    <!-- Tambahkan bintang ulasan di sini -->
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9734;</span>
+                                </div>
+                                <p class="mt-2">joss gandos.</p>
+                            </div>
+                        </div>
+
+                        <div class="media">
+                            <div class="media-body">
+                                <h6 class="mb-0">Rayya</h6>
+                                <div class="rating">
+                                    <!-- Tambahkan bintang ulasan di sini -->
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9734;</span>
+                                </div>
+                                <p class="mt-2">gaiso berkata kata sangking enak e.</p>
+                            </div>
+                        </div>
+
+                        <div class="media">
+                            <div class="media-body">
+                                <h6 class="mb-0">Aiss</h6>
+                                <div class="rating">
+                                    <!-- Tambahkan bintang ulasan di sini -->
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9733;</span>
+                                    <span class="star">&#9734;</span>
+                                </div>
+                                <p class="mt-2">gaskeunn belii yokk wenak iki cuy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        <div class="footer-body">
+            <ul class="left-panel list-inline mb-0 p-0">
+                <li class="list-inline-item"><a href="../extra/privacy-policy.html">Privacy Policy</a></li>
+                <li class="list-inline-item"><a href="../extra/terms-of-service.html">Terms of Use</a></li>
+            </ul>
+            <div class="right-panel">
+                ©<script>document.write(new Date().getFullYear())</script> Aprycot, Made with
+                <span class="text-gray">
+                    <svg width="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z" fill="currentColor"></path>
+                    </svg>
+                </span> by <a href="https://iqonic.design/">IQONIC Design</a>.
+            </div>
+        </div>
+    </footer>
       <!-- Footer Section End -->    
     </main>
     <!-- Wrapper End-->
@@ -447,5 +520,5 @@
     <!-- moment JavaScript -->
     <script src="../../assets/vendor/moment.min.js"></script>  </body>
 
-<!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/app/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:55:19 GMT -->
+<!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/special-pages/dish-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:53:54 GMT -->
 </html>

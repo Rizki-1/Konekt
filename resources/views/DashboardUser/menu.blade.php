@@ -131,6 +131,7 @@
 </div>
 @endforeach
 {{-- Modal End --}}
+
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -364,10 +365,10 @@
                         <div class="card card-white dish-card profile-img mb-5">
                         <div class="profile-img21">
                     <!-- tempat foto -->
-                    <img src="../assets/images/layouts/16.png"
+                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
                         class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
                         alt="profile-image">
-                    <img src="../assets/images/layouts/16.png"
+                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
                         class="img-fluid rounded-pill avatar-170 hover-image "
                         alt="profile-image" data-iq-gsap="onStart"
                         data-iq-opacity="0" data-iq-scale=".6"

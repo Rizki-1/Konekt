@@ -72,6 +72,7 @@ class dashboardusercontroller extends Controller
 
     public function konfimasipembelian(Request $request)
     {
+        $notifikasi = notifikasi::all();
         $penjualId = Auth::id();
         $userOrder = userOrder::findOrFail($request->id);
         // $userOrder = userOrder::all
@@ -133,7 +134,6 @@ class dashboardusercontroller extends Controller
      */
     public function store(Request $request)
     {
-
 
         $dashboardusercontrollers = [
             'barangpenjual_id' => $request->barangpenjual_id,
@@ -212,9 +212,41 @@ class dashboardusercontroller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Ambil data userOrder yang akan diupdate
+        $userOrder = userOrder::findOrFail($id);
+
+        // Update nilai-nilai yang sesuai
+        $userOrder->barangpenjual_id = $request->barangpenjual_id;
+        $userOrder->jumlah = $request->jumlah;
+        $userOrder->catatan = $request->catatan;
+
+        // Cek apakah foto saat ini adalah null
+        if (is_null($userOrder->foto)) {
+            // Jika foto saat ini adalah null, unggah foto baru
+            if ($request->hasFile('foto')) {
+                $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
+                $userOrder->foto = $filePath;
+            }
+        } else {
+            // Jika foto saat ini tidak null, hapus foto lama jika ada foto baru yang diunggah
+            if ($request->hasFile('foto')) {
+                Storage::disk('public')->delete($userOrder->foto);
+                $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
+                $userOrder->foto = $filePath;
+            }
+        }
+
+        // Update adminstatus dan pembelianstatus menjadi 'notapprove'
+        $userOrder->adminstatus = 'notapprove';
+        $userOrder->pembelianstatus = 'notapprove';
+
+        // Simpan perubahan ke database
+        $userOrder->save();
+
+        // Redirect ke halaman yang sesuai setelah update
+        return redirect()->route('menu.index');
     }
 
     /**

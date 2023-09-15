@@ -355,9 +355,9 @@
             </nav>
         </div>
         <!-- Loop through pembelian records -->
-        {{-- @foreach ($penjual as $Penjual) --}}
-            <form action="{{ route('menu.store') }}" method="POST">
+            <form action="{{ route('menu.update', $userOrder->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="content-inner mt-5 py-0">
                     <div class=" card col-md-12 col-lg-12">
                         <div class="card-body">
@@ -450,8 +450,7 @@
                                     <p class="text-bold">Bukti transfer</>
                                 </div>
                                 <div class="mt-3">
-                                    <input type="file" name="foto" class="form-control"
-                                        id="fotobuktipembayaran">
+                                    <input type="file" name="foto" class="form-control" id="foto">
                                 </div>
                             </div>
 
@@ -471,12 +470,11 @@
                     </div>
                 </div>
             </form>
-            {{-- @endforeach --}}
-            {{-- @include('layout.footer') --}}
+                {{-- @include('layout.footer') --}}
         </main>
         @include('layout.js')
     </body>
-    
+
     </html>
     <script>
     const selectMetode = document.getElementById('selectMetode');
@@ -496,4 +494,3 @@
         }
     });
 </script>
- 

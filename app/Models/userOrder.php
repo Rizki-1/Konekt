@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class userOrder extends Model
 {
@@ -13,6 +14,8 @@ class userOrder extends Model
     protected $fillable = [
         'barangpenjual_id',
         'jumlah',
+        'toko_id',
+        'user_id',
         'foto',
         'catatan',
         'keterangan',
@@ -23,5 +26,10 @@ class userOrder extends Model
     public function penjual(): BelongsTo
     {
         return $this->belongsTo(barangpenjual::class);
+    }
+
+    public function ulasan(): HasMany
+    {
+        return $this->hasMany(ulasan::class);
     }
 }

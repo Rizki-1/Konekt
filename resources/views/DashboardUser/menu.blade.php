@@ -36,7 +36,6 @@
 {{-- Modal Start --}}
 @foreach ($penjual as $p)
 <form action="{{ route('pembelian', ['id' => $p->id]) }}" method="POST" enctype="multipart/form-data">
-
         @csrf
         <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
         <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
@@ -57,8 +56,12 @@
                                     <p class="fs-4 text-dark">
                                         {{ $p->namamenu }}
                                         <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
+                                        <input type="hidden" name= "user_id" value="{{ $penjualId }}">
+                                        <input type="hidden" name= "toko_id" value="{{ $p->toko_id }}">
                                     </p>
                                     <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
+                                    <input type="hidden" name="id_toko" value="{{ $p->id }}">
+                                    @dump($p->id)
                                     <p class="fs-6 text-primary">
                                         Harga :
                                         Rp. {{ $p->harga }}
@@ -83,9 +86,52 @@
         </div>
     </form>
 @endforeach
-{{-- Modal End --}}
+@foreach ($penjual as $Penjual)
+<div class="modal" id="myModaldetail-{{ $Penjual->barangpenjual_id }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">detail makanan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="{{ asset('storage/' . $Penjual->fotomakanan) }}" alt="Foto Menu" class="img-fluid">
+                        </div>
+                        <div class="col-8">
 
-    {{-- @include('layout.logoloader') --}}
+                            <p class="fs-4 text-dark">
+                                @dump($p->id)
+                                {{ $Penjual->namamenu }}
+                                <input type="hidden" name="namamenu_id" value="{{ $Penjual->id }}">
+                            </p>
+                            <input type="hidden" name="barangpenjual_id" value="{{ $Penjual->id }}">
+                            <p class="fs-6 text-primary">
+                                Harga :
+                                Rp. {{ $Penjual->harga }}
+                                <input type="hidden" id="harga-{{$Penjual->id}}" name="harga" value="{{ $Penjual->id }}">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <form action=""></form>
+                <div class="mb-3">
+                    @foreach ($ulasan as $Ulasan)
+                    <div class="col-8">
+                        <p class="fs-4 text-dark">{{ $Ulasan->komentar }}</p>
+                        <p class="fs-4 text-dark">{{ $Ulasan->rating }}</p>
+                    </div>
+                    @endforeach
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+@endforeach
+{{-- Modal End --}}
+    @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -299,6 +345,7 @@
                 @include('layout.bilboard')
                 <!-- Start Isi Dashboard -->
                 <ul id="results"></ul>
+
                 @php
                     $no = 1;
                 @endphp
@@ -338,10 +385,13 @@
                     <div class="d-flex justify-content-between mt-3">
                         <div class="d-flex align-items-center">
                             <span class="text-primary fw-bolder me-2">Rp. {{ number_format($p->harga) }}</span>
+                            {{-- @dump($p->id) --}}
                             {{-- <small class="text-decoration-line-through">$8.49</small> --}}
                         </div>
                         <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
                             data-bs-target="#myModal-{{ $p->id }}">beli</button>
+                            <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
+                            data-bs-target="#myModaldetail-{{ $Penjual->barangpenjual_id }}">detail</button>
                     </div>
                 </div>
             </div>

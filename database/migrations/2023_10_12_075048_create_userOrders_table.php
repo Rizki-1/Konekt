@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('user_Orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('barangpenjual_id')->constrained()->onUpdate('cascade');
+            $table->string('toko_id');
+            $table->string('user_id');
             $table->integer('jumlah');
             $table->string('foto')->nullable();
             $table->text('catatan')->nullable();

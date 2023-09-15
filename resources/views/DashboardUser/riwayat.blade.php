@@ -66,6 +66,35 @@
       <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+
+    <form action="{{ route('ulasan') }}" method="POST">
+        @csrf
+     <div class="modal" id="myModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              @foreach ($penjual as $p)
+              <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
+              @endforeach
+            </div>
+            <div class="modal-body">
+                <label for="ulasan"> berikan komentar </label>
+              <input type="text" name="komentar" class="form-control">
+            </div>
+            <div class="modal-body">
+                <label for="ulasan">Berikan nilai</label>
+                <input type="number" name="rating" class="form-control" min="1" max="5">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -272,12 +301,17 @@
              <div class="card-content d-flex">
                  <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
                  <div class="img-content">
-                     <h5>{{ $u->adminstatus }}</h5>
+                    @foreach ($penjual as $Penjual )
+                    <h5>{{$Penjual->namamenu }}</h5>
+                    @endforeach
+                    <tr>{{ $u->barangpenjual_id }}</tr>
+                    @dump($u->barangpenjual_id)
                      <tr>{{ $u->pembelianstatus }}</tr><br>
                      <tr>Rp 15.000 1 (menu) dana</tr><br>
                      <tr class="d-flex" >
                         @if ($u->pembelianstatus === 'selesai')
-                        <div class="btn btn-success" style=""><span class="color:#EA6A12">pesanan telah selasai</span></div>
+                        <div class="btn btn-success" style="">pesanan telah selasai</div>
+                        <div class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#myModal" style="">beri ulasan</div>
                         @else
                         <div class="btn btn-warning">ajukan pengembalian dana</div>
                         @endif

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class barangpenjual extends Model
 {
@@ -14,6 +15,7 @@ class barangpenjual extends Model
     protected $fillable = [
         'namamenu',
         'kategori_id',
+        'toko_id',
         'harga',
         'fotomakanan',
     ];
@@ -28,8 +30,13 @@ class barangpenjual extends Model
         return $this->hasMany(userOrder::class);
     }
 
-    // public function pembelian(): HasMany
-    // {
-    //     return $this->hasMany(Pembelian::class, 'penjual_id');
-    // }
+    public function penjuallogin(): HasOne
+    {
+        return $this->hasOne(penjuallogin::class);
+    }
+
+    public function ulasan(): HasMany
+    {
+        return $this->hasMany(ulasan::class);
+    }
 }

@@ -19,16 +19,14 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
         \App\Models\User::factory()->create([
-            'name' => 'yapi',
-            'email' => 'yafihabibi22@gmail.com',
-            'password' => '12345678',
+            'name' => 'user',
+            'email' => 'user@gmail.com',
+            'password' => 'penjual',
             'role' => 'user',
         ]);
-        \App\Models\User::factory()->create([
-            'name' => 'kambing',
-            'email' => 'kambinglucu@gmail.com',
-            'password' => '12345678',
-            'role' => 'penjual',
-        ]);
+        // \App\Models\adminkategori::factory()->create([
+        //     'kategori' => 'gorengan',
+        //     'keterangan' => 'halotest'
+        // ]);
     }
 }

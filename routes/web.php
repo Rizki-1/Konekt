@@ -56,13 +56,14 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('keranjang', function () { return view('DashboardUser.keranjang');})->name('keranjang');
     Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('UserKeranjang');
     Route::post('pembelian/{id}', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
-    Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
+    Route::get('riwayatuser/{id}', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
     Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
     Route::get('profileuser', [dashboardusercontroller::class, 'profileuser'])->name('profileuser');
     Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
     Route::get('/menu/search', [dashboardusercontroller::class, 'search'])->name('menu.search');
     Route::post('beli', [dashboardusercontroller::class, 'beli'])->name('beli');
     Route::get('konfimasipembelian/{id}', [dashboardusercontroller::class, 'konfimasipembelian'])->name('konfimasipembelian');
+    Route::post('ulasan', [dashboardusercontroller::class, 'ulasan'])->name('ulasan');
 
 });
 

@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ulasan;
+use App\Models\Pembelian;
 use App\Models\userOrder;
 use App\Models\notifikasi;
+use Illuminate\Http\Request;
+use App\Models\barangpenjual;
 use App\Models\adminnotifikasi;
 use App\Models\notifikasipenjual;
+use Illuminate\Support\Facades\Auth;
 use illuminate\Support\Facades\Storage;
-use App\Models\barangpenjual;
-use Illuminate\Http\Request;
-use App\Models\Pembelian;
 
 class dashboardusercontroller extends Controller
 {
@@ -18,13 +20,16 @@ class dashboardusercontroller extends Controller
      */
     public function index()
     {
+        $penjualId = Auth::id();
         $users = userOrder::all();
         $notifikasi = notifikasi::all();
         $penjual =  barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
+        // $ulasan = ulasan::where('barangpenjual_id', $penjual->id);
+        $ulasan = ulasan::all();
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi', 'ulasan', 'penjualId'));
     }
 
     public function beli(Request $request)
@@ -51,7 +56,11 @@ class dashboardusercontroller extends Controller
             'jumlah' => $request->jumlah,
             'adminstatus' => 'notactive',
             'pembelianstatus' => 'notactive',
+            'toko_id' => $request->toko_id,
+            'user_id' => $request->user_id,
         ];
+
+        // dd($request->user_id);
         $userOrders =  userOrder::create($userOrderData);
 
         return redirect()->route('konfimasipembelian', ['id' => $userOrders->id]);
@@ -60,22 +69,23 @@ class dashboardusercontroller extends Controller
 
     public function konfimasipembelian(Request $request)
     {
-        // Mengambil data userOrder dengan ID yang sesuai
+        $penjualId = Auth::id();
         $userOrder = userOrder::findOrFail($request->id);
-
-        // Mengambil data barangpenjual yang terkait dengan userOrder melalui barangpenjual_id
+        // $userOrder = userOrder::all
         $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
 
-        return view('DashboardUser.pembelian', compact('userOrder', 'penjual'));
+        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'penjualId'));
     }
 
 
 
     public function pesanan()
     {
+        $penjualId = Auth::id();
         $user = userOrder::where('adminstatus', 'approve')->get();
+        $user = userOrder::where('user_id', $penjualId )->get();
         $penjual = barangpenjual::all();
-        return view('DashboardUser.pesanan', compact('user', 'penjual'));
+        return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId'));
     }
 
     public function riwayatuser()
@@ -114,14 +124,20 @@ class dashboardusercontroller extends Controller
     public function store(Request $request)
     {
 
+
         $dashboardusercontrollers = [
             'barangpenjual_id' => $request->barangpenjual_id,
             'adminstatus' => 'notapprove',
             'pembelianstatus' => 'menunggu konfirmasi',
-            'jumlah' => $request->jumlah, // Ambil nilai dari input 'jumlah'
-            'catatan' => $request->catatan, // Ambil nilai dari input 'catatan'
+            'jumlah' => $request->jumlah,
+            'catatan' => $request->catatan,
+            'foto' => $request->foto,
+            'toko_id' => $request->toko_id,
+            'user_id' => $request->user_id,
+
         ];
 
+        // dd($request->all());
         if ($request->hasFile('foto')) {
             $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
             $validated['foto'] = $filePath;
@@ -134,11 +150,11 @@ class dashboardusercontroller extends Controller
             'keterangan' => 'anda berhasil membuat pesanan',
             'isi' => 'lihat pesanan anda di menu pesanan',
         ];
+
+        // dd($request->toko_id);
         adminnotifikasi::create($adminnotifikasi);
         notifikasi::create($notifikasi);
         userOrder::create($dashboardusercontrollers);
-
-
         return redirect()->route('menu.index');
     }
 
@@ -148,6 +164,21 @@ class dashboardusercontroller extends Controller
         $results = userOrder::where('namamenu', 'like', '%' . $query . '%')->get();
 
         return response()->json($results);
+    }
+
+
+    public function ulasan(Request $request)
+    {
+
+        $ulasan = [
+            'barangpenjual_id' => $request->barangpenjual_id,
+            'rating' => $request->rating,
+            'komentar' => $request->komentar
+
+        ];
+        // dd($request->all());
+        ulasan::create($ulasan);
+        return redirect()->route('riwayatuser');
     }
 
 

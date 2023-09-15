@@ -392,7 +392,7 @@
             </nav>
         </div>
         <!-- Loop through pembelian records -->
-        {{-- @foreach ($penjual as $p) --}}
+        {{-- @foreach ($penjual as $Penjual) --}}
             <form action="{{ route('menu.store') }}" method="POST">
                 @csrf
                 <div class="content-inner mt-5 py-0">
@@ -411,9 +411,14 @@
                                     <div class=""><img src="{{ asset('assets/img/poto.png') }}" width="100px" alt="" srcset=""></div>
                                     <div class="form-label text-bold">
                                         <h5 class="form-label">Nama Menu</h5>
+                                        @dump($userOrder->barangpenjual_id)
+                                        @dump($userOrder->toko_id)
+                                        @dump($userOrder->user_id)
                                         <div class="">
                                             <p class="form-label">{{ $penjual->namamenu }}</p> <!-- Menampilkan nama menu -->
                                             <input type="hidden" name="barangpenjual_id" value="{{ $penjual->id }}">
+                                            <input type="hidden" name="toko_id" value="{{ $userOrder->toko_id }}">
+                                            <input type="hidden" name="user_id" value="{{ $userOrder->user_id }}">
                                         </div>
                                     </div>
                                     <div class="form-label text-bold px-4">
@@ -425,8 +430,10 @@
                                 <div class="form-label text-bold px-4">
                                     <h5 class="form-label">Jumlah</h5>
                                     <div class="">
+                                        {{-- @foreach ($penjual->userOrder as $UserOrder ) --}}
                                             <p class="form-label">{{ $userOrder->jumlah }}</p>
                                             <input type="hidden" name="jumlah" value="{{ $userOrder->jumlah }}">
+                                            {{-- @endforeach --}}
                                     </div>
                                 </div>
                                 <!-- Total harga belum dihitung -->
@@ -454,8 +461,7 @@
                                     <h5 class="text-bold">Bukti transfer :</h5>
                                 </div>
                                 <div class="mt-3">
-                                    <input type="file" name="foto" class="form-control"
-                                        id="fotobuktipembayaran">
+                                    <input type="file" name="foto" class="form-control" id="fotobuktipembayaran">
                                 </div>
                             </div>
                             <div class="mb-3">

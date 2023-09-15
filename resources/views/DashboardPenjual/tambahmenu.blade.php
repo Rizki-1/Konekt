@@ -29,13 +29,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
+                        @dump($penjualId)
                         <label for="kelas" class="form-label fw-bold">Nama Menu</label>
+                        <input type="hidden" name="toko_id" value="{{ $penjualId }}">
                         <input type="text" name="namamenu" class="form-control @error('namamenu') is-invalid @enderror" value="{{ old('namamenu') }}">
                         @error('namamenu')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
+                        {{-- @dump($penjualId) --}}
                         <label for="kelas" class="form-label fw-bold">Kategori</label>
                         <select name="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
                             <option value="" disabled selected>Pilih kategori</option>
@@ -373,6 +376,7 @@
             <!-- Menu muter muter Start -->
             <div class="card-body menu-image">
                 <h6 class="heading-title fw-bolder mt-4 mb-0">{{ $p->namamenu }}</h6>
+                <h6 class="heading-title fw-bolder mt-4 mb-0">{{ $p->toko_id }}</h6>
                 <div class="card-rating stars-ratings">
                     @for ($i = 0; $i < 4; $i++)
                         <svg width="18" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

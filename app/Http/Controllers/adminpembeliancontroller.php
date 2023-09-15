@@ -49,8 +49,7 @@ class adminpembeliancontroller extends Controller
         // $notifikasi->keterangan = 'pesanan anda telah disetujui';
         // $notifikasi->isi = 'lihat pesanan anda di menu pesanan';
         // $notifikasi->save();
-
- 
+        // dd($id);
         $dashboardusercontrollers = userOrder::findOrFail($id);
         $dashboardusercontrollers->adminstatus = 'approve';
         $dashboardusercontrollers->save();
@@ -66,7 +65,7 @@ class adminpembeliancontroller extends Controller
                 'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut'
             ];
         notifikasipenjual::create($notifikasi_penjual);
-        return redirect()->route('admin.index');
+        return redirect()->back();
     }
     public function tolak($id)
     {

@@ -12,6 +12,7 @@ use App\Models\pembayaranpenjual;
 use App\Models\penjual;
 use App\Models\userOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class penjualcontroller extends Controller
@@ -22,11 +23,12 @@ class penjualcontroller extends Controller
     public function index()
     {
         $notifikasi = notifikasi::all();
+        $penjualId = Auth::id();
+        $penjual = barangpenjual::where('toko_id', $penjualId)->get();
         $user = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->get();
         $notifikasi_penjual = notifikasipenjual::all();
-        $penjual = barangpenjual::all();
         $adminkategori = adminkategori::all();
-        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual'));
+        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual', 'penjualId'));
     }
 
     public function DashboardPenjual()
@@ -78,7 +80,7 @@ class penjualcontroller extends Controller
         // Redirect atau tampilkan pesan sukses
         return redirect()->route('pembayaranpenjual')->with('success', 'Data pembayaran berhasil disimpan.');
     }
-    
+
 
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {
@@ -88,10 +90,10 @@ class penjualcontroller extends Controller
 
     public function terimapesanan($id)
     {
-        $notifikasi = notifikasi::findOrFail($id);
-        $notifikasi->keterangan = 'pesanan anda sedang di proses';
-        $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
-        $notifikasi->save();
+        // $notifikasi = notifikasi::findOrFail($id);
+        // $notifikasi->keterangan = 'pesanan anda sedang di proses';
+        // $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
+        // $notifikasi->save();
         $dashboardusercontrollers =userOrder::findOrFail($id);
         $dashboardusercontrollers->pembelianstatus = 'sedang di proses';
         $dashboardusercontrollers->save();
@@ -115,21 +117,25 @@ class penjualcontroller extends Controller
 
     public function tandakantelahselesai($id)
     {
-        $notifikasi = notifikasi::findOrFail($id);
-        $notifikasi->keterangan = 'pesanan anda telah selesai ';
-        $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
-        $notifikasi->save();
+        // $notifikasi = notifikasi::findOrFail($id);
+        // $notifikasi->keterangan = 'pesanan anda telah selesai ';
+        // $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
+        // $notifikasi->save();
         $dashboardusercontrollers = userOrder::findOrfail($id);
         $dashboardusercontrollers->adminstatus = 'penjualapprove';
         $dashboardusercontrollers->pembelianstatus = 'selesai';
         $dashboardusercontrollers->save();
 
-        return redirect()->route('DashboardPenjual.index');
+        return redirect()->route('pesananpenjual');
     }
 
     protected function pesananpenjual(Request $request)
     {
+        $penjualId = Auth::id();
         $dashboardusercontrollers = userOrder::where('adminstatus', 'approve')->get();
+        $dashboardusercontrollers = userOrder::where('toko_id', $penjualId)->get();
+
+
         return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers'));
     }
 
@@ -172,6 +178,7 @@ class penjualcontroller extends Controller
             'kategori_id' => 'required',
             'harga' => 'required|numeric|min:0',
             'fotomakanan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'id_toko'  => 'test'
         ], [
             'namamenu.required' => 'Nama makanan wajib diisi.',
             'namamenu.string' => 'Nama makanan harus berupa teks.',
@@ -191,7 +198,17 @@ class penjualcontroller extends Controller
             $validated['fotomakanan'] = $filePath;
         }
 
-        $create = barangpenjual::create($validated);
+        $penjual = [
+            'namamenu' => $request->namamenu,
+            'kategori_id' => $request->kategori_id,
+            'harga' => $request->harga,
+            'fotomakanan' => $request->fotomakanan,
+            'toko_id' => $request->toko_id
+        ];
+
+        // dd($request->toko_id);
+
+        $create = barangpenjual::create($penjual);
 
         if ($create) {
             session()->flash('notif.success', 'Menu berhasil ditambahkan!');

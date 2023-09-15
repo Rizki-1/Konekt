@@ -26,7 +26,7 @@ class penjualcontroller extends Controller
         $penjualId = Auth::id();
         $penjual = barangpenjual::where('toko_id', $penjualId)->get();
         $user = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->get();
-        $notifikasi_penjual = notifikasipenjual::all();
+        $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi',$penjualId)->get();
         $adminkategori = adminkategori::all();
         return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual', 'penjualId'));
     }
@@ -135,8 +135,20 @@ class penjualcontroller extends Controller
         $dashboardusercontrollers = userOrder::where('adminstatus', 'approve')->get();
         $dashboardusercontrollers = userOrder::where('toko_id', $penjualId)->get();
 
+        if ($dashboardusercontrollers)
+        {
+        $notifikasi_penjual =
+        [
+            'keterangan_penjual' => 'ada pesanan',
+            'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut',
+            'toko_id_notifikasi' => $penjualId
+        ];
+         notifikasipenjual::create($notifikasi_penjual);
+        }
+        $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi',$penjualId)->get();
 
-        return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers'));
+
+        return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers', 'notifikasi_penjual'));
     }
 
     protected function pengajuanpenjual(Request $request)

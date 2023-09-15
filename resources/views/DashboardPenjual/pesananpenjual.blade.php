@@ -317,6 +317,26 @@
                                                 <h5 class="mb-0 text-white">All Notifications</h5>
                                             </div>
                                         </div>
+                                        @php
+                                        $latestNotifications = $notifikasi_penjual->sortByDesc('created_at')->take(3);
+                                        @endphp
+
+                                        @foreach ($latestNotifications as $np)
+                                        <div class="card-body p-0 notifikasi-belum-kedaluwarsa">
+                                            <div class="d-flex align-items-center">
+                                                <img class="avatar-40 rounded-pill" src="{{ $np->fotomakanan }}" alt="">
+                                                <div class="ms-3 w-100">
+                                                    <h6 class="mb-0">{{ $np->keterangan_penjual }}</h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mb-0">{{ $np->isi_penjual }}</p>
+                                                        <small class="float-end font-size-12">Just Now</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+
+
                                     </div>
                                 </div>
                             </li>
@@ -420,19 +440,7 @@
                 </div>
             </div>
         </div>
-
-        {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
 </body>
 </html>
-{{-- <form action="{{ route('terimapesanan', ['id'=>$dashboardusercontrollers->id]) }}" method="POST">
-    @csrf
-    @method('PATCH')
-@if ($dashboardusercontrollers->pembelianstatus === 'sedang di proses')
-<button type="button" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
-@else
-<button type="submit" class="btn btn-success accept-btn">Terima</button>
-<button type="submit" class="btn btn-danger reject-btn">Tolak</button>
-@endif
- </form> --}}

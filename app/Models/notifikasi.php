@@ -12,6 +12,6 @@ class notifikasi extends Model
     protected $fillable = [
         'keterangan',
         'isi',
-        'waktu_kadaluwarsa'
+        'user_id_notifikasi'
     ];
 }

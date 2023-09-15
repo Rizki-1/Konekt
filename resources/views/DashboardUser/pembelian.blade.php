@@ -382,6 +382,7 @@
                                             <input type="hidden" name="barangpenjual_id" value="{{ $penjual->id }}">
                                             <input type="hidden" name="toko_id" value="{{ $userOrder->toko_id }}">
                                             <input type="hidden" name="user_id" value="{{ $userOrder->user_id }}">
+                                            <input type="hidden" name="user_id_notifikasi" value="{{ $userOrder->user_id }}">
                                         </div>
                                     </div>
                                     <div class="form-label text-bold px-4">
@@ -476,7 +477,7 @@
         </main>
         @include('layout.js')
     </body>
-    
+
     </html>
     <script>
     const selectMetode = document.getElementById('selectMetode');
@@ -496,4 +497,3 @@
         }
     });
 </script>
- 

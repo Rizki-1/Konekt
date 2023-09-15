@@ -11,6 +11,7 @@ class notifikasipenjual extends Model
 
     protected $fillable = [
         'keterangan_penjual',
+        'toko_id_notifikasi',
         'isi_penjual'
     ];
 }

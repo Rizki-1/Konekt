@@ -263,8 +263,10 @@
                               <h5 class="mb-0 text-white">All Notifications</h5>
                             </div>
                         </div>
-
-                        @foreach ($notifikasi_penjual as $np )
+                        @php
+                        $latestNotifications = $notifikasi_penjual->sortByDesc('created_at')->take(3);
+                        @endphp
+                        @foreach ($latestNotifications as $np )
                         <div class="card-body p-0 notifikasi-belum-kedaluwarsa" >
                             <div class="d-flex align-items-center">
                                 <img class="avatar-40 rounded-pill" src="{{ $np->fotomakanan }}" alt="">

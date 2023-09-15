@@ -86,6 +86,11 @@
         </div>
     </form>
 @endforeach
+@if (session('success'))
+<script>
+    toastr.success('{{ session('success') }}')
+</script>
+@endif
 @foreach ($penjual as $Penjual)
 <div class="modal" id="myModaldetail-{{ $Penjual->barangpenjual_id }}" tabindex="-1">
     <div class="modal-dialog">
@@ -279,7 +284,7 @@
                                             </div>
                                         </div>
                                         @php
-                                        $latestNotifications = $notifikasi->sortByDesc('created_at')->take(3);
+                                        $latestNotifications = $notifikasi->orderBy('created_at', 'desc')->take(3)->get();
                                         @endphp
 
                                         @foreach ($latestNotifications as $notif)

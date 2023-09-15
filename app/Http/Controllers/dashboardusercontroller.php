@@ -23,7 +23,7 @@ class dashboardusercontroller extends Controller
     {
         $penjualId = Auth::id();
         $users = userOrder::all();
-        $notifikasi = notifikasi::all();
+        $notifikasi = notifikasi::where('user_id_notifikasi', $penjualId);
         $penjual =  barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
@@ -60,12 +60,8 @@ class dashboardusercontroller extends Controller
             'toko_id' => $request->toko_id,
             'user_id' => $request->user_id,
         ];
-
-
-
         // dd($request->user_id);
         $userOrders =  userOrder::create($userOrderData);
-
         return redirect()->route('konfimasipembelian', ['id' => $userOrders->id]);
 
     }
@@ -159,13 +155,14 @@ class dashboardusercontroller extends Controller
         $notifikasi = [
             'keterangan' => 'anda berhasil membuat pesanan',
             'isi' => 'lihat pesanan anda di menu pesanan',
+            'user_id_notifikasi' => $request->user_id_notifikasi,
         ];
 
-        // dd($request->toko_id);
+        // dd($request->user_id_notifikasi);
         adminnotifikasi::create($adminnotifikasi);
         notifikasi::create($notifikasi);
         userOrder::create($dashboardusercontrollers);
-        return redirect()->route('menu.index');
+        return redirect()->route('menu.index')->with('success', 'berhasil membuat pesanan');
     }
 
     public function search(Request $request)

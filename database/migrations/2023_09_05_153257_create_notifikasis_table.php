@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('notifikasis', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id_notifikasi');
             $table->string('keterangan');
             $table->string('isi');
             $table->timestamps();

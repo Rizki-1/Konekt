@@ -45,6 +45,7 @@ class adminpembeliancontroller extends Controller
     public function terima($id)
     {
 
+
         // $notifikasi = notifikasi::findOrFail($id);
         // $notifikasi->keterangan = 'pesanan anda telah disetujui';
         // $notifikasi->isi = 'lihat pesanan anda di menu pesanan';
@@ -59,12 +60,6 @@ class adminpembeliancontroller extends Controller
         $adminnotifikasi->isi_admin = 'pesanan akan di sampaikan ke penjual';
         $adminnotifikasi->save();
 
-        $notifikasi_penjual =
-            [
-                'keterangan_penjual' => 'ada pesanan',
-                'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut'
-            ];
-        notifikasipenjual::create($notifikasi_penjual);
         return redirect()->back();
     }
     public function tolak($id)

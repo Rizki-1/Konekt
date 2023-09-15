@@ -43,25 +43,35 @@ class adminpembeliancontroller extends Controller
     }
 
     public function terima($id)
-    {
+{
+    $dashboardusercontrollers = userOrder::find($id);
 
-
-        // $notifikasi = notifikasi::findOrFail($id);
-        // $notifikasi->keterangan = 'pesanan anda telah disetujui';
-        // $notifikasi->isi = 'lihat pesanan anda di menu pesanan';
-        // $notifikasi->save();
-        // dd($id);
-        $dashboardusercontrollers = userOrder::findOrFail($id);
-        $dashboardusercontrollers->adminstatus = 'approve';
-        $dashboardusercontrollers->save();
-
-        $adminnotifikasi = adminnotifikasi::findOrFail($id);
-        $adminnotifikasi->keterangan_admin = 'pesanan berhasil di konfirmasi';
-        $adminnotifikasi->isi_admin = 'pesanan akan di sampaikan ke penjual';
-        $adminnotifikasi->save();
-
-        return redirect()->back();
+    if (!$dashboardusercontrollers) {
+        // Tindakan yang harus diambil jika ID tidak ditemukan
+        return redirect()->back()->with('error', 'Pesanan tidak ditemukan');
     }
+
+    $dashboardusercontrollers->adminstatus = 'approve';
+    $dashboardusercontrollers->save();
+
+    $adminnotifikasi = adminnotifikasi::where('id', $id)->first();
+
+    if ($adminnotifikasi) {
+        $adminnotifikasi->keterangan_admin = 'pesanan berhasil di konfirmasi';
+        $adminnotifikasi->isi_admin = 'pesanan akan disampaikan ke penjual';
+        $adminnotifikasi->save();
+    }
+
+    $notifikasi_penjual = [
+        'keterangan_penjual' => 'ada pesanan',
+        'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut'
+    ];
+
+    notifikasipenjual::create($notifikasi_penjual);
+    return redirect()->back()->with('success', 'Pesanan berhasil diterima');
+}
+
+
     public function tolak($id)
     {
         $dashboardusercontrollers = userOrder::findOrFail($id);

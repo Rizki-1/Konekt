@@ -386,25 +386,26 @@
                                     $no = 1;
                                 @endphp
                                 @foreach ($dashboardusercontrollers as $s)
-                                    <tr>
-                                        <th scope="row">{{ $no++ }}</th>
-                                        <td>{{ $s->adminstatus }}</td>
-                                        <td>test</td>
-                                        <td><div style="margin-left:40px;">{{ $s->barangpenjual_id }}</div></td>
-                                        <td class="d-flex">
-                                            <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="btn btn-success" style="margin-left: -100px;">terima</button>
-                                            </form>
-                                            <form action="{{ route('admin.tolak', ['id' =>$s->id]) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="btn btn-danger" style="margin-left: 20px;">tolak</button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <th scope="row">{{ $no++ }}</th>
+                                    <td>{{ $s->adminstatus }}</td>
+                                    <td>test</td>
+                                    <td><div style="margin-left:40px;">{{ $s->barangpenjual_id }}</div></td>
+                                    <td class="d-flex">
+                                        <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="PATCH">
+                                            <button type="submit" class="btn btn-success" style="margin-left: -100px;">terima</button>
+                                        </form>
+                                        <form action="{{ route('admin.tolak', ['id' => $s->id]) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="PATCH">
+                                            <button type="submit" class="btn btn-danger" style="margin-left: 20px;">tolak</button>
+                                        </form>
+                                    </td>
+                                </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     </div>

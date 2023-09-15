@@ -95,7 +95,6 @@
                         </a>
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
 
-                        <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
                                 <a class="nav-link " aria-current="page" href="menu">
                                   <i class="icon">
@@ -123,7 +122,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="pesanan">
+                                <a class="nav-link" href="pesanan">
                                    <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                             <g>
@@ -335,49 +334,110 @@
           </div>
         </nav>
       </div>
-        @csrf
       <div class="content-inner mt-5 py-0">
-   <div class=" card col-md-12 col-lg-12">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="iq-main">
+               <div class="card mb-0 iq-content rounded-bottom">
+                  <div class="d-flex flex-wrap align-items-center justify-content-between mx-3 my-3">
+                     <div class="d-flex flex-wrap align-items-center">
+                        <div class="profile-img22 position-relative me-3 mb-3 mb-lg-0">
+                           <img src="../../assets/images/User-profile/8.png" class="img-fluid avatar avatar-100 avatar-rounded" alt="profile-image">
+                        </div>
+                        <div class="d-flex align-items-center mb-3 mb-sm-0">
+                           <div>
+                              <h6 class="me-2 text-primary">namaku</h6>
+                              <span><svg width="19" height="19" class="me-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <path d="M21 10.8421C21 16.9172 12 23 12 23C12 23 3 16.9172 3 10.8421C3 4.76697 7.02944 1 12 1C16.9706 1 21 4.76697 21 10.8421Z" stroke="#07143B" stroke-width="1.5"/>
+                                 <circle cx="12" cy="9" r="3" stroke="#07143B" stroke-width="1.5"/>
+                                 </svg><small class="mb-0 text-dark">Jl Wendit</small></span>
+                           </div>
+                           <div class="ms-4">
+                              <p class="me-2 mb-0 text-primary">08154154402432</p>
+                              <p class="me-2 mb-0 text-dark">namaku@gmail.com</p>
+                              <p class="mb-0 text-dark">030306</p>
+                           </div> 
+                        </div>
+                     </div>
+                     <ul class="d-flex mb-0 text-center ">
+                        <li class="badge bg-primary py-2 me-2">
+                           <p class="mb-3 mt-2">142</p>
+                           <small class="mb-1 fw-normal">Ulasan</small>
+                        </li>
+                        <li class="badge bg-primary py-2 me-2">
+                           <p class="mb-3 mt-2">5</p>
+                           <small class="mb-1 fw-normal">Menu</small>
+                        </li>
+                        <li class="badge bg-primary py-2 me-2">
+                           <p class="mb-3 mt-2">3.1k</p>
+                           <small class="mb-1 fw-normal">Followers</small>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="iq-header-img">
+                  <img src="../../assets/images/User-profile/01.png" alt="header" class="img-fluid w-100 rounded" style="object-fit: contain;">
+               </div>
+            </div>
+         </div>
+         <div class="row">
+      <!-- Footer Section Start -->
+      <footer class="footer">
+          <div class="footer-body">
+              <ul class="left-panel list-inline mb-0 p-0">
+                  <li class="list-inline-item"><a href="../extra/privacy-policy.html">Privacy Policy</a></li>
+                  <li class="list-inline-item"><a href="../extra/terms-of-service.html">Terms of Use</a></li>
+              </ul>
+              <div class="right-panel">
+                  ©<script>document.write(new Date().getFullYear())</script> Aprycot, Made with
+                  <span class="text-gray">
+                      <svg width="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z" fill="currentColor"></path>
+                      </svg>
+                  </span> by <a href="https://iqonic.design/">Konekt</a>.
+              </div>
+          </div>
+      </footer>
+      <!-- Footer Section End -->    
+    </main>
+    <!-- Wrapper End-->
+    <!-- offcanvas start -->
 
-        <div class="card-body">
-            <div class="">
-                <h3 class="text-warning">Pengajuan Pengembalian Dana</h3>
-            </div>
-            <div class="mb-2 mt-2"><i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px " aria-hidden="true"></i>Masakan warung berkah </div>
-                <div class="d-flex justify-content-between ">
-                    <div class=""><img src="{{ asset('assets/img/poto.png') }}"  width="100px" alt="" srcset=""></div>
-                    <div class="text-bold px-4"><h5 class="form-label">Jumlah Menu</h5>
-                    <div class=""><p class="form-label">{{ session('jumlahpembelian') }}</p></div>
-                </div>
-                <div class="form-label text-bold px-4"><h5 class="form-label">Total</h5>
-                </div>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between mt-2" >
-                <div class="mt-2"><p class="text-bold">Dana yang di ajukkan</p></div>
-                <div class="mt-2"><p class="form-label">Rp.15,000</p></div>
-            </div>
-            <hr>
-            <div class="d-flex gap-4 justify-content-header">
-                <div class="text-bold mt-2"><h5>Pesan</h5></div>
-                <input type="text" class="form-control"  placeholder="(Opsional) Alasan pengajuan dana">
-            </div>
-            <hr>
-            <div class="d-flex gap-4 justify-content-header">
-                <div class="text-bold mt-2"><h5>Bukti</h5>
-                    <input type="file" class="form-control" name="">
-                </div>
-            </div>
-            <hr>
-            
-            <div class="d-flex justify-content-end mt-5">
-                <button type="submit" class="btn btn-warning">Ajukkan</button>
-            </div>
-        </div>
-   </div>
-      {{-- @include('layout.footer') --}}
+    <!-- Required Library Bundle Script -->
+    <script src="../../assets/js/core/libs.min.js"></script>
+    
+    <!-- External Library Bundle Script -->
+    <script src="../../assets/js/core/external.min.js"></script>
+    
+    <!-- Widgetchart JavaScript -->
+    <script src="../../assets/js/charts/widgetcharts.js"></script>
+    
+    <!-- Mapchart JavaScript -->
+    <script src="../../assets/js/charts/vectore-chart.js"></script>
+    <script src="../../assets/js/charts/dashboard.js"></script>
+    
+    <!-- Admin Dashboard Chart -->
+    <script src="../../assets/js/charts/admin.js"></script>
+    
+    <!-- fslightbox JavaScript -->
+    <script src="../../assets/js/fslightbox.js"></script>
+    
+    <!-- GSAP Animation -->
+    <script src="../../assets/vendor/gsap/gsap.min.js"></script>
+    <script src="../../assets/vendor/gsap/ScrollTrigger.min.js"></script>
+    <script src="../../assets/js/animation/gsap-init.js"></script>
+    
+    <!-- Stepper Plugin -->
+    <script src="../../assets/js/stepper.js"></script>
+    
+    <!-- Form Wizard Script -->
+    <script src="../../assets/js/form-wizard.js"></script>
+    
+    <!-- app JavaScript -->
+    <script src="../../assets/js/app.js"></script>
+    
+    <!-- moment JavaScript -->
+    <script src="../../assets/vendor/moment.min.js"></script>  </body>
 
-  </main>
-  @include('layout.js')
-  </body>
+<!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/app/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:55:19 GMT -->
 </html>

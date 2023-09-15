@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\ulasan;
 use App\Models\Pembelian;
 use App\Models\userOrder;
@@ -105,6 +106,12 @@ class dashboardusercontroller extends Controller
     {
         $user = userOrder::all();
         return view('DashboardUser.pengajuanuser', compact('user'));
+    }
+
+    public function profileuser()
+    {
+        $user = User::all();
+        return view('DashboardUser.profileuser', compact('user'));
     }
 
 

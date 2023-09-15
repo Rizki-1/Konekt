@@ -502,14 +502,8 @@
                         <div class="row">
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label for="full-name" class="form-label">Full Name</label>
+                                 <label for="full-name" class="form-label">User Name</label>
                                  <input type="text" name="name" class="form-control form-control-sm" id="full-name" placeholder=" ">
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-group">
-                                 <label for="last-name" class="form-label">Last Name</label>
-                                 <input type="text" class="form-control form-control-sm" id="last-name" placeholder=" ">
                               </div>
                            </div>
                            <div class="col-lg-6">

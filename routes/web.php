@@ -53,7 +53,7 @@ Route::middleware(['AdminMiddleware'])->group(function () {
 Route::middleware(['userMiddleware'])->group(function ()
     {
     Route::get('daftartoko', function () { return view('DashboardUser.daftartoko');})->name('daftartoko');
-    Route::get('keranjang', function () { return view('DashboardUser.keranjang');})->name('keranjang');
+    // Route::get('keranjang', function () { return view('DashboardUser.keranjang');})->name('keranjang');
     Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('UserKeranjang');
     Route::post('pembelian/{id}', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
     Route::get('riwayatuser/{id}', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');

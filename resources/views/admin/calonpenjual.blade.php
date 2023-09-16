@@ -105,6 +105,16 @@
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+
+    <!-- Include the SweetAlert 2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+    <!-- Include the SweetAlert 2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {{-- bootstrap icon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
 </head>
 
 <body class="  "
@@ -405,10 +415,10 @@
                                                 @method('PATCH')
                                                 <button type="submit" class="btn btn-outline-success my-3"><i class="bi bi-check-circle"></i></button>
                                             </form>
-                                            <form action="" method="POST">
+                                            <form id="delete-form-{{ $s->id }}" action="{{ route('tolakpenjual', $s->id) }}" method="POST">
                                                 @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i></button>
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-outline-danger delete-btn" data-id="{{ $s->id }}"><i class="bi bi-x-circle"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -421,6 +431,33 @@
         </div>
         {{-- @include('layout.footer') --}}
     </main>
+
+    {{-- ALERT DELETE --}}
+    <script>
+    // Tambahkan event listener untuk tombol delete dengan class 'delete-btn'
+    document.querySelectorAll('.delete-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var id = this.getAttribute('data-id');
+
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Lanjutkan!',
+                cancelButtonText: 'Batalkan!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika user mengonfirmasi, submit form delete dengan ID yang sesuai
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        });
+    });
+</script>
+{{-- ALERT DELETE --}}
+
     @include('layout.js')
 </body>
 

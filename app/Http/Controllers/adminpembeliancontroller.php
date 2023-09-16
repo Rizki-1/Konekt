@@ -86,6 +86,18 @@ class adminpembeliancontroller extends Controller
         return redirect()->back();
     }
 
+    public function calonpenjual(Request $request)
+        {
+    // Mengambil data penjual dengan peran "penjualnotapprove" yang terkait dengan penjuallogin
+    $penjuallogin = penjuallogin::with('user')
+        ->whereHas('user', function ($query) {
+            $query->where('role', 'penjualnotapprove');
+        })
+        ->get();
+
+    return view('admin.calonpenjual', compact('penjuallogin'));
+    }
+
     public function terimapenjual(string $id)
     {
         // $user = User::FindOrFail($id);
@@ -98,11 +110,28 @@ class adminpembeliancontroller extends Controller
         return redirect()->route('calonpenjual');
     }
 
-    public function calonpenjual(Request $request)
+    public function tolakpenjual($id)
     {
-        $penjuallogin = penjuallogin::with('user')->get();
-        $user = User::all();
-        return view('admin.calonpenjual', compact('penjuallogin', 'user'));
+        try {
+            // Temukan entitas penjuallogin yang akan ditolak
+            $penjuallogin = PenjualLogin::findOrFail($id);
+
+            // Hapus data penjuallogin
+            $penjuallogin->delete();
+
+            // Hapus data user yang terkait
+            $user = User::find($penjuallogin->user_id);
+            if ($user) {
+                $user->delete();
+            }
+
+            // Redirect atau kirim pesan sukses ke admin
+            return redirect()->route('calonpenjual')
+                ->with('success', 'Permintaan penjual login telah ditolak dan data terkait telah dihapus.');
+        } catch (\Exception $e) {
+            // Redirect dengan pesan kesalahan ke halaman sebelumnya
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     public function calonpenjuallogin_create()

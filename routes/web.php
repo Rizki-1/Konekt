@@ -38,6 +38,7 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::patch('terima/{id}', [adminpembeliancontroller::class, 'terima'])->name('admin.terima');
     Route::patch('tolak/{id}', [adminpembeliancontroller::class, 'tolak'])->name('admin.tolak');
     Route::patch('terimapenjual/{id}', [adminpembeliancontroller::class, 'terimapenjual'])->name('terimapenjual');
+    Route::delete('tolakpenjual/{id}', [adminpembeliancontroller::class, 'tolakpenjual'])->name('tolakpenjual');
     Route::resource('pembelianadmin', App\Http\Controllers\adminpembeliancontroller::class);
     Route::get('metodpembayaran', [adminpembeliancontroller::class, 'metodpembayaran'])->name('metodpembayaran');
     Route::get('kategori', [adminpembeliancontroller::class, 'kategori'])->name('kategori');
@@ -54,7 +55,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     {
     Route::get('daftartoko', function () { return view('DashboardUser.daftartoko');})->name('daftartoko');
     // Route::get('keranjang', function () { return view('DashboardUser.keranjang');})->name('keranjang');
-    Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('UserKeranjang');
+    // Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('UserKeranjang');
     Route::post('pembelian/{id}', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
     Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
     Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
@@ -63,6 +64,8 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('/menu/search', [dashboardusercontroller::class, 'search'])->name('menu.search');
     Route::post('beli', [dashboardusercontroller::class, 'beli'])->name('beli');
     Route::get('konfimasipembelian/{id}', [dashboardusercontroller::class, 'konfimasipembelian'])->name('konfimasipembelian');
+    Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('Userkeranjang');
+    Route::post('tambahKeranjang/{id}', [dashboardusercontroller::class, 'tambahKeranjang'])->name('tambahKeranjang');
     Route::post('ulasan', [dashboardusercontroller::class, 'ulasan'])->name('ulasan');
     Route::get('detailmenu', [dashboardusercontroller::class, 'detailmenu'])->name('detailmenu');
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\adminmetodepembayaran;
 use App\Models\userOrder;
 use App\Models\notifikasi;
 use App\Models\adminnotifikasi;
@@ -11,6 +12,7 @@ use App\Models\barangpenjual;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Pembelian;
+use App\Models\penjuallogin;
 
 class dashboardusercontroller extends Controller
 {
@@ -42,7 +44,10 @@ class dashboardusercontroller extends Controller
         dd($request->$penjual->id);
         return redirect()->route('pembelian', ['id' => $request->id]);
     }
-
+    public function daftartoko(){
+        $penjuallogin = penjuallogin::all();
+        return view('DashboardUser.daftartoko',compact('penjuallogin'));
+    }
 
     public function pembelian(Request $request)
     {
@@ -54,7 +59,6 @@ class dashboardusercontroller extends Controller
             'pembelianstatus' => 'notactive',
         ];
         $userOrders =  userOrder::create($userOrderData);
-
         return redirect()->route('konfimasipembelian', ['id' => $userOrders->id]);
 
     }
@@ -63,11 +67,11 @@ class dashboardusercontroller extends Controller
     {
         // Mengambil data userOrder dengan ID yang sesuai
         $userOrder = userOrder::findOrFail($request->id);
-
         // Mengambil data barangpenjual yang terkait dengan userOrder melalui barangpenjual_id
         $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
-
-        return view('DashboardUser.pembelian', compact('userOrder', 'penjual'));
+        $notifikasi = notifikasi::all();
+        $pembelian = adminmetodepembayaran::all();
+        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'notifikasi','pembelian'));
     }
 
 

@@ -303,35 +303,19 @@
         <div class="content-inner mt-5 py-0">
             <div class="row">
                 <div class="col-md-24 col-lg-24">
-                    {{-- <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                    data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                    style="position: relative"> --}}
                     <h2 style="color: red">Riwayat</h2>
                         <div class="container11" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
-                            {{-- @foreach ($user as $u) --}}
-                            {{-- <div class="card1">
-                                <div class="card-content d-flex flex-column">
-                                    <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10" alt="">
-                                    <div class="img-content">
-                                        <p>{{ $u->adminstatus }}</p>
-                                        <p>{{ $u->pembelianstatus }}</p>
-                                        <p>fghrf</p>
-                                    </div>
-                                    <div class="centered-button">
-                                        <div class="btn btn-warning text-center"><span class="color:#EA6A12">pesanan telah selesai</span></div>
-                                    </div>
-                                </div>
-                            </div> --}}
+                            @foreach ($user as $User)
                             <div class="card1">
                                   <div class="">
-                                    <p style="margin-left: 12px; ">Pesanan #1</p>
-                                    <p style="margin-left: 12px; margin-top:-20px;">21-08-2023</p>
+                                    <p style="margin-left: 12px; ">pesanan no {{ $User->id }}</p>
+                                    <p style="margin-left: 12px; margin-top:-20px;">{{ $User->created_at }}</p>
                                     <img src="{{ asset('css/img/baru.webp') }}" style="width: 80px; margin-left:20px; border-radius: 10px;" alt="">
                                    <div class="">
-                                       <p style="margin-left: 110px; margin-top:-60px;">Nasi Goreng</p>
+                                       <p style="margin-left: 110px; margin-top:-60px;">{{ $User->barangpenjual_id }}</p>
                                        <p style="margin-left: 110px; margin-top:-20px; font-family:arial; opacity:0.7;">suhadi</p>
-                                       <p style="margin-top: -135px; margin-left:310px;">Selesai</p>
-                                       <p style="margin-left: 292px; margin-top:65px;">Rp.10,000</p>
+                                       <p style="margin-top: -135px; margin-left:310px;">{{ $User->pembelianstatus }}</p>
+                                       <p style="margin-left: 292px; margin-top:65px;">{{ $User->catatan }}</p>
                                        <p style="margin-left: 330px; margin-top:-70px;">( 1 )</p>
 
                                    </div>
@@ -342,7 +326,7 @@
                                   <div>
                                   </div>
                             </div>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </div>
                     </div>
                 </div>

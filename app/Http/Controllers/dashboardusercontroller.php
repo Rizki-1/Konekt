@@ -91,20 +91,24 @@ class dashboardusercontroller extends Controller
 
     public function riwayatuser()
     {
+        $penjualId = Auth::id();
         $user = userOrder::where('pembelianstatus', 'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
+        $user = userOrder::where('user_id', $penjualId);
         $penjual = barangpenjual::all();
         return view('DashboardUser.riwayat', compact('user', 'penjual'));
     }
 
     public function Userkeranjang()
     {
-        $user = userOrder::all();
+        $penjualId = Auth::id();
+        $user = userOrder::where('user_id', $penjualId);
         return view('DashboardUser.keranjang', compact('user'));
     }
 
     public function pengajuanuser()
     {
-        $user = userOrder::all();
+        $penjualId = Auth::id();
+        $user = userOrder::where('user_id', $penjualId);
         return view('DashboardUser.pengajuanuser', compact('user'));
     }
 
@@ -117,7 +121,9 @@ class dashboardusercontroller extends Controller
     public function detailmenu()
     {
         $user = User::all();
-        $penjual =  barangpenjual::all();
+
+        // $penjual =  barangpenjual::where('barangpenjual_id', $penjual->id)->get();
+        $penjual = barangpenjual::all();
         return view('DashboardUser.detailmenu', compact('user', 'penjual'));
     }
 
@@ -189,7 +195,7 @@ class dashboardusercontroller extends Controller
             'komentar' => $request->komentar
 
         ];
-        // dd($request->all());
+        dd($request->all());
         ulasan::create($ulasan);
         return redirect()->route('riwayatuser');
     }

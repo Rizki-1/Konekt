@@ -62,12 +62,12 @@ class adminpembeliancontroller extends Controller
         $adminnotifikasi->save();
     }
 
-    $notifikasi_penjual = [
-        'keterangan_penjual' => 'ada pesanan',
-        'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut'
-    ];
+    // $notifikasi_penjual = [
+    //     'keterangan_penjual' => 'ada pesanan',
+    //     'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut'
+    // ];
 
-    notifikasipenjual::create($notifikasi_penjual);
+    // notifikasipenjual::create($notifikasi_penjual);
     return redirect()->back()->with('success', 'Pesanan berhasil diterima');
 }
 

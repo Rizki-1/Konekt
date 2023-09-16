@@ -181,15 +181,7 @@
                 </svg>
                 </i>
             </div>
-            <div class="input-group search-input">
-              <span class="input-group-text" id="search-input">
-                <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                    <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-              </span>
-              <input type="search" class="form-control" placeholder="Search...">
-            </div>
+           
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon">
                   <span class="navbar-toggler-bar bar1 mt-2"></span>
@@ -361,7 +353,7 @@
                               <p class="me-2 mb-0 text-primary">08154154402432</p>
                               <p class="me-2 mb-0 text-dark">namaku@gmail.com</p>
                               <p class="mb-0 text-dark">030306</p>
-                           </div> 
+                           </div>
                         </div>
                      </div>
                      <ul class="d-flex mb-0 text-center ">
@@ -406,44 +398,44 @@
               </div>
           </div>
       </footer>
-      <!-- Footer Section End -->    
+      <!-- Footer Section End -->
     </main>
     <!-- Wrapper End-->
     <!-- offcanvas start -->
 
     <!-- Required Library Bundle Script -->
     <script src="../../assets/js/core/libs.min.js"></script>
-    
+
     <!-- External Library Bundle Script -->
     <script src="../../assets/js/core/external.min.js"></script>
-    
+
     <!-- Widgetchart JavaScript -->
     <script src="../../assets/js/charts/widgetcharts.js"></script>
-    
+
     <!-- Mapchart JavaScript -->
     <script src="../../assets/js/charts/vectore-chart.js"></script>
     <script src="../../assets/js/charts/dashboard.js"></script>
-    
+
     <!-- Admin Dashboard Chart -->
     <script src="../../assets/js/charts/admin.js"></script>
-    
+
     <!-- fslightbox JavaScript -->
     <script src="../../assets/js/fslightbox.js"></script>
-    
+
     <!-- GSAP Animation -->
     <script src="../../assets/vendor/gsap/gsap.min.js"></script>
     <script src="../../assets/vendor/gsap/ScrollTrigger.min.js"></script>
     <script src="../../assets/js/animation/gsap-init.js"></script>
-    
+
     <!-- Stepper Plugin -->
     <script src="../../assets/js/stepper.js"></script>
-    
+
     <!-- Form Wizard Script -->
     <script src="../../assets/js/form-wizard.js"></script>
-    
+
     <!-- app JavaScript -->
     <script src="../../assets/js/app.js"></script>
-    
+
     <!-- moment JavaScript -->
     <script src="../../assets/vendor/moment.min.js"></script>  </body>
 

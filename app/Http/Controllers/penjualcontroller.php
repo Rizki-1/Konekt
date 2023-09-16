@@ -38,9 +38,11 @@ class penjualcontroller extends Controller
 
     public function riwayatpenjual()
     {
+        $penjualId = Auth::id();
 
         $user = userOrder::where('pembelianstatus' ,'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
         $user = userOrder::where('pembelianstatus','selesai')->get();
+        $user = userOrder::where('toko_id', $penjualId)->get();
         $adminkategori = adminkategori::all();
         return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
     }

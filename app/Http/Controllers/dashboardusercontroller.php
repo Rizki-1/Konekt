@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\ulasan;
 use App\Models\Pembelian;
+use App\Models\adminmetodepembayaran;
 use App\Models\userOrder;
 use App\Models\notifikasi;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use App\Models\adminnotifikasi;
 use App\Models\notifikasipenjual;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\penjuallogin;
 
 class dashboardusercontroller extends Controller
 {
@@ -47,15 +49,17 @@ class dashboardusercontroller extends Controller
         dd($request->$penjual->id);
         return redirect()->route('pembelian', ['id' => $request->id]);
     }
-
+    public function daftartoko(){
+        $penjuallogin = penjuallogin::all();
+        return view('DashboardUser.daftartoko',compact('penjuallogin'));
+    }
 
     public function pembelian(Request $request)
     {
         $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
-        $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
         $barang = barangpenjual::findOrFail($request->barangpenjual_id);
         $totalharga = ($barang->harga * $request->jumlah) + ($barang->harga * $request->jumlah * 0.05);
-        
+
         $userOrderData = [
             'barangpenjual_id' => $request->barangpenjual_id,
             'jumlah' => $request->jumlah,
@@ -78,13 +82,12 @@ class dashboardusercontroller extends Controller
         $notifikasi = notifikasi::all();
         $penjualId = Auth::id();
         $userOrder = userOrder::findOrFail($request->id);
-
         $totalharga = userOrder::all();
 
         $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
         $notifikasi = notifikasi::all();
-
-        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'penjualId', 'notifikasi'));
+        $pembelian = adminmetodepembayaran::all();
+        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'notifikasi','pembelian'));
     }
 
 

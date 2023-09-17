@@ -8,33 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>User list</h2>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">name</th>
-            <th scope="col">email</th>
-          </tr>
-        </thead>
-        <tbody>
-            @php
-                $no = 1;
-            @endphp
-            @foreach ($user  as $item)
-            <tr>
-              <th scope="row">{{ $no ++ }}</th>
-              <td>{{ $item->name }}</td>
-              <td>{{ $item->password }}</td>
-            </tr>
-
-            @endforeach
-        </tbody>
-      </table>
-
-
-
-
+    <h2>selamat akun anda berhasil di buat anda bisa login dengan klik <a href="{{ route('user.index') }}">disini</a></h2>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 </body>

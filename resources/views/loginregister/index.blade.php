@@ -19,6 +19,11 @@
       <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
   <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
     @include('layout.logoloader')
+    @if (session('warning'))
+<script>
+    toastr.success('{{ session('warning') }}')
+</script>
+@endif
       <div class="wrapper">
       <section class="container-fluid bg-circle-login" id="auth-sign">
          <div class="row align-items-center">

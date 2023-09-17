@@ -68,6 +68,11 @@
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+    @if (session('error'))
+    <script>
+        toastr.success('{{ session('error') }}')
+    </script>
+    @endif
     {{-- @include('layout.logoloader') --}}
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -382,6 +387,7 @@
                                             <input type="hidden" name="barangpenjual_id" value="{{ $penjual->id }}">
                                             <input type="hidden" name="toko_id" value="{{ $userOrder->toko_id }}">
                                             <input type="hidden" name="user_id" value="{{ $userOrder->user_id }}">
+
                                             <input type="hidden" name="user_id_notifikasi" value="{{ $userOrder->user_id }}">
                                         </div>
                                     </div>
@@ -405,7 +411,9 @@
                                     <h5 class="form-label">Total</h5>
                                     <input type="hidden" name="namamenu_id" value="{{ $penjual->id }}">
                                     <div class="">
-                                        <p class="form-label">Rp. {{ number_format($penjual->harga) }}</p>
+
+                                        <p class="form-label">Rp. {{ number_format($userOrder->totalharga) }}</p>
+
 
                                     </div>
                                 </div>
@@ -433,19 +441,19 @@
 
                         <div class="mb-3" id="ewalletInput" style="display: none;">
                             <div class="">
-                                    <p class="text-bold">Masukkan Bukti pembayaran Anda</p>
+                                    <p class="text-bold">Masukkan Bukti pembayaran Andajj</p>
                                 </div>
                                 <div class="mt-3">
-                                    <input type="file" name="foto" class="form-control" id="fotobuktipembayaran">
+                                    <input type="file" name="foto" class="form-control" id="foto">
                                 </div>
                             </div>
 
-                        <div class="mb-3" id="bankInput" style="display: none;">
+                        <div class="mb-3" id="buktitranferInput" style="display: none;">
                             <div>
                                 <p class="text-bold">Nomor Rekening Bank</p>
                             </div>
                             <div class="mt-3">
-                                <input type="text" name="bank" class="form-control" id="bank" placeholder="Masukkan nomor rekening bank">
+                                <input type="text" name="" class="form-control" id="bank" placeholder="Masukkan nomor rekening bank">
                             </div>
                             <div class="">
                                     <p class="text-bold">Bukti transfer</>
@@ -454,15 +462,6 @@
                                     <input type="file" name="foto" class="form-control" id="foto">
                                 </div>
                             </div>
-
-                        <div class="mb-3">
-                            <div>
-                                <h5 class="text-bold">Total harga</h5>
-                            </div>
-                            <div class="mt-3">
-                                {{-- <input type="text" name="totalharga" class="form-control" id="totalharga"> --}}
-                            </div>
-                        </div>
 
                         <div class="d-flex justify-content-end mt-5">
                             <button type="submit" class="btn btn-primary">Bayar</button>
@@ -479,8 +478,8 @@
     </html>
     <script>
     const selectMetode = document.getElementById('selectMetode');
-    const ewalletInput = document.getElementById('ewalletInput');
-    const bankInput = document.getElementById('bankInput');
+    const ewalletInput = document.getElementById('buktitranferInput');
+    const bankInput = document.getElementById('buktitranferInput');
 
     selectMetode.addEventListener('change', function () {
         if (this.value === 'e-wallet') {

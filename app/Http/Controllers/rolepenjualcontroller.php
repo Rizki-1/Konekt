@@ -54,7 +54,7 @@ class rolepenjualcontroller extends Controller
             'notlp' => $request->notlp
         ]);
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('warning', 'tunggu proses konfirmasi akun anda');
     }
             /**
      * Display the specified resource.

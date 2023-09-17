@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->string('foto')->nullable();
             $table->text('catatan')->nullable();
+            $table->string('totalharga');
             $table->string('adminstatus');
             $table->string('pembelianstatus');
             $table->timestamps();

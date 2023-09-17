@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Mail;
 class mailcontroller extends Controller
 {
     public function index(Request $request)
-    {   
+    {
         $user = User::all();
         Mail::to('akunrizky85@gmail.com')->send(new SendEmail($user));
     }

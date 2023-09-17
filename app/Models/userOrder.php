@@ -19,6 +19,7 @@ class userOrder extends Model
         'foto',
         'catatan',
         'keterangan',
+        'totalharga',
         'adminstatus',
         'pembelianstatus'
     ];

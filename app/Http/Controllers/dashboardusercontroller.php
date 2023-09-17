@@ -52,6 +52,10 @@ class dashboardusercontroller extends Controller
     public function pembelian(Request $request)
     {
         $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
+        $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
+        $barang = barangpenjual::findOrFail($request->barangpenjual_id);
+        $totalharga = ($barang->harga * $request->jumlah) + ($barang->harga * $request->jumlah * 0.05);
+        
         $userOrderData = [
             'barangpenjual_id' => $request->barangpenjual_id,
             'jumlah' => $request->jumlah,
@@ -59,6 +63,7 @@ class dashboardusercontroller extends Controller
             'pembelianstatus' => 'notactive',
             'toko_id' => $request->toko_id,
             'user_id' => $request->user_id,
+            'totalharga' => $totalharga
         ];
         // dd($request->user_id);
         $userOrders =  userOrder::create($userOrderData);
@@ -68,10 +73,14 @@ class dashboardusercontroller extends Controller
 
     public function konfimasipembelian(Request $request)
     {
+
+
         $notifikasi = notifikasi::all();
         $penjualId = Auth::id();
         $userOrder = userOrder::findOrFail($request->id);
-        // $userOrder = userOrder::all
+
+        $totalharga = userOrder::all();
+
         $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
         $notifikasi = notifikasi::all();
 
@@ -142,6 +151,7 @@ class dashboardusercontroller extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = Auth::id();
 
         $dashboardusercontrollers = [
             'barangpenjual_id' => $request->barangpenjual_id,
@@ -151,11 +161,11 @@ class dashboardusercontroller extends Controller
             'catatan' => $request->catatan,
             'foto' => $request->foto,
             'toko_id' => $request->toko_id,
-            'user_id' => $request->user_id,
+            'user_id' => $user_id,
 
         ];
 
-        // dd($request->all());
+        dd($request->all());
         if ($request->hasFile('foto')) {
             $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
             $validated['foto'] = $filePath;
@@ -215,7 +225,7 @@ class dashboardusercontroller extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
@@ -223,25 +233,33 @@ class dashboardusercontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Cari pesanan yang ingin diedit berdasarkan ID
+
+        $user_id = Auth::id();
+        // dd($user_id);
+        // dd($request->all());
         $order = userOrder::findOrFail($id);
 
-        // Validasi data yang diterima dari form
         $validatedData = $request->validate([
             'barangpenjual_id' => 'required',
             'jumlah' => 'required|integer',
-            'catatan' => 'nullable|string',
-            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'catatan' => 'string',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif',
             'toko_id' => 'required',
-            'user_id' => 'required',
+            'user_id' =>  'required'
         ]);
 
-        // set status
-        $order->adminstatus = 'notapprove';
-        $order->pembelianstatus = 'menunggu konfirmasi';
 
-        // Simpan data yang diperbarui ke dalam pesanan
-        $order->update($validatedData);
+        if($order->user_id === $user_id )
+        {
+            $order->adminstatus = 'notapprove';
+            $order->pembelianstatus = 'menunggu konfirmasi';
+
+
+            // Simpan data yang diperbarui ke dalam pesanan
+            $order->update($validatedData);
+        } else {
+            return redirect()->back()->with('error', 'id tidak valid');
+        }
 
         // Simpan foto jika ada
         if ($request->hasFile('foto')) {
@@ -265,7 +283,7 @@ class dashboardusercontroller extends Controller
 
         // Redirect ke halaman yang sesuai setelah pengeditan
         session()->flash('notif.success', 'Anda berhasil membuat pesanan!');
-        return redirect()->route('menu.index');
+        return redirect()->route('menu.index')->with('success', 'Anda berhasil membuat pesanan');
     }
 
     /**

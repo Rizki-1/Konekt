@@ -132,7 +132,9 @@
                             <p class="fs-6 text-primary">
                                 Harga :
                                 Rp. {{ $Penjual->harga }}
-                                <input type="hidden" id="harga-{{$Penjual->id}}" name="harga" value="{{ $Penjual->id }}">
+                                @dump($Penjual->harga)
+                                <input type="hidden" id="harga-{{$Penjual->id}}" name="harga" value="{{ $Penjual->harga }}">
+                                <input type="hidden" id="totalharga" name="totalharga" value="">
                             </p>
                         </div>
                     </div>

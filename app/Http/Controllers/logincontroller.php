@@ -43,6 +43,11 @@ class logincontroller extends Controller
                 return redirect()->route('DashboardPenjual.index');
             }
         }
+        if (Auth::attempt($penjuallogin)) {
+            if (auth()->user()->role == 'penjualnotapprove') {
+                return redirect()->route('DashboardPenjual.index')->with('warning', 'tunggu proses konfirmasi pembuatan akun anda');
+            }
+        }
 
         if (Auth::attempt($user)) {
             if (auth()->user()->role == 'admin') {

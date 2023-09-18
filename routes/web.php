@@ -67,6 +67,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('Userkeranjang');
     Route::post('tambahKeranjang/{id}', [dashboardusercontroller::class, 'tambahKeranjang'])->name('tambahKeranjang');
     Route::delete('hapusKeranjang', [dashboardusercontroller::class, 'hapusKeranjang'])->name('hapusKeranjang');
+    Route::post('updateKeranjang', [dashboardusercontroller::class, 'updateKeranjang'])->name('updateKeranjang');
     Route::post('ulasan', [dashboardusercontroller::class, 'ulasan'])->name('ulasan');
     Route::get('detailmenu', [dashboardusercontroller::class, 'detailmenu'])->name('detailmenu');
     Route::patch('tandakanselesai/{id}', [dashboardusercontroller::class, 'tandakanselesai'])->name('tandakanselesai');

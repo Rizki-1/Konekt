@@ -102,7 +102,7 @@ class dashboardusercontroller extends Controller
                     'pembelianstatus' => 'notactive',
                     'toko_id' => $barang->toko_id,
                     'user_id' => $request->user_id,
-                    'totalharga' => $totalharga
+                    'totalHarga' => $totalharga
                 ];
 
                 // Buat pembelian untuk item ini
@@ -125,6 +125,59 @@ class dashboardusercontroller extends Controller
             return response()->json(['message' => 'Terjadi kesalahan dalam melakukan pembelian.'], 500);
             dd($e->getMessage());
         }
+    }
+
+    public function updateKeranjang(Request $request)
+    {
+        // Validasi permintaan
+        $request->validate([
+            'productId' => 'required|integer', // Ganti dengan validasi yang sesuai dengan model produk Anda
+            'quantity' => 'required|integer|min:0|max:100',
+        ]);
+
+        // Dapatkan data produk dari permintaan
+        $productId = $request->input('productId');
+        $newQuantity = $request->input('quantity');
+
+        // Dapatkan item keranjang belanja yang sesuai dari database
+        $cartItem = Keranjang::find($productId);
+
+        if (!$cartItem) {
+            // Jika item belum ada dalam keranjang, tangani sesuai kebutuhan Anda.
+            // Di sini kami akan mengembalikan respons kesalahan.
+            return response()->json([
+                'success' => false,
+                'message' => 'Item tidak ditemukan dalam keranjang.',
+            ]);
+        }
+
+        // Dapatkan data produk dari tabel BarangPenjual
+        $barangPenjual = BarangPenjual::find($cartItem->barangpenjual_id);
+
+        if (!$barangPenjual) {
+            // Jika data produk tidak ditemukan, tangani sesuai kebutuhan Anda.
+            // Di sini kami akan mengembalikan respons kesalahan.
+            return response()->json([
+                'success' => false,
+                'message' => 'Data produk tidak ditemukan.',
+            ]);
+        }
+
+        // Perbarui jumlah produk dalam keranjang
+        $cartItem->jumlah = $newQuantity;
+
+        // Hitung total harga dengan tambahan pajak 5%
+        $hargaProduk = $barangPenjual->harga;
+        $totalHarga = $newQuantity * $hargaProduk * 1.05; // 5% pajak ditambahkan
+
+        $cartItem->totalHarga = $totalHarga;
+
+        $cartItem->save();
+
+        return response()->json([
+            'success' => true,
+            'totalHarga' => $totalHarga,
+        ]);
     }
 
     public function konfimasipembelian(Request $request)

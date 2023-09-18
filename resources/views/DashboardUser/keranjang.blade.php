@@ -365,9 +365,6 @@
         data-iq-delay=".6"
         data-iq-trigger="scroll"
         data-iq-ease="none">
-        <div>
-            {{-- <input type="checkbox"><i class="fa-solid fa-home" style="color:#000000;"></i><strong>Masakkan nasi-Warung berkah</strong> --}}
-        </div>
         <hr>
         <table class="table text-center">
             <thead>
@@ -388,17 +385,17 @@
                             <img src="{{ Storage::url($p->barangpenjual->fotomakanan) }}" width="100px" alt="" srcset="">
                             {{ $p->barangpenjual->namamenu }}
                         </td>
-                        <td>Rp. {{number_format($p->barangpenjual->harga)}} </td>
+                        <td>Rp. {{number_format($p->barangpenjual->harga, 0, ',', '.')}} </td>
                         <td>
                             <div class="input-group">
-                                <button type="button" class="btn btn-primary btn-sm">–</button>
-                                <input type="number" class="form-control product-quantity text-center" style="width: 30px" value="{{ $p->jumlah }}" min="0" max="100" readonly>
-                                <button type="button" class="btn btn-primary btn-sm">+</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm minus-btn">–</button>
+                                <input type="number" class="form-control product-quantity text-center" style="width: 30px" value="{{ $p->jumlah }}" min="0" max="100" readonly data-product-id="{{ $p->id }}">
+                                <button type="button" class="btn btn-outline-primary btn-sm plus-btn">+</button>
                             </div>
                         </td>
-                        <td>Rp. <span class="total">{{number_format($p->totalHarga)}}</span></td>
+                        <td>Rp. <span class="total">{{number_format($p->totalHarga, 0, ',', '.')}}</span></td>
                         <td>
-                                <button type="submit" class="btn btn-danger hapus" data-item-id="{{$p->id}}" style="border-radius: 10%;">Hapus</button>
+                                <button type="submit" class="btn btn-outline-danger hapus" data-item-id="{{$p->id}}" style="border-radius: 10%;"><i class="bi bi-trash-fill"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -423,32 +420,50 @@
   </html>
 
   {{-- JS for jumlah --}}
-  {{-- <script>
-    // Fungsi untuk menangani penambahan jumlah
-    function incrementQuantity(input) {
-        var newValue = parseInt(input.value) + 1;
-        input.value = newValue;
-        updateTotal(input);
-    }
+  <script>
+    $(document).ready(function () {
+        $(".minus-btn").on("click", function () {
+            updateCartItem($(this), -1);
+        });
 
-    // Fungsi untuk menangani pengurangan jumlah
-    function decrementQuantity(input) {
-        var newValue = parseInt(input.value) - 1;
-        if (newValue >= 0) {
-            input.value = newValue;
-            updateTotal(input);
+        $(".plus-btn").on("click", function () {
+            updateCartItem($(this), 1);
+        });
+
+        function updateCartItem(button, change) {
+            var inputElement = button.closest(".input-group").find("input.product-quantity");
+            var currentValue = parseInt(inputElement.val());
+            var productId = inputElement.data("product-id");
+            var newQuantity = currentValue + change;
+
+            if (newQuantity >= 0 && newQuantity <= 100) {
+                inputElement.val(newQuantity);
+
+                $.ajax({
+                    url: "{{ route('updateKeranjang') }}",
+                    type: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "productId": productId,
+                        "quantity": newQuantity
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            var totalElement = button.closest("tr").find(".total");
+                            var formattedTotal = response.totalHarga.toLocaleString('id-ID');
+                            totalElement.text(formattedTotal);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Terjadi kesalahan dalam memperbarui keranjang belanja.');
+                    }
+                });
+            }
         }
-    }
-
-    // Fungsi untuk mengupdate total ketika jumlah berubah
-    function updateTotal(input) {
-        var row = input.closest('tr');
-        var pricePerUnit = parseFloat(row.querySelector('.price-per-unit').textContent.replace('Rp ', '').replace(',', ''));
-        var quantity = parseInt(input.value);
-        var total = pricePerUnit * quantity;
-        row.querySelector('.total').textContent = 'Rp ' + total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    }
-    </script> --}}
+    });
+</script>
   {{-- JS for jumlah --}}
 
 {{-- AJAX delete --}}
@@ -505,7 +520,7 @@
     $(document).ready(function () {
         // Ketika item-item checkbox individu berubah status
         $(".item-checkbox").change(function () {
-            
+
         // Periksa apakah semua item-item checkbox individu dicentang
         var allChecked = $(".item-checkbox:checked").length === $(".item-checkbox").length;
 

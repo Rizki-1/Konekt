@@ -63,7 +63,8 @@ class dashboardusercontroller extends Controller
             'pembelianstatus' => 'notactive',
             'toko_id' => $request->toko_id,
             'user_id' => $request->user_id,
-            'totalharga' => $totalharga
+            'totalharga' => $totalharga,
+            'metodepembayaran' => 'waiting'
         ];
         // dd($request->user_id);
         $userOrders =  userOrder::create($userOrderData);
@@ -252,6 +253,7 @@ class dashboardusercontroller extends Controller
             'toko_id' => 'required',
             'user_id' =>  'required',
             'totalharga' => 'required',
+            'metodepembayaran' => 'required'
         ]);
 
         $newTotalharga = ($validatedData['jumlah'] * $datapenjual->harga) + ($validatedData['jumlah'] * $datapenjual->harga* 0.05);

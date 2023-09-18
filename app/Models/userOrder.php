@@ -17,6 +17,7 @@ class userOrder extends Model
         'toko_id',
         'user_id',
         'foto',
+        'metodepembayaran',
         'catatan',
         'totalharga',
         'adminstatus',

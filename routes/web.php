@@ -44,7 +44,6 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::get('kategori', [adminpembeliancontroller::class, 'kategori'])->name('kategori');
     Route::post('kstore', [adminpembeliancontroller::class, 'kstore'])->name('kstore');
     Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
-    Route::delete('adestroy/{adminmp}', [adminpembeliancontroller::class, 'adestroy'])->name('adestroy');
     Route::get('DashboardAdmin',[adminpembeliancontroller::class, 'DashboardAdmin'])->name('DashboardAdmin');
     Route::get('calonpenjual', [adminpembeliancontroller::class, 'calonpenjual'])->name('calonpenjual');
     Route::get('pengajuanpembeliad', [adminpembeliancontroller::class, 'pengajuanpembeliad'])->name('pengajuanpembeliad');
@@ -70,6 +69,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('detailmenu', [dashboardusercontroller::class, 'detailmenu'])->name('detailmenu');
 
 });
+
 
 
 

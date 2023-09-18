@@ -376,7 +376,7 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Nama Makanan</th>
-                                    <th scope="col">Nama Menu</th>
+                                    <th scope="col">metode pembayaran</th>
                                     <th scope="col">Total Harga</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -388,9 +388,11 @@
                                 @foreach ($dashboardusercontrollers as $s)
                                 <tr>
                                     <th scope="row">{{ $no++ }}</th>
-                                    <td>{{ $s->adminstatus }}</td>
-                                    <td>test</td>
-                                    <td><div style="margin-left:40px;">{{ $s->barangpenjual_id }}</div></td>
+                                    @foreach ($penjual as $Penjual)
+                                    <td>{{ $Penjual->namamenu }}</td>
+                                    @endforeach
+                                    <td>{{  $s->metodepembayaran }}</td>
+                                    <td><div style="margin-left:40px;">{{ $s->totalharga }}</div></td>
                                     <td class="d-flex">
                                         <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
                                             @csrf

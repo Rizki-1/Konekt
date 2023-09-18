@@ -379,9 +379,7 @@
                                     <div class=""><img src="{{ asset('assets/img/poto.png') }}" width="100px" alt="" srcset=""></div>
                                     <div class="form-label text-bold">
                                         <h5 class="form-label">Nama Menu</h5>
-                                        @dump($userOrder->barangpenjual_id)
-                                        @dump($userOrder->toko_id)
-                                        @dump($userOrder->user_id)
+                                       
                                         <div class="">
                                             <p class="form-label">{{ $penjual->namamenu }}</p> <!-- Menampilkan nama menu -->
                                             <input type="hidden" name="barangpenjual_id" value="{{ $penjual->id }}">
@@ -413,6 +411,7 @@
                                     <div class="">
 
                                         <p class="form-label">Rp. {{ number_format($userOrder->totalharga) }}</p>
+                                        <input type="hidden" name="totalharga" value="{{ $userOrder->totalharga }}">
 
 
                                     </div>
@@ -424,7 +423,7 @@
                                 <h5 class="text-bold">Pesan :</h5>
                             </div>
                             <div class="mt-3">
-                                <input type="text" name="catatan" class="form-control" id="catatan" placeholder="Beri catatan (opsional)">
+                                <input type="text" name="catatan" class="form-control" id="catatan" placeholder="masukan catatan (opsional)">
                             </div>
                         </div>
 
@@ -437,6 +436,7 @@
                                     <option value="bank" data-target="bankInput">Bank</option>
                                 </select>
                             </div>
+
                         </div>
 
                         <div class="mb-3" id="ewalletInput" style="display: none;">
@@ -453,13 +453,14 @@
                                 <p class="text-bold">Nomor Rekening Bank</p>
                             </div>
                             <div class="mt-3">
-                                <input type="text" name="" class="form-control" id="bank" placeholder="Masukkan nomor rekening bank">
+                                <input type="text" name="foto" class="form-control" id="bank" placeholder="Masukkan nomor rekening bank">
                             </div>
                             <div class="">
                                     <p class="text-bold">Bukti transfer</>
                                 </div>
                                 <div class="mt-3">
                                     <input type="file" name="foto" class="form-control" id="foto">
+
                                 </div>
                             </div>
 

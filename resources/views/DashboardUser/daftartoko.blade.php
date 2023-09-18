@@ -27,6 +27,45 @@
     height: 100vh;
     margin-bottom: 10px;
 }
+.card1 {
+    /* Tambahkan CSS sesuai kebutuhan untuk card 1 */
+    background-color: #ea68121e;
+    color: #000000;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+
+    /* flex-direction: ; Tambahkan ini agar konten dan gambar dalam satu kolom */
+
+    margin: 10px;
+    padding: 10px;
+    margin-left: 100px;
+    width: 600px;
+    position: fixed;
+
+    justify-content: space-between; /* Memisahkan konten dan gambar */
+    align-items: center; /* Pusatkan vertikal */
+    max-width: 500px;
+
+}
+
+
+
+
+.card5{
+    background-color: #ea68121e;
+    color: #000000;
+    border-radius: 10px;
+    display: flex;
+    margin: 10px;
+    margin-left: 700px;
+    padding: 10px;
+    width: 600px;
+    position: fixed;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 500px;
+}
 
 .img {
     max-width: 150px; /* Atur lebar maksimal gambar */
@@ -44,10 +83,6 @@
     margin-right: 10px;
     margin-top: 10px;
 
-}
-
-.card-body{
-    height: 1000px;
 }
 
 .card-content {
@@ -328,38 +363,54 @@
       data-iq-ease="none"
       style="position: relative"
       >
+
       <h2 class="title" style="color: red">Daftar Warung</h2><br><br>
       <div class="container">
-        <div class="row gap-5">
-      @foreach ( $penjuallogin as $p)
-
-            <div class="card col-md-5" style="background-color:#ea68121e; margin-left:4%;">
-                  <div class="card-content">
-                    <div class="conten-container" style="margin-left: 5px; margin-top: 10px;">
-                      {{-- <a><i class="fa fa-map-marker" aria-hidden="true"></i> Alamat: 3865 Metro Picary</a> --}}
-                      <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
-                    {{-- <p><i class="fa-solid fa-phone"></i> Hubungi Kami : +6234569888</p> --}}
-                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;"> Hubungi Kami : 085711353021</a> {{ $p->notelp }}</p>
+        <div class="card5">
+            <div class="card-content">
+                <div class="conten-container">
+                    <a><i class="fa fa-map-marker" aria-hidden="true"></i> Alamat: 3865 Metro Picary</a>
+                    <p><i class="fa-solid fa-phone"></i> Hubungi Kami : +6234569888</p>
                     <a>Masakan Tradisional</a>
-                    <h3>{{ $p->nama_toko }}</h3>
-                    <tr>
-                      <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
-                      <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
-                      <a>(26)</a></tr>
-                      <div class="btn-custom"><span>12 menu</span></div>
-                      <img src="{{ asset('css/img/copi.jpg') }}" alt="Foto Toko" style="position: absolute; top: 10px; right: 10px; width: 100%"  class="img" >
-                      <div><br><button type="submit" class="btn btn-warning" style="bottom:15px; margin-top:-10px;">Detail</button>
-                      </div>
+                    <h3>Warung Jaya Abadi</h3>
+                    <tr><i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
+                        <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
+                        <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
+                        <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
+                        <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
+                        <a>(26)</a></tr>
+                        <div class="btn-custom"><span>12 menu</span></div>
+                        <img src="{{ asset('css/img/copi.jpg') }}" alt="Foto Toko" style="width: 300px; left: 200px; margin-left:330px; margin-top:-165px;"  class="img">
+                        <div><button type="submit" class="btn btn-warning">Detail</button>
                     </div>
-                    </div>
-                  </div>
-                  @endforeach
+
                 </div>
+              </div>
             </div>
 
+
+<div class="container">
+  <div class="card1">
+      <div class="card-content">
+        <div class="conten-container">
+          <a><i class="fa fa-map-marker" aria-hidden="true"></i> Alamat: 3865 Metro Picary</a>
+          <p><i class="fa-solid fa-phone"></i> Hubungi Kami : +6234569888</p>
+          <a>Masakan Tradisional</a>
+          <h3>Warung Jaya Abadi</h3>
+          <tr> <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
+            <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i></tr>
+            <a>(2)</a>
+            <div class="btn-custom"><span>12 menu</span></div>
+            <img src="{{ asset('css/img/copi.jpg') }}" alt="Foto Toko" style="width: 150px; left: 150px; margin-left:330px; margin-top:-165px;" class="img">
+            <div><button type="submit" class="btn btn-warning">Detail</button>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
 
 </div>
 </div>

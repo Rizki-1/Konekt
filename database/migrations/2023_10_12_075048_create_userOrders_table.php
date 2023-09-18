@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('user_id');
             $table->integer('jumlah');
             $table->string('foto')->nullable();
-            $table->text('catatan')->nullable();
+            $table->string('catatan')->nullable();
+            $table->string('metodepembayaran');
             $table->string('totalharga');
             $table->string('adminstatus');
             $table->string('pembelianstatus');

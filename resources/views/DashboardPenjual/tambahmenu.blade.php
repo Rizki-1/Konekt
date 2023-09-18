@@ -29,7 +29,7 @@
 {{-- Modal Start --}}
 <form action="{{ route('DashboardPenjual.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="modal" id="myModal" tabindex="-1">
+<div class="modal" id="myModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

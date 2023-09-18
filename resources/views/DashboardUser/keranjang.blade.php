@@ -122,10 +122,23 @@
 
       <!-- Custom Css -->
       <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+
+      {{-- jquery --}}
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+      <!-- Include the SweetAlert 2 CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+      <!-- Include the SweetAlert 2 JavaScript -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+      {{-- bootstrap icon --}}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
     </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
-    @include('layout.logoloader')
+    {{-- @include('layout.logoloader') --}}
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -213,18 +226,18 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-    <a class="nav-link active" href="{{ asset('UserKeranjang') }}"><!-- Tambahkan / sebelum keranjang -->
-        <i class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                <g>
-                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                </g>
-            </svg>
-        </i>
-        <i class="sidenav-mini-icon">K</i>
-        <span class="item-name">Keranjang</span>
-    </a>
-</li>
+                                <a class="nav-link active" href="{{ asset('UserKeranjang') }}"><!-- Tambahkan / sebelum keranjang -->
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                                            <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon">K</i>
+                                    <span class="item-name">Keranjang</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -320,9 +333,11 @@
                     <li><hr class="dropdown-divider"></li>
                     <li>
                     <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
-                                   </form>
+                        @csrf
+                        <li>
+                            <button type="submit" class="dropdown-item"> logout </button>
+                        </li>
+                    </form>
                     </li>
                   </ul>
                 </li>
@@ -333,17 +348,17 @@
         </nav>
       </div>
       <div class="content-inner mt-5 py-0">
-  <div class="card col-md-12 col-lg-12">
-    <div class="card-body">
-      <div>
-      <h4 class="card-title" style="color:#F66F0C">
-    <i class="fas fa-shopping-cart"></i> Keranjang Saya
-  </h4>
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="col active"
-        data-iq-gsap="onStart"
+          <div class="card col-md-12 col-lg-12">
+              <div class="card-body">
+                  <div>
+                      <h4 class="card-title" style="color:#F66F0C">
+                        <i class="fas fa-shopping-cart"></i> Keranjang Saya
+                    </h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="col active"
+                data-iq-gsap="onStart"
         data-iq-opacity="0"
         data-iq-position-y="-40"
         data-iq-duration=".6"
@@ -351,53 +366,64 @@
         data-iq-trigger="scroll"
         data-iq-ease="none">
         <div>
-          <input type="checkbox"><i class="fa-solid fa-home" style="color:#000000;"></i><strong>Masakkan nasi-Warung berkah</strong>
-       </div>
-        <hr>
-        <div class="d-flex justify-content-between ">
-        <div class="align-self-center"><input type="checkbox"></div>
-            <div class=""><img src="{{ asset('assets/img/poto.png') }}"  width="100px" alt="" srcset="">nasi goreng</div>
-            <div class="form-label text-bold"><span class="form-label">Harga</span>
-              <div class=""><p class="form-label"></p></div>
-            </div>
-            <div class="form-label text-bold px-4"><span class="form-label">jumlah</span>
-              <div class="input-step">
-              <button type="button" class="btn btn-primary btn-sm" onclick="decrementQuantity(this.nextElementSibling)">–</button>
-                <input type="number" class="product-quantity" value="2" min="0" max="100" readonly onchange="updateTotal(this)">
-              <button type="button" class="btn btn-primary btn-sm" onclick="incrementQuantity(this.previousElementSibling)">+</button>
-              </div>
-            </div>
-            <div class="form-label text-bold px-4"><span class="form-label">total</span>
-              <div class=""><p class="form-label"></p></div>
-            </div>
-            <div class="form-label text-bold px-4"><span class="form-label">Aksi</span>
-            <div class="">
-              <form action="" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger" style="border-radius: 10%;">hapus</button>
-              </form>
-            </div>
-            </div>
-          </div>
-          <hr>
-          <div class="align-self-center">
-          <input type="checkbox" >
-          <span style="color: black;">pilih semua</span>
+            {{-- <input type="checkbox"><i class="fa-solid fa-home" style="color:#000000;"></i><strong>Masakkan nasi-Warung berkah</strong> --}}
         </div>
-          <div class="text-end">
+        <hr>
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Pilih</th>
+                    <th scope="col">Menu</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Jumlah</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($keranjangItems as $p)
+                    <tr>
+                        <td><input class="item-checkbox" type="checkbox" value="{{ $p->id }}"></td>
+                        <td>
+                            <img src="{{ Storage::url($p->barangpenjual->fotomakanan) }}" width="100px" alt="" srcset="">
+                            {{ $p->barangpenjual->namamenu }}
+                        </td>
+                        <td>Rp. {{number_format($p->barangpenjual->harga)}} </td>
+                        <td>
+                            <div class="input-group">
+                                <button type="button" class="btn btn-primary btn-sm">–</button>
+                                <input type="number" class="form-control product-quantity text-center" style="width: 30px" value="{{ $p->jumlah }}" min="0" max="100" readonly>
+                                <button type="button" class="btn btn-primary btn-sm">+</button>
+                            </div>
+                        </td>
+                        <td>Rp. <span class="total">{{number_format($p->totalHarga)}}</span></td>
+                        <td>
+                                <button type="submit" class="btn btn-danger hapus" data-item-id="{{$p->id}}" style="border-radius: 10%;">Hapus</button>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="align-self-center">
+            <input type="checkbox" id="selectAllItems">
+            <span style="color: black;">pilih semua</span>
+        </div>
+        <div class="text-end">
             <button type="button" class="btn btn-primary" id="beli">Beli</button>
-          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-                  <!--  @include('layout.footer')  -->
+
+@include('layout.footer')
   </main>
          @include('layout.js')
       </body>
   </html>
-  <script>
+
+  {{-- JS for jumlah --}}
+  {{-- <script>
     // Fungsi untuk menangani penambahan jumlah
     function incrementQuantity(input) {
         var newValue = parseInt(input.value) + 1;
@@ -422,4 +448,108 @@
         var total = pricePerUnit * quantity;
         row.querySelector('.total').textContent = 'Rp ' + total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     }
-    </script>
+    </script> --}}
+  {{-- JS for jumlah --}}
+
+{{-- AJAX delete --}}
+<script>
+    $(document).ready(function () {
+        $(".hapus").click(function () {
+            var itemId = $(this).data("item-id");
+            var itemElement = $(this).closest("tr"); // Temukan elemen yang berisi item keranjang
+
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Anda yakin ingin menghapus item keranjang ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('hapusKeranjang') }}",
+                        type: "DELETE",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "item_id": itemId
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                // Item keranjang berhasil dihapus
+                                Swal.fire('Sukses', 'Item keranjang berhasil dihapus.', 'success');
+
+                                // Hapus elemen item dari tampilan
+                                itemElement.remove();
+                            } else {
+                                // Gagal menghapus item keranjang
+                                Swal.fire('Gagal', 'Item keranjang gagal dihapus.', 'error');
+                            }
+                        },
+                        error: function () {
+                            // Terjadi kesalahan dalam menghapus item keranjang
+                            Swal.fire('Error', 'Terjadi kesalahan dalam menghapus item keranjang.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+{{-- AJAX delete --}}
+
+{{-- AJAX order --}}
+<script>
+    $(document).ready(function () {
+        // Ketika item-item checkbox individu berubah status
+        $(".item-checkbox").change(function () {
+            
+        // Periksa apakah semua item-item checkbox individu dicentang
+        var allChecked = $(".item-checkbox:checked").length === $(".item-checkbox").length;
+
+        // Atur status ceklis "Pilih semua" berdasarkan hasil periksa di atas
+        $("#selectAllItems").prop("checked", allChecked);
+    });
+
+    // Toggle semua checkbox item saat checkbox "Pilih semua" diubah statusnya
+    $("#selectAllItems").change(function () {
+        $(".item-checkbox").prop("checked", $(this).prop("checked"));
+    });
+        $("#beli").click(function () {
+            var itemIds = [];
+            // Mengumpulkan ID item yang dicentang
+            $(".item-checkbox:checked").each(function () {
+                itemIds.push($(this).val());
+            });
+
+            if (itemIds.length === 0) {
+                Swal.fire('Gagal', 'Pilih salah satu item terlebih dahulu.', 'error');
+                return;
+            }
+
+            $.ajax({
+                url: "{{ route('order') }}",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "items": itemIds
+                },
+                success: function (response) {
+                    // Handle respons dari server
+                    if (response.success) {
+                        // Redirect ke rute konfimasipembelian dengan ID pembelian yang sesuai
+                        alert(response.message);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert('Terjadi kesalahan dalam melakukan pembelian.');
+                }
+            });
+        });
+    });
+</script>
+{{-- AJAX order --}}

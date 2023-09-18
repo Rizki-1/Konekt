@@ -442,7 +442,7 @@
 
             Swal.fire({
                 title: 'Apakah anda yakin?',
-                icon: 'warning',
+                icon: 'warning', 
                 showCancelButton: true,
                 confirmButtonText: 'Lanjutkan!',
                 cancelButtonText: 'Batalkan!',

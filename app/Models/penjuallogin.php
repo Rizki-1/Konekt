@@ -29,4 +29,10 @@ class penjuallogin extends Model
     {
         return $this->hasOne(barangpenjual::class);
     }
+
+    public function keranjang()
+    {
+    return $this->belongsTo(keranjang::class);
+    }
+
 }

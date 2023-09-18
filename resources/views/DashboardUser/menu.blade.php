@@ -36,6 +36,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
 {{-- jquery --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
 {{-- bootstrap --}}
@@ -50,11 +51,10 @@
 
 @include('layout.sweetalert')
 
-{{-- Modal Start --}}
+{{-- Modal Pembelian --}}
 @foreach ($penjual as $p)
 <form action="{{ route('pembelian', ['id' => $p->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
         <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -82,19 +82,18 @@
                                         Harga :
                                         Rp. {{ $p->harga }}
                                         <input type="hidden" id="harga-{{$p->id}}" name="harga" value="{{ $p->id }}">
+                                        <input type="hidden" id="totalHarga-{{$p->id}}" name="totalHarga" value="">
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <form action=""></form>
                         <div class="mb-3">
-                            <label for="jumlah" class="form-label fw-bold">Jumlah</label>
-                            <input type="number" name="jumlah" class="form-control" placeholder="Masukan jumlah">
-
+                            <label for="jumlah-{{$p->id}}" class="form-label fw-bold">Jumlah</label>
+                            <input type="number" id="jumlah-{{$p->id}}" name="jumlah" class="form-control" placeholder="Masukan jumlah">
                         </div>
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="button" class="btn btn-warning" id="addToCart-{{$p->id}}">Tambah Keranjang</button>
                         <button type="submit" class="btn btn-primary">Pesan</button>
                     </div>
                 </div>
@@ -102,58 +101,65 @@
         </div>
     </form>
 @endforeach
-@if (session('success'))
-<script>
-    toastr.success('{{ session('success') }}')
-</script>
-@endif
-@foreach ($penjual as $Penjual)
-<div class="modal" id="myModaldetail-{{ $Penjual->barangpenjual_id }}" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">detail makanan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="{{ asset('storage/' . $Penjual->fotomakanan) }}" alt="Foto Menu" class="img-fluid">
-                        </div>
-                        <div class="col-8">
 
-                            <p class="fs-4 text-dark">
-                                @dump($p->id)
-                                {{ $Penjual->namamenu }}
-                                <input type="hidden" name="namamenu_id" value="{{ $Penjual->id }}">
-                            </p>
-                            <input type="hidden" name="barangpenjual_id" value="{{ $Penjual->id }}">
-                            <p class="fs-6 text-primary">
-                                Harga :
-                                Rp. {{ $Penjual->harga }}
-                                @dump($Penjual->harga)
-                                <input type="hidden" id="harga-{{$Penjual->id}}" name="harga" value="{{ $Penjual->harga }}">
-                                <input type="hidden" id="totalharga" name="totalharga" value="">
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <form action=""></form>
-                <div class="mb-3">
-                    @foreach ($ulasan as $Ulasan)
-                    <div class="col-8">
-                        <p class="fs-4 text-dark">{{ $Ulasan->komentar }}</p>
-                        <p class="fs-4 text-dark">{{ $Ulasan->rating }}</p>
-                    </div>
-                    @endforeach
-                </div>
-                </div>
-        </div>
-    </div>
-</div>
-@endforeach
-{{-- Modal End --}}
+{{-- AJAX tambah keranjang --}}
+<script>
+    $(document).ready(function () {
+    @foreach ($penjual as $p)
+        $("#addToCart-{{$p->id}}").click(function () {
+
+            var jumlah = $("#jumlah-{{$p->id}}").val();
+            var harga = {{$p->harga}};
+            var pajak = 0.05; // 5% pajak
+
+            // Periksa jika input jumlah kosong
+            if (!jumlah || jumlah <= 0) {
+                Swal.fire('Error', 'Masukkan jumlah yang valid sebelum menambahkan ke keranjang.', 'error');
+                return;
+            }
+
+            // Hitung totalHarga
+            var totalHarga = jumlah * harga * (1 + pajak); // jumlah * harga * (1 + pajak)
+
+            // Set nilai totalHarga ke input tersembunyi
+            $("#totalHarga-{{$p->id}}").val(totalHarga);
+
+            // Mendapatkan data yang diperlukan dari modal
+            var user_id = {{$user_id}};
+            var toko_id = {{$p->toko_id}};
+            var barangpenjual_id = {{$p->id}};
+
+            // Kirim permintaan AJAX
+            $.ajax({
+                url: "{{ route('tambahKeranjang', ['id' => $p->id]) }}", // Mengarahkan ke rute 'tambahKeranjang'
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "user_id": user_id,
+                    "toko_id": toko_id,
+                    "barangpenjual_id": barangpenjual_id,
+                    "jumlah": jumlah,
+                    "totalHarga": totalHarga, // Sertakan totalHarga dalam data yang dikirim
+                },
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire('Sukses', response.message, 'success');
+                    } else {
+                        Swal.fire('Error', response.message, 'error');
+                    }
+                },
+                error: function () {
+                    Swal.fire('Error', 'Terjadi kesalahan. Item tidak dapat ditambahkan ke keranjang.', 'error');
+                }
+            });
+        });
+    @endforeach
+});
+</script>
+{{-- AJAX tambah keranjang --}}
+
+{{-- Modal Pembeli --}}
+
 
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -415,7 +421,7 @@
                         <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
                             data-bs-target="#myModal-{{ $p->id }}">beli
                         </button>
-                        <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $Penjual->barangpenjual_id]) }}">Detail</a>
+                        <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $p->barangpenjual_id]) }}">Detail</a>
                     </div>
                 </div>
             </div>
@@ -431,10 +437,6 @@
 </div>
 
         </main>
-        {{-- js untuk anchor detail --}}
-
-        {{-- js untuk anchor detail --}}
-
         <script>
             $(document).ready(function() {
                 $('#search').keyup(function() {

@@ -100,10 +100,11 @@ class penjualcontroller extends Controller
         // $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
         // $notifikasi->save();
 
-
+        // dd($request->all());
         $dashboardusercontrollers =userOrder::findOrFail($id);
         $dashboardusercontrollers->pembelianstatus = 'sedang di proses';
-        $dashboardusercontrollers->nomor_antrian = $request->nomer_antrian;
+        $dashboardusercontrollers->nomor_antrian = $request->nomor_antrian;
+
 
         $dashboardusercontrollers->save();
 

@@ -109,7 +109,6 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 @foreach ($dashboardusercontrollers as $s)
-<form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
 <div class="modal" id="myModal_{{ $s->id }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -126,9 +125,10 @@
                     <label for="kelas" class="form-label fw-bold">quantity</label>
                     <input type="text" name="quantity" class="form-control">
                 </div>
+               <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
                 <div class="mb-3">
                     <label for="kelas" class="form-label fw-bold">beri nomer antrian</label>
-                    <input type="text" name="nomer_antrian" class="form-control">
+                    <input type="text" name="nomor_antrian" class="form-control">
                 </div>
                 @if ($s->pembelianstatus === 'menunggu konfirmasi')
 
@@ -141,8 +141,7 @@
                     @method('PATCH')
                 <button type="submit" class="btn btn-danger reject-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Tolak</button>
                 </form>
-                @else
-                <button>selesai</button>
+
                 @endif
             </div>
             <div class="modal-footer"></div>
@@ -426,15 +425,16 @@
                                         <td>{{ $s->pembelianstatus }}</td>
                                         <td>{{ $s->totalharga }}</td>
                                         <td>
-                                            @if ($s->pembelianstatus === 'menunggu konfirmasi')
-                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">detail</button>
-                                            @else
+                                            @if ($s->pembelianstatus === 'sedang di proses')
                                             <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
                                                 <button type="submit" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
                                             </form>
+                                            @else
+                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">detail</button>
                                             @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

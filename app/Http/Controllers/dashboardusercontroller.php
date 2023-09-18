@@ -72,6 +72,8 @@ class dashboardusercontroller extends Controller
 
     }
 
+
+
     public function konfimasipembelian(Request $request)
     {
 
@@ -198,8 +200,6 @@ class dashboardusercontroller extends Controller
             'isi' => 'lihat pesanan anda di menu pesanan',
             'user_id_notifikasi' => $request->user_id_notifikasi,
         ];
-
-        // dd($request->user_id_notifikasi);
         adminnotifikasi::create($adminnotifikasi);
         notifikasi::create($notifikasi);
         userOrder::create($dashboardusercontrollers);
@@ -250,6 +250,30 @@ class dashboardusercontroller extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+     public function CheckKeranjang($id)
+     {
+
+          $user = userOrder::where('user_id', $id)->get();
+          $totalHargaKeseluruhan = 0;
+          foreach ($user as $item) {
+          $totalHargaKeseluruhan += $item->totalharga;
+         }
+
+         if($totalHargaKeseluruhan > 1)
+         {
+             $subtotalorder = userOrder::findOrFail($id);
+             $subtotalorder->subtotalorder = $totalHargaKeseluruhan;
+             $subtotalorder->save();
+
+             return redirect()->route('menu.update');
+         }else {
+            return redirect()->route('menu.update');
+         }
+     }
+
+
+
     public function update(Request $request, $id)
     {
 

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('catatan')->nullable();
             $table->string('metodepembayaran');
             $table->string('nomor_antrian')->nullable();
+            $table->string('subtotalorder')->nullable();
             $table->string('totalharga');
             $table->string('adminstatus');
             $table->string('pembelianstatus');

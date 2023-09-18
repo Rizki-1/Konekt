@@ -1,129 +1,136 @@
-
 <!doctype html>
 <html lang="en" dir="ltr">
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
+
 <head>
-<style>
-    .title{
-        text-align: center;
-        justify-content: center;
-        position: relative;
-    }
-     body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
-}
-.card-container{
-    background-color: #ffffff; /* Warna latar belakang */
-    color: #000000; /* Warna teks */
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    margin: 10px;
-    padding: 10px;
-    height: 100vh;
-    margin-bottom: 10px;
-}
+    <style>
+        .title {
+            text-align: center;
+            justify-content: center;
+            position: relative;
+        }
 
-  .card1 {
-    background-color: #ea68121e; /* Warna latar belakang */
-    color: #000000; /* Warna teks */
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    margin: 10px;
-    padding: 10px;
-    width: 500px;
-    margin-bottom: 10px;
-    position: fixed;
-  }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
 
-  .card img {
-    max-width: 100px;
-    max-height: 100px;
-    /* border-radius: 100%; */
-    margin-right: 10px;
-  }
+        .card-container {
+            background-color: #ffffff;
+            /* Warna latar belakang */
+            color: #000000;
+            /* Warna teks */
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            margin: 10px;
+            padding: 10px;
+            height: 100vh;
+            margin-bottom: 10px;
+        }
 
-  .card-content {
-    flex: 1;
-  }
-  .img {
-    width: 80px;
-    height: 80px;
-    text-align: right;
-    justify-content: right;
 
-  }
-  .main-content {
-    flex: 1px;
-  }
-  .text-left{
-    color:#F66F0C;
-    font-family: "sans-serif";
-  }
-  input[type="checkbox"] {
-    width: 20px; /* Ubah ukuran sesuai kebutuhan */
-    height: 20px; /* Ubah ukuran sesuai kebutuhan */
-    margin-right: 15px;
-  }
+        .card img {
+            max-width: 100px;
+            max-height: 100px;
+            /* border-radius: 100%; */
+            margin-right: 10px;
+        }
 
-  i.fa-solid {
-  margin-right: 10px; /* Ubah jumlah margin sesuai kebutuhan */
-  font-size: 20px;
-}
-.text {
-  font-family: "sans-serif";
-  font-size: 16px;
+        .card-content {
+            flex: 1;
+        }
 
-}
-.centered-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10px;
-    color: #000000; /* Membuat div menutupi tinggi seluruh viewport (tinggi layar) */
-  }
+        .img {
+            width: 80px;
+            height: 80px;
+            text-align: right;
+            justify-content: right;
 
-  .content{
-    margin-right: 50px;
-  }
-  .form-label {
-    color: grey;
+        }
 
-  }
-  strong {
-  font-weight: bold;
-  font-size: 16px; /* Adjust the text size */
-}
+        .main-content {
+            flex: 1px;
+        }
 
-  .form-label {
-    margin-left: 50px;
-    margin-right: 0px;
-    /* text-align: justify; */
+        .text-left {
+            color: #F66F0C;
+            font-family: "sans-serif";
+        }
 
-}
+        input[type="checkbox"] {
+            width: 20px;
+            /* Ubah ukuran sesuai kebutuhan */
+            height: 20px;
+            /* Ubah ukuran sesuai kebutuhan */
+            margin-right: 15px;
+        }
 
+        i.fa-solid {
+            margin-right: 10px;
+            /* Ubah jumlah margin sesuai kebutuhan */
+            font-size: 20px;
+        }
+
+        .text {
+            font-family: "sans-serif";
+            font-size: 16px;
+
+        }
+
+        .centered-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 10px;
+            color: #000000;
+            /* Membuat div menutupi tinggi seluruh viewport (tinggi layar) */
+        }
+
+        .content {
+            margin-right: 50px;
+        }
+
+        .form-label {
+            color: grey;
+
+        }
+
+        strong {
+            font-weight: bold;
+            font-size: 16px;
+            /* Adjust the text size */
+        }
+
+        .form-label {
+            margin-left: 50px;
+            margin-right: 0px;
+            /* text-align: justify; */
+
+        }
     </style>
     <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Kuliner kita</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kuliner kita</title>
 
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
-      <!-- Favicon -->
-      <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+    <!-- Favicon -->
+    <link rel="shortcut icon"
+        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
 
-      <!-- Library / Plugin Css Build -->
-      <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+    <!-- Library / Plugin Css Build -->
+    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
 
-      <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
-    </head>
-  <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+</head>
+
+<body class="  "
+    style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -131,13 +138,16 @@
             @include('layout.minilogo')
             <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
                 <i class="icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.25 12.2744L19.25 12.2744" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.25 12.2744L19.25 12.2744" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                 </i>
             </div>
-    </div>
+        </div>
         <div class="sidebar-body pt-0 data-scrollbar">
             <div class="navbar-collapse" id="sidebar">
                 <!-- Sidebar Menu Start -->
@@ -148,8 +158,8 @@
                             <span class="mini-icon">-</span>
                         </a>
                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#home" role="button" aria-expanded="false" aria-controls="home">
+                    <li class="nav-item">
+                        <a class="nav-link"  href="menu" role="button" >
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M16.0756 2H19.4616C20.8639 2 22.0001 3.14585 22.0001 4.55996V7.97452C22.0001 9.38864 20.8639 10.5345 19.4616 10.5345H16.0756C14.6734 10.5345 13.5371 9.38864 13.5371 7.97452V4.55996C13.5371 3.14585 14.6734 2 16.0756 2Z" fill="currentColor"></path>
@@ -159,72 +169,46 @@
                             <span class="item-name">Dashboard</span>
                         </a>
                         <!--  ACTIVE = PILIHAN SIDE BAR BERWARNA -->
-                        <ul class="sub-nav collapse" id="home" data-bs-parent="#sidebar">
                             <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="menu">
+                                <a class="nav-link " aria-current="page" href="daftartoko">
                                   <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 27 23" fill="none">
+                                        <path d="M26.1895 6.67998L24.377 1.24248C24.3139 1.05491 24.1912 0.893125 24.0276 0.781849C23.8639 0.670572 23.6684 0.615917 23.4707 0.626232H3.53323C3.33561 0.615917 3.14004 0.670572 2.9764 0.781849C2.81276 0.893125 2.69004 1.05491 2.62698 1.24248L0.81448 6.67998C0.801423 6.77621 0.801423 6.87376 0.81448 6.96998V12.4075C0.81448 12.6478 0.909959 12.8783 1.07991 13.0483C1.24987 13.2183 1.48038 13.3137 1.72073 13.3137H2.62698V22.3762H4.43948V13.3137H9.87698V22.3762H24.377V13.3137H25.2832C25.5236 13.3137 25.7541 13.2183 25.924 13.0483C26.094 12.8783 26.1895 12.6478 26.1895 12.4075V6.96998C26.2025 6.87376 26.2025 6.77621 26.1895 6.67998ZM22.5645 20.5637H11.6895V13.3137H22.5645V20.5637ZM24.377 11.5012H20.752V7.87623H18.9395V11.5012H14.4082V7.87623H12.5957V11.5012H8.06448V7.87623H6.25198V11.5012H2.62698V7.11498L4.18573 2.43873H22.8182L24.377 7.11498V11.5012Z" fill="#959895"/>
                                         </svg>
                                     </i>
-                                  <i class="sidenav-mini-icon">M</i>
-                                  <span class="item-name">Menu</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="daftartoko">
-                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon">D</i>
-                                    <span class="item-name">Daftar Toko</span>
+                                  <span class="item-name">Daftar Toko</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link " href="pesanan">
                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 26 23" fill="none">
+                                        <path d="M2.55044 0C1.13495 0 0 1.13495 0 2.55044V7.65133C0 9.06683 1.13495 10.2018 2.55044 10.2018H7.65133C9.06683 10.2018 10.2018 9.06683 10.2018 7.65133V2.55044C10.2018 1.13495 9.06683 0 7.65133 0M7.90637 1.91283L9.25811 3.25182L4.16997 8.28894L0.943664 5.03713L2.30815 3.69814L4.18273 5.59822M2.55044 12.7522C1.13495 12.7522 0 13.8872 0 15.3027V20.4035C0 21.819 1.13495 22.954 2.55044 22.954H7.65133C9.06683 22.954 10.2018 21.819 10.2018 20.4035V15.3027C10.2018 13.8872 9.06683 12.7522 7.65133 12.7522M2.55044 15.3027H7.65133V20.4035H2.55044M12.7522 2.55044H25.5044V5.10089H12.7522M12.7522 20.4035V17.8531H25.5044V20.4035M12.7522 10.2018H25.5044V12.7522H12.7522V10.2018Z" fill="#959895"/>
                                         </svg>
                                     </i>
-                                   <i class="sidenav-mini-icon">P</i>
                                    <span class="item-name">Pesanan</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link " href="riwayatuser">
                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 33 30" fill="none">
+                                        <path d="M18.8974 0.747714C10.8752 0.526047 4.30301 7.00188 4.30301 14.9977H1.48186C0.772628 14.9977 0.425894 15.8527 0.930234 16.3435L5.32745 20.7769C5.64266 21.0935 6.13124 21.0935 6.44646 20.7769L10.8437 16.3435C11.3323 15.8527 10.9855 14.9977 10.2763 14.9977H7.45514C7.45514 8.82271 12.467 3.83521 18.6452 3.91438C24.5081 3.99355 29.4412 8.94938 29.52 14.8394C29.5988 21.0302 24.6342 26.081 18.4876 26.081C15.9501 26.081 13.6018 25.2102 11.742 23.7377C11.1116 23.2469 10.229 23.2944 9.66162 23.8644C8.99968 24.5294 9.04696 25.6535 9.78771 26.2235C12.1833 28.1235 15.1936 29.2477 18.4876 29.2477C26.4467 29.2477 32.8928 22.6452 32.6721 14.586C32.4673 7.16021 26.2891 0.953547 18.8974 0.747714ZM18.0936 8.66438C17.4474 8.66438 16.9115 9.20271 16.9115 9.85188V15.6785C16.9115 16.2327 17.211 16.7552 17.6838 17.0402L22.6011 19.9694C23.1685 20.3019 23.8935 20.1119 24.2244 19.5577C24.5554 18.9877 24.3663 18.2594 23.8147 17.9269L19.2756 15.2194V9.83605C19.2756 9.20271 18.7397 8.66438 18.0936 8.66438Z" fill="#959895"/>
                                         </svg>
                                     </i>
-                                   <i class="sidenav-mini-icon">R</i>
                                    <span class="item-name">Riwayat</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-    <a class="nav-link active" href="{{ asset('UserKeranjang') }}"><!-- Tambahkan / sebelum keranjang -->
-        <i class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                <g>
-                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                </g>
-            </svg>
-        </i>
-        <i class="sidenav-mini-icon">K</i>
-        <span class="item-name">Keranjang</span>
-    </a>
-</li>
+                              <a class="nav-link active" href="keranjang"> <!-- Tambahkan / sebelum keranjang -->
+                                <i class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 31 26" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.4082 2.97507C14.338 2.97516 13.2955 3.27561 12.4318 3.83293C11.5681 4.39025 10.928 5.17551 10.6041 6.07501L9.47011 9.22494H21.3463L20.2123 6.07501C19.8883 5.17551 19.2483 4.39025 18.3846 3.83293C17.5209 3.27561 16.4784 2.97516 15.4082 2.97507ZM24.3203 9.22494L22.9141 5.31877C22.4085 3.91315 21.4084 2.68598 20.0589 1.81503C18.7094 0.944087 17.0805 0.474609 15.4082 0.474609C13.7359 0.474609 12.107 0.944087 10.7574 1.81503C9.40795 2.68598 8.40794 3.91315 7.9023 5.31877L6.4961 9.22494H3.14361C2.70098 9.22496 2.2645 9.31635 1.86914 9.49182C1.47376 9.66728 1.13047 9.92194 0.866749 10.2354C0.603029 10.5489 0.426205 10.9124 0.350437 11.297C0.274669 11.6815 0.30207 12.0764 0.430429 12.4499L2.02375 17.0873L3.9913 22.8122C4.25594 23.5823 4.79447 24.2569 5.52734 24.7362C6.26021 25.2157 7.14854 25.4746 8.06107 25.4746H22.7553C23.6677 25.4744 24.5556 25.2154 25.2882 24.7359C26.0208 24.2565 26.5592 23.582 26.8237 22.8122L28.7926 17.0873L30.386 12.4499C30.5144 12.0764 30.5418 11.6815 30.4659 11.297C30.3902 10.9124 30.2133 10.5489 29.9496 10.2354C29.686 9.92194 29.3427 9.66728 28.9473 9.49182C28.552 9.31635 28.1153 9.22496 27.6728 9.22494H24.3203ZM7.53232 11.7249H3.14361L4.43216 15.4748H9.79047L9.20928 11.7249H7.53232ZM12.0713 11.7249L12.6511 15.4748H18.1653L18.7465 11.7249H12.0713ZM21.6071 11.7249L21.0259 15.4748H26.3842L27.6728 11.7249H21.6071ZM25.5252 17.9748H20.6389L19.8664 22.9747H22.7539C23.0581 22.9747 23.3542 22.8884 23.5985 22.7285C23.8427 22.5688 24.0223 22.3439 24.1105 22.0872L25.5252 17.9748ZM17.0058 22.9747L17.7783 17.9748H13.0366L13.8106 22.9747H17.0058ZM10.9486 22.9747L10.176 17.9748H5.29119L6.70448 22.0872C6.79269 22.3439 6.9722 22.5688 7.2165 22.7285C7.46078 22.8884 7.75689 22.9747 8.06107 22.9747H10.9486Z" fill="white"/>
+                                        </svg>
+                                </i>
+                              <span class="item-name">Keranjang</span>
+                            </a>
+                          </li>
                         </ul>
                     </li>
                 </ul>
@@ -234,170 +218,213 @@
         <div class="sidebar-footer"></div>
     </aside>
     <main class="main-content">
-      <div class="position-relative">
-        <!--Nav Start-->
-        <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar">
-          <div class="container-fluid navbar-inner">
-          @include('layout.logo')
-            <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
-                <i class="icon">
-                 <svg width="20px" height="20px" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
-                </svg>
-                </i>
-            </div>
-            <div class="input-group search-input">
-              <span class="input-group-text" id="search-input">
-                <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                    <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-              </span>
-              <input type="search" class="form-control" placeholder="Search...">
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon">
-                  <span class="navbar-toggler-bar bar1 mt-2"></span>
-                  <span class="navbar-toggler-bar bar2"></span>
-                  <span class="navbar-toggler-bar bar3"></span>
-                </span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
-                  <!-- isi dari notifikasi-->
-                <li class="nav-item dropdown">
-                  <a href="#"  class="nav-link" id="notification-drop" data-bs-toggle="dropdown" >
-                     <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16.7695 10.1453C16.039 9.29229 15.7071 8.55305 15.7071 7.29716V6.87013C15.7071 5.23354 15.3304 4.17907 14.5115 3.12459C13.2493 1.48699 11.1244 0.5 9.04423 0.5H8.95577C6.91935 0.5 4.86106 1.44167 3.577 3.0128C2.71333 4.08842 2.29293 5.18822 2.29293 6.87013V7.29716C2.29293 8.55305 1.98284 9.29229 1.23049 10.1453C0.676907 10.7738 0.5 11.5815 0.5 12.4557C0.5 13.3309 0.787226 14.1598 1.36367 14.8336C2.11602 15.6413 3.17846 16.1569 4.26375 16.2466C5.83505 16.4258 7.40634 16.4933 9.0005 16.4933C10.5937 16.4933 12.165 16.3805 13.7372 16.2466C14.8215 16.1569 15.884 15.6413 16.6363 14.8336C17.2118 14.1598 17.5 13.3309 17.5 12.4557C17.5 11.5815 17.3231 10.7738 16.7695 10.1453Z" fill="currentColor"/>
-                      <path opacity="0.4" d="M11.0097 17.7285C10.5098 17.6217 7.46364 17.6217 6.96372 17.7285C6.53636 17.8272 6.07422 18.0568 6.07422 18.5604C6.09907 19.0408 6.38033 19.4648 6.76992 19.7337L6.76893 19.7347C7.27282 20.1275 7.86416 20.3773 8.48334 20.4669C8.8133 20.5122 9.14923 20.5102 9.49111 20.4669C10.1093 20.3773 10.7006 20.1275 11.2045 19.7347L11.2035 19.7337C11.5931 19.4648 11.8744 19.0408 11.8992 18.5604C11.8992 18.0568 11.4371 17.8272 11.0097 17.7285Z" fill="currentColor"/>
-                      </svg>
-                      <span class="bg-danger dots"></span>
-                  </a>
-                  <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="notification-drop">
-                      <div class="card shadow-none m-0">
-                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
-                            <div class="header-title">
-                              <h5 class="mb-0 text-white">All Notifications</h5>
-                            </div>
+        <div class="position-relative">
+            <!--Nav Start-->
+            <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar">
+                <div class="container-fluid navbar-inner">
+                    @include('layout.logo')
+                    <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
+                        <i class="icon">
+                            <svg width="20px" height="20px" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+                            </svg>
+                        </i>
+                    </div>
+                    <div class="input-group search-input">
+                        <span class="input-group-text" id="search-input">
+                            <svg width="18" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
+                                <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                        <input type="search" class="form-control" placeholder="Search...">
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                            <span class="navbar-toggler-bar bar1 mt-2"></span>
+                            <span class="navbar-toggler-bar bar2"></span>
+                            <span class="navbar-toggler-bar bar3"></span>
+                        </span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
+                            <!-- isi dari notifikasi-->
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
+                                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.7695 10.1453C16.039 9.29229 15.7071 8.55305 15.7071 7.29716V6.87013C15.7071 5.23354 15.3304 4.17907 14.5115 3.12459C13.2493 1.48699 11.1244 0.5 9.04423 0.5H8.95577C6.91935 0.5 4.86106 1.44167 3.577 3.0128C2.71333 4.08842 2.29293 5.18822 2.29293 6.87013V7.29716C2.29293 8.55305 1.98284 9.29229 1.23049 10.1453C0.676907 10.7738 0.5 11.5815 0.5 12.4557C0.5 13.3309 0.787226 14.1598 1.36367 14.8336C2.11602 15.6413 3.17846 16.1569 4.26375 16.2466C5.83505 16.4258 7.40634 16.4933 9.0005 16.4933C10.5937 16.4933 12.165 16.3805 13.7372 16.2466C14.8215 16.1569 15.884 15.6413 16.6363 14.8336C17.2118 14.1598 17.5 13.3309 17.5 12.4557C17.5 11.5815 17.3231 10.7738 16.7695 10.1453Z"
+                                            fill="currentColor" />
+                                        <path opacity="0.4"
+                                            d="M11.0097 17.7285C10.5098 17.6217 7.46364 17.6217 6.96372 17.7285C6.53636 17.8272 6.07422 18.0568 6.07422 18.5604C6.09907 19.0408 6.38033 19.4648 6.76992 19.7337L6.76893 19.7347C7.27282 20.1275 7.86416 20.3773 8.48334 20.4669C8.8133 20.5122 9.14923 20.5102 9.49111 20.4669C10.1093 20.3773 10.7006 20.1275 11.2045 19.7347L11.2035 19.7337C11.5931 19.4648 11.8744 19.0408 11.8992 18.5604C11.8992 18.0568 11.4371 17.8272 11.0097 17.7285Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    <span class="bg-danger dots"></span>
+                                </a>
+                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
+                                    aria-labelledby="notification-drop">
+                                    <div class="card shadow-none m-0">
+                                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
+                                            <div class="header-title">
+                                                <h5 class="mb-0 text-white">All Notifications</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- End notifikasi -->
+                            <!-- start pesan -->
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link" id="mail-drop2" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.4"
+                                            d="M20 13.441C20 16.231 17.76 18.491 14.97 18.501H14.96H5.05C2.27 18.501 0 16.251 0 13.461V13.451C0 13.451 0.006 9.02498 0.014 6.79898C0.015 6.38098 0.495 6.14698 0.822 6.40698C3.198 8.29198 7.447 11.729 7.5 11.774C8.21 12.343 9.11 12.664 10.03 12.664C10.95 12.664 11.85 12.343 12.56 11.763C12.613 11.728 16.767 8.39398 19.179 6.47798C19.507 6.21698 19.989 6.45098 19.99 6.86798C20 9.07698 20 13.441 20 13.441Z"
+                                            fill="currentColor" />
+                                        <path
+                                            d="M19.4769 3.174C18.6109 1.542 16.9069 0.5 15.0309 0.5H5.05086C3.17486 0.5 1.47086 1.542 0.60486 3.174C0.41086 3.539 0.50286 3.994 0.82586 4.252L8.25086 10.191C8.77086 10.611 9.40086 10.82 10.0309 10.82C10.0349 10.82 10.0379 10.82 10.0409 10.82C10.0439 10.82 10.0479 10.82 10.0509 10.82C10.6809 10.82 11.3109 10.611 11.8309 10.191L19.2559 4.252C19.5789 3.994 19.6709 3.539 19.4769 3.174Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    <span class="bg-primary count-mail"></span>
+                                </a>
+                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
+                                    aria-labelledby="mail-drop2">
+                                    <div class="card shadow-none m-0">
+                                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
+                                            <div class="header-title">
+                                                <h5 class="mb-0 text-white">All Message</h5>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- End Pesan-->
+                            <!-- Start Profile-->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="../assets/images/avatars/01.png" alt="User-Profile"
+                                        class="img-fluid avatar avatar-50 avatar-rounded">
+                                    <div class="caption ms-3 d-none d-md-block ">
+                                        <h6 class="mb-0 caption-title">Austin Robertson</h6>
+                                        <p class="mb-0 caption-sub-title">Marketing Administrator</p>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="profileuser">Profile</a></li>
+                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
+                                            Setting</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
+                                    </form>
+                            </li>
+                        </ul>
+                        </li>
+                        <!-- End Profile-->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="content-inner mt-5 py-0">
+            <div class="card col-md-12 mb-2">
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title" style="color:#F66F0C">
+                            <i class="fas fa-shopping-cart"></i> Keranjang Saya
+                        </h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+                        data-iq-duration=".6" data-iq-delay=".6" data-iq-trigger="scroll" data-iq-ease="none">
+                        <div>
+                            <input type="checkbox">
+                            <i class="fa-solid fa-store" style="color: black;"></i><strong
+                                style="font-size: 18px; color:black;">Masakkan nasi-Warung berkah</strong>
                         </div>
-                      </div>
-                  </div>
-                </li>
-                <!-- End notifikasi -->
-                <!-- start pesan -->
-                <li class="nav-item dropdown">
-                  <a href="#" class="nav-link" id="mail-drop2" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
-                    <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path opacity="0.4" d="M20 13.441C20 16.231 17.76 18.491 14.97 18.501H14.96H5.05C2.27 18.501 0 16.251 0 13.461V13.451C0 13.451 0.006 9.02498 0.014 6.79898C0.015 6.38098 0.495 6.14698 0.822 6.40698C3.198 8.29198 7.447 11.729 7.5 11.774C8.21 12.343 9.11 12.664 10.03 12.664C10.95 12.664 11.85 12.343 12.56 11.763C12.613 11.728 16.767 8.39398 19.179 6.47798C19.507 6.21698 19.989 6.45098 19.99 6.86798C20 9.07698 20 13.441 20 13.441Z" fill="currentColor"/>
-                    <path d="M19.4769 3.174C18.6109 1.542 16.9069 0.5 15.0309 0.5H5.05086C3.17486 0.5 1.47086 1.542 0.60486 3.174C0.41086 3.539 0.50286 3.994 0.82586 4.252L8.25086 10.191C8.77086 10.611 9.40086 10.82 10.0309 10.82C10.0349 10.82 10.0379 10.82 10.0409 10.82C10.0439 10.82 10.0479 10.82 10.0509 10.82C10.6809 10.82 11.3109 10.611 11.8309 10.191L19.2559 4.252C19.5789 3.994 19.6709 3.539 19.4769 3.174Z" fill="currentColor"/>
-                    </svg>
-                    <span class="bg-primary count-mail"></span>
-                  </a>
-                  <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="mail-drop2">
-                      <div class="card shadow-none m-0">
-                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
-                            <div class="header-title">
-                              <h5 class="mb-0 text-white">All Message</h5>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <div class="align-self-center"><input type="checkbox"></div>
+                            <div class="" style="font-size: 17px;"><img
+                                    src="{{ asset('assets/images/admin/08.png') }}" width="100px"
+                                    style="border-radius: 10px; margin-left:-50px;">Nasi goreng</div>
+                            <div class="form-label text-bold"><span class="form-label">Harga</span>
+                                <div class="">
+                                    <p class="form-label" style="margin-top: 10px;">Rp.15,000</p>
+                                </div>
+                            </div>
+                            <div class="form-label text-bold px-4"><span class="form-label">jumlah</span>
+                                <div class="input-step" style="margin-top:10px;">
+                                    <button type="button" class="btn-sm"
+                                        onclick="decrementQuantity(this.nextElementSibling)">-</button>
+                                    <input type="number" class="product-quantity" style="text-align: center;" value="2" min="0"
+                                        max="100" readonly onchange="updateTotal(this)">
+                                    <button type="button" class="btn-sm"
+                                        onclick="incrementQuantity(this.previousElementSibling)">+</button>
+                                </div>
+                            </div>
+                            <div class="form-label text-bold px-4"><span class="form-label">total</span>
+                                <div class="">
+                                    <p class="form-label" style="margin-top: 10px;">Rp.15,000</p>
+                                </div>
+                            </div>
+                            <div class="form-label text-bold px-4"><span class="form-label">Aksi</span>
+                                <div class="">
+                                    <form action="" method="POST" style="margin-top:10px;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class=""
+                                            style="border-radius:5px; margin-left: 45px; color:red;"><i
+                                                class="fa-solid fa-trash-can"
+                                                style="margin-left: 8px ; margin-top: 5px;"></i></button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
 
-                      </div>
-                  </div>
-                </li>
-                <!-- End Pesan-->
-                <!-- Start Profile-->
-                <li class="nav-item dropdown">
-                  <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../assets/images/avatars/01.png" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded">
-                    <div class="caption ms-3 d-none d-md-block ">
-                        <h6 class="mb-0 caption-title">Austin Robertson</h6>
-                        <p class="mb-0 caption-sub-title">Marketing Administrator</p>
+                        {{-- <hr> --}}
+                        {{-- akhir --}}
                     </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="profileuser">Profile</a></li>
-                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
-                                   </form>
-                    </li>
-                  </ul>
-                </li>
-                <!-- End Profile-->
-              </ul>
+                </div>
             </div>
-          </div>
-        </nav>
-      </div>
-      <div class="content-inner mt-5 py-0">
-  <div class="card col-md-12 col-lg-12">
-    <div class="card-body">
-      <div>
-      <h4 class="card-title" style="color:#F66F0C">
-    <i class="fas fa-shopping-cart"></i> Keranjang Saya
-  </h4>
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="col active"
-        data-iq-gsap="onStart"
-        data-iq-opacity="0"
-        data-iq-position-y="-40"
-        data-iq-duration=".6"
-        data-iq-delay=".6"
-        data-iq-trigger="scroll"
-        data-iq-ease="none">
-        <div>
-          <input type="checkbox"><i class="fa-solid fa-home" style="color:#000000;"></i><strong>Masakkan nasi-Warung berkah</strong>
-       </div>
-        <hr>
-        <div class="d-flex justify-content-between ">
-        <div class="align-self-center"><input type="checkbox"></div>
-            <div class=""><img src="{{ asset('assets/img/poto.png') }}"  width="100px" alt="" srcset="">nasi goreng</div>
-            <div class="form-label text-bold"><span class="form-label">Harga</span>
-              <div class=""><p class="form-label"></p></div>
+            <div class="card col-md-12">
+                <div class="card-body d-flex align-item-center  justify-content-between">
+                    <div class="align-self-center">
+                        <input type="checkbox">
+                        <span style="color: black; margin-left: 8px;">pilih semua</span>
+                        <a type="submit" style="color:red; margin-left:10px;">Hapus</a>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary" id="beli">Beli</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-label text-bold px-4"><span class="form-label">jumlah</span>
-              <div class="input-step">
-              <button type="button" class="btn btn-primary btn-sm" onclick="decrementQuantity(this.nextElementSibling)">–</button>
-                <input type="number" class="product-quantity" value="2" min="0" max="100" readonly onchange="updateTotal(this)">
-              <button type="button" class="btn btn-primary btn-sm" onclick="incrementQuantity(this.previousElementSibling)">+</button>
-              </div>
-            </div>
-            <div class="form-label text-bold px-4"><span class="form-label">total</span>
-              <div class=""><p class="form-label"></p></div>
-            </div>
-            <div class="form-label text-bold px-4"><span class="form-label">Aksi</span>
-            <div class="">
-              <form action="" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger" style="border-radius: 10%;">hapus</button>
-              </form>
-            </div>
-            </div>
-          </div>
-          <hr>
-          <div class="align-self-center">
-          <input type="checkbox" >
-          <span style="color: black;">pilih semua</span>
         </div>
-          <div class="text-end">
-            <button type="button" class="btn btn-primary" id="beli">Beli</button>
-          </div>
-      </div>
-    </div>
-  </div>
-</div>
-                  <!--  @include('layout.footer')  -->
-  </main>
-         @include('layout.js')
-      </body>
-  </html>
-  <script>
+
+
+
+        <!--  @include('layout.footer')  -->
+    </main>
+    @include('layout.js')
+</body>
+
+</html>
+<script>
     // Fungsi untuk menangani penambahan jumlah
     function incrementQuantity(input) {
         var newValue = parseInt(input.value) + 1;
@@ -417,9 +444,10 @@
     // Fungsi untuk mengupdate total ketika jumlah berubah
     function updateTotal(input) {
         var row = input.closest('tr');
-        var pricePerUnit = parseFloat(row.querySelector('.price-per-unit').textContent.replace('Rp ', '').replace(',', ''));
+        var pricePerUnit = parseFloat(row.querySelector('.price-per-unit').textContent.replace('Rp ', '').replace(',',
+            ''));
         var quantity = parseInt(input.value);
         var total = pricePerUnit * quantity;
         row.querySelector('.total').textContent = 'Rp ' + total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     }
-    </script>
+</script>

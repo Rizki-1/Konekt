@@ -20,6 +20,7 @@ class userOrder extends Model
         'metodepembayaran',
         'nomer_antrian',
         'catatan',
+        'keterangan',
         'totalharga',
         'adminstatus',
         'pembelianstatus'

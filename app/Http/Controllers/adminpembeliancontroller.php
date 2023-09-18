@@ -203,10 +203,58 @@ class adminpembeliancontroller extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
+    {   // dd($request->all());
+        $adminmp = new adminmetodepembayaran;
+        $adminmp->metodepembayaran = $request->metodepembayaran;
+        $adminmp->tujuan = $request->tujuan;
+        $adminmp->keterangan = $request->input('keterangan');
+
+        if ($request->file('keterangan')) {
+            $image = $request->file('keterangan');
+            $filename = $image->hashName();
+            $image->storeAs('public/pembayaran', $filename);
+            $adminmp->keterangan = $filename;
+        }
+        $adminmp->save();
+        return back();
+    }
+    // public function store(Request $request){
+    //     // dd($request->all());
+    //     $metodepembayaran = $request->input('metodepembayaran');
+    //     $adminmp = [
+    //         'metodepembayaran' => $metodepembayaran,
+    //     ];
+
+    //     if($metodepembayaran === 'e_wallet'){
+    //         // $request->file('keterangan');
+    //         $adminmp['tujuan'] = $request->input('tujuan');
+    //         $adminmp['keterangan'] = $request->input('keterangan');
+    //         $image = $request->file('keterangan');
+    //         $filename = $image->hashName();
+    //         $image->storeAs('public/pembayaran',$filename);
+    //         $adminmp['keterangan'] = $filename;
+    //     }elseif ($metodepembayaran === 'bank') {
+    //         $adminmp['tujuan'] = $request->input('tujuan');
+    //         $adminmp['keterangan'] = $request->input('keterangan');
+    //     }else {
+    //         session()->flash('notif.error', 'Data pembayaran tidak valid !');
+    //         // return back();
+    //     }
+    //     adminmetodepembayaran::create($adminmp);
+
+    //     session()->flash('notif.success','Data Berhasil di simpan');
+    //     return back();
+
+    // }
+
+    public function adestroy(adminmetodepembayaran $adminmp)
     {
-        $adminmp = $request->all();
-        adminmetodepembayaran::create($adminmp);
+      try{
+        $adminmp->delete();
         return redirect()->route('metodpembayaran');
+      }catch (Exception $e){
+        return back()->with('error');
+      }
     }
 
     /**

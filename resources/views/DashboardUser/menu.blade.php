@@ -73,7 +73,7 @@
                                     <p class="fs-4 text-dark">
                                         {{ $p->namamenu }}
                                         <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
-                                        <input type="hidden" name= "user_id" value="{{ $user_id }}">
+                                        <input type="hidden" name= "user_id" value="{{ $penjualId }}">
                                         <input type="hidden" name= "toko_id" value="{{ $p->toko_id }}">
                                     </p>
                                     <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
@@ -415,7 +415,7 @@
                         <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
                             data-bs-target="#myModal-{{ $p->id }}">beli
                         </button>
-                        <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $Penjual->barangpenjual_id]) }}">Detail</a>
+                        <button  class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $Penjual->barangpenjual_id]) }}">Detail</button>
                     </div>
                 </div>
             </div>

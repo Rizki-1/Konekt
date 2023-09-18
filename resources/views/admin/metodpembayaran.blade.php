@@ -105,40 +105,59 @@
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 
-<body class="  "
+<body class=""
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
-        <form action="{{ route('pembelianadmin.store') }}" method="POST">
-            @csrf
-              <div class="modal" id="myModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+ <form action="{{ route('pembelianadmin.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="modal" id="myModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
+                        <select name="metodepembayaran" id="selectMetode" class="form-control">
+                            <option value="" class="dropdown-menu" disabled selected>Pilih Metode Pembayaran
+                            </option>
+                            <option value="e-wallet" data-target="ewalletInput">E-Wallet</option>
+                            <option value="bank" data-target="bankInput">Bank</option>
+                        </select>
+                    </div>
+                    <div class="" value="e-wallet" id="ewalletInput" style="display: none;">
+                        <div class="mb-3">
+                            <label for="kelas" class="form-label fw-bold">tujuan</label>
+                            <input type="text" name="tujuan" class="form-control" value="{{ old('tujuan') }}">
                         </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
-                                <input type="text" name="metodepembayaran" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">tujuan</label>
-                                <input type="text" name="tujuan" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">keterangan</label>
-                                <input type="text" name="keterangan" class="form-control">
-                            </div>
+                        <div class="mb-3">
+                            <label for="kelas" class="form-label fw-bold">Keterangan</label>
+                            <input type="file" name="keterangan" id="keterangan" class="form-control"
+                                value="{{ old('keterangan') }}">
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    <div class="" value="bank" id="bankInput" style="display: none;">
+                        <div class="mb-3">
+                            <label for="kelas" class="form-label fw-bold">tujuan</label>
+                            <input type="text" name="tujuan" id="tujuan-bank" class="form-control"  value="{{ old('tujuan') }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="kelas" class="form-label fw-bold">keterangan</label>
+                            <input type="text" name="keterangan" class="form-control"
+                                value="{{ old('keterangan') }}">
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
-        </form>
+        </div>
+    </div>
+</form>
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -225,9 +244,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active" href="metodpembayaran">
                                     <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 28 28" fill="none">
-                                            <path d="M22.1673 5.83203H5.83398C4.90573 5.83203 4.01549 6.20078 3.35911 6.85716C2.70273 7.51354 2.33398 8.40377 2.33398 9.33203V18.6654C2.33398 19.5936 2.70273 20.4839 3.35911 21.1402C4.01549 21.7966 4.90573 22.1654 5.83398 22.1654H22.1673C23.0956 22.1654 23.9858 21.7966 24.6422 21.1402C25.2986 20.4839 25.6673 19.5936 25.6673 18.6654V9.33203C25.6673 8.40377 25.2986 7.51354 24.6422 6.85716C23.9858 6.20078 23.0956 5.83203 22.1673 5.83203ZM12.834 17.4987H8.16732C7.8579 17.4987 7.56115 17.3758 7.34236 17.157C7.12357 16.9382 7.00065 16.6415 7.00065 16.332C7.00065 16.0226 7.12357 15.7259 7.34236 15.5071C7.56115 15.2883 7.8579 15.1654 8.16732 15.1654H12.834C13.1434 15.1654 13.4401 15.2883 13.6589 15.5071C13.8777 15.7259 14.0007 16.0226 14.0007 16.332C14.0007 16.6415 13.8777 16.9382 13.6589 17.157C13.4401 17.3758 13.1434 17.4987 12.834 17.4987ZM19.834 17.4987H17.5007C17.1912 17.4987 16.8945 17.3758 16.6757 17.157C16.4569 16.9382 16.334 16.6415 16.334 16.332C16.334 16.0226 16.4569 15.7259 16.6757 15.5071C16.8945 15.2883 17.1912 15.1654 17.5007 15.1654H19.834C20.1434 15.1654 20.4401 15.2883 20.6589 15.5071C20.8777 15.7259 21.0007 16.0226 21.0007 16.332C21.0007 16.6415 20.8777 16.9382 20.6589 17.157C20.4401 17.3758 20.1434 17.4987 19.834 17.4987ZM23.334 10.4987H4.66732V9.33203C4.66732 9.02261 4.79023 8.72587 5.00903 8.50707C5.22782 8.28828 5.52456 8.16536 5.83398 8.16536H22.1673C22.4767 8.16536 22.7735 8.28828 22.9923 8.50707C23.2111 8.72587 23.334 9.02261 23.334 9.33203V10.4987Z" fill="#959895"/>
-                                          </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="30" viewBox="0 0 28 28" fill="none"><path d="M22.1673 5.83203H5.83398C4.90573 5.83203 4.01549 6.20078 3.35911 6.85716C2.70273 7.51354 2.33398 8.40377 2.33398 9.33203V18.6654C2.33398 19.5936 2.70273 20.4839 3.35911 21.1402C4.01549 21.7966 4.90573 22.1654 5.83398 22.1654H22.1673C23.0956 22.1654 23.9858 21.7966 24.6422 21.1402C25.2986 20.4839 25.6673 19.5936 25.6673 18.6654V9.33203C25.6673 8.40377 25.2986 7.51354 24.6422 6.85716C23.9858 6.20078 23.0956 5.83203 22.1673 5.83203ZM12.834 17.4987H8.16732C7.8579 17.4987 7.56115 17.3758 7.34236 17.157C7.12357 16.9382 7.00065 16.6415 7.00065 16.332C7.00065 16.0226 7.12357 15.7259 7.34236 15.5071C7.56115 15.2883 7.8579 15.1654 8.16732 15.1654H12.834C13.1434 15.1654 13.4401 15.2883 13.6589 15.5071C13.8777 15.7259 14.0007 16.0226 14.0007 16.332C14.0007 16.6415 13.8777 16.9382 13.6589 17.157C13.4401 17.3758 13.1434 17.4987 12.834 17.4987ZM19.834 17.4987H17.5007C17.1912 17.4987 16.8945 17.3758 16.6757 17.157C16.4569 16.9382 16.334 16.6415 16.334 16.332C16.334 16.0226 16.4569 15.7259 16.6757 15.5071C16.8945 15.2883 17.1912 15.1654 17.5007 15.1654H19.834C20.1434 15.1654 20.4401 15.2883 20.6589 15.5071C20.8777 15.7259 21.0007 16.0226 21.0007 16.332C21.0007 16.6415 20.8777 16.9382 20.6589 17.157C20.4401 17.3758 20.1434 17.4987 19.834 17.4987ZM23.334 10.4987H4.66732V9.33203C4.66732 9.02261 4.79023 8.72587 5.00903 8.50707C5.22782 8.28828 5.52456 8.16536 5.83398 8.16536H22.1673C22.4767 8.16536 22.7735 8.28828 22.9923 8.50707C23.2111 8.72587 23.334 9.02261 23.334 9.33203V10.4987Z"
+                                        fill="white" />
+                                </svg>
                                     </i>
                                     {{-- <i class="sidenav-mini-icon">MP</i> --}}
                                     <span class="item-name">Pembayaran</span>
@@ -381,14 +400,15 @@
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Success</button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#myModal">Success</button>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">metode pembayaran</th>
                                     <th scope="col">tujuan</th>
-                                    <th scope="col">keteranagn</th>
+                                    <th scope="col">keterangan</th>
                                     <th scope="col">aksi</th>
                                 </tr>
                             </thead>
@@ -397,13 +417,28 @@
                                     $no = 1;
                                 @endphp
                                 @foreach ($adminmp as $a)
-                                <th scope="row">{{ $no ++ }}</th>
-                                <td>{{ $a->metodepembayaran }}</td>
-                                <td>{{ $a->tujuan }}</td>
-                                <td>{{ $a->keterangan }}</td>
-                                <td>
-                                    <button class="btn btn-danger">hapus</button>
-                                </td>
+                                    <tr>
+                                        <th scope="row">{{ $no++ }}</th>
+                                        <td>{{ $a->metodepembayaran }}</td>
+                                        <td>{{ $a->tujuan }}</td>
+                                        @php
+                                            $long = strlen($a->keterangan);
+                                        @endphp
+                                        <td>
+                                            @if ($long >= 20)
+                                                <img src="{{ asset('storage/pembayaran/' . $a->keterangan) }}" width="120px" height="80px" alt="">
+                                            @else
+                                                {{ $a->keterangan }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('adestroy', $a->id) }}" method="post">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -417,3 +452,26 @@
 </body>
 
 </html>
+</html>
+<script>
+    const selectMetode = document.getElementById('selectMetode');
+    const ewalletInput = document.getElementById('ewalletInput');
+    const bankInput = document.getElementById('bankInput');
+    const tujuan = document.getElementById('tujuan-bank');
+
+    selectMetode.addEventListener('change', function() {
+        if (this.value === 'e-wallet') {
+            ewalletInput.style.display = 'block';
+            bankInput.style.display = 'none';
+            tujuan.removeAttribute('name');
+        } else if (this.value === 'bank') {
+            ewalletInput.style.display = 'none';
+            bankInput.style.display = 'block';
+            tujuan.setAttribute('name','tujuan')
+        } else {
+            ewalletInput.style.display = 'none';
+            bankInput.style.display = 'none';
+            tujuan.setAttribute('name');
+        }
+    });
+</script>

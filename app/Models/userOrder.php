@@ -18,7 +18,6 @@ class userOrder extends Model
         'user_id',
         'foto',
         'catatan',
-        'keterangan',
         'totalharga',
         'adminstatus',
         'pembelianstatus'

@@ -21,16 +21,16 @@ class dashboardusercontroller extends Controller
      */
     public function index()
     {
-        $penjualId = Auth::id();
+        $user_id = Auth::id();
         $users = userOrder::all();
-        $notifikasi = notifikasi::where('user_id_notifikasi', $penjualId);
+        $notifikasi = notifikasi::where('user_id_notifikasi', $user_id);
         $penjual =  barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
         // $ulasan = ulasan::where('barangpenjual_id', $penjual->id);
         $ulasan = ulasan::all();
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi', 'ulasan', 'penjualId'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi', 'ulasan', 'user_id'));
     }
 
     public function beli(Request $request)
@@ -55,7 +55,7 @@ class dashboardusercontroller extends Controller
         $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
         $barang = barangpenjual::findOrFail($request->barangpenjual_id);
         $totalharga = ($barang->harga * $request->jumlah) + ($barang->harga * $request->jumlah * 0.05);
-        
+
         $userOrderData = [
             'barangpenjual_id' => $request->barangpenjual_id,
             'jumlah' => $request->jumlah,
@@ -76,7 +76,7 @@ class dashboardusercontroller extends Controller
 
 
         $notifikasi = notifikasi::all();
-        $penjualId = Auth::id();
+        $user_id = Auth::id();
         $userOrder = userOrder::findOrFail($request->id);
 
         $totalharga = userOrder::all();
@@ -84,7 +84,7 @@ class dashboardusercontroller extends Controller
         $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
         $notifikasi = notifikasi::all();
 
-        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'penjualId', 'notifikasi'));
+        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'user_id', 'notifikasi'));
     }
 
 
@@ -234,32 +234,38 @@ class dashboardusercontroller extends Controller
     public function update(Request $request, $id)
     {
 
-        $user_id = Auth::id();
         // dd($user_id);
         // dd($request->all());
+        $user_id = Auth::id();
         $order = userOrder::findOrFail($id);
-
+        $datapenjual = barangpenjual::findOrFail($id);
+        // dd($user_id);
+        if($order->user_id != Auth::user()->id)
+        {
+            return back()->with('error', 'data user tidak valid');
+        }
         $validatedData = $request->validate([
             'barangpenjual_id' => 'required',
             'jumlah' => 'required|integer',
             'catatan' => 'string',
             'foto' => 'image|mimes:jpeg,png,jpg,gif',
             'toko_id' => 'required',
-            'user_id' =>  'required'
+            'user_id' =>  'required',
+            'totalharga' => 'required',
         ]);
 
+        $newTotalharga = ($validatedData['jumlah'] * $datapenjual->harga) + ($validatedData['jumlah'] * $datapenjual->harga* 0.05);
+        // dd($newTotalharga);
 
-        if($order->user_id === $user_id )
-        {
+        if ($newTotalharga != $order->totalharga) {
+             return redirect()->back()->with('error', 'Total harga tidak valid');
+            }
             $order->adminstatus = 'notapprove';
             $order->pembelianstatus = 'menunggu konfirmasi';
 
 
             // Simpan data yang diperbarui ke dalam pesanan
             $order->update($validatedData);
-        } else {
-            return redirect()->back()->with('error', 'id tidak valid');
-        }
 
         // Simpan foto jika ada
         if ($request->hasFile('foto')) {

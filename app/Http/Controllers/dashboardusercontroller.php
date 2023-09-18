@@ -80,13 +80,14 @@ class dashboardusercontroller extends Controller
         $notifikasi = notifikasi::all();
         $user_id = Auth::id();
         $userOrder = userOrder::findOrFail($request->id);
+        $subtotalorder = $userOrder->subtotalorder;
 
         $totalharga = userOrder::all();
 
         $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
         $notifikasi = notifikasi::all();
 
-        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'user_id', 'notifikasi'));
+        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'user_id', 'notifikasi', 'subtotalorder'));
     }
 
 
@@ -265,9 +266,9 @@ class dashboardusercontroller extends Controller
              $subtotalorder->subtotalorder = $totalHargaKeseluruhan;
              $subtotalorder->save();
 
-             return redirect()->route('menu.update');
+             return redirect()->route('konfimasipembelian');
          }else {
-            return redirect()->route('menu.update');
+            return redirect()->route('konfimasipembelian');
          }
      }
 

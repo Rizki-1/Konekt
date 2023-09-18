@@ -181,7 +181,7 @@
                 </svg>
                 </i>
             </div>
-           
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon">
                   <span class="navbar-toggler-bar bar1 mt-2"></span>
@@ -218,7 +218,7 @@
                                     <h6 class="mb-0 ">Emma Watson Bni</h6>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <p class="mb-0">95 MB</p>
-                                        <small class="float-end font-size-12">Just Now</small>
+                                        <small class="float-end font-size-12">Just NFow</small>
                                     </div>
                                   </div>
                               </div>
@@ -343,7 +343,7 @@
                               </div>
                            </div>
                            <div class="d-flex align-items-center mb-3 mb-sm-0 ms-sm-4">                           <div>
-                              <h6 class="me-2 text-primary">namaku</h6>
+                              <h6 class="me-2 text-primary">{{ Auth::user()->name }}</h6>
                               <span><svg width="19" height="19" class="me-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                  <path d="M21 10.8421C21 16.9172 12 23 12 23C12 23 3 16.9172 3 10.8421C3 4.76697 7.02944 1 12 1C16.9706 1 21 4.76697 21 10.8421Z" stroke="#07143B" stroke-width="1.5"/>
                                  <circle cx="12" cy="9" r="3" stroke="#07143B" stroke-width="1.5"/>
@@ -351,7 +351,7 @@
                            </div>
                            <div class="ms-4">
                               <p class="me-2 mb-0 text-primary">08154154402432</p>
-                              <p class="me-2 mb-0 text-dark">namaku@gmail.com</p>
+                              <p class="me-2 mb-0 text-dark">{{ Auth::user()->email }}</p>
                               <p class="mb-0 text-dark">030306</p>
                            </div>
                         </div>

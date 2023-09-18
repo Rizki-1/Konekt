@@ -93,17 +93,22 @@ class dashboardusercontroller extends Controller
     public function pesanan()
     {
         $penjualId = Auth::id();
-        $user = userOrder::where('adminstatus', 'approve')->get();
         $user = userOrder::where('user_id', $penjualId )->get();
+        $pesanan = userOrder::where('pembelianstatus', 'selesai')->get();
         $penjual = barangpenjual::all();
-        return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId'));
+        return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId', 'pesanan'));
     }
 
     public function riwayatuser()
     {
-        $penjualId = Auth::id();
-        $user = userOrder::where('pembelianstatus', 'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
-        $user = userOrder::where('user_id', $penjualId);
+        $user_id = Auth::id();
+        $user = userOrder::where(function($query) use ($user_id) {
+            $query->where('pembelianstatus', 'statusselesai')
+                  ->orWhere('pembelianstatus', 'pesanan di tolak');
+        })
+        ->where('user_id', $user_id)
+        ->get();
+
         $penjual = barangpenjual::all();
         return view('DashboardUser.riwayat', compact('user', 'penjual'));
     }
@@ -147,12 +152,23 @@ class dashboardusercontroller extends Controller
         return view('DashboardUser.pembelian', compact('dashboardusercontrollers', 'penjual'));
     }
 
+
+    public function tandakanselesai($id)
+    {
+        $user = userOrder::findOrFail($id);
+        $user->pembelianstatus = 'statusselesai';
+        $user->save();
+
+        return redirect()->back()->with('success', 'pesanan telah selesai cek riwayat anda');
+    }
+
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $user_id = Auth::id();
+        // $datapenjual = barangpenjual::findOrFail($id);
 
         $dashboardusercontrollers = [
             'barangpenjual_id' => $request->barangpenjual_id,
@@ -163,10 +179,12 @@ class dashboardusercontroller extends Controller
             'foto' => $request->foto,
             'toko_id' => $request->toko_id,
             'user_id' => $user_id,
+            'metodepembayaran' => $request->metodepembayaran
 
         ];
+        // $newTotalharga = ($dashboardusercontrollers['jumlah'] * $datapenjual->harga) + ($dashboardusercontrollers['jumlah'] * $datapenjual->harga* 0.05);
 
-        dd($request->all());
+        // dd($request->all());
         if ($request->hasFile('foto')) {
             $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', request()->file('foto'));
             $validated['foto'] = $filePath;
@@ -239,12 +257,7 @@ class dashboardusercontroller extends Controller
         // dd($request->all());
         $user_id = Auth::id();
         $order = userOrder::findOrFail($id);
-        $datapenjual = barangpenjual::findOrFail($id);
-        // dd($user_id);
-        if($order->user_id != Auth::user()->id)
-        {
-            return back()->with('error', 'data user tidak valid');
-        }
+        // $datapenjual = barangpenjual::findOrFail($id);
         $validatedData = $request->validate([
             'barangpenjual_id' => 'required',
             'jumlah' => 'required|integer',
@@ -255,28 +268,33 @@ class dashboardusercontroller extends Controller
             'totalharga' => 'required',
             'metodepembayaran' => 'required'
         ]);
+        $dashboardusercontrollers = [
+            'barangpenjual_id' => $request->barangpenjual_id,
+            'adminstatus' => 'notapprove',
+            'pembelianstatus' => 'menunggu konfirmasi',
+            'jumlah' => $request->jumlah,
+            'catatan' => $request->catatan,
+            'foto' => $request->foto,
+            'toko_id' => $request->toko_id,
+            'user_id' => $user_id,
+            'metodepembayaran' => $request->metodepembayaran
 
-        $newTotalharga = ($validatedData['jumlah'] * $datapenjual->harga) + ($validatedData['jumlah'] * $datapenjual->harga* 0.05);
-        // dd($newTotalharga);
-
-        if ($newTotalharga != $order->totalharga) {
-             return redirect()->back()->with('error', 'Total harga tidak valid');
-            }
+        ];
             $order->adminstatus = 'notapprove';
             $order->pembelianstatus = 'menunggu konfirmasi';
 
 
-            // Simpan data yang diperbarui ke dalam pesanan
-            $order->update($validatedData);
 
-        // Simpan foto jika ada
+            $order->update($dashboardusercontrollers);
+
+
         if ($request->hasFile('foto')) {
             $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', $request->file('foto'));
             $order->foto = $filePath;
             $order->save();
         }
 
-        // Kirim notifikasi kepada admin
+
         $adminNotification = new adminnotifikasi();
         $adminNotification->keterangan_admin = 'Ada pesanan masuk!';
         $adminNotification->isi_admin = 'Cek halaman pembelian untuk konfirmasi';
@@ -289,8 +307,6 @@ class dashboardusercontroller extends Controller
         $userNotification->user_id_notifikasi = $request->user_id;
         $userNotification->save();
 
-        // Redirect ke halaman yang sesuai setelah pengeditan
-        session()->flash('notif.success', 'Anda berhasil membuat pesanan!');
         return redirect()->route('menu.index')->with('success', 'Anda berhasil membuat pesanan');
     }
 

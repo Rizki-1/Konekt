@@ -68,6 +68,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::post('tambahKeranjang/{id}', [dashboardusercontroller::class, 'tambahKeranjang'])->name('tambahKeranjang');
     Route::post('ulasan', [dashboardusercontroller::class, 'ulasan'])->name('ulasan');
     Route::get('detailmenu', [dashboardusercontroller::class, 'detailmenu'])->name('detailmenu');
+    Route::patch('tandakanselesai/{id}', [dashboardusercontroller::class, 'tandakanselesai'])->name('tandakanselesai');
 
 });
 

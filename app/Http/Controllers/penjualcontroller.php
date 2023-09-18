@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\admink;
-use App\Models\adminkategori;
-use App\Models\barangpenjual;
-use App\Models\dashboardusercontrollers;
-use App\Models\notifikasi;
-use App\Models\notifikasipenjual;
-use App\Models\pembayaranpenjual;
 use App\Models\penjual;
 use App\Models\userOrder;
+use App\Models\notifikasi;
 use Illuminate\Http\Request;
+use App\Models\adminkategori;
+use App\Models\barangpenjual;
+use App\Models\notifikasipenjual;
+use App\Models\pembayaranpenjual;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\dashboardusercontrollers;
 
 class penjualcontroller extends Controller
 {
@@ -92,15 +93,23 @@ class penjualcontroller extends Controller
         return redirect()->route('pembayaranpenjual');
     }
 
-    public function terimapesanan($id)
+    public function terimapesanan($id, Request $request)
     {
         // $notifikasi = notifikasi::findOrFail($id);
         // $notifikasi->keterangan = 'pesanan anda sedang di proses';
         // $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
         // $notifikasi->save();
+
+
         $dashboardusercontrollers =userOrder::findOrFail($id);
         $dashboardusercontrollers->pembelianstatus = 'sedang di proses';
+        $dashboardusercontrollers->nomor_antrian = $request->nomer_antrian;
+
         $dashboardusercontrollers->save();
+
+
+
+
 
         return redirect()->route('pesananpenjual');
     }
@@ -133,11 +142,14 @@ class penjualcontroller extends Controller
         return redirect()->route('pesananpenjual');
     }
 
-    protected function pesananpenjual(Request $request)
+    public function pesananpenjual(Request $request)
     {
         $penjualId = Auth::id();
-        $dashboardusercontrollers = userOrder::where('adminstatus', 'approve')->get();
-        $dashboardusercontrollers = userOrder::where('toko_id', $penjualId)->get();
+
+        $dashboardusercontrollers = userOrder::where('adminstatus', 'approve')
+        ->where('toko_id', $penjualId)
+        ->get();
+
 
         if ($dashboardusercontrollers)
         {

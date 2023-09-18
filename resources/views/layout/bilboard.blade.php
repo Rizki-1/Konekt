@@ -36,7 +36,7 @@
              </span>
              <div class="banner-text pt-3">
                 <h1 class="fw-bold mb-4">
-                Hello, Rizkiii
+                Selamat Datang , {{ Auth::user()->name}}
                 </h1>
              </div>
              <p class="mb-4">Dapatkan kemudahan Karena semua ter<span class="text-primary">Konekt</span>kan</p>

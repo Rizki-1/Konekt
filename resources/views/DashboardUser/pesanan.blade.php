@@ -341,15 +341,23 @@
                 {{-- class="h-10 w-50 p-2 mb-10" --}}
                  <img src="{{ asset('css/img/cafe.jpeg') }}" class="foto"  alt="">
                  <div class="img-content">
-                     <a class="tgl">27-08-2023</a>
+                     <a class="tgl">{{ $u->created_at }}</a>
                      <h5  class="mt-12">Masakan nasi - warung berkah</h5>
                      <tr>Nasi Goreng</tr><br>
+                     <tr>no antrian {{ $u->nomor_antrian }}</tr>
                      <tr> Rp.{{ $u->totalharga }} 1 (menu)- Dana</tr><br>
-                     @dump($u->user_id)
-
+                     @if ($u->pembelianstatus === 'selesai')
+                     <form action="{{ route('tandakanselesai',['id' => $u->id]) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                     <button class="btn btn-primary" type="submit"> tandakan telah selesai</button>
+                    </form>
+                     @else
                      <tr class="" >
                          <div class="btn btn-warning" style=" float:right"><span class="color:#EA6A12">sedang di proses</span></div>
+                         <div class="btn btn-danger" style=" float:right"><span class="color:#EA6A12">batalkan pesanan</span></div>
                      </tr>
+                     @endif
                  </div>
              </div>
          </div>

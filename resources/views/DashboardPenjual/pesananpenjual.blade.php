@@ -118,20 +118,20 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="namamenu_id" class="form-label fw-bold">nama menu</label>
+                    <label for="namamenu_id" class="form-label fw-bold">dfgh</label>
                     <input type="text" name="namamenu_id" value="" class="form-control">
-                    <input type="hidden" name="namamenu_id" value="">
                 </div>
                 <div class="mb-3">
                     <label for="kelas" class="form-label fw-bold">quantity</label>
                     <input type="text" name="quantity" class="form-control">
                 </div>
+               <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
                 <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">foto bukti</label>
-                    <input type="text" name="fotobukti" class="form-control">
+                    <label for="kelas" class="form-label fw-bold">beri nomer antrian</label>
+                    <input type="text" name="nomor_antrian" class="form-control">
                 </div>
                 @if ($s->pembelianstatus === 'menunggu konfirmasi')
-                <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
+
                     @csrf
                     @method('PATCH')
                     <button type="submit" class="btn btn-success accept-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Terima</button>
@@ -141,12 +141,7 @@
                     @method('PATCH')
                 <button type="submit" class="btn btn-danger reject-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Tolak</button>
                 </form>
-                @else
-                <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
-                </form>
+
                 @endif
             </div>
             <div class="modal-footer"></div>
@@ -425,12 +420,21 @@
                                 @foreach ($dashboardusercontrollers as $s)
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
-                                        <td>test</td>
-                                        <td>{{ $s->adminstatus}}</td>
+                                        <td>jj</td>
+                                        <td>{{ $s->jumlah}}</td>
                                         <td>{{ $s->pembelianstatus }}</td>
-                                        <td>dwfgfrewrqe</td>
+                                        <td>{{ $s->totalharga }}</td>
                                         <td>
+                                            @if ($s->pembelianstatus === 'sedang di proses')
+                                            <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-info complete-btn">Tandakan Telah Selesai</button>
+                                            </form>
+                                            @else
                                             <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">detail</button>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

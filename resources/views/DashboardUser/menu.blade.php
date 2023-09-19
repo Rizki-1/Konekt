@@ -73,7 +73,7 @@
                                     <p class="fs-4 text-dark">
                                         {{ $p->namamenu }}
                                         <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
-                                        <input type="hidden" name= "user_id" value="{{ $penjualId }}">
+                                        <input type="hidden" name= "user_id" value="{{ $user_id }}">
                                         <input type="hidden" name= "toko_id" value="{{ $p->toko_id }}">
                                     </p>
                                     <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">

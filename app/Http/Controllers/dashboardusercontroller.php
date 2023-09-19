@@ -16,7 +16,6 @@ use App\Models\notifikasipenjual;
 use App\Models\penjuallogin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\penjuallogin;
 use Illuminate\Support\Facades\DB;
 
 class dashboardusercontroller extends Controller
@@ -26,16 +25,16 @@ class dashboardusercontroller extends Controller
      */
     public function index()
     {
-        $penjualId = Auth::id();
+        $user_id = Auth::id();
         $users = userOrder::all();
-        $notifikasi = notifikasi::where('user_id_notifikasi', $penjualId);
+        $notifikasi = notifikasi::where('user_id_notifikasi', $user_id);
         $penjual =  barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
         // $ulasan = ulasan::where('barangpenjual_id', $penjual->id);
         $ulasan = ulasan::all();
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi', 'ulasan', 'penjualId'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi', 'ulasan', 'user_id'));
     }
 
     public function beli(Request $request)

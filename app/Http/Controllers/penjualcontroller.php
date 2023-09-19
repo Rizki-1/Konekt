@@ -34,7 +34,13 @@ class penjualcontroller extends Controller
 
     public function DashboardPenjual()
     {
-        return view('DashboardPenjual.dashboardpenjual');
+        $menu = barangpenjual::count();
+        $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->count();
+        $totalharga = userOrder::where('adminstatus', 'approve')->sum('totalharga');
+        // $untung = $totalharga * 0.05;
+        $pemasukkan = $totalharga - 0.05;
+        $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda'));
     }
 
     public function riwayatpenjual()

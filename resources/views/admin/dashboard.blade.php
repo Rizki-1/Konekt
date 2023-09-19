@@ -485,63 +485,6 @@
         </div>
     </div>
 
-    <div class="col-lg-12">            
-        <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600" data-iq-gsap="onStart"
-            data-iq-opacity="0"
-            data-iq-position-y="-40"
-            data-iq-duration=".6"
-            data-iq-delay="1"
-            data-iq-trigger="scroll"
-            data-iq-ease="none">
-            <div class="card-header border-0 pb-0">
-                <div class="header-title">
-                    <h4 class="card-title">Tabel Warung</h4>
-                </div>
-            </div>
-            <div class="card-body py-0">
-                <div class="table-responsive">
-                    <table id="basic-table" class="table mb-0 iq-table user-list-table" role="grid">
-                        <thead>
-                            <tr>
-                                <th>Nama Warung</th>
-                                <th>No HP</th>
-                                <th>Alamat</th>
-                                <th>Penilaian</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="../assets/images/avatars/06.png" alt="profile">
-                                        <p class="mb-0">Warung Berkah</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    089765342233
-                                </td>
-                                <td>
-                                    jln.rel
-                                </td>
-                                <td>
-                                    4.1
-                                </td>
-                                <td>
-                                    <i class="fa-solid fa-eye"></i>
-                                </td>
-                                <td>
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </td>
-                            </tr>
-                            <!-- Tambahkan baris data lainnya di sini -->
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
               <!-- Footer Section Start -->

@@ -40,7 +40,7 @@ class adminpembeliancontroller extends Controller
     {
         $adminnotifikasi = adminnotifikasi::all();
         $totalpengguna = penjuallogin::count();
-        $totaluser = User::count();
+        $totaluser = User::where('role', 'user')->count();
         $totalpembelian = userOrder::where('pembelianstatus', 'statusselesai')->count();
         $totalharga = userOrder::where('adminstatus', 'approve')->sum('totalharga');
         $untung = $totalharga * 0.05;

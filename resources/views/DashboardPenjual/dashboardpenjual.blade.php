@@ -100,7 +100,7 @@
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link active"  href="DasbhboardPenjual" >
+                        <a class="nav-link active"  href="DashboardPenjual_" >
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M16.0756 2H19.4616C20.8639 2 22.0001 3.14585 22.0001 4.55996V7.97452C22.0001 9.38864 20.8639 10.5345 19.4616 10.5345H16.0756C14.6734 10.5345 13.5371 9.38864 13.5371 7.97452V4.55996C13.5371 3.14585 14.6734 2 16.0756 2Z" fill="currentColor"></path>
@@ -297,19 +297,187 @@
                 </div>
             </nav>
         </div>
-        <div class="content-inner mt-5 py-0">
-            <div class="row">
-                <div class="col-md-24 col-lg-24">
-                    <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
-                        <div class="container11" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
-
+<div class="content-inner mt-5 py-0">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="bg-info text-white rounded p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="angka m-0">{{ $menu }}</h2>
+                            <p>Jumlah Menu</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="bg-success text-white rounded p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="angka m-0">{{ $totalpenjualan }}</h2>
+                            <p>Jumlah Penjualan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="bg-warning text-white rounded p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="angka m-0">{{ $pemasukkan }}</h2>
+                            <p>Jumlah Pemasukkan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="bg-info text-white rounded p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="angka m-0">{{ $tertunda }}</h2>
+                            <p>Pesanan Tertunda</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12"> <!-- Mengganti col-lg-7 col-xl-8 menjadi col-lg-12 -->
+            <div class="card" data-iq-gsap="onStart"
+                data-iq-opacity="0"
+                data-iq-position-y="-40"
+                data-iq-duration=".6"
+                data-iq-delay=".4"
+                data-iq-trigger="scroll"
+                data-iq-ease="none">
+                <div class="card-header">
+                    <h4 class="card-title">Total Pembelian</h4>
+                    <small>2023-2024</small>
+                </div>
+                <div class="card-body" data-iq-gsap="onStart"
+                    data-iq-opacity="0"
+                    data-iq-position-y="-40"
+                    data-iq-duration=".6"
+                    data-iq-delay=".6"
+                    data-iq-trigger="scroll"
+                    data-iq-ease="none">
+                    <div id="admin-chart-1" class="admin-chart-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-xl-7">
+            <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600" data-iq-gsap="onStart"
+                data-iq-opacity="0"
+                data-iq-position-y="-40"
+                data-iq-duration=".6"
+                data-iq-delay="1"
+                data-iq-trigger="scroll"
+                data-iq-ease="none">
+                <div class="card-header border-0 pb-0">
+                    <div class="header-title">
+                        <h4 class="card-title">Menu yang sedang populer</h4>
+                    </div>
+                </div>
+                <div class="card-body py-0">
+                    <div class="table-responsive">
+                        <table id="basic-table" class="table mb-0 iq-table user-list-table" role="grid">
+                            <thead>
+                            <tr>
+                                <th>Gambar</th>
+                                <th>Nama Produk</th>
+                                <th>Harga</th>
+                                <th>Terjual</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img class="bg-soft-primary rounded img-fluid avatar-80 me-3" src="../assets/images/avatars/06.png" alt="profile">
+                                    </div>
+                                </td>
+                                <td>
+                                    Nasi Goreng
+                                </td>
+                                <td>15.000</td>
+                                <td>
+                                    41
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-5">
+            <div class="card" style="max-height: 450px; overflow-y: scroll;">
+                <div class="card-header">
+                    <h4 class="card-title">Riwayat Pesanan</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Tambahkan riwayat pesanan di sini -->
+                    <div class="media">
+                        <img class="bg-soft-primary rounded img-fluid avatar-80 me-3" src="../assets/images/avatars/06.png" alt="profile">
+                        <div class="media-body">
+                            <h6 class="mb-0">Nasi Goreng</h6>
+                            <div class="d-flex justify-content-between align-items-center">
+                                    <p>Nomor Pesanan: #12345</p>
+                                    <p>Harga: 15.000</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="media">
+                    <img class="bg-soft-primary rounded img-fluid avatar-80 me-3" src="../assets/images/avatars/06.png" alt="profile">
+                        <div class="media-body">
+                            <h6 class="mb-0">Mie Ayam</h6>
+                            <p>Nomor Pesanan: #54321</p>
+                            <p>Harga: 18.000</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Tambahkan informasi riwayat pesanan lainnya di sini -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    </div>
+</div>
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')

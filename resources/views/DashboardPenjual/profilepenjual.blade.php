@@ -133,7 +133,7 @@
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link "  href="DasbhboardPenjual" >
+                        <a class="nav-link "  href="DashboardPenjual_" >
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M16.0756 2H19.4616C20.8639 2 22.0001 3.14585 22.0001 4.55996V7.97452C22.0001 9.38864 20.8639 10.5345 19.4616 10.5345H16.0756C14.6734 10.5345 13.5371 9.38864 13.5371 7.97452V4.55996C13.5371 3.14585 14.6734 2 16.0756 2Z" fill="currentColor"></path>
@@ -348,7 +348,7 @@
                               <p class="me-2 mb-0 text-primary">Warung Berkah</p>
                               <p class="me-2 mb-0 text-dark">wb@gmail.com</p>
                               <p class="mb-0 text-dark">Masakkan Nasi</p>
-                           </div> 
+                           </div>
                         </div>
                      </div>
                      <ul class="d-flex mb-0 text-center ">
@@ -441,44 +441,44 @@
               </div>
           </div>
       </footer>
-      <!-- Footer Section End -->    
+      <!-- Footer Section End -->
     </main>
     <!-- Wrapper End-->
     <!-- offcanvas start -->
 
     <!-- Required Library Bundle Script -->
     <script src="../../assets/js/core/libs.min.js"></script>
-    
+
     <!-- External Library Bundle Script -->
     <script src="../../assets/js/core/external.min.js"></script>
-    
+
     <!-- Widgetchart JavaScript -->
     <script src="../../assets/js/charts/widgetcharts.js"></script>
-    
+
     <!-- Mapchart JavaScript -->
     <script src="../../assets/js/charts/vectore-chart.js"></script>
     <script src="../../assets/js/charts/dashboard.js"></script>
-    
+
     <!-- Admin Dashboard Chart -->
     <script src="../../assets/js/charts/admin.js"></script>
-    
+
     <!-- fslightbox JavaScript -->
     <script src="../../assets/js/fslightbox.js"></script>
-    
+
     <!-- GSAP Animation -->
     <script src="../../assets/vendor/gsap/gsap.min.js"></script>
     <script src="../../assets/vendor/gsap/ScrollTrigger.min.js"></script>
     <script src="../../assets/js/animation/gsap-init.js"></script>
-    
+
     <!-- Stepper Plugin -->
     <script src="../../assets/js/stepper.js"></script>
-    
+
     <!-- Form Wizard Script -->
     <script src="../../assets/js/form-wizard.js"></script>
-    
+
     <!-- app JavaScript -->
     <script src="../../assets/js/app.js"></script>
-    
+
     <!-- moment JavaScript -->
     <script src="../../assets/vendor/moment.min.js"></script>  </body>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\adminmetodepembayaran;
 use App\Models\User;
 use App\Models\ulasan;
 use App\Models\Pembelian;
@@ -12,9 +13,9 @@ use App\Models\barangpenjual;
 use App\Models\adminnotifikasi;
 use App\Models\keranjang;
 use App\Models\notifikasipenjual;
+use App\Models\penjuallogin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\penjuallogin;
 use Illuminate\Support\Facades\DB;
 
 class dashboardusercontroller extends Controller
@@ -182,8 +183,6 @@ class dashboardusercontroller extends Controller
 
     public function konfimasipembelian(Request $request)
     {
-
-
         $notifikasi = notifikasi::all();
         $user_id = Auth::id();
         $userOrder = userOrder::findOrFail($request->id);
@@ -193,8 +192,9 @@ class dashboardusercontroller extends Controller
 
         $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
         $notifikasi = notifikasi::all();
+        $pembelian = adminmetodepembayaran::all();
 
-        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'user_id', 'notifikasi', 'subtotalorder'));
+        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'user_id', 'notifikasi', 'subtotalorder','pembelian'));
     }
 
 
@@ -310,6 +310,10 @@ class dashboardusercontroller extends Controller
         $penjual = barangpenjual::all();
         return view('DashboardUser.detailmenu', compact('user', 'penjual'));
     }
+    public function daftartoko(){
+        $penjuallogin = penjuallogin::all();
+        return view ('DashboardUser.daftartoko', compact('penjuallogin'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -391,7 +395,7 @@ class dashboardusercontroller extends Controller
             'komentar' => $request->komentar
 
         ];
-        dd($request->all());
+        // dd($request->all());
         ulasan::create($ulasan);
         return redirect()->route('riwayatuser');
     }
@@ -444,20 +448,17 @@ class dashboardusercontroller extends Controller
     public function update(Request $request, $id)
     {
 
+        $user_id = Auth::id();
         // dd($user_id);
         // dd($request->all());
-        $user_id = Auth::id();
         $order = userOrder::findOrFail($id);
-        // $datapenjual = barangpenjual::findOrFail($id);
         $validatedData = $request->validate([
             'barangpenjual_id' => 'required',
             'jumlah' => 'required|integer',
             'catatan' => 'string',
             'foto' => 'image|mimes:jpeg,png,jpg,gif',
             'toko_id' => 'required',
-            'user_id' =>  'required',
-            'totalharga' => 'required',
-            'metodepembayaran' => 'required'
+            'user_id' =>  'required'
         ]);
         $dashboardusercontrollers = [
             'barangpenjual_id' => $request->barangpenjual_id,

@@ -34,7 +34,13 @@ class penjualcontroller extends Controller
 
     public function DashboardPenjual()
     {
-        return view('DashboardPenjual.dashboardpenjual');
+        $menu = barangpenjual::count();
+        $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->count();
+        $totalharga = userOrder::where('adminstatus', 'approve')->sum('totalharga');
+        // $untung = $totalharga * 0.05;
+        $pemasukkan = $totalharga - 0.05;
+        $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda'));
     }
 
     public function riwayatpenjual()
@@ -62,6 +68,7 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_store(Request $request)
     {
+        // dd($request->all());
         $metodePembayaran = $request->input('metodepembayaran');
         $data = [
             'metodepembayaran' => $metodePembayaran,
@@ -69,7 +76,11 @@ class penjualcontroller extends Controller
 
         if ($metodePembayaran === 'e-wallet') {
             $data['tujuan'] = $request->input('tujuan_e_wallet');
-            $data['keterangan'] = $request->input('keterangan_e_wallet');
+            $data['keterangan'] = $request->input('keterangan');
+            $image = $request->file('keterangan');
+            $file = $image->hashName();
+            $image->storeAs('public/pembayaran',$file);
+            $data['keterangan'] = $file;
         } elseif ($metodePembayaran === 'bank') {
             $data['tujuan'] = $request->input('tujuan_bank');
             $data['keterangan'] = $request->input('keterangan_bank');

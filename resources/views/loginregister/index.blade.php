@@ -61,7 +61,7 @@
                               <div class="d-flex justify-content-center">
                                  <button type="submit" class="btn btn-primary">Sign In</button>
                               </div>
-                            </form>
+                            <!-- </form>
                               <p class="text-center my-3">or sign in with other accounts?</p>
                               <div class="d-flex justify-content-center">
                                  <ul class="list-group list-group-horizontal list-group-flush">
@@ -78,12 +78,29 @@
                                        <a href="#"><img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/brands/li.svg" alt="li"></a>
                                     </li>
                                  </ul>
-                              </div>
-                              <p class="mt-3 text-center">
-                                 Dont have an account? <a href="{{ route('register') }}" class="text-underline">Click here to sign up.</a>
-                                 Daftar jadi penjual? <a href="{{ route('penjualrole.index') }}" class="text-underline">klik disini</a>
-                              </p>
-
+                              </div> -->
+<div class="row" style="padding-top: 25px;">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+      <img src="{{asset('assets/images/admin/pembeli.jpg')}}" class="card-img-top" alt="...">
+        <h5 class="card-title"></h5>
+        <p class="card-text">Belum punya akun?</p>
+        <a href="{{ route('register') }}" class="btn btn-primary">Klik disini</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+      <img src="{{asset('assets/images/admin/penjual.jpg')}}" class="card-img-top" alt="...">
+        <h5 class="card-title"></h5>
+        <p class="card-text">Daftar jadi penjual?</p>
+        <a href="{{ route('penjualrole.index') }}" class="btn btn-primary">klik disini</a>
+      </div>
+    </div>
+  </div>
+</div>
                         </div>
             </div>
             <div class="col-md-12 col-lg-5 col-xl-8 d-lg-block d-none vh-100 overflow-hidden">

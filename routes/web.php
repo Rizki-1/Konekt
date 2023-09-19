@@ -44,6 +44,7 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::get('kategori', [adminpembeliancontroller::class, 'kategori'])->name('kategori');
     Route::post('kstore', [adminpembeliancontroller::class, 'kstore'])->name('kstore');
     Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
+    Route::delete('adestroy/{adminmp}', [adminpembeliancontroller::class, 'adestroy'])->name('adestroy');
     Route::get('DashboardAdmin',[adminpembeliancontroller::class, 'DashboardAdmin'])->name('DashboardAdmin');
     Route::get('calonpenjual', [adminpembeliancontroller::class, 'calonpenjual'])->name('calonpenjual');
     Route::get('pengajuanpembeliad', [adminpembeliancontroller::class, 'pengajuanpembeliad'])->name('pengajuanpembeliad');
@@ -53,8 +54,7 @@ Route::middleware(['AdminMiddleware'])->group(function () {
 
 Route::middleware(['userMiddleware'])->group(function ()
     {
-    Route::get('daftartoko', [dashboardusercontroller::class, 'daftartoko'])->name('daftartoko');
-    // Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('UserKeranjang');
+    Route::get('daftartoko', [dashboardusercontroller::class,'daftartoko'])->name('daftartoko');
     Route::post('pembelian/{id}', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
     Route::post('order', [dashboardusercontroller::class, 'order'])->name('order');
     Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');

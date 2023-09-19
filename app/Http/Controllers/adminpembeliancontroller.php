@@ -6,6 +6,7 @@ use Exception;
 use App\Models\User;
 use App\Models\userOrder;
 use App\Models\notifikasi;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Models\penjuallogin;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use App\Models\barangpenjual;
 use App\Models\adminnotifikasi;
 use App\Models\notifikasipenjual;
 use App\Models\adminmetodepembayaran;
+use Illuminate\Support\Facades\DB;
 
 class adminpembeliancontroller extends Controller
 {
@@ -40,11 +42,50 @@ class adminpembeliancontroller extends Controller
     {
         $adminnotifikasi = adminnotifikasi::all();
         $totalpengguna = penjuallogin::count();
-        $totaluser = User::count();
+        $totaluser = User::where('role', 'user')->count();
         $totalpembelian = userOrder::where('pembelianstatus', 'statusselesai')->count();
         $totalharga = userOrder::where('adminstatus', 'approve')->sum('totalharga');
         $untung = $totalharga * 0.05;
-        return view('admin.dashboard', compact('adminnotifikasi', 'totalpengguna', 'totaluser', 'totalpembelian', 'untung'));
+
+$data = userOrder::select(
+    DB::raw('MONTH(created_at) as month'),
+    DB::raw('YEAR(created_at) as year'),
+    'pembelianstatus',
+    DB::raw('count(*) as total')
+)
+->whereIn('pembelianstatus', ['statusselesai'])
+->groupBy('year', 'month', 'pembelianstatus')
+->get();
+
+$processedData = [];
+
+$currentYear = Carbon::now()->year; // Tahun saat ini
+$currentMonth = Carbon::now()->month; // Bulan saat ini
+
+for ($month = 1; $month <= 12; $month++) {
+    $date = Carbon::createFromDate($currentYear, $month, 1); // Membuat objek Carbon dari tahun dan bulan
+    $yearMonth = $date->isoFormat('MMMM'); // Format bulan menjadi nama bulan dalam bahasa Inggris
+
+    $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green'; // Beri warna biru untuk bulan saat ini, jika bukan bulan saat ini, beri warna hijau
+
+    $processedData[$yearMonth] = [
+        'month' => $yearMonth,
+        'statusselesai' => 0,
+        'color' => $color,
+    ];
+}
+
+foreach ($data as $item) {
+    $yearMonth = Carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM'); // Format bulan pada data
+
+    if (isset($processedData[$yearMonth])) {
+        $processedData[$yearMonth]['statusselesai'] = $item->total;
+    }
+}
+
+$chartData = array_values($processedData);
+
+        return view('admin.dashboard', compact('adminnotifikasi', 'totalpengguna', 'totaluser', 'totalpembelian', 'untung','chartData'));
     }
 
     public function terima($id)

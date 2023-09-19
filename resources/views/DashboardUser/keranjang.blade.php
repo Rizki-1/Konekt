@@ -507,7 +507,52 @@
       </body>
   </html>
 
-  {{-- JS for jumlah --}}
+{{-- JS for Update jumlah --}}
+<script>
+    $(document).ready(function () {
+        $(".minus-btn").on("click", function () {
+            updateCartItem($(this), -1);
+        });
+
+        $(".plus-btn").on("click", function () {
+            updateCartItem($(this), 1);
+        });
+
+        function updateCartItem(button, change) {
+            var inputElement = button.closest(".input-group").find("input.product-quantity");
+            var currentValue = parseInt(inputElement.val());
+            var productId = inputElement.data("product-id");
+            var newQuantity = currentValue + change;
+
+            if (newQuantity >= 1 && newQuantity <= 100) {
+                inputElement.val(newQuantity);
+
+                $.ajax({
+                    url: "{{ route('updateKeranjang') }}",
+                    type: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "productId": productId,
+                        "quantity": newQuantity
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            var totalElement = button.closest("tr").find(".total");
+                            var formattedTotal = response.totalHarga.toLocaleString('id-ID');
+                            totalElement.text(formattedTotal);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Terjadi kesalahan dalam memperbarui keranjang belanja.');
+                    }
+                });
+            }
+        }
+    });
+</script>
+{{-- JS for Update jumlah --}}
 
 {{-- AJAX delete --}}
 <script>
@@ -563,18 +608,18 @@
     $(document).ready(function () {
         // Ketika item-item checkbox individu berubah status
         $(".item-checkbox").change(function () {
+            // Periksa apakah semua item-item checkbox individu dicentang
+            var allChecked = $(".item-checkbox:checked").length === $(".item-checkbox").length;
 
-        // Periksa apakah semua item-item checkbox individu dicentang
-        var allChecked = $(".item-checkbox:checked").length === $(".item-checkbox").length;
+            // Atur status ceklis "Pilih semua" berdasarkan hasil pemeriksaan di atas
+            $("#selectAllItems").prop("checked", allChecked);
+        });
 
-        // Atur status ceklis "Pilih semua" berdasarkan hasil periksa di atas
-        $("#selectAllItems").prop("checked", allChecked);
-    });
+        // Toggle semua checkbox item saat checkbox "Pilih semua" diubah statusnya
+        $("#selectAllItems").change(function () {
+            $(".item-checkbox").prop("checked", $(this).prop("checked"));
+        });
 
-    // Toggle semua checkbox item saat checkbox "Pilih semua" diubah statusnya
-    $("#selectAllItems").change(function () {
-        $(".item-checkbox").prop("checked", $(this).prop("checked"));
-    });
         $("#beli").click(function () {
             var itemIds = [];
             // Mengumpulkan ID item yang dicentang
@@ -597,14 +642,14 @@
                 success: function (response) {
                     // Handle respons dari server
                     if (response.success) {
-                        // Redirect ke rute konfimasipembelian dengan ID pembelian yang sesuai
+                        // Redirect ke rute konfirmasi pembelian dengan ID pembelian yang sesuai
                         alert(response.message);
                     } else {
-                        alert(response.message);
+                        Swal.fire('Gagal', response.message, 'error'); // Menampilkan pesan error dengan SweetAlert
                     }
                 },
-                error: function () {
-                    alert('Terjadi kesalahan dalam melakukan pembelian.');
+                error: function (xhr, status, error) {
+                Swal.fire('Gagal', 'Terjadi kesalahan dalam melakukan pembelian.', 'error');
                 }
             });
         });

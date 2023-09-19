@@ -78,6 +78,7 @@ Route::middleware(['userMiddleware'])->group(function ()
 
 
 Route::middleware(['PenjualMiddleware'])->group(function () {
+    Route::get('DashboardPenjual/{id}/edit', 'PenjualController@edit');
     Route::resource('/DashboardPenjual', penjualcontroller::class);
     Route::get('pesananpenjual', [penjualcontroller::class, 'pesananpenjual'])->name('pesananpenjual');
     Route::patch('terimapesanan/{id}', [penjualcontroller::class, 'terimapesanan'])->name('terimapesanan');

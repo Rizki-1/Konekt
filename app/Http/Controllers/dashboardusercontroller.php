@@ -133,7 +133,7 @@ class dashboardusercontroller extends Controller
         // Validasi permintaan
         $request->validate([
             'productId' => 'required|integer', // Ganti dengan validasi yang sesuai dengan model produk Anda
-            'quantity' => 'required|integer|min:0|max:100',
+            'quantity' => 'required|integer|min:1|max:100',
         ]);
 
         // Dapatkan data produk dari permintaan
@@ -183,6 +183,7 @@ class dashboardusercontroller extends Controller
 
     public function konfimasipembelian(Request $request)
     {
+
         $notifikasi = notifikasi::all();
         $user_id = Auth::id();
         $userOrder = userOrder::findOrFail($request->id);

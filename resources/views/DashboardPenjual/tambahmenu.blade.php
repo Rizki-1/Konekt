@@ -20,16 +20,21 @@
     {{-- bootstrap icon --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
     </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
 @include('layout.sweetalert')
 
-{{-- Modal Start --}}
-<form action="{{ route('DashboardPenjual.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-<div class="modal" id="myModal" tabindex="-1">
+{{-- Modal Store --}}
+<div class="modal fade" id="myModal" tabindex="-1" >
+    <form action="{{ route('DashboardPenjual.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="toko_id" value="{{ $penjualId }}">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -39,7 +44,6 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="kelas" class="form-label fw-bold">Nama Menu</label>
-                        <input type="hidden" name="toko_id" value="{{ $penjualId }}">
                         <input type="text" name="namamenu" class="form-control @error('namamenu') is-invalid @enderror" value="{{ old('namamenu') }}">
                         @error('namamenu')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -48,7 +52,7 @@
                     <div class="mb-3">
                         <label for="kelas" class="form-label fw-bold">Kategori</label>
                         <select name="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
-                            <option value="" disabled selected>Pilih kategori</option>
+                            <option value="" disabled>Pilih kategori</option>
                             @foreach ($adminkategori as $siswa)
                                 <option value="{{ $siswa->id }}" {{ old('kategori_id') == $siswa->id ? 'selected' : '' }}>{{ $siswa->kategori }}</option>
                             @endforeach
@@ -81,43 +85,87 @@
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
-{{-- Script for image preview --}}
+{{-- AJAX Store --}}
 <script>
-    // Fungsi untuk menampilkan pratinjau gambar
-    function previewImage() {
-        var fileInput = document.getElementById('previewImage');
-        var imagePreview = document.getElementById('imagePreview');
+    $(document).ready(function () {
+        // Menampilkan gambar terpilih
+        $("#previewImage").change(function () {
+        readURL(this);
+        });
 
-        fileInput.addEventListener('change', function () {
-            while (imagePreview.firstChild) {
-                imagePreview.removeChild(imagePreview.firstChild);
-            }
-
-            var file = fileInput.files[0];
-            if (file) {
+        // Fungsi untuk menampilkan gambar terpilih
+        function readURL(input) {
+            if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = 'img-thumbnail';
-                    imagePreview.appendChild(img);
+                    $("#imagePreview").html('<img src="' + e.target.result + '" class="img-fluid" alt="Preview Gambar" />');
                 };
 
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(input.files[0]);
             }
+        }
+
+        // Tangani klik tombol "Simpan"
+        $("#myModal form").submit(function (e) {
+            e.preventDefault();
+
+            // Hapus pesan kesalahan yang mungkin sudah ada
+            $(".is-invalid").removeClass('is-invalid');
+            $(".invalid-feedback").remove();
+
+            var formData = new FormData($(this)[0]); // Dapatkan data formulir
+            formData.append('_token', '{{ csrf_token() }}'); // Tambahkan token CSRF
+
+            $.ajax({
+                url: "{{ route('DashboardPenjual.store') }}",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Tanggapan berhasil, lakukan sesuatu jika perlu
+                    if (response.success) {
+                        $("#myModal").modal("hide"); // Sembunyikan modal
+                        Swal.fire('Sukses', 'Berhasil menambahkan menu, silahkan refresh halaman.', 'success');
+
+                        setTimeout(function() {
+                        location.reload();
+                        }, 2000);
+                    } else {
+                        Swal.fire('Gagal', 'Terjadi kesalahan saat menambahkan menu.', 'error');
+                    }
+                },
+                error: function (xhr, status, error) {
+                // Tangani kesalahan status respons
+                if (xhr.status === 422) {
+                    var responseErrors = xhr.responseJSON.errors;
+
+                    $.each(responseErrors, function (key, value) {
+                        var inputField = $("input[name='" + key + "']");
+                        inputField.addClass('is-invalid');
+                        if (inputField.is('select')) {
+                        inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
+                    } else {
+                        // Jika bukan elemen select, tambahkan pesan validasi setelah elemen
+                        inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
+                    }
+
+                    });
+                } else {
+                    Swal.fire('Gagal', 'Terjadi kesalahan saat menambahkan menu.', 'error');
+                }
+                }
+            });
         });
-    }
-
-    // Panggil fungsi pratinjau gambar
-    previewImage();
+    });
 </script>
-{{-- Script for image preview --}}
+{{-- AJAX Store --}}
 
-{{-- Modal End --}}
+{{-- Modal Store --}}
 
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -352,94 +400,287 @@
         @php
         $no = 1;
         @endphp
-    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
-    @foreach ($penjual as $p)
-            <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
+        @foreach ($penjual as $p)
+                <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
 
-                    <div class="col active"
-                        data-iq-gsap="onStart"
-                        data-iq-opacity="0"
-                        data-iq-position-y="-40"
-                        data-iq-duration=".6"
-                        data-iq-delay=".6"
-                        data-iq-trigger="scroll"
-                        data-iq-ease="none">
+                        <div class="col active"
+                            data-iq-gsap="onStart"
+                            data-iq-opacity="0"
+                            data-iq-position-y="-40"
+                            data-iq-duration=".6"
+                            data-iq-delay=".6"
+                            data-iq-trigger="scroll"
+                            data-iq-ease="none">
+                        </div>
+                        <div class="card card-white dish-card profile-img mb-0">
+                            <div class="profile-img21">
+                                <!-- tempat foto -->
+                                <img src="{{ Storage::url($p->fotomakanan) }}" class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                                    alt="profile-image">
+                                <img src="{{ Storage::url($p->fotomakanan) }}" class="img-fluid rounded-pill avatar-170 hover-image " alt="profile-image"
+                                data-iq-gsap="onStart"
+                                data-iq-opacity="0"
+                                data-iq-scale=".6"
+                                data-iq-rotate="180"
+                                data-iq-duration="1"
+                                data-iq-delay=".6"
+                                data-iq-trigger="scroll"
+                                data-iq-ease="none"
+                                >
+                            </div>
+
+                <!-- Menu muter muter Start -->
+                <div class="card-body menu-image">
+                    <h6 class="heading-title fw-bolder mt-4 mb-0">{{ $p->namamenu }}</h6>
+                    <h6 class="heading-title fw-bolder mt-4 mb-0">{{ $p->toko_id }}</h6>
+                    <div class="card-rating stars-ratings">
+                        @for ($i = 0; $i < 4; $i++)
+                            <svg width="18" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z" fill="currentColor"/>
+                            </svg>
+                        @endfor
                     </div>
-                    <div class="card card-white dish-card profile-img mb-0">
-                         <div class="profile-img21">
-                            <!-- tempat foto -->
-                             <img src="{{ Storage::url($p->fotomakanan) }}" class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
-                                 alt="profile-image">
-                             <img src="{{ Storage::url($p->fotomakanan) }}" class="img-fluid rounded-pill avatar-170 hover-image " alt="profile-image"
-                             data-iq-gsap="onStart"
-                             data-iq-opacity="0"
-                             data-iq-scale=".6"
-                             data-iq-rotate="180"
-                             data-iq-duration="1"
-                             data-iq-delay=".6"
-                             data-iq-trigger="scroll"
-                             data-iq-ease="none"
-                             >
-                         </div>
-
-            <!-- Menu muter muter Start -->
-            <div class="card-body menu-image">
-                <h6 class="heading-title fw-bolder mt-4 mb-0">{{ $p->namamenu }}</h6>
-                <h6 class="heading-title fw-bolder mt-4 mb-0">{{ $p->toko_id }}</h6>
-                <div class="card-rating stars-ratings">
-                    @for ($i = 0; $i < 4; $i++)
-                        <svg width="18" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z" fill="currentColor"/>
-                        </svg>
-                    @endfor
-                </div>
-                <div class="d-flex justify-content-between mt-3">
-                <div class="d-flex align-items-center">
-                        <span class="text-primary fw-bolder me-2">{{ $p->harga }}</span>
+                    <div class="d-flex justify-content-between mt-3">
+                    <div class="d-flex align-items-center">
+                        <span class="text-primary fw-bolder me-2">Rp. {{ number_format($p->harga) }}</span>
                         <small class="text-decoration-line-through">{{ $p->kategori }}</small>
                     </div>
-                    <form id="delete-form-{{ $p->id }}" action="{{ route('DashboardPenjual.destroy', $p->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-outline-warning edit-btn" data-id="{{ $p->id }}"><i class="bi bi-pencil-square"></i></button>
                         <button type="submit" class="btn btn-sm btn-outline-danger delete-btn" data-id="{{ $p->id }}"><i class="bi bi-trash"></i></button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
-    @endforeach
-</div>
 
-{{-- ALERT DELETE --}}
+{{-- AJAX DELETE --}}
 <script>
-    // Tambahkan event listener untuk tombol delete dengan class 'delete-btn'
-    document.querySelectorAll('.delete-btn').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            var id = this.getAttribute('data-id');
+    $(document).ready(function () {
+        // Tangani klik tombol "Delete"
+        $(".delete-btn").click(function () {
+            var itemId = $(this).data("id"); // Dapatkan ID item dari atribut data
 
+            // Simpan referensi ke elemen yang akan dihapus
+            var $itemToDelete = $(this).closest(".col-xl-3.col-lg-3.col-md-6.col-12.dish-card-horizontal.mt-2");
+
+            // Konfirmasi penghapusan dengan SweetAlert atau pesan konfirmasi lainnya
             Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: 'Data akan terhapus selamanya!',
+                title: 'Konfirmasi',
+                text: 'Anda yakin ingin menghapus item ini?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Lanjutkan!',
-                cancelButtonText: 'Batalkan!',
-                reverseButtons: true
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Jika user mengonfirmasi, submit form delete dengan ID yang sesuai
-                    document.getElementById('delete-form-' + id).submit();
+                    // Jika pengguna mengonfirmasi penghapusan, kirim permintaan DELETE dengan AJAX
+                    $.ajax({
+                        url: "{{ route('DashboardPenjual.destroy', '') }}" + "/" + itemId,
+                        type: "DELETE",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        success: function (response) {
+                            // Tanggapan berhasil, lakukan sesuatu jika perlu
+                            if (response.success) {
+                                // Item berhasil dihapus, hapus elemen dari tampilan
+                                $itemToDelete.remove();
+                                Swal.fire('Sukses', 'Berhasil menghapus menu.', 'success');
+                            } else {
+                                Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus item.', 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus item.', 'error');
+                        }
+                    });
                 }
             });
         });
     });
 </script>
-{{-- ALERT DELETE --}}
+{{-- AJAX DELETE --}}
 
-      {{-- @include('layout.footer') --}}
-    </main>
-    @include('layout.js')
-  </body>
+{{-- Modal Edit --}}
+<div class="modal fade" id="editModal" tabindex="-1">
+    <form action="{{ route('DashboardPenjual.update', ['DashboardPenjual' => $p->id]) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="toko_id" value="{{ $penjualId }}">
+        <input type="hidden" name="item_id" id="editItemID"> <!-- Ini adalah input tersembunyi untuk menyimpan ID item yang akan diubah -->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalTitle">Edit Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="namamenu" class="form-label fw-bold">Nama Menu</label>
+                        <input type="text" name="namamenu" id="editNamamenu" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="kategori_id" class="form-label fw-bold">Kategori</label>
+                        <select name="kategori_id" id="editKategoriID" class="form-control">
+                            <option value="" disabled>Pilih kategori</option>
+                            @foreach ($adminkategori as $siswa)
+                                <option value="{{ $siswa->id }}">{{ $siswa->kategori }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="harga" class="form-label fw-bold">Harga</label>
+                        <input type="text" name="harga" id="editHarga" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fotomakanan" class="form-label fw-bold">Foto Makanan</label>
+                        <input type="file" name="fotomakanan" class="form-control" id="editPreviewImage">
+                        <div id="editImagePreview" class="mt-2"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{{-- Modal Edit --}}
+
+{{-- AJAX Edit --}}
+<script>
+    $(document).ready(function () {
+        // Tangani klik tombol "Edit"
+        $(".edit-btn").click(function () {
+            var itemId = $(this).data("id"); // Dapatkan ID item dari atribut data'
+
+            // Reset pesan kesalahan dari validasi sebelumnya
+            $(".is-invalid").removeClass('is-invalid');
+            $(".invalid-feedback").remove();
+
+            // Kirim permintaan GET untuk mendapatkan data item yang akan diedit
+            $.ajax({
+                url: "{{ url('DashboardPenjual') }}" + "/" + itemId + "/edit",
+                type: "GET",
+                success: function (response) {
+                    if (response.success) {
+                        // Isi nilai-nilai dalam modal edit dengan data item
+                        $("#editNamamenu").val(response.data.namamenu);
+                        $("#editKategoriID").val(response.data.kategori_id);
+                        $("#editHarga").val(response.data.harga);
+
+                    // Tampilkan gambar saat ini di modal
+                    if (response.data.fotomakanan) {
+                        var imageUrl = "{{ asset('storage/') }}/" + response.data.fotomakanan;
+                        $("#editImagePreview").html('<img src="' + imageUrl + '" class="img-fluid" alt="Preview Gambar" />');
+                    } else {
+                        $("#editImagePreview").html('');
+                    }
+                        // Simpan ID item yang akan diubah
+                        $("#editItemID").val(itemId);
+
+                        // Tampilkan modal edit
+                        $("#editModal").modal("show");
+
+                        // Tampilkan gambar terpilih
+                        $("#editPreviewImage").change(function () {
+                            readURL(this);
+                        });
+
+                        // Fungsi untuk menampilkan gambar terpilih
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    $("#editImagePreview").html('<img src="' + e.target.result + '" class="img-fluid" alt="Preview Gambar" />');
+                                };
+
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+
+                    } else {
+                        Swal.fire('Gagal', 'Terjadi kesalahan saat mengambil data item.', 'error');
+                    }
+                },
+                error: function () {
+                    Swal.fire('Gagal', 'Terjadi kesalahan saat mengambil data item.', 'error');
+                }
+            });
+        });
+
+        // Tangani klik tombol "Simpan Perubahan" pada modal edit
+        $("#editModal form").submit(function (e) {
+            e.preventDefault();
+
+            // Reset pesan kesalahan dari validasi sebelumnya
+            $(".is-invalid").removeClass('is-invalid');
+            $(".invalid-feedback").remove();
+
+            var itemId = $("#editItemID").val(); // Dapatkan ID item yang akan diubah
+            var formData = new FormData($(this)[0]); // Dapatkan data formulir
+            formData.append('_token', '{{ csrf_token() }}'); // Tambahkan token CSRF
+            formData.append('_method', 'PUT'); // Tambahkan metode PUT
+            // Kirim permintaan PUT untuk menyimpan perubahan
+            $.ajax({
+                url: "{{ url('DashboardPenjual') }}" + "/" + itemId,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Tanggapan berhasil, lakukan sesuatu jika perlu
+                    if (response.success) {
+                        // Sembunyikan modal edit
+                        $("#editModal").modal("hide");
+
+                        Swal.fire('Sukses', 'Berhasil memperbarui data menu.', 'success');
+
+                        setTimeout(function() {
+                        location.reload();
+                        }, 2000);
+                    } else {
+                        Swal.fire('Gagal', 'Terjadi kesalahan saat menyimpan perubahan.', 'error');
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 422) {
+                        var responseErrors = xhr.responseJSON.errors;
+
+                        $.each(responseErrors, function (key, value) {
+                        var inputField = $("input[name='" + key + "']");
+                        inputField.addClass('is-invalid');
+                        // Jika ini elemen select, tambahkan pesan validasi di bawahnya
+                    if (inputField.is('select')) {
+                        inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
+                    } else {
+                        // Jika bukan elemen select, tambahkan pesan validasi setelah elemen
+                        inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
+                    }
+
+                    });
+                    } else {
+                        // Menampilkan pesan kesalahan umum jika bukan 422
+                        Swal.fire('Gagal', 'Terjadi kesalahan saat menyimpan perubahan.', 'error');
+                    }
+                }
+            });
+        });
+    });
+</script>
+{{-- AJAX Edit --}}
+
+{{-- @include('layout.footer') --}}
+
+
+            </main>
+        @include('layout.js')
+    </body>
 </html>
 

@@ -39,7 +39,12 @@ class adminpembeliancontroller extends Controller
     public function DashboardAdmin()
     {
         $adminnotifikasi = adminnotifikasi::all();
-        return view('admin.dashboard', compact('adminnotifikasi'));
+        $totalpengguna = penjuallogin::count();
+        $totaluser = User::count();
+        $totalpembelian = userOrder::where('pembelianstatus', 'statusselesai')->count();
+        $totalharga = userOrder::where('adminstatus', 'approve')->sum('totalharga');
+        $untung = $totalharga * 0.05;
+        return view('admin.dashboard', compact('adminnotifikasi', 'totalpengguna', 'totaluser', 'totalpembelian', 'untung'));
     }
 
     public function terima($id)

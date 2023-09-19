@@ -383,140 +383,167 @@
               <link rel="stylesheet" href="../assets/css/core/libs.min.css">
 
               <!-- Custom Css -->
-              <link rel="stylesheet" href="../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
+              <link rel="stylesheet" href="../assets/css/aprycot.mine209.css?v=1.0.0">  
+            
+        </head>
 
-
-
-
-        <div class="row" style="margin-left: 20px; width:1800px;">
-            <div class="col-lg-7 col-xl-8">
-                <div class="card"  data-iq-gsap="onStart"
-              data-iq-opacity="0"
-              data-iq-position-y="-40"
-              data-iq-duration=".6"
-              data-iq-delay=".4"
-              data-iq-trigger="scroll"
-              data-iq-ease="none">
-                    <div class="card-header">
-                        <h4 class="card-title">Sales Figures</h4>
-                        <small>2017-2018</small>
-                    </div>
-                    <div class="card-body"  data-iq-gsap="onStart"
-                             data-iq-opacity="0"
-                             data-iq-position-y="-40"
-                             data-iq-duration=".6"
-                             data-iq-delay=".6"
-                             data-iq-trigger="scroll"
-                             data-iq-ease="none">
-                        <div id="admin-chart-1" class="admin-chart-1"></div>
-                    </div>
-                </div>
-
-
-
-                <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600"  data-iq-gsap="onStart"
-                          data-iq-opacity="0"
-                          data-iq-position-y="-40"
-                          data-iq-duration=".6"
-                          data-iq-delay="1"
-                          data-iq-trigger="scroll"
-                          data-iq-ease="none">
-                    <div class="card-header border-0 pb-0">
-                        <div class="header-title">
-                            <h4 class="card-title">Tabel Warung</h4>
+        <div class="content-inner mt-5 py-0">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="bg-info text-white rounded p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
                         </div>
-                    </div>
-                    <div class="card-body py-0">
-                        <div class="table-responsive">
-                            <table id="basic-table" class="table mb-0 iq-table user-list-table" role="grid">
-                                <thead >
-                                    <tr>
-                                        <th>Nama Warung</th>
-                                        <th>No HP</th>
-                                        <th>Alamat</th>
-                                        <th>Penilaian</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr >
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                            <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="../assets/images/avatars/06.png" alt="profile">
-                                            <p class="mb-0">Warung Berkah</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            089765342233
-                                        </td>
-                                        <td>jln.rel</td>
-                                        <td>
-                                            4.1
-                                        </td>
-                                        <td><i class="fa-solid fa-eye"></i></td>
-                                        <td><i class="fa-solid fa-trash-can"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                            <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="../assets/images/avatars/07.png" alt="profile">
-                                            <p class="mb-0">Warung Sedakah</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            0983122123
-                                        </td>
-                                        <td>jln.scip</td>
-                                        <td>
-                                           5.0
-                                        </td>
-                                        <td><i class="fa-solid fa-eye"></i></td>
-                                        <td><i class="fa-solid fa-trash-can"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                            <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="../assets/images/avatars/08.png" alt="profile">
-                                            <p class="mb-0">Warung Barokah</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            086782334126
-                                        </td>
-                                        <td>jln.berji</td>
-                                        <td>
-                                            3.9
-                                        </td>
-                                        <td><i class="fa-solid fa-eye"></i></td>
-                                        <td><i class="fa-solid fa-trash-can"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                            <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="../assets/images/avatars/09.png" alt="profile">
-                                            <p class="mb-0">Warung Hadi</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            091233212456
-                                        </td>
-                                        <td>jln.ada</td>
-                                        <td>
-                                            3.8
-                                        </td>
-                                        <td><i class="fa-solid fa-eye"></i></td>
-                                        <td><i class="fa-solid fa-trash-can"></i></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="text-end">
+                            <h2 class="angka m-0">{{ $totalpengguna }}</h2>
+                            <p>jumlah Penjual</p>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="bg-success text-white rounded p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="angka m-0">{{ $totaluser }}</h2>
+                            <p>Jumlah User</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="bg-warning text-white rounded p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="angka m-0">{{ $totalpembelian }}</h2>
+                            <p>Jumlah Pembelian</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="bg-info text-white rounded p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="angka m-0">{{ $untung }}</h2>
+                            <p>Untung</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-              </div>
+    <div class="row">
+        <div class="col-lg-12"> <!-- Mengganti col-lg-7 col-xl-8 menjadi col-lg-12 -->
+            <div class="card" data-iq-gsap="onStart"
+                data-iq-opacity="0"
+                data-iq-position-y="-40"
+                data-iq-duration=".6"
+                data-iq-delay=".4"
+                data-iq-trigger="scroll"
+                data-iq-ease="none">
+                <div class="card-header">
+                    <h4 class="card-title">Total Pembelian</h4>
+                    <small>2023-2024</small>
+                </div>
+                <div class="card-body" data-iq-gsap="onStart"
+                    data-iq-opacity="0"
+                    data-iq-position-y="-40"
+                    data-iq-duration=".6"
+                    data-iq-delay=".6"
+                    data-iq-trigger="scroll"
+                    data-iq-ease="none">
+                    <div id="admin-chart-1" class="admin-chart-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">            
+        <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600" data-iq-gsap="onStart"
+            data-iq-opacity="0"
+            data-iq-position-y="-40"
+            data-iq-duration=".6"
+            data-iq-delay="1"
+            data-iq-trigger="scroll"
+            data-iq-ease="none">
+            <div class="card-header border-0 pb-0">
+                <div class="header-title">
+                    <h4 class="card-title">Tabel Warung</h4>
+                </div>
+            </div>
+            <div class="card-body py-0">
+                <div class="table-responsive">
+                    <table id="basic-table" class="table mb-0 iq-table user-list-table" role="grid">
+                        <thead>
+                            <tr>
+                                <th>Nama Warung</th>
+                                <th>No HP</th>
+                                <th>Alamat</th>
+                                <th>Penilaian</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="../assets/images/avatars/06.png" alt="profile">
+                                        <p class="mb-0">Warung Berkah</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    089765342233
+                                </td>
+                                <td>
+                                    jln.rel
+                                </td>
+                                <td>
+                                    4.1
+                                </td>
+                                <td>
+                                    <i class="fa-solid fa-eye"></i>
+                                </td>
+                                <td>
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </td>
+                            </tr>
+                            <!-- Tambahkan baris data lainnya di sini -->
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
               <!-- Footer Section Start -->
               <footer class="footer">
                   <div class="footer-body">
@@ -537,49 +564,11 @@
               <!-- Footer Section End -->    </main>
                      </html>
 
-         {{-- akhir --}}
-        <div class="content-inner mt-5 py-0">
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
-                        <div>
-                            <canvas id="myChart"></canvas>
-                          </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'december'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3, 5, 6, 7, 8, 1, 2],
-        backgroundColor: '#9BD0F5',
-        borderWidth: 5
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
 </body>
 
 </html>

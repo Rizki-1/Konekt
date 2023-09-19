@@ -120,7 +120,7 @@
         @endif
         {{-- Alert --}}
 
-    <form action="{{ route('pembayaranpenjual_store') }}" method="POST">
+    <form action="{{ route('pembayaranpenjual_store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="modal" id="myModal" tabindex="-1">
         <div class="modal-dialog">
@@ -166,11 +166,11 @@
           </div>
           <div class="mb-3">
             <label for="keterangan_e_wallet" class="form-label fw-bold">Keterangan</label>
-            <textarea class="form-control" id="keterangan_e_wallet" name="keterangan_e_wallet" rows="3"></textarea>
+            <input type="file" class="form-control" id="keterangan" name="keterangan">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Kembali</button>
           <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
       </div>
@@ -191,11 +191,11 @@
           </div>
           <div class="mb-3">
             <label for="keterangan_bank" class="form-label fw-bold">Keterangan</label>
-            <textarea class="form-control" id="keterangan_bank" name="keterangan_bank" rows="3"></textarea>
+            <input type="number" class="form-control" id="keterangan_bank" name="keterangan_bank" rows="3">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Kembali</button>
           <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
       </div>
@@ -432,7 +432,6 @@
                         <th scope="col">metode pembayaran</th>
                         <th scope="col">tujuan</th>
                         <th scope="col">keterangan</th>
-                        <!-- <th scope="col">Foto</th> -->
                         <th scope="col">aksi</th>
                       </tr>
                     </thead>
@@ -445,15 +444,25 @@
                         <th scope="row">{{ $no ++ }}</th>
                         <td>{{ $p->metodepembayaran }}</td>
                         <td>{{ $p->tujuan }}</td>
-                        <td>{{ $p->keterangan }}</td>
-                        <!-- <td>{{ $p->fotoqris }}</td> -->
+                        @php
+                        $i =strlen($p->keterangan);
+                        @endphp
                         <td>
+                          @if ($i >= 15)
+                          <img src="{{ asset('storage/pembayaran/'. $p->keterangan)}}" style="width:120px;height:120px;" alt="tes">
+                            @else
+                            {{ $p->keterangan }}
+                            @endif
+                        </td>
+                        <td>
+                          <div class="d-flex">
+                                <button style="margin-right: 10px;" class="btn btn-warning"> edit </button>
                             <form action="{{ route('pembayaranpenjual_destroy', $p->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger"> hapus </button>
+                            <button type="submit" class="btn btn-danger"> hapus </button>
                             </form>
-                            <button class="btn btn-warning"> edit </button>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

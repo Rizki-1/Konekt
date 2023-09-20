@@ -379,26 +379,13 @@
           </div>
         </nav>
       </div>
-      <div class="content-inner mt-5 py-0">
-<div class="row">
-   <div class="col-md-12 col-lg-12">
-      <div class=" "
-      data-iq-gsap="onStart"
-      data-iq-opacity="0"
-      data-iq-position-y="-40"
-      data-iq-duration=".6"
-      data-iq-delay=".8"
-      data-iq-trigger="scroll"
-      data-iq-ease="none"
-      style="position: relative"
-      >
-      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Success</button>
       <!-- The modal itself -->
       <!-- Start Isi Dashboard -->
       <div class="content-inner mt-5 py-0">
-         <div class="row">
-            <div class="col-md-12 col-lg-12">
-
+        <div class="card border-0 shadow rounded">
+          <div class="card-body">                    
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal">Success</button>
+            
                   <div class="col active"
                      data-iq-gsap="onStart"
                      data-iq-opacity="0"

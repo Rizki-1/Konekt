@@ -361,7 +361,7 @@
                               <h6>No antrian {{ $u->nomor_antrian }}</h6>
                           </tr>
                           <tr>
-                              <h6>Rp.{{ $u->totalharga }} 1 (menu)- Dana</h6>
+                              <h6>Rp.{{ $u->totalharga }} 1 (menu) {{ $u->metodepembayaran }}</h6>
                           </tr><br>
 
                           @if ($u->pembelianstatus === 'selesai')

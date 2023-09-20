@@ -36,9 +36,15 @@ class penjualcontroller extends Controller
     {
         $menu = barangpenjual::count();
         $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->count();
-        $totalharga = userOrder::where('adminstatus', 'approve')->sum('totalharga');
-        // $untung = $totalharga * 0.05;
-        $pemasukkan = $totalharga - 0.05;
+        $totalharga = userOrder::where('pembelianstatus', 'statusselesai')->sum('totalharga');
+        $untung = $totalharga * 0.05;
+        // $pemasukkan = $totalharga - ($untung - 0.05);
+        if($totalharga > 1)
+        {
+            $pemasukkan = $totalharga - ($untung - 0.05);
+        } else {
+            $pemasukkan = $totalharga - ($untung - 0.05);
+        }        
         $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
         return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda'));
     }

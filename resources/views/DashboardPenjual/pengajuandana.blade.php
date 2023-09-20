@@ -303,8 +303,8 @@
         </div>
 
         <div class="content-inner mt-5 py-0">
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
+            <div class="card border-0 shadow rounded">
+                <div class="card-body">                    
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">

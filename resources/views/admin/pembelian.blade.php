@@ -94,6 +94,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kuliner kita</title>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
     <!-- Favicon -->
     <link rel="shortcut icon"
         href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
@@ -341,8 +344,8 @@
             </nav>
         </div>
         <div class="content-inner mt-5 py-0">
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
+            <div class="card border-0 shadow rounded">
+                <div class="card-body">                    
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
@@ -350,7 +353,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
-                                    <th scope="col">Nama Makanan</th>
+                                    <th scope="col">Jumlah Pesanan</th>
                                     <th scope="col">metode pembayaran</th>
                                     <th scope="col">Total Harga</th>
                                     <th scope="col">Aksi</th>
@@ -363,19 +366,19 @@
                                 @foreach ($dashboardusercontrollers as $s)
                                 <tr>
                                     <th scope="row">{{ $no++ }}</th>
-                                    <td>{{ $s->adminstatus }}</td>
-                                    <td>test</td>
-                                    <td><div style="margin-left:40px;">{{ $s->barangpenjual_id }}</div></td>
+                                    <td>{{ $s->jumlah }}</td>
+                                    <td>{{$s->metodepembayaran}}</td>
+                                    <td><div style="margin-left:40px;">{{number_format($s->totalharga, 0, ',', '.')}}</div></td>
                                     <td class="d-flex">
                                         <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="PATCH">
-                                            <button type="submit" class="btn btn-success" style="margin-left: -100px;">terima</button>
+                                            <button type="submit" class="btn btn-outline-success"><i class="bi bi-check-circle"></i></button>
                                         </form>
                                         <form action="{{ route('admin.tolak', ['id' => $s->id]) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="PATCH">
-                                            <button type="submit" class="btn btn-danger" style="margin-left: 20px;">tolak</button>
+                                            <button type="submit" class="btn btn-outline-danger delete-btn" data-id="{{ $s->id }}"><i class="bi bi-x-circle"></i></button>
                                         </form>
                                     </td>
                                 </tr>

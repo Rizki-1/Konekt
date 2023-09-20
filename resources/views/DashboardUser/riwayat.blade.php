@@ -56,6 +56,18 @@
         .main-content {
             flex: 1px;
         }
+      
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+    }
+
+    label i.fas.fa-star {
+        font-size: 24px; /* Ganti ukuran sesuai keinginan Anda */
+    }
+
+    /*  */
+
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -70,45 +82,56 @@
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
-    <form action="{{ route('ulasan') }}" method="POST">
-        @csrf
-        <div class="modal" id="myModal" tabindex="-1">
+@foreach ($penjual as $p)
+@if (is_object($p))
+<form action="{{ route('ulasan', ['id' => $p->id]) }}" method="POST">
+@csrf
+        <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}"> 
+        <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Modal title</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        @foreach ($penjual as $p)
                             <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
-                        @endforeach
-                    </div>
-                    <div class="modal-body">
-                        <label for="ulasan"> berikan komentar </label>
-                        <input type="text" name="komentar" class="form-control">
-                    </div>
-                    <div class="modal-body">
-                        @for ($i = 1; $i <= 5; $i++)
-                            <label style="color:gray">
-                                <input type="radio" name="rating" value="{{ $i }}" class="form-control"
-                                    min="1" max="5" onchange="toggleStart(this)">
+                        </div>
+                        <div class="modal-body">
+                        {{ $p->rating }}
+                            @for ($i = 1; $i <= 5; $i++)
+                            <label style="color: gray; cursor: pointer;">
+                                <input type="radio" name="rating" value="{{ $i }}" class="form-control" min="1" max="5" onchange="toggleStart(this)">
                                 <i class="fas fa-star"></i>
-                            </label>
-                        @endfor
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                            </label>  
+                            @endfor
+                        </div>
+                        <div class="modal-body">
+                        {{ $p->komentar }}
+                            <label for="ulasan"> berikan komentar </label>
+                            <input type="text" name="komentar" class="form-control" value="{{ $p->komentar }}">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form action="{{ route('riwayatuser', ['id' => $p->id]) }}" method="GET">
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </form>
+                            @else
+                            <p>Data tidak ditemukan.</p>
+    @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+            @endforeach
+        </form>
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -329,9 +352,9 @@
                                         <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10"
                                             alt="">
                                         <div class="img-content">
-                                            @foreach ($penjual as $Penjual)
-                                                <h5>{{ $Penjual->namamenu }}</h5>
-                                            @endforeach
+                                           
+                                                <h5>namanmenu</h5>
+                                            
                                             <tr>{{ $u->barangpenjual_id }}</tr>
                                             @dump($u->barangpenjual_id)
                                             <tr>{{ $u->pembelianstatus }}</tr><br>
@@ -341,7 +364,7 @@
                                                     <div class="btn btn-success" style="">pesanan telah selasai
                                                     </div>
                                                     <div class="btn btn-warning" type="button"
-                                                        data-bs-toggle="modal" data-bs-target="#myModal"
+                                                        data-bs-toggle="modal" data-bs-target="#myModal-{{$p->id}}"
                                                         style="">beri ulasan</div>
                                                 @else
                                                     <div class="btn btn-warning">ajukan pengembalian dana</div>
@@ -358,22 +381,40 @@
             {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
-    <script>
-        function toggleStar(radioElement) {
-            const stars = document.querySelectorAll(.fas.fas_star);
-            const index = parseInt(radioElement.value) - 1;
+    <!-- <script>
+    function toggleStar(radioElement) {
+        const stars = document.querySelectorAll('.fas.fa-star');
+        const index = parseInt(radioElement.value) - 1;
 
-            for (let i = 0; i <= stars.length; i++) {
-                if (i <= index) {
-                    stars[i].classList.css('color', 'gray');
-                    stars[i].classList.css('color', 'yellow');
-                } else {
-                    stars[i].classList.css('color', 'yellow');
-                    stars[i].classList.css('color', 'gray');
-                }
+        for (let i = 0; i < stars.length; i++) {
+            if (i <= index) {
+                stars[i].style.color = 'yellow';
+            } else {
+                stars[i].style.color = 'gray';
             }
         }
-    </script>
+    }
+</script> -->
+<script>
+    function toggleStart(radioElement) {
+        const stars = radioElement.parentNode.querySelectorAll('.fas.fa-star');
+        const index = parseInt(radioElement.value) - 1;
+
+        for (let i = 0; i < stars.length; i++) {
+            if (i <= index) {
+                stars[i].style.color = 'yellow';
+            } else {
+                stars[i].style.color = 'gray';
+            }
+        }
+    }
+</script>
+
+
 </body>
 
 </html>
+
+
+
+

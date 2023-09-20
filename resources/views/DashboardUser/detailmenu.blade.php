@@ -288,129 +288,74 @@
         <!--Nav End-->
       </div>
       <div class="content-inner mt-5 py-0">
-      @foreach ($penjual as $p)
-    <div class="row">
-        <div class="col-lg-6 col-xl-7">
-            <div class="card">
-                <div class="card-header border-bottom-0 pb-0">
-                    <h2 class="card-title">Detail Menu</h2>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-12 col-xl-5  mb-4 mt-xl-0">
+        @foreach ($penjual as $p)
+        <div class="row">
+            <div class="col-lg-6 col-xl-7">
+                <div class="card">
+                    <div class="card-header border-bottom-0 pb-0">
+                        <h2 class="card-title">Detail Menu</h2>
+                    </div>
+                    <div class="card-body">
+                        <!-- <div class="row">
+                            <div class="col-lg-12 col-xl-5  mb-4 mt-xl-0">
+                            <img src="{{asset('Storage/' . $p->fotomakanan)}}"
+                            class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                            alt="profile-image">
                         <img src="{{asset('Storage/' . $p->fotomakanan)}}"
-                        class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
-                        alt="profile-image">
-                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
-                        class="img-fluid rounded-pill avatar-170 hover-image "
-                        alt="profile-image" data-iq-gsap="onStart"
-                        data-iq-opacity="0" data-iq-scale=".6"
-                        data-iq-rotate="180" data-iq-duration="1"
-                        data-iq-delay=".6" data-iq-trigger="scroll"
-                        data-iq-ease="none">
-                        </div>
-                        <div class="col-lg-12 col-xl-7">
-                            <h4 class="mb-2">tentang menu</h4>
-                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu erat adipiscing convallis libero elit et eros pellentesque. Sapien, fringilla eget egestas eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu erat adipiscing convallis libero elit et eros pellentesque. Sapien, fringilla eget egestas eget. </p>
-                            <div class="d-flex align-items-center">
-                            <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
-                            data-bs-target="#myModal-{{ $p->id }}">beli</button>
+                            class="img-fluid rounded-pill avatar-170 hover-image "
+                            alt="profile-image" data-iq-gsap="onStart"
+                            data-iq-opacity="0" data-iq-scale=".6"
+                            data-iq-rotate="180" data-iq-duration="1"
+                            data-iq-delay=".6" data-iq-trigger="scroll"
+                            data-iq-ease="none">
+                            </div> -->
+                            <div class="col-lg-12 col-xl-7">
+                                <h4 class="mb-2">{{$p->namamenu}}</h4>
+                                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu erat adipiscing convallis libero elit et eros pellentesque. Sapien, fringilla eget egestas eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu erat adipiscing convallis libero elit et eros pellentesque. Sapien, fringilla eget egestas eget. </p>
+                                <div class="d-flex align-items-center">
+                                <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
+                                data-bs-target="#myModal-{{ $p->id }}">beli</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+         @endforeach
+<!-- Ulasan Makanan -->
+<div class="row mt-4">
         <div class="col-lg-6 col-xl-5">
-        <div class="card" style="max-height: 450px; overflow-y: scroll;">
-            <div class="card-header">
+            <div class="card" style="max-height: 450px; overflow-y: scroll;">
+                <div class="card-header">
                     <h4 class="card-title">Ulasan Makanan</h4>
                 </div>
                 <div class="card-body">
-                    <!-- Tambahkan ulasan makanan di sini -->
-                    <div class="media">
-                        <div class="media-body">
-                            <h6 class="mb-0">Jepri</h6>
-                            <div class="rating">
-                                <!-- Tambahkan bintang ulasan di sini -->
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9734;</span>
-                            </div>
-                            <p class="mt-2">enak mantap slur rekomend.</p>
-                        </div>
-                    </div>
-                    <!-- Tambahkan informasi ulasan makanan lainnya di sini -->
-                    <div class="media">
-                        <div class="media-body">
-                            <h6 class="mb-0">Riski</h6>
-                            <div class="rating">
-                                <!-- Tambahkan bintang ulasan di sini -->
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9734;</span>
-                            </div>
-                            <p class="mt-2">muantappp pwoll masakkan e woyy.</p>
-                        </div>
-                    </div>
-
-                        <div class="media">
-                            <div class="media-body">
-                                <h6 class="mb-0">yapi</h6>
-                                <div class="rating">
-                                    <!-- Tambahkan bintang ulasan di sini -->
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9734;</span>
+                    <!-- @if ($penjual->isEmpty())
+                        <p>Belum ada ulasan untuk makanan ini.</p>
+                    @else -->
+                        @foreach ($ulasan as $u)
+                            <div class="media mb-3">
+                                <div class="media-body">
+                                    <h6 class="mb-0">{{ $u->username }}</h6>
+                                    <div class="rating">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= $u->rating)
+                                                <span class="star">&#9733;</span>
+                                            @else
+                                                <span class="star">&#9734;</span>
+                                            @endif
+                                        @endfor
+                                    </div>
+                                    <p class="mt-2">{{ $u->komentar }}</p>
                                 </div>
-                                <p class="mt-2">joss gandos.</p>
                             </div>
-                        </div>
-
-                        <div class="media">
-                            <div class="media-body">
-                                <h6 class="mb-0">Rayya</h6>
-                                <div class="rating">
-                                    <!-- Tambahkan bintang ulasan di sini -->
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9734;</span>
-                                </div>
-                                <p class="mt-2">gaiso berkata kata sangking enak e.</p>
-                            </div>
-                        </div>
-
-                        <div class="media">
-                            <div class="media-body">
-                                <h6 class="mb-0">Aiss</h6>
-                                <div class="rating">
-                                    <!-- Tambahkan bintang ulasan di sini -->
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9733;</span>
-                                    <span class="star">&#9734;</span>
-                                </div>
-                                <p class="mt-2">gaskeunn belii yokk wenak iki cuy.</p>
-                            </div>
-                        </div>
-                    </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
-        </div>
     </div>
-    @endforeach
 </div>
-
     <!-- Footer Section Start -->
     <footer class="footer">
         <div class="footer-body">
@@ -429,45 +374,42 @@
         </div>
     </footer>
       <!-- Footer Section End -->
+      
+      <!-- Required Library Bundle Script -->
     </main>
-    <!-- Wrapper End-->
-    <!-- offcanvas start -->
+      <script src="../../assets/js/core/libs.min.js"></script>
+      
+      <!-- External Library Bundle Script -->
+      <script src="../../assets/js/core/external.min.js"></script>
+      
+      <!-- Widgetchart JavaScript -->
+      <script src="../../assets/js/charts/widgetcharts.js"></script>
 
-    <!-- Required Library Bundle Script -->
-    <script src="../../assets/js/core/libs.min.js"></script>
-
-    <!-- External Library Bundle Script -->
-    <script src="../../assets/js/core/external.min.js"></script>
-
-    <!-- Widgetchart JavaScript -->
-    <script src="../../assets/js/charts/widgetcharts.js"></script>
-
-    <!-- Mapchart JavaScript -->
-    <script src="../../assets/js/charts/vectore-chart.js"></script>
-    <script src="../../assets/js/charts/dashboard.js"></script>
-
-    <!-- Admin Dashboard Chart -->
-    <script src="../../assets/js/charts/admin.js"></script>
-
-    <!-- fslightbox JavaScript -->
-    <script src="../../assets/js/fslightbox.js"></script>
-
-    <!-- GSAP Animation -->
-    <script src="../../assets/vendor/gsap/gsap.min.js"></script>
-    <script src="../../assets/vendor/gsap/ScrollTrigger.min.js"></script>
-    <script src="../../assets/js/animation/gsap-init.js"></script>
-
-    <!-- Stepper Plugin -->
-    <script src="../../assets/js/stepper.js"></script>
-
-    <!-- Form Wizard Script -->
-    <script src="../../assets/js/form-wizard.js"></script>
-
-    <!-- app JavaScript -->
-    <script src="../../assets/js/app.js"></script>
-
-    <!-- moment JavaScript -->
-    <script src="../../assets/vendor/moment.min.js"></script>  </body>
-
-<!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/special-pages/dish-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:53:54 GMT -->
+      <!-- Mapchart JavaScript -->
+      <script src="../../assets/js/charts/vectore-chart.js"></script>
+      <script src="../../assets/js/charts/dashboard.js"></script>
+      
+      <!-- Admin Dashboard Chart -->
+      <script src="../../assets/js/charts/admin.js"></script>
+      
+      <!-- fslightbox JavaScript -->
+      <script src="../../assets/js/fslightbox.js"></script>
+      
+      <!-- GSAP Animation -->
+      <script src="../../assets/vendor/gsap/gsap.min.js"></script>
+      <script src="../../assets/vendor/gsap/ScrollTrigger.min.js"></script>
+      <script src="../../assets/js/animation/gsap-init.js"></script>
+      
+      <!-- Stepper Plugin -->
+      <script src="../../assets/js/stepper.js"></script>
+      
+      <!-- Form Wizard Script -->
+      <script src="../../assets/js/form-wizard.js"></script>
+      
+      <!-- app JavaScript -->
+      <script src="../../assets/js/app.js"></script>
+      
+      <!-- moment JavaScript -->
+      <script src="../../assets/vendor/moment.min.js"></script>  
+    </body>
 </html>

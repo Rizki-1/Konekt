@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ulasans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('barangpenjual_id')->references('id')->on('barangpenjuals')->cascadeOnDelete();
+            $table->string('username');
             $table->string('rating');
             $table->string('komentar')->nullable();
             $table->timestamps();

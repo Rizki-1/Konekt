@@ -197,6 +197,19 @@ class dashboardusercontroller extends Controller
         return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId', 'pesanan'));
     }
 
+    public function batalkanpesanan($id)
+{
+    // Retrieve the userOrder with the given $id
+    $order = userOrder::find($id);
+
+    $order->update([
+        'pembelianstatus' => 'dibatalkan',
+    ]);
+
+    return redirect()->back()->with('success', 'pesanan berhasil di hapus');
+}
+
+
     public function riwayatuser()
     {
         $user_id = Auth::id();
@@ -275,19 +288,23 @@ class dashboardusercontroller extends Controller
     }
 
     public function profileuser()
-    {
+    { 
         $user = User::all();
         return view('DashboardUser.profileuser', compact('user'));
     }
+    
 
-    public function detailmenu()
+    public function detailmenu(Request $request, $id)
     {
-        $user = User::all();
+        $user = BarangPenjual::findOrFail($id);
+        $penjual = BarangPenjual::where('id',$id)->get();
+        $ulasan = ulasan::where('barangpenjual_id', $id)->get();
+        // $penjual = BarangPenjual::all();
 
-        // $penjual =  barangpenjual::where('barangpenjual_id', $penjual->id)->get();
-        $penjual = barangpenjual::all();
-        return view('DashboardUser.detailmenu', compact('user', 'penjual'));
+        return view('DashboardUser.detailmenu', compact('user', 'penjual', 'ulasan'));
     }
+
+
     public function daftartoko(){
         $penjuallogin = penjuallogin::all();
         return view ('DashboardUser.daftartoko', compact('penjuallogin'));
@@ -364,20 +381,28 @@ class dashboardusercontroller extends Controller
     }
 
 
-    public function ulasan(Request $request)
-    {
+    public function ulasan(Request $request, $id)
+{
+   
+    //dd($request->all());
+    $username=Auth::user()->name;
+    $penjual = BarangPenjual::findOrFail($id);
+    $ulasan = ulasan::where('barangpenjual_id', $penjual->id)->get();
 
-        $ulasan = [
+     $ulasan = [
             'barangpenjual_id' => $request->barangpenjual_id,
+            'username'=>$username,
             'rating' => $request->rating,
             'komentar' => $request->komentar
 
         ];
-        // dd($request->all());
-        ulasan::create($ulasan);
-        return redirect()->route('riwayatuser');
-    }
 
+    ulasan::create($ulasan);
+    return redirect()->route('riwayatuser');
+}
+
+    
+    
 
 
     /**
@@ -430,6 +455,12 @@ class dashboardusercontroller extends Controller
         // dd($user_id);
         // dd($request->all());
         $order = userOrder::findOrFail($id);
+        // $datapenjual = barangpenjual::findOrFail($id);
+        // dd($user_id);
+        if($order->user_id != Auth::user()->id)
+        {
+            return back()->with('error', 'data user tidak valid');
+        }
         $validatedData = $request->validate([
             'barangpenjual_id' => 'required',
             'jumlah' => 'required|integer',

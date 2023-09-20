@@ -70,9 +70,10 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::post('tambahKeranjang/{id}', [dashboardusercontroller::class, 'tambahKeranjang'])->name('tambahKeranjang');
     Route::delete('hapusKeranjang', [dashboardusercontroller::class, 'hapusKeranjang'])->name('hapusKeranjang');
     Route::post('updateKeranjang', [dashboardusercontroller::class, 'updateKeranjang'])->name('updateKeranjang');
-    Route::post('ulasan', [dashboardusercontroller::class, 'ulasan'])->name('ulasan');
-    Route::get('detailmenu', [dashboardusercontroller::class, 'detailmenu'])->name('detailmenu');
+    Route::post('ulasan/{id}', [dashboardusercontroller::class, 'ulasan'])->name('ulasan');
+    Route::get('detailmenu/{id}', [dashboardusercontroller::class, 'detailmenu'])->name('detailmenu');
     Route::patch('tandakanselesai/{id}', [dashboardusercontroller::class, 'tandakanselesai'])->name('tandakanselesai');
+    Route::get('batalkanpesanan/{id}',  [dashboardusercontroller::class, 'batalkanpesanan'])->name('batalkanpesanan');
 
 });
 

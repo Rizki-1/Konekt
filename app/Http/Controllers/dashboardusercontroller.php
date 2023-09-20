@@ -124,7 +124,7 @@ class dashboardusercontroller extends Controller
             DB::rollback();
 
             return response()->json(['message' => 'Terjadi kesalahan dalam melakukan pembelian.'], 500);
-            dd($e->getMessage());
+            // dd($e->getMessage());
         }
     }
 

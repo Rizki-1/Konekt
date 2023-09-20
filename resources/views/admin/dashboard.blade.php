@@ -383,8 +383,8 @@
               <link rel="stylesheet" href="../assets/css/core/libs.min.css">
 
               <!-- Custom Css -->
-              <link rel="stylesheet" href="../assets/css/aprycot.mine209.css?v=1.0.0">  
-            
+              <link rel="stylesheet" href="../assets/css/aprycot.mine209.css?v=1.0.0">
+
         </head>
 
         <div class="content-inner mt-5 py-0">
@@ -510,8 +510,104 @@
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var chartData = @json($chartData);
 
+        if (jQuery('#admin-chart-1').length) {
+            const options = {
+                series: [{
+                    name:'Data Pembelian',
+                    type: 'column',
+                    data: chartData.map(data => parseInt(data.statusselesai))
+                }, {
+                    name:'data yang sama',
+                        type: 'line',
+                        curve: 'smooth',
+                    data: chartData.map(data => parseInt(data.statusselesai))
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: false,
+                            delay: 150
+                        },
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350
+                        }
+                    },
+                    zoom: {
+                        enabled: false,
+                    },
+                    toolbar: {
+                        show: false
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                },
+                stroke: {
+                    width: [0, 2]
+                },
+                dataLabels: {
+                    enabled: true,
+                    enabledOnSeries: [1],
+                    offsetX: 3.0,
+                    offsetY: -1.6,
+                    style: {
+                        fontSize: '1px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        fontWeight: 'bold',
+                    },
+                    background: {
+                        enabled: true,
+                        foreColor: '#fff',
+                        color: '#fff',
+                        padding: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        borderColor: '#fff',
+                        opacity: 1,
+                    }
+
+                },
+                colors: ["#EA6A12", "#EA6A12"],
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '16%',
+                        endingShape: 'rounded',
+                        borderRadius: 5,
+                    },
+                },
+                legend: {
+                    show: false,
+                    offsetY: -25,
+                    offsetX: -5
+                },
+                xaxis: {
+                    categories: chartData.map(data => data.month),
+                    labels: {
+                        minHeight: 20,
+                        maxHeight: 20,
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        minWidth: 20,
+                        maxWidth: 20,
+                    }
+                },
+            };
+
+            const chart = new ApexCharts(document.querySelector("#admin-chart-1"), options);
+            chart.render();
+        }
+    </script>
 </body>
-
 </html>

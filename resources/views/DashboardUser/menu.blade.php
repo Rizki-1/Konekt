@@ -125,7 +125,7 @@
             $("#totalHarga-{{$p->id}}").val(totalHarga);
 
             // Mendapatkan data yang diperlukan dari modal
-            var user_id = {{$user_id}};
+            var user_id = {{$p->user_id}};
             var toko_id = {{$p->toko_id}};
             var barangpenjual_id = {{$p->id}};
 
@@ -420,7 +420,7 @@
                         <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
                             data-bs-target="#myModal-{{ $p->id }}">beli
                         </button>
-                        <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $p->barangpenjual_id]) }}">Detail</a>
+                        <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
                     </div>
                 </div>
             </div>

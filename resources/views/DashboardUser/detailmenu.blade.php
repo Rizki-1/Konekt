@@ -330,9 +330,9 @@
                     <h4 class="card-title">Ulasan Makanan</h4>
                 </div>
                 <div class="card-body">
-                    <!-- @if ($penjual->isEmpty())
+                    @if ($ulasan->isEmpty())
                         <p>Belum ada ulasan untuk makanan ini.</p>
-                    @else -->
+                    @else
                         @foreach ($ulasan as $u)
                             <div class="media mb-3">
                                 <div class="media-body">

@@ -133,16 +133,15 @@ class dashboardusercontroller extends Controller
         $cartItem = Keranjang::find($productId);
 
         if (!$cartItem) {
-            // Jika item belum ada dalam keranjang, tangani sesuai kebutuhan Anda.
-            // Di sini kami akan mengembalikan respons kesalahan.
+
             return response()->json([
                 'success' => false,
                 'message' => 'Item tidak ditemukan dalam keranjang.',
             ]);
         }
 
-        // Dapatkan data produk dari tabel BarangPenjual
-        $barangPenjual = BarangPenjual::find($cartItem->barangpenjual_id);
+     
+        $barangPenjual = barangpenjual::find($cartItem->barangpenjual_id);
 
         if (!$barangPenjual) {
             // Jika data produk tidak ditemukan, tangani sesuai kebutuhan Anda.

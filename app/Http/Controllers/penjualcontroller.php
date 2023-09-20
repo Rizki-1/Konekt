@@ -34,7 +34,13 @@ class penjualcontroller extends Controller
 
     public function DashboardPenjual()
     {
-        return view('DashboardPenjual.dashboardpenjual');
+        $menu = barangpenjual::count();
+        $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->count();
+        $totalharga = userOrder::where('adminstatus', 'approve')->sum('totalharga');
+        // $untung = $totalharga * 0.05;
+        $pemasukkan = $totalharga - 0.05;
+        $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda'));
     }
 
     public function riwayatpenjual()
@@ -204,19 +210,22 @@ class penjualcontroller extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        // Validasi input dari request dengan pesan kustom
-        $validated = $request->validate([
-            'namamenu' => 'required|string|max:255',
-            'kategori_id' => 'required',
+
+     public function store(Request $request)
+     {
+         // Validasi input dari request dengan pesan kustom
+         $validated = $request->validate([
+            'namamenu' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
+            'kategori_id' => 'required|exists:adminkategoris,id',
             'harga' => 'required|numeric|min:0',
             'fotomakanan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'namamenu.required' => 'Nama makanan wajib diisi.',
             'namamenu.string' => 'Nama makanan harus berupa teks.',
             'namamenu.max' => 'Nama makanan tidak boleh lebih dari :max karakter.',
+            'namamenu.regex' => 'Nama makanan tidak boleh diisi angka.',
             'kategori_id.required' => 'Kategori wajib diisi.',
+            'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
             'harga.min' => 'Harga harus minimal :min.',
@@ -226,30 +235,35 @@ class penjualcontroller extends Controller
             'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
         ]);
 
+         if ($validated) {
+             // Simpan foto makanan ke penyimpanan
+             if ($request->hasFile('fotomakanan')) {
+                 $filePath = $request->file('fotomakanan')->store('penjual/menu', 'public');
+             } else {
+                 return response()->json(['success' => false, 'message' => 'Foto makanan tidak ditemukan.'], 422);
+             }
 
-        if ($request->hasFile('fotomakanan')) {
-            $filePath = Storage::disk('public')->put('penjual/menu', $request->file('fotomakanan'));
-            $validated['fotomakanan'] = $filePath;
-        }
+             // Buat data untuk disimpan dalam database
+             $penjual = [
+                 'namamenu' => $request->namamenu,
+                 'kategori_id' => $request->kategori_id,
+                 'harga' => $request->harga,
+                 'fotomakanan' => $filePath,
+                 'toko_id' => $request->toko_id
+             ];
 
-        $penjual = [
-            'namamenu' => $request->namamenu,
-            'kategori_id' => $request->kategori_id,
-            'harga' => $request->harga,
-            'fotomakanan' => $filePath,
-            'toko_id' => $request->toko_id
-        ];
+             // Simpan data ke database
+             $create = BarangPenjual::create($penjual);
 
+             if ($create) {
+                 return response()->json(['success' => true, 'message' => 'Menu berhasil ditambahkan!']);
+             } else {
+                 return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menambahkan menu.'], 500);
+             }
+         }
 
-        $create = barangpenjual::create($penjual);
-
-        if ($create) {
-            session()->flash('notif.success', 'Menu berhasil ditambahkan!');
-            return redirect()->route('DashboardPenjual.index');
-        }
-
-        return abort(500);
-    }
+         return response()->json(['success' => false, 'message' => 'Validasi gagal.'], 422);
+     }
 
     /**
      * Display the specified resource.
@@ -262,19 +276,77 @@ class penjualcontroller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
-    }
+        try {
+            // Cari item dengan ID tertentu
+            $item = BarangPenjual::find($id);
 
+            if (!$item) {
+                return response()->json(['success' => false, 'message' => 'Item not found'], 404);
+            }
+
+            // Kembalikan data item dalam bentuk JSON
+            return response()->json(['success' => true, 'data' => $item]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to fetch item'], 500);
+        }
+    }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        // Validasi input dari request dengan pesan kustom
+        $validated = $request->validate([
+            'namamenu' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
+            'kategori_id' => 'required|exists:adminkategoris,id',
+            'harga' => 'required|numeric|min:0',
+            'fotomakanan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'namamenu.required' => 'Nama makanan wajib diisi.',
+            'namamenu.string' => 'Nama makanan harus berupa teks.',
+            'namamenu.max' => 'Nama makanan tidak boleh lebih dari :max karakter.',
+            'namamenu.regex' => 'Nama makanan tidak boleh diisi angka.',
+            'kategori_id.required' => 'Kategori wajib diisi.',
+            'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
+            'harga.required' => 'Harga wajib diisi.',
+            'harga.numeric' => 'Harga harus berupa angka.',
+            'harga.min' => 'Harga harus minimal :min.',
+            'fotomakanan.image' => 'Foto makanan harus berupa file gambar.',
+            'fotomakanan.mimes' => 'Foto makanan harus berformat jpeg, png, jpg, atau gif.',
+            'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
+        ]);
 
+        if ($validated) {
+            // Temukan item yang akan diubah berdasarkan ID
+            $item = barangpenjual::find($id);
+
+            if (!$item) {
+                return response()->json(['success' => false, 'message' => 'Item tidak ditemukan.'], 404);
+            }
+
+            // Perbarui nilai-nilai atribut item sesuai dengan input
+            $item->namamenu = $request->namamenu;
+            $item->kategori_id = $request->kategori_id;
+            $item->harga = $request->harga;
+
+            // Jika ada file gambar yang diunggah, simpan gambar baru
+            if ($request->hasFile('fotomakanan')) {
+                $filePath = $request->file('fotomakanan')->store('penjual/menu', 'public');
+                $item->fotomakanan = $filePath;
+            }
+
+            // Simpan perubahan ke database
+            if ($item->save()) {
+                return response()->json(['success' => true, 'message' => 'Item berhasil diperbarui.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menyimpan perubahan.'], 500);
+            }
+        }
+
+        return response()->json(['success' => false, 'message' => 'Validasi gagal.'], 422);
+    }
     /**
      * Remove the specified resource from storage.
      */
@@ -282,22 +354,27 @@ class penjualcontroller extends Controller
     {
         $barangPenjual = BarangPenjual::find($id);
 
-
         if (!$barangPenjual) {
-            return abort(404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Menu tidak ditemukan.'
+            ], 404);
         }
 
         if ($barangPenjual->isUsed()) {
-            session()->flash('notif.error', 'Ada User yang sedang memesan menu ini!');
-            return redirect()->route('DashboardPenjual.index');
+            return response()->json([
+                'success' => false,
+                'message' => 'Ada pengguna yang memesan menu ini.'
+            ], 422);
         }
 
         Storage::disk('public')->delete($barangPenjual->fotomakanan);
 
         $barangPenjual->delete();
 
-        session()->flash('notif.success', 'Berhasil menghapus menu!');
-        return redirect()->route('DashboardPenjual.index');
+        return response()->json([
+            'success' => true,
+            'message' => 'Menu berhasil dihapus.'
+        ]);
     }
-
 }

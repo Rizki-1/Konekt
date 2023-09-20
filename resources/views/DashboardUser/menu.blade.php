@@ -73,7 +73,7 @@
                                     <p class="fs-4 text-dark">
                                         {{ $p->namamenu }}
                                         <input type="hidden" name="namamenu_id" value="{{ $p->id }}">
-                                        <input type="hidden" name= "user_id" value="{{ $penjualId }}">
+                                        <input type="hidden" name= "user_id" value="{{ $user_id }}">
                                         <input type="hidden" name= "toko_id" value="{{ $p->toko_id }}">
                                     </p>
                                     <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
@@ -339,7 +339,7 @@
                                         class="img-fluid avatar avatar-50 avatar-rounded">
                                     <div class="caption ms-3 d-none d-md-block ">
                                         <h6 class="mb-0 caption-title">{{ Auth::user()->name }}</h6>
-                                        
+
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

@@ -383,8 +383,8 @@
               <link rel="stylesheet" href="../assets/css/core/libs.min.css">
 
               <!-- Custom Css -->
-              <link rel="stylesheet" href="../assets/css/aprycot.mine209.css?v=1.0.0">  
-            
+              <link rel="stylesheet" href="../assets/css/aprycot.mine209.css?v=1.0.0">
+
         </head>
 
         <div class="content-inner mt-5 py-0">
@@ -485,63 +485,6 @@
         </div>
     </div>
 
-    <div class="col-lg-12">            
-        <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600" data-iq-gsap="onStart"
-            data-iq-opacity="0"
-            data-iq-position-y="-40"
-            data-iq-duration=".6"
-            data-iq-delay="1"
-            data-iq-trigger="scroll"
-            data-iq-ease="none">
-            <div class="card-header border-0 pb-0">
-                <div class="header-title">
-                    <h4 class="card-title">Tabel Warung</h4>
-                </div>
-            </div>
-            <div class="card-body py-0">
-                <div class="table-responsive">
-                    <table id="basic-table" class="table mb-0 iq-table user-list-table" role="grid">
-                        <thead>
-                            <tr>
-                                <th>Nama Warung</th>
-                                <th>No HP</th>
-                                <th>Alamat</th>
-                                <th>Penilaian</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="../assets/images/avatars/06.png" alt="profile">
-                                        <p class="mb-0">Warung Berkah</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    089765342233
-                                </td>
-                                <td>
-                                    jln.rel
-                                </td>
-                                <td>
-                                    4.1
-                                </td>
-                                <td>
-                                    <i class="fa-solid fa-eye"></i>
-                                </td>
-                                <td>
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </td>
-                            </tr>
-                            <!-- Tambahkan baris data lainnya di sini -->
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
               <!-- Footer Section Start -->
@@ -567,8 +510,104 @@
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var chartData = @json($chartData);
 
+        if (jQuery('#admin-chart-1').length) {
+            const options = {
+                series: [{
+                    name:'Data Pembelian',
+                    type: 'column',
+                    data: chartData.map(data => parseInt(data.statusselesai))
+                }, {
+                    name:'data yang sama',
+                        type: 'line',
+                        curve: 'smooth',
+                    data: chartData.map(data => parseInt(data.statusselesai))
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: false,
+                            delay: 150
+                        },
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350
+                        }
+                    },
+                    zoom: {
+                        enabled: false,
+                    },
+                    toolbar: {
+                        show: false
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                },
+                stroke: {
+                    width: [0, 2]
+                },
+                dataLabels: {
+                    enabled: true,
+                    enabledOnSeries: [1],
+                    offsetX: 3.0,
+                    offsetY: -1.6,
+                    style: {
+                        fontSize: '1px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        fontWeight: 'bold',
+                    },
+                    background: {
+                        enabled: true,
+                        foreColor: '#fff',
+                        color: '#fff',
+                        padding: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        borderColor: '#fff',
+                        opacity: 1,
+                    }
+
+                },
+                colors: ["#EA6A12", "#EA6A12"],
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '16%',
+                        endingShape: 'rounded',
+                        borderRadius: 5,
+                    },
+                },
+                legend: {
+                    show: false,
+                    offsetY: -25,
+                    offsetX: -5
+                },
+                xaxis: {
+                    categories: chartData.map(data => data.month),
+                    labels: {
+                        minHeight: 20,
+                        maxHeight: 20,
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        minWidth: 20,
+                        maxWidth: 20,
+                    }
+                },
+            };
+
+            const chart = new ApexCharts(document.querySelector("#admin-chart-1"), options);
+            chart.render();
+        }
+    </script>
 </body>
-
 </html>

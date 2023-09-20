@@ -11,7 +11,7 @@ class mailcontroller extends Controller
 {
     public function index(Request $request)
     {
-        $user = User::all();
-        Mail::to('akunrizky85@gmail.com')->send(new SendEmail($user));
+        $user = User::where('role', 'penjualnotapprove')->get();
+        Mail::to('email@gmail.com')->send(new SendEmail($user));
     }
 }

@@ -74,6 +74,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('detailmenu/{id}', [dashboardusercontroller::class, 'detailmenu'])->name('detailmenu');
     Route::patch('tandakanselesai/{id}', [dashboardusercontroller::class, 'tandakanselesai'])->name('tandakanselesai');
     Route::get('batalkanpesanan/{id}',  [dashboardusercontroller::class, 'batalkanpesanan'])->name('batalkanpesanan');
+    Route::post('pengembaliandana/{id}', [dashboardusercontroller::class, 'pengembaliandana'])->name('pengembaliandana');
 
 });
 
@@ -108,6 +109,7 @@ Route::get('register', [UserController::class, 'register'])->name('register');
 Route::resource('penjualrole', rolepenjualcontroller::class);
 Route::post('authenticate', [logincontroller::class, 'authenticate'])->name('authenticate');
 Route::resource('user', UserController::class);
+// Route::resource('/test_email', mailcontroller::class);
 
 
 

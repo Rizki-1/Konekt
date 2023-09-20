@@ -219,7 +219,6 @@
                                             </g>
                                         </svg>
                                     </i>
-                                    <i class="sidenav-mini-icon">K</i>
                                     <span class="item-name">Keranjang</span>
                                 </a>
                             </li>
@@ -330,7 +329,7 @@
             </nav>
         </div>
         <div class="content-inner mt-5 py-0">
-          
+
 
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -549,7 +548,6 @@
                 return;
             }
             var response;
-
             $.ajax({
                 url: "{{ route('order') }}",
                 type: "POST",
@@ -558,16 +556,12 @@
                     "items": itemIds,
                     "jumlah": jumlah
                 },
-
                 success: function(data) {
-                    // Simpan respon AJAX ke variabel response
                     response = data;
 
                         alert(`/konfimasipembelian/${data.id}`);
                         window.location =
                             `/konfimasipembelian/${data.id}`;
-
-
                 },
                 error: function(response) {
                     console.log(response);

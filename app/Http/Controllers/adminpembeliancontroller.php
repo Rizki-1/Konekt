@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Mail\SendEmail;
 use App\Models\userOrder;
 use App\Models\notifikasi;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Models\penjuallogin;
 use Illuminate\Http\Request;
@@ -14,9 +15,11 @@ use App\Models\adminkategori;
 use App\Models\barangpenjual;
 use App\Models\adminnotifikasi;
 use App\Models\notifikasipenjual;
-use App\Models\adminmetodepembayaran;
+use App\Models\pengemmbaliandana;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
+use App\Models\adminmetodepembayaran;
 
 class adminpembeliancontroller extends Controller
 {
@@ -42,10 +45,10 @@ class adminpembeliancontroller extends Controller
     public function DashboardAdmin()
     {
         $adminnotifikasi = adminnotifikasi::all();
-        $totalpengguna = penjuallogin::count();
+        $totalpengguna = User::where('role', 'penjual')->count();
         $totaluser = User::where('role', 'user')->count();
         $totalpembelian = userOrder::where('pembelianstatus', 'statusselesai')->count();
-        $totalharga = userOrder::where('adminstatus', 'approve')->sum('totalharga');
+        $totalharga = userOrder::where('pembelianstatus', 'statusselesai')->sum('totalharga');
         $untung = $totalharga * 0.05;
 
 $data = userOrder::select(
@@ -147,36 +150,35 @@ $chartData = array_values($processedData);
 
     public function terimapenjual(string $id)
     {
-        // $user = User::FindOrFail($id);
+        $user = User::where('role', 'penjualnotapprove')->get();
+        foreach ($user as $User) {
+            Mail::to($User->email)->send(new SendEmail($User));
+        }
         $calonPenjual = penjuallogin::where('id', $id)->first()->user_id;
         $user = User::where('id', $calonPenjual)->first();
         $user->role = 'penjual';
         $user->save();
 
-        // dd($user->name);
         return redirect()->route('calonpenjual');
     }
+
 
     public function tolakpenjual($id)
     {
         try {
-            // Temukan entitas penjuallogin yang akan ditolak
+
             $penjuallogin = PenjualLogin::findOrFail($id);
-
-            // Hapus data penjuallogin
             $penjuallogin->delete();
-
-            // Hapus data user yang terkait
             $user = User::find($penjuallogin->user_id);
             if ($user) {
                 $user->delete();
             }
 
-            // Redirect atau kirim pesan sukses ke admin
+
             return redirect()->route('calonpenjual')
                 ->with('success', 'Permintaan penjual login telah ditolak dan data terkait telah dihapus.');
         } catch (\Exception $e) {
-            // Redirect dengan pesan kesalahan ke halaman sebelumnya
+
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
@@ -307,11 +309,15 @@ $chartData = array_values($processedData);
         }
     }
 
-    protected function pengajuanpembeliad(Request $request)
+    public function pengajuanpembeliad(Request $request)
     {
-        $user = User::all();
-        return view('admin.pengajuanpembeliad', compact('user'));
+        $pengajuanuser = pengemmbaliandana::with('userOrder')
+            ->where('pengembalian_id', $request->pengembaliandana_id)
+            ->get();
+
+        return view('admin.pengajuanpembeliad', compact('pengajuanuser'));
     }
+
 
     protected function pengajuanpenjualad(Request $request)
     {

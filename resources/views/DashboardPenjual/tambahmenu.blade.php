@@ -338,7 +338,7 @@
 
                       </div>
                   </div>
-                
+
                 <li class="nav-item dropdown">
                   <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="../assets/images/avatars/01.png" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded">
@@ -488,6 +488,9 @@
 {{-- AJAX DELETE --}}
 
 {{-- Modal Edit --}}
+@foreach ($penjual as $p)
+
+
 <div class="modal fade" id="editModal" tabindex="-1">
     <form action="{{ route('DashboardPenjual.update', ['DashboardPenjual' => $p->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -532,6 +535,7 @@
         </div>
     </form>
 </div>
+@endforeach
 {{-- Modal Edit --}}
 
 {{-- AJAX Edit --}}
@@ -605,11 +609,10 @@
             $(".is-invalid").removeClass('is-invalid');
             $(".invalid-feedback").remove();
 
-            var itemId = $("#editItemID").val(); // Dapatkan ID item yang akan diubah
-            var formData = new FormData($(this)[0]); // Dapatkan data formulir
-            formData.append('_token', '{{ csrf_token() }}'); // Tambahkan token CSRF
-            formData.append('_method', 'PUT'); // Tambahkan metode PUT
-            // Kirim permintaan PUT untuk menyimpan perubahan
+            var itemId = $("#editItemID").val();
+            var formData = new FormData($(this)[0]);
+            formData.append('_token', '{{ csrf_token() }}');
+            formData.append('_method', 'PUT');
             $.ajax({
                 url: "{{ url('DashboardPenjual') }}" + "/" + itemId,
                 type: "POST",
@@ -617,13 +620,14 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    // Tanggapan berhasil, lakukan sesuatu jika perlu
+
                     if (response.success) {
-                        // Sembunyikan modal edit
+
                         $("#editModal").modal("hide");
 
                         Swal.fire('Sukses', 'Berhasil memperbarui data menu, halaman akan terefresh.', 'success');
 
+                        Swal.fire('Sukses', 'Berhasil memperbarui data menu.', 'success');
                         setTimeout(function() {
                         location.reload();
                         }, 2000);
@@ -638,17 +642,14 @@
                         $.each(responseErrors, function (key, value) {
                         var inputField = $("input[name='" + key + "']");
                         inputField.addClass('is-invalid');
-                        // Jika ini elemen select, tambahkan pesan validasi di bawahnya
                     if (inputField.is('select')) {
                         inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
                     } else {
-                        // Jika bukan elemen select, tambahkan pesan validasi setelah elemen
+
                         inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
                     }
-
                     });
                     } else {
-                        // Menampilkan pesan kesalahan umum jika bukan 422
                         Swal.fire('Gagal', 'Terjadi kesalahan saat menyimpan perubahan.', 'error');
                     }
                 }

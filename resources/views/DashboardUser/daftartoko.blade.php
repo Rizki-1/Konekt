@@ -267,7 +267,7 @@
                 </li>
                 <!-- End notifikasi -->
                 <!-- start pesan -->
-                
+
                 <!-- End Pesan-->
                 <!-- Start Profile-->
                 <li class="nav-item dropdown">
@@ -314,7 +314,6 @@
       <div class="container">
         <div class="row gap-5">
       @foreach ( $penjuallogin as $p)
-
             <div class="card col-md-5" style="background-color:#ea68121e; margin-left:4%;">
                   <div class="card-content">
                     <div class="conten-container" style="margin-left: 5px; margin-top: 10px;">

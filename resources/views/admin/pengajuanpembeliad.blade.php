@@ -109,6 +109,39 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
+    @foreach ($pengajuanuser as $Pengjuanuser)
+    <div class="modal" id="myModal-{{$Pengjuanuser->id}}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Pesanan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8">
+                                <p class="fs-6 text-primary">
+                                    Harga :
+                                    Rp. 100
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah" class="form-label fw-bold">Jumlah</label>
+                        <input type="number" id="jumlah" name="jumlah" class="form-control" placeholder="Masukan jumlah">
+                    </div>
+                    </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary">Pesan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -354,14 +387,29 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">no</th>
-                                            <th scope="col">nama toko</th>
-                                            <th scope="col">pembeli</th>
+                                            <th scope="col">nama pembeli</th>
                                             <th scope="col">jumlah</th>
                                             <th scope="col">total harga</th>
-                                            <th scope="col">pembayaran</th>
                                             <th scope="col">aksi</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+
+                                        @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($pengajuanuser as $Pengajuanuser)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $Pengajuanuser->userOrder->metodepembayaran }}</td>
+                                            <td>{{ $Pengajuanuser->userOrder->jumlah }}</td>
+                                            <td>{{ $Pengajuanuser->userOrder->totalharga }}</td>
+                                            <td>
+                                                <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-{{ $Pengajuanuser->id }}">bayar</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

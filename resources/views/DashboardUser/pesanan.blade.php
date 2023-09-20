@@ -69,6 +69,47 @@
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
+    @foreach ($user as $p)
+    <form action="{{ route('pengembaliandana', ['id' => $p->id]) }}" method="POST">
+        @csrf
+    <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Pesanan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="{{ asset('storage/' . $p->fotomakanan) }}" alt="Foto Menu" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <p class="fs-6 text-primary">
+                                    Harga :
+                                    Rp. {{ $p->totalharga}}
+                                    <input type="hidden" id="harga-{{$p->id}}" name="harga" value="{{ $p->id }}">
+                                    <input type="hidden" id="totalHarga-{{$p->id}}" name="totalHarga" value="">
+                                    <input type="hidden" id="" name="pengembaliandana_id" value="{{ $p->id }}">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah-{{$p->id}}" class="form-label fw-bold">Jumlah</label>
+                        <input type="number" id="jumlah-{{$p->id}}" name="jumlah" class="form-control" placeholder="Masukan jumlah">
+                    </div>
+                    </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-warning">ajukan pengembalian dana</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@endforeach
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -304,37 +345,54 @@
       >
       <center><h3>Kuliner kita <span style="color: #EA6A12">|pesanan</span></h3></center>
       @foreach ($user as $u)
+
       <div class="container">
-         <div class="card d-flex ">
-            <div class="">
-             <div class="card-content d-flex ">
-                {{-- class="h-10 w-50 p-2 mb-10" --}}
-                 <img src="{{ asset('css/img/cafe.jpeg') }}" class="foto"  alt="">
-                 <div class="img-content">
-                     <a class="tgl">{{ $u->created_at }}</a>
-                     <h5  class="mt-12">Masakan nasi - warung berkah</h5>
-                     <tr>Nasi Goreng</tr><br>
-                     <tr>no antrian {{ $u->nomor_antrian }}</tr>
-                     <tr> Rp.{{ $u->totalharga }} 1 (menu)- Dana</tr><br>
-                     @if ($u->pembelianstatus === 'selesai')
-                     <form action="{{ route('tandakanselesai',['id' => $u->id]) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                     <button class="btn btn-primary" type="submit"> tandakan telah selesai</button>
-                    </form>
-                     @else
-                     <tr class="" >
-                         <div class="btn btn-warning" style=" float:right"><span class="color:#EA6A12">sedang di proses</span></div>
-                         <div class="btn btn-danger" style=" float:right"><span class="color:#EA6A12">batalkan pesanan</span></div>
-                     </tr>
-                     @endif
-                 </div>
-             </div>
-         </div>
-        </div>
-       </div>
-     </div>
-      @endforeach
+          <div class="card d-flex">
+              <div class="">
+                  <div class="card-content d-flex">
+                      <img src="{{ asset('css/img/cafe.jpeg') }}" class="foto" alt="">
+                      <div class="img-content">
+                          <a class="tgl">{{ $u->created_at }}</a>
+                          <h5 class="mt-12">Masakan nasi - warung berkah</h5>
+                          <tr>
+                              <h6>Nasi Goreng</h6>
+                          </tr><br>
+                          <tr>
+                              <h6>No antrian {{ $u->nomor_antrian }}</h6>
+                          </tr>
+                          <tr>
+                              <h6>Rp.{{ $u->totalharga }} 1 (menu)- Dana</h6>
+                          </tr><br>
+
+                          @if ($u->pembelianstatus === 'selesai')
+                              <form action="{{ route('tandakanselesai',['id' => $u->id]) }}" method="POST">
+                                  @csrf
+                                  @method('PATCH')
+                                  <button class="btn btn-primary" type="submit">Tandakan telahselesai</button>
+                              </form>
+                          @elseif ($u->pembelianstatus === 'pesanan di tolak')
+                              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-{{ $u->id }}" type="submit">Ajukan pengembalian dana</button>
+                          @elseif ($u->pembelianstatus === 'menunggu konfirmasi' )
+                              <div class="btn btn-danger" style="float:right"><span class="color:#EA6A12">Batalkan pesanan</span></div>
+                          @elseif ($u->pembelianstatus === 'sedang di proses')
+                          <div class="btn btn-warning" style="float:right"><span class="color:#EA6A12">Sedang di proses</span></div>
+                          @else
+                          @endif
+
+                          @foreach ($pengembaliandana as $p)
+                              @if ($p->pengembalian_status === 'pengajuan sedang di proses' && $u->pembelianstatus === 'mengajukan pengembalian')
+                                  <button>{{ $p->pengembalian_status }}</button>
+                              @endif
+                          @endforeach
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  @endforeach
+
 </div>
       </div>
       {{-- @include('layout.footer') --}}

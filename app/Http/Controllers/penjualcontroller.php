@@ -128,11 +128,11 @@ class penjualcontroller extends Controller
 
     public function tolakpesanan($id)
     {
-        $notifikasi = notifikasi::findOrFail($id);
-        $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
-        $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
-        $notifikasi->save();
-
+    //     $notifikasi = notifikasi::findOrFail($id);
+    //     $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
+    //     $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
+    //     $notifikasi->save();
+        // dd($notifikasi);
         $dashboardusercontrollers = userOrder::findOrFail($id);
         $dashboardusercontrollers->pembelianstatus = 'pesanan di tolak';
         $dashboardusercontrollers->save();

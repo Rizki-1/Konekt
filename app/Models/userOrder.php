@@ -35,4 +35,9 @@ class userOrder extends Model
     {
         return $this->hasMany(ulasan::class);
     }
+
+    public function pengembaliandana(): HasMany
+    {
+        return $this->hasMany(pengembaliandana::class);
+    }
 }

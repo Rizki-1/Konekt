@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\adminmetodepembayaran;
 use App\Models\User;
 use App\Models\ulasan;
+use App\Models\keranjang;
 use App\Models\Pembelian;
 use App\Models\userOrder;
 use App\Models\notifikasi;
+use App\Models\penjuallogin;
 use Illuminate\Http\Request;
 use App\Models\barangpenjual;
 use App\Models\adminnotifikasi;
-use App\Models\keranjang;
+use App\Models\pengembaliandana;
 use App\Models\notifikasipenjual;
-use App\Models\penjuallogin;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use App\Models\pengemmbaliandana;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\adminmetodepembayaran;
+use Illuminate\Support\Facades\Storage;
 
 class dashboardusercontroller extends Controller
 {
@@ -140,7 +142,7 @@ class dashboardusercontroller extends Controller
             ]);
         }
 
-     
+
         $barangPenjual = barangpenjual::find($cartItem->barangpenjual_id);
 
         if (!$barangPenjual) {
@@ -194,7 +196,9 @@ class dashboardusercontroller extends Controller
         $user = userOrder::where('user_id', $penjualId )->get();
         $pesanan = userOrder::where('pembelianstatus', 'selesai')->get();
         $penjual = barangpenjual::all();
-        return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId', 'pesanan'));
+        $pengembaliandana = pengemmbaliandana::where('user_id', $penjualId )->get();
+
+        return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId', 'pesanan', 'pengembaliandana'));
     }
 
     public function batalkanpesanan($id)
@@ -219,7 +223,6 @@ class dashboardusercontroller extends Controller
         })
         ->where('user_id', $user_id)
         ->get();
-
         $penjual = barangpenjual::all();
         return view('DashboardUser.riwayat', compact('user', 'penjual'));
     }
@@ -248,7 +251,7 @@ class dashboardusercontroller extends Controller
             $keranjang->totalHarga = $request->totalHarga;
             $keranjang->save();
 
-            // Mengatur respons JSON sukses
+
             $response = [
                 'success' => true,
                 'message' => 'Item berhasil ditambahkan ke keranjang.'
@@ -256,13 +259,13 @@ class dashboardusercontroller extends Controller
 
             return response()->json($response);
         } catch (\Exception $e) {
-            // Mengatur respons JSON error
+
             $response = [
                 'success' => false,
                 'message' => 'Terjadi kesalahan. Item tidak dapat ditambahkan ke keranjang.'
             ];
 
-            return response()->json($response, 500); // Menggunakan status code 500 untuk error server
+            return response()->json($response, 500);
         }
     }
 
@@ -288,11 +291,11 @@ class dashboardusercontroller extends Controller
     }
 
     public function profileuser()
-    { 
+    {
         $user = User::all();
         return view('DashboardUser.profileuser', compact('user'));
     }
-    
+
 
     public function detailmenu(Request $request, $id)
     {
@@ -383,7 +386,7 @@ class dashboardusercontroller extends Controller
 
     public function ulasan(Request $request, $id)
 {
-   
+
     //dd($request->all());
     $username=Auth::user()->name;
     $penjual = BarangPenjual::findOrFail($id);
@@ -401,16 +404,31 @@ class dashboardusercontroller extends Controller
     return redirect()->route('riwayatuser');
 }
 
-    
-    
 
+
+
+    public function pengembaliandana(Request $request ,$id)
+    {
+        $user_id = Auth::id();
+        $pengembaliandana = [
+            'pengembalian_id' => $request->pengembaliandana_id,
+            'user_id' => $user_id,
+            'pengembalian_status' => 'pengajuan sedang di proses',
+        ];
+        dd($pengembaliandana);
+        $user = userOrder::findOrFail($id);
+        $user->pembelianstatus = 'mengajukan pengembalian';
+        $user->save();
+        pengemmbaliandana::create($pengembaliandana);
+        return redirect()->back()->with('success', 'pengembalian dana sedang di proses ');
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -516,5 +534,6 @@ class dashboardusercontroller extends Controller
      */
     public function destroy(string $id)
     {
+
     }
 }

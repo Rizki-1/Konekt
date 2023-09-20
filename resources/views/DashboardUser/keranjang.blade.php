@@ -401,7 +401,7 @@
                         </td>
                         <td>Rp. <span class="total">{{number_format($p->totalHarga, 0, ',', '.')}}</span></td>
                         <td>
-                                <button type="submit" class="btn btn-outline-danger hapus" data-item-id="{{$p->id}}" style="border-radius: 10%;"><i class="bi bi-trash-fill"></i></button>
+                            <button type="submit" class="btn btn-outline-danger hapus" data-item-id="{{$p->id}}" style="border-radius: 10%;"><i class="bi bi-trash-fill"></i></button>
                         </td>
                     </tr>
                 @endforeach

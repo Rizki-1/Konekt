@@ -103,41 +103,23 @@
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include the SweetAlert 2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+    <!-- Include the SweetAlert 2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {{-- bootstrap icon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+
 </head>
 
 <body class=""style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed; background-size: cover;">
-    @if(session('error'))
-    <script>
-        alert('{{ session('error') }}');
-    </script>
-@endif
-        <form action="{{ route('kstore') }}" method="POST">
-            @csrf
-              <div class="modal" id="myModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">kategori</label>
-                                <input type="text" name="kategori" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="keterangan" class="form-label fw-bold">keterangan</label>
-                                <textarea name="keterangan" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -354,20 +336,89 @@
                 </div>
             </nav>
         </div>
+
+        {{-- Modal Store --}}
+        <div class="modal fade" id="myModal" tabindex="-1">
+            <form action="{{ route('kstore') }}" method="POST">
+                @csrf
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Tambah Kategori</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="kelas" class="form-label fw-bold">Nama Kategori</label>
+                                <input type="text" name="kategori" class="form-control @error('kategori') is-invalid @enderror" placeholder="Masukkan Nama Kategori">
+                            </div>
+                            @error('kategori')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="mb-3">
+                                <label for="keterangan" class="form-label fw-bold">Keterangan</label>
+                                <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" placeholder="Masukkan Keterangan"></textarea>
+                            </div>
+                            @error('keterangan')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {{-- Modal Store --}}
+
+        {{-- Modal Edit --}}
+        <div class="modal fade" id="editModal" tabindex="-1">
+            <form action="{{ route('kupdate', ['id' => ':id']) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="item_id" id="editItemID">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalTitle">Edit Menu</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="kategori" class="form-label fw-bold">Kategori</label>
+                                <input type="text" name="kategori" id="editkategori" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="keterangan" class="form-label fw-bold">Keterangan</label>
+                                <textarea name="keterangan" id="editketerangan" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {{-- Modal Edit --}}
+
         <div class="content-inner mt-5 py-0">
             <div class="row">
                 <div class="col-md-12 col-lg-12">
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Success</button>
-                        <table class="table">
+                        <button type="button" class="btn btn-outline-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#myModal">Tambah Kategori</button>
+                        <table class="table" id="tabel-data">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">kategori</th>
-                                    <th scope="col">keteranagn</th>
-                                    <th scope="col">aksi</th>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Kategori</th>
+                                    <th scope="col">Keterangan</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -383,11 +434,8 @@
 
                                     </td>
                                     <td>
-                                        <form action="{{ route('kdestroy', $a->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini ?')">hapus</button>
-                                        </form>
+                                        <button type="submit" class="btn btn-outline-warning edit-btn" data-id="{{ $a->id }}"><i class="bi bi-pencil-square"></i></button>
+                                        <button type="submit" class="btn btn-outline-danger delete-btn ms-1" data-id="{{ $a->id }}"><i class="bi bi-trash-fill"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -401,5 +449,218 @@
     </main>
     @include('layout.js')
 </body>
+
+{{-- AJAX DELETE --}}
+<script>
+    $(document).ready(function () {
+        // Tangani klik tombol "Delete"
+        $(".delete-btn").click(function () {
+            var itemId = $(this).data("id"); // Dapatkan ID item dari atribut data
+
+            // Konfirmasi penghapusan dengan SweetAlert atau pesan konfirmasi lainnya
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Anda yakin ingin menghapus item ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi penghapusan, kirim permintaan DELETE dengan AJAX
+                    $.ajax({
+                        url: "{{ route('kdestroy', '') }}" + "/" + itemId,
+                        type: "DELETE",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        success: function (response) {
+                            // Tanggapan berhasil, lakukan sesuatu jika perlu
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    text: response.message,
+                                    icon: 'success'
+                                }).then(function() {
+                                    // Hapus elemen <tr> terkait dari tabel
+                                    $(`.delete-btn[data-id="${itemId}"]`).closest('tr').remove();
+                                });
+                            } else {
+                                Swal.fire('Peringatan', response.message, 'warning');
+                            }
+                        },
+                        error: function (error) {
+                            Swal.fire('Peringatan', error.responseJSON.message, 'warning');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+{{-- AJAX DELETE --}}
+
+{{-- AJAX Store --}}
+<script>
+    $(document).ready(function () {
+        // Tangani klik tombol "Simpan"
+        $("#myModal form").submit(function (e) {
+            e.preventDefault();
+
+            // Hapus pesan kesalahan yang mungkin sudah ada
+            $(".is-invalid").removeClass('is-invalid');
+            $(".invalid-feedback").remove();
+
+            var formData = new FormData($(this)[0]); // Dapatkan data formulir
+            formData.append('_token', '{{ csrf_token() }}'); // Tambahkan token CSRF
+
+            $.ajax({
+                url: "{{ route('kstore') }}",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Tanggapan berhasil, lakukan sesuatu jika perlu
+                    if (response.success) {
+                        $("#myModal").modal("hide"); // Sembunyikan modal
+                        Swal.fire('Sukses', 'Berhasil menambahkan kategori, halaman akan terefresh.', 'success');
+
+                        setTimeout(function() {
+                        location.reload();
+                        }, 2000);
+
+                    } else {
+                        Swal.fire('Gagal', 'Terjadi kesalahan saat menambahkan kategori.', 'error');
+                    }
+                },
+                error: function (xhr, status, error) {
+                // Tangani kesalahan status respons
+                if (xhr.status === 422) {
+                    var responseErrors = xhr.responseJSON.errors;
+
+                    $.each(responseErrors, function (key, value) {
+                        var inputField = $("input[name='" + key + "'], textarea[name='" + key + "']");
+                        inputField.addClass('is-invalid');
+
+                        inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
+                    });
+                } else {
+                    Swal.fire('Gagal', 'Terjadi kesalahan saat menambahkan kategori.', 'error');
+                }
+                }
+            });
+        });
+    });
+</script>
+{{-- AJAX Store --}}
+
+{{-- AJAX Edit --}}
+<script>
+    $(document).ready(function () {
+        // Tangani klik tombol "Edit"
+        $(".edit-btn").click(function () {
+            var itemId = $(this).data("id"); // Dapatkan ID item dari atribut data'
+
+            // Reset pesan kesalahan dari validasi sebelumnya
+            $(".is-invalid").removeClass('is-invalid');
+            $(".invalid-feedback").remove();
+
+            // Setel nilai ID pada formulir modal
+            $("#editItemID").val(itemId);
+
+            // Setel action formulir modal edit berdasarkan ID
+            var editForm = $("#editModal form");
+            var actionUrl = "{{ route('kedit', ['id' => ':id']) }}".replace(':id', itemId);
+            editForm.attr("action", actionUrl);
+
+            // Kirim permintaan GET untuk mendapatkan data item yang akan diedit
+            $.ajax({
+                url: "{{ url('kedit') }}" + "/" + itemId + "/edit",
+                type: "GET",
+                success: function (response) {
+                    if (response.success) {
+                        // Isi nilai-nilai dalam modal edit dengan data item
+                        $("#editkategori").val(response.data.kategori);
+                        $("#editketerangan").val(response.data.keterangan);
+
+                        // Simpan ID item yang akan diubah
+                        $("#editItemID").val(itemId);
+
+                        // Tampilkan modal edit
+                        $("#editModal").modal("show");
+
+                    } else {
+                        Swal.fire('Gagal', 'Terjadi kesalahan saat mengambil data item.', 'error');
+                    }
+                },
+                error: function () {
+                    Swal.fire('Gagal', 'Terjadi kesalahan saat mengambil data item.', 'error');
+                }
+            });
+        });
+
+        // Tangani klik tombol "Simpan Perubahan" pada modal edit
+        $("#editModal form").submit(function (e) {
+            e.preventDefault();
+
+            // Reset pesan kesalahan dari validasi sebelumnya
+            $(".is-invalid").removeClass('is-invalid');
+            $(".invalid-feedback").remove();
+
+            var itemId = $("#editItemID").val(); // Dapatkan ID item yang akan diubah
+            var formData = new FormData($(this)[0]); // Dapatkan data formulir
+            formData.append('_token', '{{ csrf_token() }}'); // Tambahkan token CSRF
+            formData.append('_method', 'PUT'); // Tambahkan metode PUT
+            // Kirim permintaan PUT untuk menyimpan perubahan
+            $.ajax({
+                url: "{{ url('kupdate') }}" + "/" + itemId,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Tanggapan berhasil, lakukan sesuatu jika perlu
+                    if (response.success) {
+                        // Sembunyikan modal edit
+                        $("#editModal").modal("hide");
+
+                        Swal.fire('Sukses', 'Berhasil memperbarui data kategori, halaman akan terefresh.', 'success');
+
+                        setTimeout(function() {
+                        location.reload();
+                        }, 2000);
+                    } else {
+                        Swal.fire('Gagal', 'Terjadi kesalahan saat menyimpan perubahan.', 'error');
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 422) {
+                        var responseErrors = xhr.responseJSON.errors;
+
+                        $.each(responseErrors, function (key, value) {
+                        var inputField = $("input[name='" + key + "']");
+                        inputField.addClass('is-invalid');
+                        // Jika ini elemen select, tambahkan pesan validasi di bawahnya
+                    if (inputField.is('select')) {
+                        inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
+                    } else {
+                        // Jika bukan elemen select, tambahkan pesan validasi setelah elemen
+                        inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
+                    }
+
+                    });
+                    } else {
+                        // Menampilkan pesan kesalahan umum jika bukan 422
+                        Swal.fire('Gagal', 'Terjadi kesalahan saat menyimpan perubahan.', 'error');
+                    }
+                }
+            });
+        });
+    });
+</script>
+{{-- AJAX Edit --}}
 
 </html>

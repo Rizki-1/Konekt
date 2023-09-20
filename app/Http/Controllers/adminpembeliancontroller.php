@@ -16,6 +16,7 @@ use App\Models\adminnotifikasi;
 use App\Models\notifikasipenjual;
 use App\Models\adminmetodepembayaran;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class adminpembeliancontroller extends Controller
 {
@@ -207,20 +208,102 @@ $chartData = array_values($processedData);
 
     public function kstore(Request $request)
     {
-        $admink = $request->all();
-        adminkategori::create($admink);
+        // Validasi data yang dikirim dari formulir
+        $validatedData = $request->validate([
+            'kategori' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('adminkategoris', 'kategori')->ignore($request->id), // Tambahkan aturan unique
+            ],
+            'keterangan' => 'required|string',
+        ], [
+            'kategori.required' => 'Nama kategori harus diisi.',
+            'kategori.unique' => 'Nama kategori sudah digunakan.',
+            'kategori.max' => 'Nama kategori maksimal 255 karakter.',
+            'keterangan.required' => 'Keterangan harus diisi.',
+        ]);
 
-        return redirect()->route('kategori');
+        try {
+            // Simpan data ke dalam database
+            $kategori = new adminkategori();
+            $kategori->kategori = $validatedData['kategori'];
+            $kategori->keterangan = $validatedData['keterangan'];
+            $kategori->save();
+
+            // Jika berhasil disimpan, kirim respons sukses
+            return response()->json(['success' => true, 'message' => 'Data berhasil disimpan.']);
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan, kirim respons gagal
+            return response()->json(['success' => false, 'message' => 'Gagal menambahkan data.']);
+        }
     }
 
-    public function kdestroy(adminkategori $admink)
+    public function kedit($id)
     {
         try {
-            $admink->delete();
-            return redirect()->route('kategori');
-        } catch (Exception $e) {
-            return back()->with('error','data masih terhubung');
+            $item = adminkategori::find($id);
 
+            if (!$item) {
+                return response()->json(['success' => false, 'message' => 'Item not found'], 404);
+            }
+
+            // Kembalikan data item dalam bentuk JSON
+            return response()->json(['success' => true, 'data' => $item]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to fetch item'], 500);
+        }
+    }
+
+    public function kupdate(Request $request, $id)
+    {
+        // Validasi data yang dikirim dari formulir
+        $validatedData = $request->validate([
+            'kategori' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('adminkategoris', 'kategori')->ignore($id), // Tambahkan aturan unique
+            ],
+            'keterangan' => 'required|string',
+        ], [
+            'kategori.required' => 'Nama kategori harus diisi.',
+            'kategori.unique' => 'Nama kategori sudah digunakan.',
+            'kategori.max' => 'Nama kategori maksimal 255 karakter.',
+            'keterangan.required' => 'Keterangan harus diisi.',
+        ]);
+
+        try {
+            // Temukan data yang akan diupdate
+            $kategori = adminkategori::findOrFail($id);
+
+            // Perbarui data dalam database
+            $kategori->kategori = $validatedData['kategori'];
+            $kategori->keterangan = $validatedData['keterangan'];
+            $kategori->save();
+
+            // Jika berhasil diperbarui, kirim respons sukses
+            return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui.']);
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan, kirim respons gagal
+            return response()->json(['success' => false, 'message' => 'Gagal memperbarui data.']);
+        }
+    }
+
+    public function kdestroy($id)
+    {
+        $item = adminkategori::findOrFail($id);
+
+        // Cek apakah ada data terkait yang masih digunakan
+        if ($item->penjual()->exists()) { // Ganti 'items' dengan nama relasi yang benar
+            return response()->json(['success' => false, 'message' => 'Data Kategori masih digunakan.'], 422);
+        }
+
+        try {
+            $item->delete();
+            return response()->json(['success' => true, 'message' => 'Item berhasil dihapus.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal menghapus item.'], 500);
         }
     }
 

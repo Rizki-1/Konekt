@@ -80,7 +80,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                     // Tanggapan berhasil, lakukan sesuatu jika perlu
                     if (response.success) {
                         $("#myModal").modal("hide"); // Sembunyikan modal
-                        Swal.fire('Sukses', 'Berhasil menambahkan menu, silahkan refresh halaman.', 'success');
+                        Swal.fire('Sukses', 'Berhasil menambahkan menu, halaman akan terefresh.', 'success');
 
                         setTimeout(function() {
                         location.reload();
@@ -377,7 +377,7 @@
                 style="position: relative"
                 >
             </div>
-            <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#myModal">Tambah Menu</button>
+            <button type="button" class="btn btn-outline-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#myModal">Tambah Menu</button>
         </div>
         @php
         $no = 1;
@@ -428,8 +428,8 @@
                         <span class="text-primary fw-bolder me-2">Rp. {{ number_format($p->harga) }}</span>
                         <small class="text-decoration-line-through">{{ $p->kategori }}</small>
                     </div>
-                        <button type="submit" class="btn btn-sm btn-outline-warning edit-btn" data-id="{{ $p->id }}"><i class="bi bi-pencil-square"></i></button>
-                        <button type="submit" class="btn btn-sm btn-outline-danger delete-btn" data-id="{{ $p->id }}"><i class="bi bi-trash"></i></button>
+                        <button type="submit" class="btn btn-outline-warning edit-btn" data-id="{{ $p->id }}"><i class="bi bi-pencil-square"></i></button>
+                        <button type="submit" class="btn btn-outline-danger delete-btn" data-id="{{ $p->id }}"><i class="bi bi-trash"></i></button>
                     </div>
                 </div>
             </div>
@@ -525,7 +525,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
             </div>
@@ -622,7 +622,7 @@
                         // Sembunyikan modal edit
                         $("#editModal").modal("hide");
 
-                        Swal.fire('Sukses', 'Berhasil memperbarui data menu.', 'success');
+                        Swal.fire('Sukses', 'Berhasil memperbarui data menu, halaman akan terefresh.', 'success');
 
                         setTimeout(function() {
                         location.reload();

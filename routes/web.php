@@ -43,7 +43,8 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::get('metodpembayaran', [adminpembeliancontroller::class, 'metodpembayaran'])->name('metodpembayaran');
     Route::get('kategori', [adminpembeliancontroller::class, 'kategori'])->name('kategori');
     Route::post('kstore', [adminpembeliancontroller::class, 'kstore'])->name('kstore');
-    Route::post('kedit/{id}/edit', [adminpembeliancontroller::class, 'kedit']);
+    Route::get('kedit/{id}/edit', [adminpembeliancontroller::class, 'kedit'])->name('kedit');
+    Route::put('kupdate/{id}', [adminpembeliancontroller::class, 'kupdate'])->name('kupdate');
     Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
     Route::delete('adestroy/{adminmp}', [adminpembeliancontroller::class, 'adestroy'])->name('adestroy');
     Route::get('DashboardAdmin',[adminpembeliancontroller::class, 'DashboardAdmin'])->name('DashboardAdmin');

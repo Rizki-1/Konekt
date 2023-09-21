@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('nomor_antrian')->nullable();
             $table->string('subtotalorder')->nullable();
             $table->string('totalharga');
+            $table->string('metode_pengembalian')->nullable();
+            $table->string('keterangan_metode_pengembalian')->nullable();
             $table->string('adminstatus');
             $table->string('pembelianstatus');
             $table->timestamps();

@@ -311,10 +311,7 @@ $chartData = array_values($processedData);
 
     public function pengajuanpembeliad(Request $request)
     {
-        $pengajuanuser = pengemmbaliandana::with('userOrder')
-            ->where('pengembalian_id', $request->pengembaliandana_id)
-            ->get();
-
+        $pengajuanuser = userOrder::where('pembelianstatus', 'mengajukan pengembalian')->get();
         return view('admin.pengajuanpembeliad', compact('pengajuanuser'));
     }
 
@@ -323,6 +320,15 @@ $chartData = array_values($processedData);
     {
         $penjual = barangpenjual::all();
         return view('admin.pengajuanpenjualad', compact('penjual'));
+    }
+
+    public function terimapengajuan($id)
+    {
+        $userOrder = userOrder::findOrFail($id);
+        $userOrder->pembelianstatus = 'pengembalian dana di terima';
+        $userOrder->save();
+
+        return redirect()->back()->with('success', 'pengembalian dana telah di setujui');
     }
 
     /**

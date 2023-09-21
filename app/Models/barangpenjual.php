@@ -18,6 +18,7 @@ class barangpenjual extends Model
         'toko_id',
         'harga',
         'fotomakanan',
+        
     ];
 
     public function adminkategori(): BelongsTo

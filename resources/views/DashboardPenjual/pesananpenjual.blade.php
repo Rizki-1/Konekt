@@ -337,7 +337,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -356,10 +356,10 @@
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
-                                   </form>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                        <li><button type="submit" class="dropdown-item">logout</button></li>
+                                        </form>
                                     </li>
                                 </ul>
                             </li>

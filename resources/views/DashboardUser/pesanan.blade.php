@@ -64,6 +64,55 @@
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
+    @foreach ($user as $u)
+    <form action="{{ route('pengembaliandana', ['id' => $u->id  ]) }}" method="POST">
+        @csrf
+        @method('PATCH')
+    <div class="modal" id="myModal-{{$u->id}}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Pesanan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4">
+                                {{-- <img src="{{ $u->toko_id }}" alt="Foto Menu" class="img-fluid"> --}}
+                                {{-- <input type="text" value="{{ $u->toko_id }}"> --}}
+                            </div>
+                            <div class="col-8">
+                                {{-- @dump($u->all()); --}}
+
+                                <p class="fs-4 text-dark">
+                                    {{ $u->namamenu }}
+                                </p>
+                                <input type="hidden" name="barangpenjual_id" value="{{ $u->id }}">
+                                <input type="hidden" name="id_toko" value="{{ $u->id }}">
+                                <p class="fs-6 text-primary">
+                                    Harga :
+                                    Rp. {{ $u->harga }}
+                                    <input type="hidden" id="harga-{{$u->id}}" name="harga" value="{{ $u->id }}">
+                                    <input type="hidden" id="totalHarga-{{$u->id}}" name="totalHarga" value="">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah-{{$u->id}}" class="form-label fw-bold">Jumlah</label>
+                        <input type="number" id="jumlah-{{$u->id}}" name="jumlah" class="form-control" placeholder="Masukan jumlah">
+                    </div>
+                    </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary">ajukan pengembalian dana</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+    @endforeach
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -360,7 +409,7 @@
                     <div class="d-flex justify-content-between">
                         <h6 class="card-text">Harga :
                           <tr>Rp. {{ number_format($u->totalharga) }}</tr>
-                        </h6>        
+                        </h6>
                     </div>
 
                     <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">

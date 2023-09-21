@@ -338,7 +338,7 @@
                     </li>
                     <!-- End notifikasi -->
                     <!-- start pesan -->
-                    
+
                     <!-- End Pesan-->
                     <!-- Start Profile-->
                     <li class="nav-item dropdown">
@@ -400,11 +400,15 @@
                                     @foreach ($pengajuanuser as $Pengajuanuser)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $Pengajuanuser->userOrder->metodepembayaran }}</td>
-                                            <td>{{ $Pengajuanuser->userOrder->jumlah }}</td>
-                                            <td>{{ $Pengajuanuser->userOrder->totalharga }}</td>
+                                            <td>{{ $Pengajuanuser->metodepembayaran }}</td>
+                                            <td>{{ $Pengajuanuser->jumlah }}</td>
+                                            <td>{{ $Pengajuanuser->totalharga }}</td>
                                             <td>
+                                                <form action="{{ route('terimapengajuan', ['id'=>$Pengajuanuser->id]) }}" method="post">
+                                                    @csrf
+                                                    @method('PATCH')
                                                 <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-{{ $Pengajuanuser->id }}">bayar</button>
+                                               </form>
                                             </td>
                                         </tr>
                                     @endforeach

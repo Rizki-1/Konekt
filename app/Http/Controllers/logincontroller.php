@@ -40,7 +40,7 @@ class logincontroller extends Controller
 
         if (Auth::attempt($penjuallogin)) {
             if (auth()->user()->role == 'penjual') {
-                return redirect()->route('DashboardPenjual.index');
+                return redirect()->route('DashboardPenjual_');
             }
         }
         if (Auth::attempt($penjuallogin)) {

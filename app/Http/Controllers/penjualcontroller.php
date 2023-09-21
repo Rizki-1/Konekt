@@ -34,7 +34,8 @@ class penjualcontroller extends Controller
 
     public function DashboardPenjual()
     {
-        $menu = barangpenjual::count();
+        $penjualId = Auth::id();
+        $menu = barangpenjual::where('toko_id', $penjualId)->count();
         $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->count();
         $totalharga = userOrder::where('pembelianstatus', 'statusselesai')->sum('totalharga');
         $untung = $totalharga * 0.05;
@@ -44,9 +45,9 @@ class penjualcontroller extends Controller
             $pemasukkan = $totalharga - ($untung - 0.05);
         } else {
             $pemasukkan = $totalharga - ($untung - 0.05);
-        }        
+        }
         $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
-        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda'));
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'penjualId'));
     }
 
     public function riwayatpenjual()
@@ -219,12 +220,14 @@ class penjualcontroller extends Controller
 
      public function store(Request $request)
      {
+        $penjualId = Auth::id();
          // Validasi input dari request dengan pesan kustom
          $validated = $request->validate([
             'namamenu' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
             'kategori_id' => 'required|exists:adminkategoris,id',
             'harga' => 'required|numeric|min:0',
             'fotomakanan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+
         ], [
             'namamenu.required' => 'Nama makanan wajib diisi.',
             'namamenu.string' => 'Nama makanan harus berupa teks.',
@@ -241,6 +244,7 @@ class penjualcontroller extends Controller
             'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
         ]);
 
+
          if ($validated) {
              // Simpan foto makanan ke penyimpanan
              if ($request->hasFile('fotomakanan')) {
@@ -255,7 +259,8 @@ class penjualcontroller extends Controller
                  'kategori_id' => $request->kategori_id,
                  'harga' => $request->harga,
                  'fotomakanan' => $filePath,
-                 'toko_id' => $request->toko_id
+                 'toko_id' => $penjualId,
+             
              ];
 
              // Simpan data ke database

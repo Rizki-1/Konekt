@@ -69,6 +69,13 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        <label for="kelas" class="form-label fw-bold">keterangan makanan</label>
+                        <input type="text" name="keterangan_makanan" class="form-control @error('keterangan_makanann') is-invalid @enderror" value="{{ old('keterangan_ makanan') }}">
+                        @error('keterangan_makanan')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label for="kelas" class="form-label fw-bold">Foto Makanan</label>
                         <input type="file" name="fotomakanan" class="form-control @error('fotomakanan') is-invalid @enderror" id="previewImage">
                         @error('fotomakanan')
@@ -517,6 +524,10 @@
                     <div class="mb-3">
                         <label for="harga" class="form-label fw-bold">Harga</label>
                         <input type="text" name="harga" id="editHarga" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="harga" class="form-label fw-bold">keterangan makanan</label>
+                        <input type="text" name="keterangan_makanan" id="editHarga" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="fotomakanan" class="form-label fw-bold">Foto Makanan</label>

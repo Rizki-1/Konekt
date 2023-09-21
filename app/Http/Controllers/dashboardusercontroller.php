@@ -409,17 +409,15 @@ class dashboardusercontroller extends Controller
 
     public function pengembaliandana(Request $request ,$id)
     {
+
         $user_id = Auth::id();
-        $pengembaliandana = [
-            'pengembalian_id' => $request->pengembaliandana_id,
-            'user_id' => $user_id,
-            'pengembalian_status' => 'pengajuan sedang di proses',
-        ];
-        dd($pengembaliandana);
         $user = userOrder::findOrFail($id);
         $user->pembelianstatus = 'mengajukan pengembalian';
+        $user->metode_pengembalian = $request->metode_pengembalian;
+        $user->keterangan_metode_pengembalian = $request->keterangan_metode_pengembalian;
         $user->save();
-        pengemmbaliandana::create($pengembaliandana);
+
+
         return redirect()->back()->with('success', 'pengembalian dana sedang di proses ');
     }
 

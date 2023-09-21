@@ -16,6 +16,8 @@ use App\Models\pembayaranpenjual;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\dashboardusercontrollers;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class penjualcontroller extends Controller
 {
@@ -48,7 +50,45 @@ class penjualcontroller extends Controller
             $pemasukkan = $totalharga - ($untung - 0.05);
         }
         $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
-        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'penjualId'));
+
+
+        $data = userOrder::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('YEAR(created_at) as year'),
+            DB::raw('SUM(totalharga) as total')
+        )
+        ->whereIn('pembelianstatus',['statusselesai'])
+        ->groupBy('year','month','totalharga')->get();
+
+         $processedData = [];
+
+         $currentYear = carbon::now()->year;
+         $currentMonth = Carbon::now()->month;
+
+         for ($month = 1; $month <= 12; $month++) {
+            $date = carbon::createFromDate($currentYear, $month, 1);
+            $yearMonth = $date->isoFormat('MMMM');
+
+            $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green';
+
+            $processedData[$yearMonth] = [
+                'month' => $yearMonth,
+                'statusselesai' => 0,
+                'color' => $color,
+            ];
+         }
+          foreach ($data as $item){
+            $yearMonth = carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
+
+            if (isset($processedData[$yearMonth])){
+                $ini = $item->total - $untung;
+                $masuk =number_format($ini, 0 , ',','.');
+                $processedData[$yearMonth]['statusselesai'] = $masuk;
+            }
+          }
+
+          $chartData = array_values($processedData);
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda','chartData'));
     }
 
     public function riwayatpenjual()

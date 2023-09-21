@@ -13,7 +13,7 @@
     height: 15%; /* Ini akan mengisi tinggi div dengan class "centered-button" */
 }
 
- body {
+ /* body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -27,7 +27,7 @@
   .card1 {
     background-color: #ffffff;
     color: #000000; /* Warna teks */
-    border-radius: 10px;
+    /* border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     margin: 10px;
@@ -35,11 +35,11 @@
     width: 400px;
     margin-bottom: 10px;
     height: 250px;
-  }
-
-  .card-content {
+  } */
+ */
+  /* .card-content {
     flex: 1;
-  }
+  } */
   .img {
     margin-top: 20px;
     margin-bottom: 40px;
@@ -242,7 +242,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -274,35 +274,47 @@
                 </div>
             </nav>
         </div>
-        <div class="content-inner mt-5 py-0">
-            <div class="row">
-                <div class="col-md-24 col-lg-24">
-                    <h2 style="color: red">Riwayat</h2>
-                        <div class="container11" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
-                            @foreach ($user as $User)
-                            <div class="card1">
-                                <div class="">
-                                    <p style="margin-left: 12px; ">Pesanan no {{ $User->id }}</p>
-                                    <p style="margin-left: 12px; margin-top:-20px;">{{ $User->created_at }}</p>
-                                    <img src="{{ asset('css/img/baru.webp') }}" style="width: 80px; margin-left:20px; border-radius: 10px;" alt="">
-                                   <div class="">
-                                       <p style="margin-left: 120px; margin-top:-60px;">Jumlah: {{ $User->jumlah }}</p>
-                                       <p style="margin-left: 120px; margin-top:-20px;">Catatan: {{ $User->catatan }}</p>
-                                       <p style="margin-top: -135px; margin-left:310px;">{{ $User->pembelianstatus }}</p>
-                                       <p style="margin-left: 120px; margin-top:90px;">Total: Rp {{ number_format ($User->totalharga, 0,',','.') }}</p>
 
-                                   </div>
-                                   <div class="">
-                                    <center><button style="margin-top: 10px;" class="btn btn-primary">Lihat Penilaian</button></center>
-                                   </div>
+
+            <div class="content-inner mt-5 py-0">
+                 <div class="col-md-12 col-lg-12 my-custom-card">
+                    <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+                    data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
+                    style="position: relative">
+                    <center><h2 class="title" style="color:red;">Riwayat</h2></center>
+                    <br>
+                    <div class="d-flex justify-content-evenly gap-4">
+                        @foreach ($user as $User)
+                        <div class="card col-md-4">
+                            <div class="card-content p-4 ">
+                                <h6>Pesanan no {{ $User->id }}</h6>
+                                <div class="d-flex justify-content-between">
+                                    <a>{{ $User->pembelianstatus }}</a>
+                                    <h6>{{ $User->created_at }}</h6>
                                 </div>
-                                  <div>
-                                  </div>
-                                </div>
-                                @endforeach
-                            </div>
+                                <hr>
+                                <div class="">
+                                <img src="{{ asset('css/img/baru.webp') }}"  style="width: 80px; margin-left:20px; border-radius: 10px;">
+                                   <a style="margin-left: 10px;">Jumlah : {{ $User->jumlah }}</a>
+                                 </div>
+                                      <hr>
+                                    <div class="d-flex justify-content-between">
+                                        <h6>Catatan : </h6>
+                                       <a>{{ $User->catatan }}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                         <h6>Total:</h6>
+                                         <a>Rp.{{ number_format ($User->totalharga, 0,',','.') }}</a>
+                                    </div><hr>
+                                    <div class="">
+                                        <center><button style="margin-top: 10px;" class="btn btn-primary">Lihat Penilaian</button></center>
+                                       </div>
                         </div>
-                </div>
+                        </div>
+                        @endforeach
+                    </div>
+                 </div>
+                 </div>
             </div>
         </div>
         {{-- @include('layout.footer') --}}

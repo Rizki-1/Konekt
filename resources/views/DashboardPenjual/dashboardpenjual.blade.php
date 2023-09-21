@@ -239,7 +239,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -293,7 +293,7 @@
                                 <rect width="57.92" height="57.92" fill="white" transform="translate(0.869995 0.0351562)"/>
                                 </clipPath>
                             </defs>
-                            </svg>                        
+                            </svg>
                             <div class="text-end">
                             <h2 class="angka m-0">{{ $menu }}</h2>
                             <p>Jumlah Menu</p>
@@ -316,7 +316,7 @@
                             <rect width="40" height="40" fill="white" transform="translate(0.840027 0.995117)"/>
                             </clipPath>
                         </defs>
-                        </svg>                         
+                        </svg>
                         <div class="text-end">
                             <h2 class="angka m-0">{{ $totalpenjualan }}</h2>
                             <p>Jumlah Penjualan</p>
@@ -331,11 +331,11 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
                             <path d="M0.880005 32.6592V35.9951C0.880005 38.7529 7.59875 40.9951 15.88 40.9951C24.1613 40.9951 30.88 38.7529 30.88 35.9951V32.6592C27.6534 34.9326 21.755 35.9951 15.88 35.9951C10.005 35.9951 4.10657 34.9326 0.880005 32.6592ZM25.88 10.9951C34.1613 10.9951 40.88 8.75293 40.88 5.99512C40.88 3.2373 34.1613 0.995117 25.88 0.995117C17.5988 0.995117 10.88 3.2373 10.88 5.99512C10.88 8.75293 17.5988 10.9951 25.88 10.9951ZM0.880005 24.4639V28.4951C0.880005 31.2529 7.59875 33.4951 15.88 33.4951C24.1613 33.4951 30.88 31.2529 30.88 28.4951V24.4639C27.6534 27.1201 21.7472 28.4951 15.88 28.4951C10.0128 28.4951 4.10657 27.1201 0.880005 24.4639ZM33.38 25.3232C37.8566 24.4561 40.88 22.8467 40.88 20.9951V17.6592C39.0675 18.9404 36.4034 19.8154 33.38 20.3545V25.3232ZM15.88 13.4951C7.59875 13.4951 0.880005 16.292 0.880005 19.7451C0.880005 23.1982 7.59875 25.9951 15.88 25.9951C24.1613 25.9951 30.88 23.1982 30.88 19.7451C30.88 16.292 24.1613 13.4951 15.88 13.4951ZM33.0128 17.8936C37.7003 17.0498 40.88 15.3936 40.88 13.4951V10.1592C38.1066 12.1201 33.3409 13.1748 28.3253 13.4248C30.63 14.542 32.3253 16.042 33.0128 17.8936Z" fill="#ED790E"/>
-                        </svg>                        
+                        </svg>
                         <div class="text-end">
                             <h2 class="angka m-0">Rp. {{ number_format ($pemasukkan, 0, ',', '.')}}</h2>
                             <p>Jumlah Pemasukkan</p>
-                        </div>                    
+                        </div>
                     </div>
                 </div>
             </div>
@@ -359,7 +359,7 @@
                             <rect width="40" height="40" fill="white" transform="translate(0.829956 0.495117)"/>
                             </clipPath>
                         </defs>
-                        </svg>                         
+                        </svg>
                         <div class="text-end">
                             <h2 class="angka m-0">{{ $tertunda }}</h2>
                             <p>Pesanan Tertunda</p>
@@ -381,7 +381,6 @@
                 data-iq-ease="none">
                 <div class="card-header">
                     <h4 class="card-title">Total Pembelian</h4>
-                    <small>2023-2024</small>
                 </div>
                 <div class="card-body" data-iq-gsap="onStart"
                     data-iq-opacity="0"
@@ -459,7 +458,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="media">
                     <img class="bg-soft-primary rounded img-fluid avatar-80 me-3" src="../assets/images/avatars/06.png" alt="profile">
                         <div class="media-body">
@@ -468,7 +467,7 @@
                             <p>Harga: 18.000</p>
                         </div>
                     </div>
-                    
+
                     <!-- Tambahkan informasi riwayat pesanan lainnya di sini -->
                 </div>
             </div>
@@ -482,5 +481,105 @@
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
+    <script>
+            var chartData = @json($chartData);
+    console.log(chartData);
+
+      if (jQuery('#admin-chart-1').length) {
+  const options = {
+      series: [{
+          name: 'Jumlah pemasukkan',
+          type: 'column',
+          data: chartData.map(data => parseInt(data.statusselesai))
+      }, {
+          name: 'Data yang sama',
+          type: 'line',
+          curve: 'smooth',
+          data: chartData.map(data => parseInt(data.statusselesai))
+      }],
+      chart: {
+          height: 350,
+          type: 'line',
+          animations: {
+              enabled: true,
+              easing: 'easeinout',
+              speed: 800,
+              animateGradually: {
+                  enabled: false,
+                  delay: 150
+              },
+              dynamicAnimation: {
+                  enabled: true,
+                  speed: 350
+              }
+          },
+          zoom: {
+              enabled: false,
+          },
+          toolbar: {
+              show: false
+          }
+      },
+      tooltip: {
+        enabled: true,
+      },
+      stroke: {
+          width: [0, 2]
+      },
+      dataLabels: {
+          enabled: true,
+          enabledOnSeries: [1],
+          offsetX: 3.0,
+          offsetY: -1.6,
+          style: {
+              fontSize: '1px',
+              fontFamily: 'Helvetica, Arial, sans-serif',
+              fontWeight: 'bold',
+            },
+            background: {
+                enabled: true,
+                foreColor: '#fff',
+                color: '#fff',
+                padding: 10,
+                borderRadius: 10,
+                borderWidth: 0,
+                borderColor: '#fff',
+                opacity: 1,
+              }
+
+      },
+      colors: ["#EA6A12", "#EA6A12"],
+      plotOptions: {
+          bar: {
+              horizontal: false,
+              columnWidth: '16%',
+              endingShape: 'rounded',
+              borderRadius: 5,
+          },
+      },
+      legend: {
+          show: false,
+          offsetY: -25,
+          offsetX: -5
+      },
+      xaxis: {
+          categories:chartData.map(data => data.month) ,
+          labels: {
+              minHeight: 20,
+              maxHeight: 20,
+          }
+      },
+      yaxis: {
+        labels: {
+            minWidth: 20,
+            maxWidth: 20,
+        }
+    },
+  };
+
+  const chart = new ApexCharts(document.querySelector("#admin-chart-1"), options);
+  chart.render();
+}
+    </script>
 </body>
 </html>

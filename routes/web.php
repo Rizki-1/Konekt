@@ -96,6 +96,7 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::get('pengajuanpenjual', [penjualcontroller::class, 'pengajuanpenjual'])->name('pengajuanpenjual');
     Route::get('pengajuandana', [penjualcontroller::class, 'pengajuandana'])->name('pengajuandana');
     Route::get('profilepenjual', [penjualcontroller::class, 'profilepenjual'])->name('profilepenjual');
+    Route::get('detailmenupen/{id}', [penjualcontroller::class, 'detailmenupen'])->name('detailmenupen');
 });
 
 

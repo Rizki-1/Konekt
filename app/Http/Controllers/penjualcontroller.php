@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\admink;
 use App\Models\penjual;
+use App\Models\ulasan;
 use App\Models\userOrder;
 use App\Models\notifikasi;
 use Illuminate\Http\Request;
@@ -109,6 +110,16 @@ class penjualcontroller extends Controller
     {
         $pembayaranpenjual->delete();
         return redirect()->route('pembayaranpenjual');
+    }
+
+    public function detailmenupen(Request $request, $id)
+    {
+        $user = BarangPenjual::findOrFail($id);
+        $penjual = BarangPenjual::where('id',$id)->get();
+        $ulasan = ulasan::where('barangpenjual_id', $id)->get();
+        // $penjual = BarangPenjual::all();
+
+        return view('DashboardPenjual.detailmenupen', compact('user', 'penjual', 'ulasan'));
     }
 
     public function terimapesanan($id, Request $request)

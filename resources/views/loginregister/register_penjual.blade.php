@@ -613,7 +613,14 @@
                </div>
             </div>
             <div class="col-md-12 col-lg-5 col-xl-8 d-lg-block d-none vh-100 overflow-hidden">
-               <img src="../../assets/images/auth/09.png" class="img-fluid sign-in-img" alt="images">
+            <img src="../../assets/images/auth/01.png" class="hover-img rounded-circle first-img" alt="images">
+                  <img src="../../assets/images/auth/02.png" class="hover-img rounded-circle second-img" alt="images">
+                  <img src="../../assets/images/auth/03.png" class="hover-img rounded-circle third-img" alt="images">
+                  <img src="../../assets/images/auth/04.png" class="hover-img rounded-circle fourth-img" alt="images">
+                  <img src="../../assets/images/auth/05.png" class="hover-img rounded-circle fifth-img" alt="images">
+                  <img src="../../assets/images/auth/06.png" class="hover-img rounded-circle six-img" alt="images">
+                  <img src="../../assets/images/auth/01.png" class="hover-img rounded-circle seventh-img" alt="images">
+                  <img src="../../assets/images/auth/02.png" class="hover-img rounded-circle eight-img" alt="images">
             </div>
          </div>
       </section>

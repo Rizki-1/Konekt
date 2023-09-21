@@ -381,9 +381,9 @@
       <!-- The modal itself -->
       <!-- Start Isi Dashboard -->
       <div class="content-inner mt-5 py-0">
-      <div class="card border-0 shadow rounded">
-                        <div class="card-body">
-
+        <div class="card border-0 shadow rounded">
+                  <div class="card-body">
+                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal">Tambah Pembayaran</button>
                   <div class="col active"
                      data-iq-gsap="onStart"
                      data-iq-opacity="0"

@@ -344,7 +344,6 @@
                     <img src="../assets/images/avatars/01.png" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded">
                     <div class="caption ms-3 d-none d-md-block ">
                         <h6 class="mb-0 caption-title">{{ Auth::user()->name }}</h6>
-                        <p class="mb-0 caption-sub-title">Marketing Administrator</p>
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -489,10 +488,8 @@
 
 {{-- Modal Edit --}}
 @foreach ($penjual as $p)
-
-
 <div class="modal fade" id="editModal" tabindex="-1">
-    <form action="{{ route('DashboardPenjual.update', ['DashboardPenjual' => $p->id]) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('DashboardPenjual.update', ['DashboardPenjual' => $p->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="toko_id" value="{{ $penjualId }}">

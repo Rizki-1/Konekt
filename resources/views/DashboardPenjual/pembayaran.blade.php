@@ -359,7 +359,6 @@
                     <img src="../assets/images/avatars/01.png" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded">
                     <div class="caption ms-3 d-none d-md-block ">
                         <h6 class="mb-0 caption-title">{{ Auth::user()->name }}</h6>
-                        <p class="mb-0 caption-sub-title">Marketing Administrator</p>
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -382,10 +381,9 @@
       <!-- The modal itself -->
       <!-- Start Isi Dashboard -->
       <div class="content-inner mt-5 py-0">
-        <div class="card border-0 shadow rounded">
-          <div class="card-body">                    
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal">Success</button>
-            
+      <div class="card border-0 shadow rounded">
+                        <div class="card-body">
+
                   <div class="col active"
                      data-iq-gsap="onStart"
                      data-iq-opacity="0"

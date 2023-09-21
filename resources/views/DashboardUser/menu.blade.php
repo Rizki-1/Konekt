@@ -55,7 +55,7 @@
 @foreach ($penjual as $p)
 <form action="{{ route('pembelian', ['id' => $p->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
+        <div class="modal fade" id="myModal-{{$p->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

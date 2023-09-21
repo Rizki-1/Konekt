@@ -317,7 +317,7 @@
                     </li>
                     <!-- End notifikasi -->
                     <!-- start pesan -->
-                    
+
                     <!-- End Pesan-->
                     <!-- Start Profile-->
                     <li class="nav-item dropdown">
@@ -350,7 +350,7 @@
         </div>
         <div class="content-inner mt-5 py-0">
             <div class="card border-0 shadow rounded">
-                <div class="card-body">                    
+                <div class="card-body">
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
@@ -378,7 +378,7 @@
                                         <td>{{ $s->alamat_toko }}</td>
                                         <td>
                                             @if($s->foto_toko)
-                                                <img src="{{ asset('storage/' . $s->foto_toko) }}" alt="Foto Toko" style="width: 150px; height:80px;">
+                                                <img src="{{ asset('storage/' . $s->foto_toko) }}" alt="Foto Toko" class="rounded-1" style="width: 150px; height:80px;">
                                             @else
                                                 Tidak Ada Gambar
                                             @endif
@@ -417,7 +417,7 @@
 
             Swal.fire({
                 title: 'Apakah anda yakin?',
-                icon: 'warning', 
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Lanjutkan!',
                 cancelButtonText: 'Batalkan!',

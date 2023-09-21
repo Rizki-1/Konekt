@@ -59,6 +59,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     {
     Route::get('daftartoko', [dashboardusercontroller::class,'daftartoko'])->name('daftartoko');
     Route::post('pembelian/{id}', [dashboardusercontroller::class, 'pembelian'])->name('pembelian')->middleware('web');
+    route::post('menu/massUpdate', [dashboardusercontroller::class, 'massUpdate'])->name('menu.massUpdate');
     Route::post('order', [dashboardusercontroller::class, 'order'])->name('order');
     Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
     Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
@@ -66,7 +67,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
     Route::get('/menu/search', [dashboardusercontroller::class, 'search'])->name('menu.search');
     Route::post('beli', [dashboardusercontroller::class, 'beli'])->name('beli');
-    Route::get('konfimasipembelian/{id?}', [dashboardusercontroller::class, 'konfimasipembelian'])->name('konfimasipembelian');
+    Route::get('konfimasipembelian/{ids}', [dashboardusercontroller::class, 'konfimasipembelian'])->name('konfimasipembelian');
     Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('Userkeranjang');
     Route::post('tambahKeranjang/{id}', [dashboardusercontroller::class, 'tambahKeranjang'])->name('tambahKeranjang');
     Route::delete('hapusKeranjang', [dashboardusercontroller::class, 'hapusKeranjang'])->name('hapusKeranjang');

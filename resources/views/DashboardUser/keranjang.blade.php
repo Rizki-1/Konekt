@@ -294,7 +294,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -522,6 +522,9 @@
         });
     });
 </script>
+{{-- AJAX delete --}}
+
+{{-- AJAX order --}}
 <script>
     $(document).ready(function() {
         $(".item-checkbox").change(function() {
@@ -540,12 +543,14 @@
                 itemIds.push($(this).val());
             });
 
-            var jumlah = $(".product-quantity").val();
-
             if (itemIds.length === 0) {
                 Swal.fire('Gagal', 'Pilih salah satu item terlebih dahulu.', 'error');
                 return;
             }
+
+            // Tampilkan SweetAlert di sini
+            Swal.fire('Sukses', 'Transaksi berhasil dilakukan.', 'success');
+
             var response;
             $.ajax({
                 url: "{{ route('order') }}",
@@ -553,23 +558,20 @@
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "items": itemIds,
-                    "jumlah": jumlah
                 },
                 success: function(data) {
                     response = data;
 
-                        alert(`/konfimasipembelian/${data.id}`);
-                        window.location =
-                            `/konfimasipembelian/${data.id}`;
+                    window.location = `/konfimasipembelian/${data.id}`;
+
                 },
                 error: function(response) {
                     console.log(response);
-                    console.log(jumlah);
-                    alert('Terjadi kesalahan dalam melakukan pembelianzsdfcvghjlkxfdhk.');
+                    Swal.fire('Gagal', 'Pilih salah satu item terlebih dahulu.', 'error');
                 }
             });
         });
     });
 </script>
-</html>
 {{-- AJAX order --}}
+</html>

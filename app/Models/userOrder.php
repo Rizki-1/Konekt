@@ -28,7 +28,7 @@ class userOrder extends Model
 
     public function penjual(): BelongsTo
     {
-        return $this->belongsTo(barangpenjual::class);
+        return $this->belongsTo(barangpenjual::class, 'barangpenjual_id');
     }
 
     public function ulasan(): HasMany

@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\adminmetodepembayaran;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\QueryException; // Import QueryException
+use Exception; // Import Exception
 
 class dashboardusercontroller extends Controller
 {
@@ -72,7 +74,7 @@ class dashboardusercontroller extends Controller
             'metodepembayaran' => 'waiting'
         ];
         $userOrders =  userOrder::create($userOrderData);
-        return redirect()->route('konfimasipembelian', ['id' => $userOrders->id]);
+        return redirect()->route('konfimasipembelian', ['ids' => $userOrders->id]);
 
     }
 
@@ -90,7 +92,7 @@ class dashboardusercontroller extends Controller
         foreach ($itemIds as $itemId) {
             $keranjang = keranjang::findOrFail($itemId);
 
-            $jumlah = $request->input('jumlah');
+            $jumlah = ($keranjang->jumlah);
 
             $totalharga = ($keranjang->totalHarga);
 
@@ -109,6 +111,8 @@ class dashboardusercontroller extends Controller
             ];
 
             $userOrder = userOrder::create($userOrderData);
+
+            $keranjang->delete();
 
             $userOrdersIds[] = $userOrder->id;
         }
@@ -171,21 +175,26 @@ class dashboardusercontroller extends Controller
         ]);
     }
 
-    public function konfimasipembelian(Request $request)
+    public function konfimasipembelian($ids)
     {
+        // Memisahkan daftar ID pesanan menjadi array
+        $orderIds = explode(',', $ids);
 
+        // Mengambil data untuk semua pesanan yang dipilih
+        $userOrder = userOrder::whereIn('id', $orderIds)->with('penjual')->get();
+
+        if ($userOrder->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada pesanan yang ditemukan.');
+        }
+
+        // Mengambil data lain yang mungkin Anda perlukan
         $notifikasi = notifikasi::all();
         $user_id = Auth::id();
-        $userOrder = userOrder::findOrFail($request->id);
-        $subtotalorder = $userOrder->subtotalorder;
+        $subtotalorder = $userOrder->sum('totalharga');
 
-        $totalharga = userOrder::all();
-
-        $penjual = barangpenjual::findOrFail($userOrder->barangpenjual_id);
-        $notifikasi = notifikasi::all();
         $pembelian = adminmetodepembayaran::all();
 
-        return view('DashboardUser.pembelian', compact('userOrder', 'penjual', 'user_id', 'notifikasi', 'subtotalorder','pembelian'));
+        return view('DashboardUser.pembelian', compact('userOrder', 'user_id', 'notifikasi', 'subtotalorder', 'pembelian'));
     }
 
 
@@ -462,17 +471,11 @@ class dashboardusercontroller extends Controller
          }
      }
 
-
-
     public function update(Request $request, $id)
     {
 
         $user_id = Auth::id();
-        // dd($user_id);
-        // dd($request->all());
         $order = userOrder::findOrFail($id);
-        // $datapenjual = barangpenjual::findOrFail($id);
-        // dd($user_id);
         if($order->user_id != Auth::user()->id)
         {
             return back()->with('error', 'data user tidak valid');
@@ -495,12 +498,9 @@ class dashboardusercontroller extends Controller
             'toko_id' => $request->toko_id,
             'user_id' => $user_id,
             'metodepembayaran' => $request->metodepembayaran
-
         ];
             $order->adminstatus = 'notapprove';
             $order->pembelianstatus = 'menunggu konfirmasi';
-
-
 
             $order->update($dashboardusercontrollers);
 
@@ -510,7 +510,6 @@ class dashboardusercontroller extends Controller
             $order->foto = $filePath;
             $order->save();
         }
-
 
         $adminNotification = new adminnotifikasi();
         $adminNotification->keterangan_admin = 'Ada pesanan masuk!';
@@ -525,6 +524,60 @@ class dashboardusercontroller extends Controller
         $userNotification->save();
 
         return redirect()->route('menu.index')->with('success', 'Anda berhasil membuat pesanan');
+    }
+
+
+    public function massUpdate(Request $request)
+    {
+        try {
+            $user_id = Auth::id();
+            $itemIds = $request->input('ids');
+
+            foreach ($itemIds as $orderId) {
+                $order = userOrder::find($orderId); // Mendapatkan pesanan berdasarkan ID
+                if ($order) {
+                    // Lakukan pembaruan data pesanan sesuai dengan kebutuhan
+                    $order->barangpenjual_id = $request->input("barangpenjual_id_$orderId");
+                    $order->adminstatus = 'notapprove';
+                    $order->pembelianstatus = 'menunggu konfirmasi';
+                    $order->jumlah = $request->input("jumlah_$orderId");
+                    $order->catatan = $request->input("catatan_$orderId");
+                    $order->foto = $request->foto;
+                    $order->toko_id = $request->input("toko_id_$orderId");
+                    $order->user_id = $request->input("user_id_$orderId");
+                    $order->metodepembayaran = $request->metodepembayaran;
+                    // Simpan perubahan pada pesanan
+                    $order->save();
+
+                    if ($request->hasFile('foto')) {
+                        $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', $request->file('foto'));
+                        $order->foto = $filePath;
+                        $order->save();
+                    }
+
+                }
+            }
+
+            // Buat notifikasi admin dan user di luar loop foreach jika diperlukan
+            $adminNotification = new adminnotifikasi();
+            $adminNotification->keterangan_admin = 'Ada pesanan masuk!';
+            $adminNotification->isi_admin = 'Cek halaman pembelian untuk konfirmasi';
+            $adminNotification->save();
+
+            // Kirim notifikasi kepada user
+            $userNotification = new notifikasi();
+            $userNotification->keterangan = 'Anda berhasil membuat pesanan!';
+            $userNotification->isi = 'Lihat pesanan Anda di halaman pesanan';
+            $userNotification->user_id_notifikasi = $request->input("user_id_$orderId");
+            $userNotification->save();
+
+            // Tambahkan respons yang sesuai
+            return response()->json(['message' => 'Pembaruan massal berhasil.']);
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Terjadi kesalahan database: ' . $e->getMessage()], 500);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 422);
+        }
     }
 
     /**

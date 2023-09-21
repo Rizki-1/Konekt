@@ -63,6 +63,24 @@
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+
+    <!-- Include the SweetAlert 2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+    <!-- Include the SweetAlert 2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {{-- bootstrap icon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+    <!-- Include the CSRF token as a meta tag -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
 </head>
 
 <body class="  "
@@ -261,7 +279,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -295,9 +313,6 @@
             </nav>
         </div>
         <!-- Loop through pembelian records -->
-            <form action="{{ route('menu.update', $userOrder->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
                 <div class="content-inner mt-5 py-0">
                     <div class=" card col-md-12 col-lg-12">
                         <div class="card-body">
@@ -309,55 +324,51 @@
                                     <i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px" aria-hidden="true"></i>
                                     {{-- {{ $p->namapenjual }} <!-- Menampilkan nama penjual --> --}}
                                 </div>
-                                <div class="d-flex justify-content-between">
+                                @foreach ($userOrder as $p)
+                                <form action="{{ route('menu.massUpdate') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="d-flex justify-content-between item-element" data-order-id="{{ $p->id }}">
                                     <!-- Menampilkan detail menu -->
-                                    <div class=""><img src="{{ asset('assets/img/poto.png') }}" width="100px" alt="" srcset=""></div>
+                                    <div class=""><img src="{{ Storage::url($p->penjual->fotomakanan) }}" width="100px" alt="" srcset=""></div>
                                     <div class="form-label text-bold">
                                         <h5 class="form-label">Nama Menu</h5>
-                                        {{-- @dump($userOrder->barangpenjual_id)
-                                        @dump($userOrder->toko_id)
-                                        @dump($userOrder->user_id) --}}
                                         <div class="">
-                                            <p class="form-label">{{ $penjual->namamenu }}</p> <!-- Menampilkan nama menu -->
-                                            <input type="hidden" name="barangpenjual_id" value="{{ $penjual->id }}">
-                                            <input type="hidden" name="toko_id" value="{{ $userOrder->toko_id }}">
-                                            <input type="hidden" name="user_id" value="{{ $userOrder->user_id }}">
-
-                                            <input type="hidden" name="user_id_notifikasi" value="{{ $userOrder->user_id }}">
+                                            <p class="form-label">{{ $p->penjual->namamenu }}</p>
+                                            <input type="hidden" id="barangpenjual_id" name="barangpenjual_id_{{ $p->id }}" value="{{ $p->penjual->id }}">
+                                            <input type="hidden" id="toko_id" name="toko_id_{{ $p->id }}" value="{{ $p->toko_id }}">
+                                            <input type="hidden" id="user_id" name="user_id_{{ $p->id }}" value="{{ $p->user_id }}">
+                                            <input type="hidden" id="user_id_notifikasi" name="user_id_notifikasi" value="{{ $p->user_id }}">
                                         </div>
                                     </div>
                                     <div class="form-label text-bold px-4">
                                         <h5 class="form-label">Harga</h5>
                                         <div class="">
-                                            <p class="form-label">{{ $penjual->harga }}</p> <!-- Menampilkan harga -->
+                                            <p class="form-label">Rp. {{ number_format($p->penjual->harga) }}</p>
                                         </div>
                                     </div>
                                 <div class="form-label text-bold px-4">
                                     <h5 class="form-label">Jumlah</h5>
                                     <div class="">
-                                        {{-- @foreach ($penjual->userOrder as $UserOrder ) --}}
-                                            <p class="form-label">{{ $userOrder->jumlah }}</p>
-                                            <input type="hidden" name="jumlah" value="{{ $userOrder->jumlah }}">
-                                            {{-- @endforeach --}}
+                                        <p class="form-label">{{ $p->jumlah }}</p>
+                                        <input type="hidden" id="jumlah" name="jumlah_{{ $p->id }}" value="{{ $p->jumlah }}">
                                     </div>
                                 </div>
                                 <!-- Total harga belum dihitung -->
                                 <div class="form-label text-bold px-4">
                                     <h5 class="form-label">Total</h5>
-                                    <input type="hidden" name="namamenu_id" value="{{ $penjual->id }}">
+                                    <input type="hidden" name="namamenu_id" value="{{ $p->penjual->id }}">
                                     <div class="">
-
-                                        <p class="form-label">Rp. {{ number_format($userOrder->totalharga) }}</p>
-
-
+                                        <p class="form-label">Rp. {{ number_format($p->totalharga) }}</p>
                                     </div>
                                 </div>
                             </div>
                             <hr>
-
+                            @endforeach
+                    </div>
                 </div>
 
-            </div>
 
 
             {{-- pisa --}}
@@ -402,9 +413,9 @@
                     <p class="text-bold">Kode QR</p>
                 </div>
                 @foreach ($pembelian as $data)
-                @php
-                  $jefri = strlen($data->keterangan);
-                   @endphp
+                    @php
+                    $jefri = strlen($data->keterangan);
+                    @endphp
                  @if ($jefri >= 20)
                  <p class="" name="keteranganqr" value="{{ $data->keterangan }}" id="{{ $data->tujuan }}">
                 <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}" style="width: 150px; height=80px;" disabled>
@@ -460,11 +471,12 @@
             <div class="">
                 <h5 class="text-bold">Total harga</h5>
             </div>
-            {{-- <div class="mt-3">
-            </div> --}}
+            <div class="mt-3">
+                <p>Rp. {{ number_format($subtotalorder) }}</p>
+            </div>
         </div>
         <div class="d-flex justify-content-end mt-5">
-            <button type="submit" class="btn btn-primary">Bayar</button>
+            <button type="button" class="btn btn-primary" id="bayar">Bayar</button>
         </div>
     </div>
     </div>
@@ -476,24 +488,147 @@
     </body>
 
     </html>
-    {{-- <script>
-    const selectMetode = document.getElementById('selectMetode');
-    const ewalletInput = document.getElementById('buktitranferInput');
-    const bankInput = document.getElementById('buktitranferInput');
 
-    selectMetode.addEventListener('change', function () {
-        if (this.value === 'e-wallet') {
-            ewalletInput.style.display = 'block';
-            bankInput.style.display = 'none';
-        } else if (this.value === 'bank') {
-            ewalletInput.style.display = 'none';
-            bankInput.style.display = 'block';
-        } else {
-            ewalletInput.style.display = 'none';
-            bankInput.style.display = 'none';
-        }
+{{-- AJAX Update --}}
+{{-- <script>
+    $(document).ready(function() {
+        $("#bayar").click(function() {
+        var itemIds = [];
+        var selectedMetode = $("#selectMetode").val(); // Mengambil nilai metode pembayaran yang dipilih
+
+        $(".item-element").each(function() {
+            var orderId = $(this).data("order-id");
+            itemIds.push(orderId);
+        });
+
+        var barangpenjual_id = $("#barangpenjual_id").val();
+        var toko_id = $("#toko_id").val();
+        var user_id = $("#user_id").val();
+        var jumlah = $("#jumlah").val();
+        var metodepembayaran = $("#metodepembayaran").val();
+
+        console.log(itemIds);
+
+            // Tampilkan SweetAlert konfirmasi
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: 'Anda akan melakukan pembayaran.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Kirim permintaan Ajax dengan itemIds jika pengguna mengonfirmasi
+                    $.ajax({
+                        url: "{{ route('menu.massUpdate') }}", // Gantilah ini dengan URL yang sesuai
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            ids: itemIds,
+                            barangpenjual_id: barangpenjual_id,
+                            toko_id: toko_id,
+                            user_id: user_id,
+                            jumlah: jumlah,
+                            metodepembayaran: metodepembayaran
+                        },
+                        success: function(data) {
+                            // Handle respons dari server jika diperlukan
+                            // Misalnya, tampilkan pesan sukses atau perbarui tampilan
+                            Swal.fire('Sukses', 'Pembayaran berhasil dilakukan.', 'success');
+                            // Redirect atau lakukan tindakan lain sesuai kebutuhan Anda
+                            setTimeout(function() {
+                            window.location.href = "{{ route('menu.index') }}";
+                            }, 2000);
+                        },
+                        error: function(response) {
+                            console.log(response);
+                            // Handle kesalahan jika terjadi
+                            Swal.fire('Gagal', 'Terjadi kesalahan saat melakukan pembayaran.', 'error');
+                        }
+                    });
+                }
+            });
+        });
     });
 </script> --}}
+{{-- AJAX Update --}}
+
+{{-- AJAX Update --}}
+<script>
+    $(document).ready(function() {
+        $("#bayar").click(function() {
+            var itemIds = [];
+            var selectedMetode = $("#selectMetode").val(); // Mengambil nilai metode pembayaran yang dipilih
+
+            $(".item-element").each(function() {
+                var orderId = $(this).data("order-id");
+                itemIds.push(orderId);
+            });
+
+            // Inisialisasi objek data
+            var formData = new FormData();
+
+            // Loop melalui itemIds
+            for (var i = 0; i < itemIds.length; i++) {
+                var orderId = itemIds[i];
+                var jumlah = $("input[name='jumlah_" + orderId + "']").val(); // Ambil nilai jumlah dinamis
+                var barangpenjual_id = $("input[name='barangpenjual_id_" + orderId + "']").val(); // Ambil nilai barangpenjual_id dinamis
+                var toko_id = $("input[name='toko_id_" + orderId + "']").val(); // Ambil nilai toko_id dinamis
+                var user_id = $("input[name='user_id_" + orderId + "']").val(); // Ambil nilai user_id dinamis
+
+                // Tambahkan data ke objek formData
+                formData.append('ids[]', orderId);
+                formData.append('jumlah_' + orderId, jumlah);
+                formData.append('barangpenjual_id_' + orderId, barangpenjual_id);
+                formData.append('toko_id_' + orderId, toko_id);
+                formData.append('user_id_' + orderId, user_id);
+            }
+
+            // Tambahkan data metodepembayaran ke objek formData
+            formData.append('metodepembayaran', selectedMetode);
+
+            // Tampilkan SweetAlert konfirmasi
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: 'Anda akan melakukan pembayaran.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Kirim permintaan Ajax dengan formData jika pengguna mengonfirmasi
+                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: "{{ route('menu.massUpdate') }}",
+                        type: "POST",
+                        data: formData,
+                        processData: false, // Hindari pemrosesan otomatis data
+                        contentType: false, // Hindari penambahan header otomatis
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken // Sertakan token CSRF dalam header
+                        },
+                        success: function(data) {
+                            // Handle respons dari server jika diperlukan
+                            Swal.fire('Sukses', 'Pembayaran berhasil dilakukan.', 'success');
+                            // Redirect atau lakukan tindakan lain sesuai kebutuhan Anda
+                            window.location.href = "{{ route('menu.index') }}";
+                        },
+                        error: function(response) {
+                            console.log(response);
+                            // Handle kesalahan jika terjadi
+                            Swal.fire('Gagal', 'Terjadi kesalahan saat melakukan pembayaran.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+{{-- AJAX Update --}}
+
+{{-- Script Pembayaran --}}
 <script>
     const selectElement = document.querySelector('#JenisBank');
     const inputElements = document.querySelectorAll('input[name="keterangan"]');
@@ -533,20 +668,23 @@
     spElement.dispatchEvent(new Event('change'));
 </script>
 <script>
-    const selectMetode = document.getElementById('selectMetode');
-    const ewalletInput = document.getElementById('ewalletInput');
-    const bankInput = document.getElementById('bankInput');
-
-    selectMetode.addEventListener('change', function() {
-        if (this.value === 'e-wallet') {
-            ewalletInput.style.display = 'block';
-            bankInput.style.display = 'none';
-        } else if (this.value === 'bank') {
-            ewalletInput.style.display = 'none';
-            bankInput.style.display = 'block';
-        } else {
-            ewalletInput.style.display = 'none';
-            bankInput.style.display = 'none';
-        }
-    });
+ // Menangani perubahan pada elemen select metode pembayaran
+ $("#selectMetode").change(function() {
+    var selectedOption = $(this).val();
+    // Sesuaikan tindakan yang diperlukan berdasarkan opsi yang dipilih
+    if (selectedOption === "e-wallet") {
+        // Tampilkan elemen terkait E-Wallet
+        $("#ewalletInput").show();
+        $("#bankInput").hide(); // Sembunyikan elemen Bank
+    } else if (selectedOption === "bank") {
+        // Tampilkan elemen terkait Bank
+        $("#bankInput").show();
+        $("#ewalletInput").hide(); // Sembunyikan elemen E-Wallet
+    } else {
+        // Jika opsi lainnya dipilih, sembunyikan semua elemen terkait
+        $("#ewalletInput").hide();
+        $("#bankInput").hide();
+    }
+});
 </script>
+{{-- Script Pembayaran --}}

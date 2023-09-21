@@ -34,7 +34,7 @@
     padding: 10px;
     width: 400px;
     margin-bottom: 10px;
-    height: 400px;
+    height: 250px;
   }
 
   .card-content {
@@ -252,7 +252,6 @@
                                         class="img-fluid avatar avatar-50 avatar-rounded">
                                     <div class="caption ms-3 d-none d-md-block ">
                                         <h6 class="mb-0 caption-title">{{ Auth::user()->name }}</h6>
-                                        <p class="mb-0 caption-sub-title">Marketing Administrator</p>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -282,28 +281,27 @@
                         <div class="container11" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px;">
                             @foreach ($user as $User)
                             <div class="card1">
-                                  <div class="">
-                                    <p style="margin-left: 12px; ">pesanan no {{ $User->id }}</p>
+                                <div class="">
+                                    <p style="margin-left: 12px; ">Pesanan no {{ $User->id }}</p>
                                     <p style="margin-left: 12px; margin-top:-20px;">{{ $User->created_at }}</p>
                                     <img src="{{ asset('css/img/baru.webp') }}" style="width: 80px; margin-left:20px; border-radius: 10px;" alt="">
                                    <div class="">
-                                       <p style="margin-left: 110px; margin-top:-60px;">{{ $User->barangpenjual_id }}</p>
-                                       <p style="margin-left: 110px; margin-top:-20px; font-family:arial; opacity:0.7;">suhadi</p>
+                                       <p style="margin-left: 120px; margin-top:-60px;">Jumlah: {{ $User->jumlah }}</p>
+                                       <p style="margin-left: 120px; margin-top:-20px;">Catatan: {{ $User->catatan }}</p>
                                        <p style="margin-top: -135px; margin-left:310px;">{{ $User->pembelianstatus }}</p>
-                                       <p style="margin-left: 292px; margin-top:65px;">{{ $User->catatan }}</p>
-                                       <p style="margin-left: 330px; margin-top:-70px;">( 1 )</p>
+                                       <p style="margin-left: 120px; margin-top:90px;">Total: Rp {{ number_format ($User->totalharga, 0,',','.') }}</p>
 
                                    </div>
                                    <div class="">
-                                    <center><button style="margin-top: 50px;" class="btn btn-primary">Lihat Penilaian</button></center>
+                                    <center><button style="margin-top: 10px;" class="btn btn-primary">Lihat Penilaian</button></center>
                                    </div>
                                 </div>
                                   <div>
                                   </div>
+                                </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -104,9 +104,56 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
-
-
     @include('layout.logoloader')
+    @foreach ($userOrder as $UserOrder)
+    <form action="{{ route('pengajuandanapenjual') }}" method="post">
+        @csrf
+        
+    <div class="modal" id="myModal-{{$UserOrder->id}}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ajukan pengajuan dana</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8">
+                                <p class="fs-6 text-dark">
+                                    nama pembeli :
+                                    {{ $UserOrder->User->name }}
+                                    <br>
+                                    nama menu :
+                                    {{ $UserOrder->penjual->namamenu}}
+
+                                </p>
+                                <p class="fs-6 text-dark">
+                                    {{ $UserOrder->penjual->namamenu }}
+                                </p>
+                                <p class="fs-6 text-primary">
+                                    total Harga :
+                                    Rp. {{ $totalharga_penjual_setelah_potongan  }}
+                                    <br>
+                                    * di kenakan biaya admin
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah-{{$UserOrder->id}}" class="form-label fw-bold">Jumlah</label>
+                        <input type="number" id="jumlah-{{$UserOrder->id}}" name="jumlah" class="form-control" placeholder="Masukan jumlah">
+                    </div>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" id="addToCart-{{$UserOrder->id}}">Tambah Keranjang</button>
+                    <button type="submit" class="btn btn-primary">Pesan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@endforeach
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -273,7 +320,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -320,17 +367,21 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>aku sih</td>
-                                <td>1</td>
-                                <td>15.000</td>
-                                <td>Qris</td>
+                                @php
+                                    $no = 1;
+                                @endphp
+                                @foreach ($userOrder as $UserOrder )
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $UserOrder->User->name }}</td>
+                                <td>{{ $UserOrder->jumlah }}</td>
+                                <td>{{ $UserOrder->totalharga }}</td>
+                                <td>{{ $UserOrder->metodepembayaran }}</td>
                                 <td>
-                                    <a href="pengajuanpenjual" class="btn btn-primary">Detail</a>
-                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal">
-                                        <i class="fa fa-eye"></i>
+                                    <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-{{$UserOrder->id}}">
+                                        <i class="fa fa-eye">ajukan pengambilan dana</i>
                                     </button>
                                 </td>
+                                @endforeach
                             </tr>
                             <!-- Tambahkan baris-baris lain sesuai kebutuhan -->
                         </tbody>

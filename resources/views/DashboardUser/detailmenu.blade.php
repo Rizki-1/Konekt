@@ -256,7 +256,7 @@
                 </li>
                 <!-- End notifikasi -->
                 <!-- start pesan -->
-                
+
                 <!-- End Pesan-->
                 <!-- Start Profile-->
                 <li class="nav-item dropdown">
@@ -304,7 +304,8 @@
                         </div>
                         <div class="col-lg-12 col-xl-7">
                             <h4 class="mb-3">{{ $p->namamenu }}</h4>
-                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu erat adipiscing convallis libero elit et eros pellentesque. Sapien, fringilla eget egestas eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu erat adipiscing convallis libero elit et eros pellentesque. Sapien, fringilla eget egestas eget.</p>                        </div>
+                            <p class="mb-4">{{ $p->keterangan_makanan }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -361,42 +362,42 @@
         </div>
     </footer>
       <!-- Footer Section End -->
-      
+
       <!-- Required Library Bundle Script -->
     </main>
       <script src="../../assets/js/core/libs.min.js"></script>
-      
+
       <!-- External Library Bundle Script -->
       <script src="../../assets/js/core/external.min.js"></script>
-      
+
       <!-- Widgetchart JavaScript -->
       <script src="../../assets/js/charts/widgetcharts.js"></script>
 
       <!-- Mapchart JavaScript -->
       <script src="../../assets/js/charts/vectore-chart.js"></script>
       <script src="../../assets/js/charts/dashboard.js"></script>
-      
+
       <!-- Admin Dashboard Chart -->
       <script src="../../assets/js/charts/admin.js"></script>
-      
+
       <!-- fslightbox JavaScript -->
       <script src="../../assets/js/fslightbox.js"></script>
-      
+
       <!-- GSAP Animation -->
       <script src="../../assets/vendor/gsap/gsap.min.js"></script>
       <script src="../../assets/vendor/gsap/ScrollTrigger.min.js"></script>
       <script src="../../assets/js/animation/gsap-init.js"></script>
-      
+
       <!-- Stepper Plugin -->
       <script src="../../assets/js/stepper.js"></script>
-      
+
       <!-- Form Wizard Script -->
       <script src="../../assets/js/form-wizard.js"></script>
-      
+
       <!-- app JavaScript -->
       <script src="../../assets/js/app.js"></script>
-      
+
       <!-- moment JavaScript -->
-      <script src="../../assets/vendor/moment.min.js"></script>  
+      <script src="../../assets/vendor/moment.min.js"></script>
     </body>
 </html>

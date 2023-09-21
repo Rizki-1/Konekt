@@ -305,7 +305,7 @@
                     </li>
                     <!-- End notifikasi -->
                     <!-- start pesan -->
-                    
+
                     <!-- End Pesan-->
                     <!-- Start Profile-->
                     <li class="nav-item dropdown">
@@ -354,7 +354,7 @@
                                         <tr>
                                             <th scope="col">no</th>
                                             <th scope="col">nama toko</th>
-                                            <th scope="col">no pesanan</th>
+                                            <th scope="col">nama menu</th>
                                             <th scope="col">total harga</th>
                                             <th scope="col">pembayaran</th>
                                             <th scope="col">aksi</th>

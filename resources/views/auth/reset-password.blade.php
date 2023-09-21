@@ -482,7 +482,7 @@
       </linearGradient>
       </defs>
       </svg>
-      </div>    
+      </div>
     </div>
     <!-- loader END -->
 
@@ -523,6 +523,9 @@
                                 <input type="hidden" name="email" value="{{ request()->email }}" id="">
                                 <label for="password">Password</label>
                                 <input type="password"  class="form-control" name="password">
+                                @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                                 <label for="password_confirmation">Password Confirmation</label>
                                 <input type="password" class="form-control" name="password_confirmation" id="password_confirmation">
                                  </div>

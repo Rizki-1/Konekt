@@ -70,7 +70,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="kelas" class="form-label fw-bold">keterangan makanan</label>
-                        <input type="text" name="keterangan_makanan" class="form-control @error('keterangan_makanann') is-invalid @enderror" value="{{ old('keterangan_ makanan') }}">
+                        <input type="text" name="keterangan_makanan" class="form-control @error('keterangan_makanan') is-invalid @enderror" value="{{ old('keterangan_makanan') }}">
                         @error('keterangan_makanan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

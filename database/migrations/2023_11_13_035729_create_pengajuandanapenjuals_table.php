@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('pengajuandanapenjuals', function (Blueprint $table) {
             $table->id();
-            $table->string('namapembeli');
-            $table->string('jumlahpesanan');
-            $table->string('total');
-            $table->enum('metodepembayaran', ['e-wallet','bank']);
+            $table->foreignId('penjual_id')->constrained('penjuallogins')->onUpdate('cascade');
+            $table->foreignId('barangpenjual_id')->constrained('barangpenjuals')->onUpdate('cascade');
+            $table->foreignId('metodepembayaran_id')->constrained('pembayaranpenjuals')->onUpdate('cascade');
             $table->timestamps();
         });
     }

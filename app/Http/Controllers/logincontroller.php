@@ -99,6 +99,9 @@ class logincontroller extends Controller
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
+        ],[
+            'password.required' => 'password tidak boleh kosong',
+            'password.min' => 'minimal password 8 '
         ]);
 
         $status = Password::reset(

@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(keranjang::class);
     }
+
+    public function UserOrder(): HasMany
+    {
+        return $this->hasMany(UserOrder::class);
+    }
 }

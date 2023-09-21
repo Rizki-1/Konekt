@@ -23,7 +23,8 @@ class userOrder extends Model
         'keterangan',
         'totalharga',
         'adminstatus',
-        'pembelianstatus'
+        'pembelianstatus',
+        'tujuanpembayaran'
     ];
 
     public function penjual(): BelongsTo

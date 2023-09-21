@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('barangpenjuals', function (Blueprint $table) {
             $table->id();
             $table->string('namamenu');
+            $table->string('keterangan_makanan');
             $table->foreignId('toko_id');
-            $table->foreignId('kategori_id')->constrained('adminkategoris')->restrictOnDelete();
+            $table->foreignId('kategori_id')->constrained('adminkategoris')->cascadeOnDelete();
             $table->string('harga');
+            $table->string('keterangan_makanan');
             $table->string('fotomakanan');
             $table->timestamps();
         });

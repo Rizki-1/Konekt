@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('barangpenjual_id')->constrained()->onUpdate('cascade');
             $table->string('toko_id');
-            $table->string('user_id');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade');
             $table->integer('jumlah');
             $table->string('foto')->nullable();
             $table->string('catatan')->nullable();
@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('keterangan_metode_pengembalian')->nullable();
             $table->string('adminstatus');
             $table->string('pembelianstatus');
+            $table->string('tujuanpembayaran')->nullable();
             $table->timestamps();
         });
     }

@@ -14,11 +14,13 @@ class barangpenjual extends Model
 
     protected $fillable = [
         'namamenu',
+        'keterangan_makanan',
         'kategori_id',
         'toko_id',
         'harga',
         'fotomakanan',
-        
+        'keterangan_makanan'
+
     ];
 
     public function adminkategori(): BelongsTo
@@ -50,4 +52,8 @@ class barangpenjual extends Model
     return $this->userOrders()->exists();
     }
 
+    public function pengajuandanapenjual(): HasMany
+    {
+        return $this->hasMany(pengajuandanapenjual::class);
+    }
 }

@@ -125,17 +125,15 @@ class dashboardusercontroller extends Controller
 
     public function updateKeranjang(Request $request)
     {
-        // Validasi permintaan
+
         $request->validate([
-            'productId' => 'required|integer', // Ganti dengan validasi yang sesuai dengan model produk Anda
+            'productId' => 'required|integer',
             'quantity' => 'required|integer|min:1|max:100',
         ]);
 
-        // Dapatkan data produk dari permintaan
+
         $productId = $request->input('productId');
         $newQuantity = $request->input('quantity');
-
-        // Dapatkan item keranjang belanja yang sesuai dari database
         $cartItem = Keranjang::find($productId);
 
         if (!$cartItem) {
@@ -150,20 +148,18 @@ class dashboardusercontroller extends Controller
         $barangPenjual = barangpenjual::find($cartItem->barangpenjual_id);
 
         if (!$barangPenjual) {
-            // Jika data produk tidak ditemukan, tangani sesuai kebutuhan Anda.
-            // Di sini kami akan mengembalikan respons kesalahan.
+
             return response()->json([
                 'success' => false,
                 'message' => 'Data produk tidak ditemukan.',
             ]);
         }
 
-        // Perbarui jumlah produk dalam keranjang
         $cartItem->jumlah = $newQuantity;
 
-        // Hitung total harga dengan tambahan pajak 5%
+
         $hargaProduk = $barangPenjual->harga;
-        $totalHarga = $newQuantity * $hargaProduk * 1.05; // 5% pajak ditambahkan
+        $totalHarga = $newQuantity * $hargaProduk * 1.05;
 
         $cartItem->totalHarga = $totalHarga;
 
@@ -202,19 +198,21 @@ class dashboardusercontroller extends Controller
     public function pesanan()
     {
         $penjualId = Auth::id();
-        $user = userOrder::where('user_id', $penjualId )->get();
+        $user = userOrder::where('user_id', $penjualId)
+        ->whereNotNull('pembelianstatus')
+        ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima'])
+        ->get();
         $pesanan = userOrder::where('pembelianstatus', 'selesai')->get();
         $penjual = barangpenjual::all();
-        $pengembaliandana = pengemmbaliandana::where('user_id', $penjualId )->get();
+       
 
         return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId', 'pesanan', 'pengembaliandana'));
     }
 
     public function batalkanpesanan($id)
 {
-    // Retrieve the userOrder with the given $id
-    $order = userOrder::find($id);
 
+    $order = userOrder::find($id);
     $order->update([
         'pembelianstatus' => 'dibatalkan',
     ]);
@@ -240,7 +238,7 @@ class dashboardusercontroller extends Controller
     {
         $user_id = Auth::id();
 
-        // Mengambil data keranjang beserta relasinya
+
         $keranjangItems = Keranjang::with(['penjualLogin', 'barangPenjual'])
             ->where('user_id', $user_id)
             ->get();
@@ -282,7 +280,7 @@ class dashboardusercontroller extends Controller
     {
         $itemId = $request->input('item_id');
 
-        // Hapus item keranjang berdasarkan ID
+
         $result = Keranjang::where('id', $itemId)->delete();
 
         if ($result) {
@@ -384,13 +382,7 @@ class dashboardusercontroller extends Controller
         return redirect()->route('menu.index')->with('success', 'berhasil membuat pesanan');
     }
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-        $results = userOrder::where('namamenu', 'like', '%' . $query . '%')->get();
 
-        return response()->json($results);
-    }
 
 
     public function ulasan(Request $request, $id)
@@ -419,15 +411,16 @@ class dashboardusercontroller extends Controller
     public function pengembaliandana(Request $request ,$id)
     {
 
-        $user_id = Auth::id();
-        $user = userOrder::findOrFail($id);
-        $user->pembelianstatus = 'mengajukan pengembalian';
-        $user->metode_pengembalian = $request->metode_pengembalian;
-        $user->keterangan_metode_pengembalian = $request->keterangan_metode_pengembalian;
-        $user->save();
+        $userOrder = userOrder::findOrFail($id);
+        // dd($userOrder);
+        $userOrder->pembelianstatus = 'mengajukan pengembalian dana';
+        $userOrder->metodepembayaran = $request->metodepembayaran;
+        $userOrder->tujuanpembayaran = 'test dana';
+        // dd($userOrder);
+        $userOrder->save();
+        // dd($userOrder);
 
-
-        return redirect()->back()->with('success', 'pengembalian dana sedang di proses ');
+        return redirect()->back()->with('success', 'pengembalian dana sedang di proses');
     }
 
     /**

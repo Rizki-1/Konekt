@@ -397,7 +397,7 @@
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
                                         <td>jj</td>
-                                        <td>{{ $s->jumlah}}</td>
+                                        <td>{{ $s->User->name}}</td>
                                         <td>{{ $s->pembelianstatus }}</td>
                                         <td>{{ $s->totalharga }}</td>
                                         <td>

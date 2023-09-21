@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class penjuallogin extends Model
@@ -33,6 +34,10 @@ class penjuallogin extends Model
     public function keranjang()
     {
     return $this->belongsTo(keranjang::class);
+    }
+    public function pengajuandanapenjual(): HasMany
+    {
+        return $this->hasMany(pengajuayanapenjual::class);
     }
 
 }

@@ -359,34 +359,7 @@ $chartData = array_values($processedData);
         $adminmp->save();
         return back();
     }
-    // public function store(Request $request){
-    //     // dd($request->all());
-    //     $metodepembayaran = $request->input('metodepembayaran');
-    //     $adminmp = [
-    //         'metodepembayaran' => $metodepembayaran,
-    //     ];
 
-    //     if($metodepembayaran === 'e_wallet'){
-    //         // $request->file('keterangan');
-    //         $adminmp['tujuan'] = $request->input('tujuan');
-    //         $adminmp['keterangan'] = $request->input('keterangan');
-    //         $image = $request->file('keterangan');
-    //         $filename = $image->hashName();
-    //         $image->storeAs('public/pembayaran',$filename);
-    //         $adminmp['keterangan'] = $filename;
-    //     }elseif ($metodepembayaran === 'bank') {
-    //         $adminmp['tujuan'] = $request->input('tujuan');
-    //         $adminmp['keterangan'] = $request->input('keterangan');
-    //     }else {
-    //         session()->flash('notif.error', 'Data pembayaran tidak valid !');
-    //         // return back();
-    //     }
-    //     adminmetodepembayaran::create($adminmp);
-
-    //     session()->flash('notif.success','Data Berhasil di simpan');
-    //     return back();
-
-    // }
 
     public function adestroy(adminmetodepembayaran $adminmp)
     {

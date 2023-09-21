@@ -109,7 +109,7 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
-    @foreach ($pengajuanuser as $Pengjuanuser)
+    {{-- @foreach ($pengajuanuser as $Pengjuanuser)
     <div class="modal" id="myModal-{{$Pengjuanuser->id}}" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -141,7 +141,7 @@
             </div>
         </div>
     </div>
-    @endforeach
+    @endforeach --}}
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -393,11 +393,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                        @php
+                                    @php
                                         $no = 1;
                                     @endphp
-                                    @foreach ($pengajuanuser as $Pengajuanuser)
+                                    @foreach ($userOrder as $UserOrder)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $Pengajuanuser->metodepembayaran }}</td>

@@ -382,7 +382,7 @@
         <div class="col mb-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{$u->toko_id}}</h5>
+                    <h5 class="card-title">{{$u->penjual->namamenu}}</h5>
                     <hr style="border-top: 2px solid #EA6A12; margin-top: 10px 0;">
 
                     <div class="d-flex justify-content-between">
@@ -420,6 +420,12 @@
                         </h6>
                     </div>
 
+                    <div class="d-flex justify-content-between">
+                        <h6 class="card-text">Status :
+                        <tr>{{$u->pembelianstatus}}</tr>
+                        </h6>
+                    </div>
+
                     <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
 
                     <div>
@@ -434,7 +440,7 @@
                         @elseif ($u->pembelianstatus === 'menunggu konfirmasi' )
                             <div class="btn btn-danger" style="float:right"><span class="color:#EA6A12">Batalkan pesanan</span></div>
                         @elseif ($u->pembelianstatus === 'sedang di proses')
-                            <div class="btn btn-warning" style="float:right"><span class="color:#EA6A12">Sedang di proses</span></div>
+                            
                         @endif
 
                         @foreach ($pengembaliandana as $p)

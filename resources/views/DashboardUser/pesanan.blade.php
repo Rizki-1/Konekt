@@ -360,7 +360,7 @@
                     <div class="d-flex justify-content-between">
                         <h6 class="card-text">Harga :
                           <tr>Rp. {{ number_format($u->totalharga) }}</tr>
-                        </h6>        
+                        </h6>
                     </div>
 
                     <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">

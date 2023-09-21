@@ -56,7 +56,7 @@
         .main-content {
             flex: 1px;
         }
-      
+
     input[type="radio"] {
         position: absolute;
         opacity: 0;
@@ -83,7 +83,7 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -95,7 +95,7 @@
 @if (is_object($p))
 <form action="{{ route('ulasan', ['id' => $p->id]) }}" method="POST">
 @csrf
-        <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}"> 
+        <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
         <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -110,7 +110,7 @@
                             <label style="color: gray; cursor: pointer;">
                                 <input type="radio" name="rating" value="{{ $i }}" class="form-control" min="1" max="5" onchange="toggleStart(this)">
                                 <i class="fas fa-star"></i>
-                            </label>  
+                            </label>
                             @endfor
                         </div>
                         <div class="modal-body">
@@ -301,7 +301,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -336,47 +336,60 @@
             <!-- Nav Header Component End -->
             <!--Nav End-->
         </div>
-        <div class="content-inner mt-5 py-0">
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+            <div class="content-inner mt-5 py-0">
+                <div class="col-md-12 col-lg-12 my-custom-card">
+                    {{-- <div class="card"> --}}
+                    <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
-                        <h3>Kuliner kita <span style="color: #EA6A12">|Riwayat</span></h3>
-                        @foreach ($user as $u)
-                            <div class="container">
-                                <div class="card d-flex ">
-                                    <hr>
-                                    <div class="card-content d-flex">
-                                        <img src="{{ asset('css/img/2dfntai.jpg') }}" class="h-10 w-50 p-2 mb-10"
-                                            alt="">
-                                        <div class="img-content">
-                                           
-                                                <h5>namanmenu</h5>
-                                            
-                                            <tr>{{ $u->barangpenjual_id }}</tr>
-                                            @dump($u->barangpenjual_id)
-                                            <tr>{{ $u->pembelianstatus }}</tr><br>
-                                            <tr>Rp 15.000 1 (menu) dana</tr><br>
-                                            <tr class="d-flex">
-                                                @if ($u->pembelianstatus === 'statusselesai')
-                                                    <div class="btn btn-success" style="">pesanan telah selasai
-                                                    </div>
-                                                    <div class="btn btn-warning" type="button"
-                                                        data-bs-toggle="modal" data-bs-target="#myModal-{{$p->id}}"
-                                                        style="">beri ulasan</div>
-                                                @else
-                                                    <div class="btn btn-warning">ajukan pengembalian dana</div>
-                                                @endif
-                                            </tr>
-                                        </div>
-                                    </div>
-                                </div>
+            {{-- <div class="card-body" style="background-color: rgb(155, 115, 115); border-radius:10px;"> --}}
+            <h2 class="title" style="color: red; text-align:center;">Riwayat Pembelian</h2><br>
+            {{-- evenly merapikan jarak antar div atau table --}}
+            <div class="d-flex justify-content-evenly">
+                @foreach ($user as $u )
+                @foreach ($penjual as $p)
+                    <div class="card col-md-5" style="background-color: white;" >
+                    <div class="card-content p-2" >
+
+                        <h3>Nama Warung</h3>
+                        <hr>
+                        <div class="d-flex justify-content-between ">
+                            <a>No Antrian: {{ $u->nomer_antrian }}</a>
+                            <a class="">{{ $u->pembelianstatus }}</a>
+                        </div>
+                        <p>{{ $u->created_at }}</p>
+                        <div class="img-content ">
+                            <img src="{{ asset('css/img/espresso3.jpg') }}" style="width: 120px; height: 85px; margin-top:-5px; padding: 5px;" alt="">
+                            <a>{{ $u->jumlah }} Menu</a>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                            <h5>Biaya Layanan</h5>
+                            <h5>Rp. {{ number_format ($u->totalharga, 0, ',','.') }}</h5>
                             </div>
+                            <hr>
+                            {{-- Mengisi semua ruang betwenn --}}
+                            <div class="d-flex justify-content-between">
+                                <h6>Pembayaran</h6>
+                                <h6>{{ $u->metodepembayaran }}</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                {{-- @if ($u->pembelianstatus === 'statusselesai')
+                                   <div class="btn btn-success" style="">pesanan telah selasai
+                                   </div>
+                                   <div class="btn btn-warning" type="button"
+                                       data-bs-toggle="modal" data-bs-target="#myModal"
+                                       style="">beri ulasan</div>
+                               @else --}}
+                                   <a href="{{ route('menu.store') }}" class="btn btn-warning" method="POST" >Pesan Lagi</a>
+                               {{-- @endif --}}
+                                </div>
+                        </div>
                     </div>
-                    @endforeach
                 </div>
-            </div>
+                @endforeach
+                @endforeach
+            {{-- </div> --}}
+            {{-- </div> --}}
             {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')

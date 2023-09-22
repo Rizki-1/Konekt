@@ -92,16 +92,15 @@
     background-size: cover;">
 
 @foreach ($user as $u)
-<form action="{{ route('ulasan', ['id' => $u->id]) }}" method="POST">
+<form action="{{ route('ulasan', ['id' => $u->barangpenjual_id]) }}" method="POST">
 @csrf
-        <input type="hidden" name="barangpenjual_id" value="{{ $u->id }}">
-        <div class="modal" id="myModal-{{$u->id}}" tabindex="-1">
+        <div class="modal" id="myModal-{{$u->barangpenjual_id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Modal title</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            <input type="hidden" name="barangpenjual_id" value="{{ $u->id }}">
+                            <input type="hidden" name="barangpenjual_id" value="{{ $u->barangpenjual_id }}">
                         </div>
                         <div class="modal-body">
                         {{ $u->rating }}
@@ -365,7 +364,7 @@
                             <div class="d-flex justify-content-between">
                                 @if ($u->pembelianstatus === 'statusselesai')
                                    <div class="btn btn-warning" type="submit"
-                                       data-bs-toggle="modal" data-bs-target="#myModal-{{$u->id}}"
+                                       data-bs-toggle="modal" data-bs-target="#myModal-{{$u->barangpenjual_id}}"
                                        style="">beri ulasan</div>
                                @endif
                                    <a href="{{ route('menu.store') }}" class="btn btn-warning" method="POST" >Pesan Lagi</a>

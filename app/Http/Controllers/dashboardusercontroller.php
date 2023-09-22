@@ -222,6 +222,7 @@ public function riwayatuser()
     return view('DashboardUser.riwayat', compact('user', 'penjual'));
 }
 
+
     public function Userkeranjang()
     {
         $user_id = Auth::id();

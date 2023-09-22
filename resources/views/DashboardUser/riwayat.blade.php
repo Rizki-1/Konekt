@@ -339,21 +339,32 @@
 
                     <div class="card col-md-5" style="background-color: white;" >
                     <div class="card-content p-2" >
+            {{-- evenly merapikan jarak antar div atau table --}}
+            <div class="row d-flex justify-content-evenly">
+                @foreach ($user as $u )
+                @foreach ($penjuallogin as $p)
+                @foreach ($penjual as $p1 )
 
-                        <h3>Nama Warung</h3>
+                <div class="card col-md-5" style="background-color: white;" >
+                    <div class="">
+
+                        <h3>Warung {{ $p->nama_toko }}</h3>
                         <hr>
                         <div class="d-flex justify-content-between ">
-                            <a>No Antrian: {{ $u->nomer_antrian }}</a>
-                            <a class="">{{ $u->pembelianstatus }}</a>
+                            <a>No Antrian : {{ $u->nomor_antrian }}</a>
+                            <a style="color: grey;">{{ $u->pembelianstatus }}</a>
                         </div>
                         <p>{{ $u->created_at }}</p>
-                        <div class="img-content ">
-                            <img src="{{ asset('css/img/espresso3.jpg') }}" style="width: 120px; height: 85px; margin-top:-5px; padding: 5px;" alt="">
+                        <div class="img-content">
+                            <img src="{{ asset('Storage/' . $p1->fotomakanan ) }}" style="border-radius: 10px; width: 120px; height: 85px; margin-top:-5px; padding: 5px;" alt="">
+                            <a>{{ $p1->namamenu }}</a><br>
+                            <div class="mx-4">
                             <a>{{ $u->jumlah }} Menu</a>
+                        </div>
                             <hr>
                             <div class="d-flex justify-content-between">
-                            <h5>Biaya Layanan</h5>
-                            <h5>Rp. {{ number_format ($u->totalharga, 0, ',','.') }}</h5>
+                                <h5>Biaya Layanan</h5>
+                                <h5>Rp. {{ number_format ($u->totalharga, 0, ',','.') }}</h5>
                             </div>
                             <hr>
                             {{-- Mengisi semua ruang betwenn --}}
@@ -376,6 +387,26 @@
 
                 @endforeach
 
+                @endforeach
+                @endforeach
+            </div>
+            <div class="d-flex justify-content-evenly">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+              </nav>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
      <script>

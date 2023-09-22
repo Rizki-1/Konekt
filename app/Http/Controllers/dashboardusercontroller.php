@@ -224,7 +224,8 @@ class dashboardusercontroller extends Controller
         ->where('user_id', $user_id)
         ->get();
         $penjual = barangpenjual::all();
-        return view('DashboardUser.riwayat', compact('user', 'penjual'));
+        $penjuallogin = penjuallogin::all();
+        return view('DashboardUser.riwayat', compact('user', 'penjual','penjuallogin'));
     }
 
     public function Userkeranjang()

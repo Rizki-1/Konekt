@@ -49,7 +49,6 @@ class penjualcontroller extends Controller
         }
         $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
 
-
         $data = userOrder::select(
             DB::raw('MONTH(created_at) as month'),
             DB::raw('YEAR(created_at) as year'),
@@ -79,7 +78,7 @@ class penjualcontroller extends Controller
             $yearMonth = carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
 
             if (isset($processedData[$yearMonth])){
-                $ini = $item->total - $untung;
+                $ini = $pemasukkan;
                 $masuk =number_format($ini, 0 , ',','.');
                 $processedData[$yearMonth]['statusselesai'] = $masuk;
             }

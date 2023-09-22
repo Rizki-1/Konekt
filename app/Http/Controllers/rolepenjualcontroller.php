@@ -25,7 +25,7 @@ class rolepenjualcontroller extends Controller
     {
         $user = User::all();
         $penjuallogin = penjuallogin::all();
-        return view('loginregister.register_penjual', compact('user'), 'penjuallogin');
+        return view('loginregister.register_penjual', compact('user', 'penjuallogin'));
     }
 
     /**

@@ -396,10 +396,10 @@
                                 @foreach ($dashboardusercontrollers as $s)
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
-                                        <td>jj</td>
-                                        <td>{{ $s->User->name}}</td>
+                                        <td>{{ $s->User->name }}</td>
+                                        <td>{{ $s->jumlah}}</td>
                                         <td>{{ $s->pembelianstatus }}</td>
-                                        <td>{{ $s->totalharga }}</td>
+                                        <td>Rp.  {{number_format ($s->totalharga) }}</td>
                                         <td>
                                             @if ($s->pembelianstatus === 'sedang di proses')
                                             <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">

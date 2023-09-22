@@ -125,7 +125,7 @@ $chartData = array_values($processedData);
     public function tolak($id)
     {
         $dashboardusercontrollers = userOrder::findOrFail($id);
-        $dashboardusercontrollers->adminstatus = 'notapprove';
+        $dashboardusercontrollers->adminstatus = 'notapproveadmin';
         $dashboardusercontrollers->save();
 
         $notifikasi = notifikasi::FindOrFail($id);
@@ -311,8 +311,8 @@ $chartData = array_values($processedData);
 
     public function pengajuanpembeliad(Request $request)
     {
-        $pengajuanuser = userOrder::where('pembelianstatus', 'mengajukan pengembalian')->get();
-        return view('admin.pengajuanpembeliad', compact('pengajuanuser'));
+        $userOrder = userOrder::where('pembelianstatus', 'mengajukan pengembalian')->get();
+        return view('admin.pengajuanpembeliad', compact('userOrder'));
     }
 
 

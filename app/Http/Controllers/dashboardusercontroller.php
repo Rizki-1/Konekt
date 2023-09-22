@@ -143,10 +143,7 @@ class dashboardusercontroller extends Controller
                 'message' => 'Item tidak ditemukan dalam keranjang.',
             ]);
         }
-
-
         $barangPenjual = barangpenjual::find($cartItem->barangpenjual_id);
-
         if (!$barangPenjual) {
 
             return response()->json([
@@ -154,15 +151,10 @@ class dashboardusercontroller extends Controller
                 'message' => 'Data produk tidak ditemukan.',
             ]);
         }
-
         $cartItem->jumlah = $newQuantity;
-
-
         $hargaProduk = $barangPenjual->harga;
         $totalHarga = $newQuantity * $hargaProduk * 1.05;
-
         $cartItem->totalHarga = $totalHarga;
-
         $cartItem->save();
 
         return response()->json([
@@ -173,17 +165,14 @@ class dashboardusercontroller extends Controller
 
     public function konfimasipembelian($ids)
     {
-        // Memisahkan daftar ID pesanan menjadi array
         $orderIds = explode(',', $ids);
-
-        // Mengambil data untuk semua pesanan yang dipilih
         $userOrder = userOrder::whereIn('id', $orderIds)->with('penjual')->get();
 
         if ($userOrder->isEmpty()) {
             return redirect()->back()->with('error', 'Tidak ada pesanan yang ditemukan.');
         }
 
-        // Mengambil data lain yang mungkin Anda perlukan
+
         $notifikasi = notifikasi::all();
         $user_id = Auth::id();
         $subtotalorder = $userOrder->sum('totalharga');
@@ -200,13 +189,13 @@ class dashboardusercontroller extends Controller
         $penjualId = Auth::id();
         $user = userOrder::where('user_id', $penjualId)
         ->whereNotNull('pembelianstatus')
-        ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima'])
+        ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima', 'dibatalkan'])
         ->get();
         $pesanan = userOrder::where('pembelianstatus', 'selesai')->get();
         $penjual = barangpenjual::all();
-       
 
-        return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId', 'pesanan', 'pengembaliandana'));
+
+        return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId', 'pesanan'));
     }
 
     public function batalkanpesanan($id)
@@ -221,18 +210,17 @@ class dashboardusercontroller extends Controller
 }
 
 
-    public function riwayatuser()
-    {
-        $user_id = Auth::id();
-        $user = userOrder::where(function($query) use ($user_id) {
-            $query->where('pembelianstatus', 'statusselesai')
-                  ->orWhere('pembelianstatus', 'pesanan di tolak');
-        })
+public function riwayatuser()
+{
+    $user_id = Auth::id();
+    $user = userOrder::where(function($query) use ($user_id) {
+        $query->whereIn('pembelianstatus', ['statusselesai', 'dibatalkan', 'pesanan di tolak']);
+    })
         ->where('user_id', $user_id)
         ->get();
-        $penjual = barangpenjual::all();
-        return view('DashboardUser.riwayat', compact('user', 'penjual'));
-    }
+    $penjual = barangpenjual::all();
+    return view('DashboardUser.riwayat', compact('user', 'penjual'));
+}
 
     public function Userkeranjang()
     {
@@ -509,7 +497,7 @@ class dashboardusercontroller extends Controller
         $adminNotification->isi_admin = 'Cek halaman pembelian untuk konfirmasi';
         $adminNotification->save();
 
-        // Kirim notifikasi kepada user
+
         $userNotification = new notifikasi();
         $userNotification->keterangan = 'Anda berhasil membuat pesanan!';
         $userNotification->isi = 'Lihat pesanan Anda di halaman pesanan';
@@ -527,9 +515,9 @@ class dashboardusercontroller extends Controller
             $itemIds = $request->input('ids');
 
             foreach ($itemIds as $orderId) {
-                $order = userOrder::find($orderId); // Mendapatkan pesanan berdasarkan ID
+                $order = userOrder::find($orderId);
                 if ($order) {
-                    // Lakukan pembaruan data pesanan sesuai dengan kebutuhan
+
                     $order->barangpenjual_id = $request->input("barangpenjual_id_$orderId");
                     $order->adminstatus = 'notapprove';
                     $order->pembelianstatus = 'menunggu konfirmasi';
@@ -539,7 +527,7 @@ class dashboardusercontroller extends Controller
                     $order->toko_id = $request->input("toko_id_$orderId");
                     $order->user_id = $request->input("user_id_$orderId");
                     $order->metodepembayaran = $request->metodepembayaran;
-                    // Simpan perubahan pada pesanan
+
                     $order->save();
 
                     if ($request->hasFile('foto')) {
@@ -551,7 +539,6 @@ class dashboardusercontroller extends Controller
                 }
             }
 
-            // Buat notifikasi admin dan user di luar loop foreach jika diperlukan
             $adminNotification = new adminnotifikasi();
             $adminNotification->keterangan_admin = 'Ada pesanan masuk!';
             $adminNotification->isi_admin = 'Cek halaman pembelian untuk konfirmasi';

@@ -438,16 +438,19 @@
                         @elseif ($u->pembelianstatus === 'pesanan di tolak')
                             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-{{ $u->id }}" type="submit">Ajukan pengembalian dana</button>
                         @elseif ($u->pembelianstatus === 'menunggu konfirmasi' )
-                            <div class="btn btn-danger" style="float:right"><span class="color:#EA6A12">Batalkan pesanan</span></div>
+                            <form action="{{ route('batalkanpesanan', ['id' => $u->id]) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-danger"> batalkan pesanan </button>
+                            </form>
                         @elseif ($u->pembelianstatus === 'sedang di proses')
-                            
+
                         @endif
 
-                        @foreach ($pengembaliandana as $p)
-                            @if ($p->pengembalian_status === 'pengajuan sedang di proses' && $u->pembelianstatus === 'mengajukan pengembalian')
+                            @if ( $u->pembelianstatus === 'mengajukan pengembalian')
                                 <button>{{ $p->pengembalian_status }}</button>
                             @endif
-                        @endforeach
+
                     </div>
                 </div>
             </div>

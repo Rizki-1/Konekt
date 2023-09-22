@@ -380,7 +380,7 @@
                 data-iq-trigger="scroll"
                 data-iq-ease="none">
                 <div class="card-header">
-                    <h4 class="card-title">Total Pembelian</h4>
+                    <h4 class="card-title">pendapatan masuk</h4>
                 </div>
                 <div class="card-body" data-iq-gsap="onStart"
                     data-iq-opacity="0"

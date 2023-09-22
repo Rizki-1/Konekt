@@ -374,6 +374,15 @@
             {{-- pisa --}}
             <div class="card col-md-12">
                 <div class="card-body">
+
+        <div class="mb-3">
+            <div class="">
+                <h5 class="text-bold">Total harga</h5>
+            </div>
+            <div class="mt-3">
+                <p>Rp. {{ number_format($subtotalorder) }}</p>
+            </div>
+        </div>
             <div class="mb-3">
                 <div>
                     <h5 class="text-bold">Pesan :</h5>
@@ -464,15 +473,6 @@
             </div>
             <div class="mt-3">
                 <input type="file" name="foto" class="form-control" id="foto">
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <div class="">
-                <h5 class="text-bold">Total harga</h5>
-            </div>
-            <div class="mt-3">
-                <p>Rp. {{ number_format($subtotalorder) }}</p>
             </div>
         </div>
         <div class="d-flex justify-content-end mt-5">

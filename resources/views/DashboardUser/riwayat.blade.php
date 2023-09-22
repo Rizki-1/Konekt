@@ -91,21 +91,20 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
-@foreach ($penjual as $p)
-@if (is_object($p))
-<form action="{{ route('ulasan', ['id' => $p->id]) }}" method="POST">
+@foreach ($user as $u)
+<form action="{{ route('ulasan', ['id' => $u->id]) }}" method="POST">
 @csrf
-        <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
-        <div class="modal" id="myModal-{{$p->id}}" tabindex="-1">
+        <input type="hidden" name="barangpenjual_id" value="{{ $u->id }}">
+        <div class="modal" id="myModal-{{$u->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Modal title</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            <input type="hidden" name="barangpenjual_id" value="{{ $p->id }}">
+                            <input type="hidden" name="barangpenjual_id" value="{{ $u->id }}">
                         </div>
                         <div class="modal-body">
-                        {{ $p->rating }}
+                        {{ $u->rating }}
                             @for ($i = 1; $i <= 5; $i++)
                             <label style="color: gray; cursor: pointer;">
                                 <input type="radio" name="rating" value="{{ $i }}" class="form-control" min="1" max="5" onchange="toggleStart(this)">
@@ -114,18 +113,15 @@
                             @endfor
                         </div>
                         <div class="modal-body">
-                        {{ $p->komentar }}
+                        {{ $u->komentar }}
                             <label for="ulasan"> berikan komentar </label>
-                            <input type="text" name="komentar" class="form-control" value="{{ $p->komentar }}">
+                            <input type="text" name="komentar" class="form-control" value="{{ $u->komentar }}">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form action="{{ route('riwayatuser', ['id' => $p->id]) }}" method="GET">
+                            <form action="{{ route('riwayatuser', ['id' => $u->id]) }}" method="GET">
                                 <button type="submit" class="btn btn-primary">Save changes</button>
                             </form>
-                            @else
-                            <p>Data tidak ditemukan.</p>
-    @endif
                         </div>
                     </div>
                 </div>
@@ -328,26 +324,20 @@
                             </li>
                         </ul>
                         </li>
-                        <!-- End Profile-->
                         </ul>
                     </div>
                 </div>
-            </nav> <!-- Nav Header Component Start -->
-            <!-- Nav Header Component End -->
-            <!--Nav End-->
+            </nav>
         </div>
             <div class="content-inner mt-5 py-0">
                 <div class="col-md-12 col-lg-12 my-custom-card">
-                    {{-- <div class="card"> --}}
                     <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
-            {{-- <div class="card-body" style="background-color: rgb(155, 115, 115); border-radius:10px;"> --}}
             <h2 class="title" style="color: red; text-align:center;">Riwayat Pembelian</h2><br>
-            {{-- evenly merapikan jarak antar div atau table --}}
             <div class="d-flex justify-content-evenly">
                 @foreach ($user as $u )
-                @foreach ($penjual as $p)
+
                     <div class="card col-md-5" style="background-color: white;" >
                     <div class="card-content p-2" >
 
@@ -373,27 +363,23 @@
                                 <h6>{{ $u->metodepembayaran }}</h6>
                             </div>
                             <div class="d-flex justify-content-between">
-                                {{-- @if ($u->pembelianstatus === 'statusselesai')
-                                   <div class="btn btn-success" style="">pesanan telah selasai
-                                   </div>
-                                   <div class="btn btn-warning" type="button"
-                                       data-bs-toggle="modal" data-bs-target="#myModal"
+                                @if ($u->pembelianstatus === 'statusselesai')
+                                   <div class="btn btn-warning" type="submit"
+                                       data-bs-toggle="modal" data-bs-target="#myModal-{{$u->id}}"
                                        style="">beri ulasan</div>
-                               @else --}}
+                               @endif
                                    <a href="{{ route('menu.store') }}" class="btn btn-warning" method="POST" >Pesan Lagi</a>
-                               {{-- @endif --}}
+
                                 </div>
                         </div>
                     </div>
                 </div>
+
                 @endforeach
-                @endforeach
-            {{-- </div> --}}
-            {{-- </div> --}}
-            {{-- @include('layout.footer') --}}
+
     </main>
     @include('layout.js')
-    <!-- <script>
+     <script>
     function toggleStar(radioElement) {
         const stars = document.querySelectorAll('.fas.fa-star');
         const index = parseInt(radioElement.value) - 1;
@@ -406,7 +392,7 @@
             }
         }
     }
-</script> -->
+</script>
 <script>
     function toggleStart(radioElement) {
         const stars = radioElement.parentNode.querySelectorAll('.fas.fa-star');

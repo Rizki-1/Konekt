@@ -311,7 +311,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -344,7 +344,7 @@
         </div>
         <div class="content-inner mt-5 py-0">
             <div class="card border-0 shadow rounded">
-                <div class="card-body">                    
+                <div class="card-body">
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
@@ -352,6 +352,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
+                                    <th scope="col">Nama pembeli</th>
                                     <th scope="col">Jumlah Pesanan</th>
                                     <th scope="col">metode pembayaran</th>
                                     <th scope="col">Total Harga</th>
@@ -365,6 +366,7 @@
                                 @foreach ($dashboardusercontrollers as $s)
                                 <tr>
                                     <th scope="row">{{ $no++ }}</th>
+                                    <td>{{ $s->User->name }}</td>
                                     <td>{{ $s->jumlah }}</td>
                                     <td>{{$s->metodepembayaran}}</td>
                                     <td><div style="margin-left:40px;">{{number_format($s->totalharga, 0, ',', '.')}}</div></td>

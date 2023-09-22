@@ -27,6 +27,12 @@ class userOrder extends Model
         'tujuanpembayaran'
     ];
 
+    public function User(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+
     public function penjual(): BelongsTo
     {
         return $this->belongsTo(barangpenjual::class, 'barangpenjual_id');

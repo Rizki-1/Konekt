@@ -42,6 +42,7 @@ class penjualcontroller extends Controller
         $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->count();
         $totalharga = userOrder::where('pembelianstatus', 'statusselesai')->sum('totalharga');
         $untung = $totalharga * 0.05;
+
         // $pemasukkan = $totalharga - ($untung - 0.05);
         if($totalharga > 1)
         {
@@ -50,6 +51,8 @@ class penjualcontroller extends Controller
             $pemasukkan = $totalharga - ($untung - 0.05);
         }
         $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
+
+
 
 
         $data = userOrder::select(
@@ -78,14 +81,17 @@ class penjualcontroller extends Controller
             ];
          }
           foreach ($data as $item){
+
             $yearMonth = carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
 
             if (isset($processedData[$yearMonth])){
-                $ini = $item->total - $untung;
-                $masuk =number_format($ini, 0 , ',','.');
-                $processedData[$yearMonth]['statusselesai'] = $masuk;
+                $ini = $totalharga - $untung;
+                $masuk =number_format($ini, 3 , ',','.');
+                $processedData[$yearMonth]['statusselesai'] = $ini;
             }
           }
+
+        //   dd($ini);
 
           $chartData = array_values($processedData);
         return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda','chartData'));
@@ -218,7 +224,7 @@ class penjualcontroller extends Controller
 
         $dashboardusercontrollers = userOrder::where('adminstatus', 'approve')
             ->where('toko_id', $penjualId)
-            ->whereIn('pembelianstatus', ['menunggukonfirmasi', 'sedang di proses'])
+            ->whereIn('pembelianstatus', ['menunggu konfirmasi', 'sedang di proses'])
             ->get();
 
 

@@ -379,6 +379,7 @@
       <div class="mt-3">
     <div class="row row-cols-2">
         @foreach ($user as $u)
+        @foreach ($penjual as $p )
         <div class="col mb-4">
             <div class="card">
                 <div class="card-body">
@@ -387,7 +388,7 @@
 
                     <div class="d-flex justify-content-between">
                         <div>
-                            <img src="{{ asset('css/img/cafe.jpeg') }}" alt="Gambar Menu" width="100">
+                            <img src="{{ asset('Storage/'.$p->fotomakanan) }}" alt="Gambar Menu" width="100" style="border-radius:10px;">
                         </div>
                         <div>
                             <a>
@@ -430,13 +431,13 @@
 
                     <div>
                         @if ($u->pembelianstatus === 'selesai')
-                            <form action="{{ route('tandakanselesai',['id' => $u->id]) }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <button class="btn btn-primary" type="submit">Tandakan telah selesai</button>
-                            </form>
+                        <form action="{{ route('tandakanselesai',['id' => $u->id]) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <button class="btn btn-primary" type="submit">Tandakan telah selesai</button>
+                        </form>
                         @elseif ($u->pembelianstatus === 'pesanan di tolak')
-                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-{{ $u->id }}" type="submit">Ajukan pengembalian dana</button>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-{{ $u->id }}" type="submit">Ajukan pengembalian dana</button>
                         @elseif ($u->pembelianstatus === 'menunggu konfirmasi' )
                             <form action="{{ route('batalkanpesanan', ['id' => $u->id]) }}" method="POST">
                                 @csrf
@@ -455,6 +456,7 @@
                 </div>
             </div>
         </div>
+        @endforeach
         @endforeach
     </div>
 </div>

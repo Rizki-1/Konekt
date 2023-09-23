@@ -52,9 +52,6 @@ class penjualcontroller extends Controller
         }
         $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
 
-
-
-
         $data = userOrder::select(
             DB::raw('MONTH(created_at) as month'),
             DB::raw('YEAR(created_at) as year'),

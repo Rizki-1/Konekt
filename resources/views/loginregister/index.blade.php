@@ -41,12 +41,18 @@
                                     <div class="form-group">
                                        <label for="email" class="form-label">Email</label>
                                        <input type="email" class="form-control form-control-sm" id="email" aria-describedby="email" name="email" placeholder=" ">
+                                       @if ($errors->has('email'))
+                                          <span class="text-danger">{{ $errors->first('email') }}</span>
+                                       @endif
                                     </div>
                                  </div>
                                  <div class="col-lg-12">
                                     <div class="form-group">
                                        <label for="password" class="form-label">Password</label>
                                        <input type="password" class="form-control form-control-sm" id="password" name="password" aria-describedby="password" placeholder=" ">
+                                       @if ($errors->has('password'))
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                 @endif
                                     </div>
                                  </div>
                                  <div class="col-lg-12 d-flex justify-content-between">
@@ -83,20 +89,20 @@
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
-      <img src="{{asset('assets/images/admin/pembeli.jpg')}}" class="card-img-top" alt="...">
+      <img src="{{asset('assets/images/admin/pembelii.jpg')}}" class="card-img-top" alt="...">
         <h5 class="card-title"></h5>
-        <p class="card-text">Belum punya akun?</p>
-        <a href="{{ route('register') }}" class="btn btn-primary">Klik disini</a>
+        <center><p class="card-text">Belum punya akun?</p>
+        <a href="{{ route('register') }}" class="btn btn-primary">Klik disini</a></center>
       </div>
     </div>
   </div>
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
-      <img src="{{asset('assets/images/admin/penjual.jpg')}}" class="card-img-top" alt="...">
+      <img src="{{asset('assets/images/admin/penjuall.jpg')}}" class="card-img-top" alt="...">
         <h5 class="card-title"></h5>
-        <p class="card-text">Daftar jadi penjual?</p>
-        <a href="{{ route('penjualrole.index') }}" class="btn btn-primary">klik disini</a>
+        <center><p class="card-text">Daftar jadi penjual?</p>
+        <a href="{{ route('penjualrole.index') }}" class="btn btn-primary">klik disini</a></center>
       </div>
     </div>
   </div>

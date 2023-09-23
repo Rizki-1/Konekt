@@ -353,7 +353,7 @@
         <div>
             <h2 class="text-primary text-special">Menu</h2>
         </div>
-         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
                @foreach ($penjual as $p)
                     <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
                         <div class="col active"
@@ -367,10 +367,10 @@
                         <div class="card card-white dish-card profile-img mb-5">
                         <div class="profile-img21">
                     <!-- tempat foto -->
-                    <img src="../assets/images/layouts/16.png"
+                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
                         class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
                         alt="profile-image">
-                    <img src="../assets/images/layouts/16.png"
+                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
                         class="img-fluid rounded-pill avatar-170 hover-image "
                         alt="profile-image" data-iq-gsap="onStart"
                         data-iq-opacity="0" data-iq-scale=".6"
@@ -388,8 +388,13 @@
                     <div class="d-flex justify-content-between mt-3">
                         <div class="d-flex align-items-center">
                             <span class="text-primary fw-bolder me-2">Rp. {{ number_format($p->harga) }}</span>
+                            {{-- @dump($p->id) --}}
                             {{-- <small class="text-decoration-line-through">$8.49</small> --}}
                         </div>
+                        <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
+                            data-bs-target="#myModal-{{ $p->id }}">beli
+                        </button>
+                        <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
                     </div>
                 </div>
             </div>

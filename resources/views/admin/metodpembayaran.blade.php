@@ -110,11 +110,11 @@
     background-size: cover;">
  <form action="{{ route('pembelianadmin.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="modal" id="myModal" tabindex="-1">
+    <div class="modal fade" id="myModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Tambah Metode Pembayaran</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -130,22 +130,32 @@
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">tujuan</label>
                             <input type="text" name="tujuan" class="form-control" value="{{ old('tujuan') }}">
+                            @if ($errors->has('tujuan'))
+                                <span class="text-danger">{{ $errors->first('tujuan') }}</span>
+                            @endif
                         </div>
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">Keterangan</label>
-                            <input type="file" name="keterangan" id="keterangan" class="form-control"
-                                value="{{ old('keterangan') }}">
+                            <input type="file" name="keterangan" id="keterangan" class="form-control" value="{{ old('keterangan') }}">
+                            @if ($errors->has('keterangan'))
+                                <span class="text-danger">{{ $errors->first('keterangan') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="" value="bank" id="bankInput" style="display: none;">
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">tujuan</label>
                             <input type="text" name="tujuan" id="tujuan-bank" class="form-control"  value="{{ old('tujuan') }}">
+                            @if ($errors->has('keterangan_bank'))
+                                <span class="text-tujuan">{{ $errors->first('tujuan') }}</span>
+                            @endif
                         </div>
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">keterangan</label>
-                            <input type="number" name="keterangan" class="form-control"
-                                value="{{ old('keterangan') }}">
+                            <input type="number" name="keterangan" class="form-control" value="{{ old('keterangan') }}">
+                            @if ($errors->has('keterangan'))
+                                <span class="text-danger">{{ $errors->first('keterangan') }}</span>
+                            @endif
                         </div>
                     </div>
                 </div>

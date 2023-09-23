@@ -309,7 +309,7 @@
       data-iq-ease="none"
       style="position: relative"
       >
-      <h2 class="title" style="color: red">Daftar Warung</h2><br><br>
+      <h2 class="title text-primary"><span class="h2">Kuliner Kita | </span>Daftar Toko</h2><br><br>
       <div class="container">
         <div class="row gap-5">
       @foreach ( $penjuallogin as $p)
@@ -317,7 +317,7 @@
                   <div class="card-content">
                     <div class="conten-container " style="margin-left: 5px; margin-top: 10px;">
                       <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
-                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;"> Hubungi Kami : 085711353021</a> {{ $p->notelp }}</p>
+                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;"> Hubungi Kami : {{ $p->notlp }}</a></p>
                     <a>Masakan Tradisional</a>
                     <h3>{{ $p->nama_toko }}</h3>
                     <tr>
@@ -328,9 +328,8 @@
                       <i class="fa fa-star" style="color:rgb(196, 196, 16)" aria-hidden="true"></i>
                       <a>(26)</a></tr>
                       <div class="btn-custom"><span>12 menu</span></div>
-                      <img src="{{ asset('Storage/'.$p->foto_toko) }}" alt="Foto Toko" style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;"  class="img" >
-                      <div><br><button type="submit" class="btn btn-warning" style="bottom:15px; margin-top:-10px;">Detail</button>
-                      </div>
+                      <img src="{{ asset('Storage/'.$p->foto_toko) }}" alt="Foto Toko" style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;" class="img" >
+                      <div><br><a class="btn btn-warning" style="bottom:15px; margin-top:-10px;" href="{{ route('detailtoko', ['id' => $p->id]) }}">Detail</a>                      </div>
                     </div>
                     </div>
                   </div>

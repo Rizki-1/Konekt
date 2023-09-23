@@ -59,120 +59,132 @@ class dashboardusercontroller extends Controller
 
     public function pembelian(Request $request)
     {
-        $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
-        $barang = barangpenjual::findOrFail($request->barangpenjual_id);
-        $totalharga = ($barang->harga * $request->jumlah) + ($barang->harga * $request->jumlah * 0.05);
+        try {
 
-        $userOrderData = [
-            'barangpenjual_id' => $request->barangpenjual_id,
-            'jumlah' => $request->jumlah,
-            'adminstatus' => 'notactive',
-            'pembelianstatus' => 'notactive',
-            'toko_id' => $request->toko_id,
-            'user_id' => $request->user_id,
-            'totalharga' => $totalharga,
-            'metodepembayaran' => 'waiting'
-        ];
-        $userOrders =  userOrder::create($userOrderData);
-        return redirect()->route('konfimasipembelian', ['ids' => $userOrders->id]);
+            $pembelian = new userOrder();
+            $pembelian->user_id = $request->user_id;
+            $pembelian->toko_id = $request->toko_id;
+            $pembelian->barangpenjual_id = $request->barangpenjual_id;
+            $pembelian->jumlah = $request->jumlah;
+            $pembelian->totalHarga = $request->totalHarga;
+            $pembelian->adminstatus = 'notactive';
+            $pembelian->pembelianstatus = 'notactive';
+            $pembelian->metodepembayaran = 'waiting';
+            $pembelian->save();
 
+            $response = [
+                'success' => true,
+                'message' => 'Anda berhasil memesan!',
+                'id' => $pembelian->id
+            ];
+
+            return response()->json($response);
+            } catch (\Exception $e) {
+
+            $response = [
+                'success' => false,
+                'message' => 'Terjadi kesalahan. Item tidak dapat ditambahkan ke pesanan.'
+            ];
+
+            return response()->json($response, 500);
+        }
     }
+
+    // public function pembelian(Request $request)
+    // {
+    //     $request->validate([
+    //         'barangpenjual_id' => 'required',
+    //         'jumlah' => 'required|integer',
+    //         'catatan' => 'string',
+    //         'foto' => 'image|mimes:jpeg,png,jpg,gif',
+    //         'toko_id' => 'required',
+    //         'user_id' => 'required'
+    //     ], [
+    //         'barangpenjual_id.required' => 'Kolom barang penjual wajib diisi.',
+    //         'jumlah.required' => 'Kolom jumlah wajib diisi.',
+    //         'jumlah.integer' => 'Kolom jumlah harus berupa angka.',
+    //         'catatan.string' => 'Kolom catatan harus berupa teks.',
+    //         'foto.image' => 'Kolom foto harus berupa gambar.',
+    //         'foto.mimes' => 'Kolom foto harus berformat jpeg, png, jpg, atau gif.',
+    //         'toko_id.required' => 'Kolom toko wajib diisi.',
+    //         'user_id.required' => 'Kolom user wajib diisi.'
+    //     ]);
+
+    //     $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
+    //     $barang = barangpenjual::findOrFail($request->barangpenjual_id);
+    //     $totalharga = ($barang->harga * $request->jumlah) + ($barang->harga * $request->jumlah * 0.05);
+
+    //     $userOrderData = [
+    //         'barangpenjual_id' => $request->barangpenjual_id,
+    //         'jumlah' => $request->jumlah,
+    //         'adminstatus' => 'notactive',
+    //         'pembelianstatus' => 'notactive',
+    //         'toko_id' => $request->toko_id,
+    //         'user_id' => $request->user_id,
+    //         'totalharga' => $totalharga,
+    //         'metodepembayaran' => 'waiting'
+    //     ];
+    //     $userOrders =  userOrder::create($userOrderData);
+    //     return redirect()->route('konfimasipembelian', ['ids' => $userOrders->id]);
+    // }
 
     public function order(Request $request)
     {
         $itemIds = $request->input('items');
-        $user_id = Auth::id();
+        $user_id = Auth::id();  
 
         if (!$itemIds || count($itemIds) === 0) {
             return response()->json(['message' => 'Pilih setidaknya satu item untuk dibeli.'], 400);
         }
 
+        // Proses pembelian untuk setiap item yang dicentang
+        $userOrdersIds = [];
+
         DB::beginTransaction();
 
-        foreach ($itemIds as $itemId) {
-            $keranjang = keranjang::findOrFail($itemId);
+        try {
+            foreach ($itemIds as $itemId) {
+                // Ambil item dari database berdasarkan ID
+                $barang = barangpenjual::findOrFail($itemId);
 
-            $jumlah = ($keranjang->jumlah);
+                // Hitung total harga dengan pajak
+                $totalharga = ($barang->harga * $request->jumlah) + ($barang->harga * $request->jumlah * 0.05);
 
-            $totalharga = ($keranjang->totalHarga);
+                // Buat data pembelian untuk item ini
+                $userOrderData = [
+                    'barangpenjual_id' => $itemId,
+                    'jumlah' => $request->jumlah, // Pastikan Anda memiliki jumlah yang sesuai di sini
+                    'adminstatus' => 'notactive',
+                    'pembelianstatus' => 'notactive',
+                    'toko_id' => $barang->toko_id,
+                    'user_id' => $request->user_id,
+                    'totalharga' => $totalharga
+                ];
 
-            $userOrderData = [
-                'id_keranjang' => $itemId,
-                'jumlah' => $jumlah,
-                'adminstatus' => 'notactive',
-                'pembelianstatus' => 'notactive',
-                'toko_id' => $keranjang->toko_id,
-                'user_id' => $user_id,
-                'totalharga' => $totalharga,
-                'metodepembayaran' => 'waiting',
-                'id' => uniqid(),
-                'barangpenjual_id' => $keranjang->barangpenjual_id,
+                // Buat pembelian untuk item ini
+                $userOrders = userOrder::create($userOrderData);
 
-            ];
+                // Simpan ID pembelian ke dalam array
+                $userOrdersIds[] = $userOrders->id;
+            }
 
-            $userOrder = userOrder::create($userOrderData);
+            // Commit transaksi ke database
+            DB::commit();
 
-            $keranjang->delete();
+            dd($userOrdersIds);
 
-            $userOrdersIds[] = $userOrder->id;
+            return response()->json(['success' => true, 'message' => 'Pembelian berhasil.', 'orderIds' => $userOrdersIds]);
+        } catch (\Exception $e) {
+            // Rollback transaksi jika terjadi kesalahan
+            DB::rollback();
+
+            return response()->json(['message' => 'Terjadi kesalahan dalam melakukan pembelian.'], 500);
+            dd($e->getMessage());
         }
-
-        $orderId = $userOrder->id;
-
-        DB::commit();
-        return response()->json(['message' => 'berhasil', 'id' => $userOrdersIds]);
-    }
-
-    public function updateKeranjang(Request $request)
-    {
-
-        $request->validate([
-            'productId' => 'required|integer',
-            'quantity' => 'required|integer|min:1|max:100',
-        ]);
-
-
-        $productId = $request->input('productId');
-        $newQuantity = $request->input('quantity');
-        $cartItem = Keranjang::find($productId);
-
-        if (!$cartItem) {
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Item tidak ditemukan dalam keranjang.',
-            ]);
-        }
-        $barangPenjual = barangpenjual::find($cartItem->barangpenjual_id);
-        if (!$barangPenjual) {
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Data produk tidak ditemukan.',
-            ]);
-        }
-        $cartItem->jumlah = $newQuantity;
-        $hargaProduk = $barangPenjual->harga;
-        $totalHarga = $newQuantity * $hargaProduk * 1.05;
-        $cartItem->totalHarga = $totalHarga;
-        $cartItem->save();
-
-        return response()->json([
-            'success' => true,
-            'totalHarga' => $totalHarga,
-        ]);
     }
 
     public function konfimasipembelian($ids)
     {
-        $orderIds = explode(',', $ids);
-        $userOrder = userOrder::whereIn('id', $orderIds)->with('penjual')->get();
-
-        if ($userOrder->isEmpty()) {
-            return redirect()->back()->with('error', 'Tidak ada pesanan yang ditemukan.');
-        }
-
-
         $notifikasi = notifikasi::all();
         $user_id = Auth::id();
         $subtotalorder = $userOrder->sum('totalharga');
@@ -206,7 +218,7 @@ class dashboardusercontroller extends Controller
         'pembelianstatus' => 'dibatalkan',
     ]);
 
-    return redirect()->back()->with('success', 'pesanan berhasil di hapus');
+    return redirect()->back()->with('success', 'pesanan berhasil di batalkan');
 }
 
 
@@ -218,10 +230,10 @@ public function riwayatuser()
     })
         ->where('user_id', $user_id)
         ->get();
-    $penjual = barangpenjual::all();
-    return view('DashboardUser.riwayat', compact('user', 'penjual'));
-}
-
+        $penjual = barangpenjual::all();
+        $penjuallogin = penjuallogin::all();
+        return view('DashboardUser.riwayat', compact('user', 'penjual','penjuallogin'));
+    }
 
     public function Userkeranjang()
     {
@@ -238,7 +250,18 @@ public function riwayatuser()
     public function tambahKeranjang(Request $request, $id)
     {
         try {
+            // Validasi permintaan
+            // $request->validate([
+            //     'user_id' => 'required|integer', // Pastikan user_id adalah integer
+            //     'toko_id' => 'required|integer', // Pastikan toko_id adalah integer
+            //     'barangpenjual_id' => 'required|integer', // Pastikan barangpenjual_id adalah integer
+            //     'jumlah' => 'required|integer|min:1', // Pastikan jumlah adalah integer positif
+            // ]);
 
+            // Anda dapat menambahkan logika tambahan di sini, misalnya,
+            // membuat entri baru di tabel keranjang dengan data yang diterima dari permintaan
+
+            // Contoh:
             $keranjang = new keranjang();
             $keranjang->user_id = $request->user_id;
             $keranjang->toko_id = $request->toko_id;
@@ -307,6 +330,15 @@ public function riwayatuser()
     public function daftartoko(){
         $penjuallogin = penjuallogin::all();
         return view ('DashboardUser.daftartoko', compact('penjuallogin'));
+    }
+
+    public function detailtoko(Request $request, $id)
+    {
+        $penjualId = Auth::id();
+        $penjual = barangpenjual::where('toko_id', $penjualId)->get();
+        $user = penjuallogin::where('id',$id)->get();
+
+        return view('DashboardUser.detailtoko', compact('penjual','user'));
     }
 
     /**
@@ -393,9 +425,6 @@ public function riwayatuser()
     ulasan::create($ulasan);
     return redirect()->route('riwayatuser');
 }
-
-
-
 
     public function pengembaliandana(Request $request ,$id)
     {
@@ -568,4 +597,17 @@ public function riwayatuser()
     {
 
     }
+
+    public function search(Request $request)
+    {
+        // Ambil kata kunci pencarian dari input form
+        $searchTerm = $request->input('query');
+
+        // Lakukan pencarian pada model BarangPenjual (sesuaikan dengan model Anda)
+        $results = BarangPenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
+
+        // Kembalikan hasil pencarian dalam format JSON
+        return response()->json($results);
+    }
 }
+

@@ -54,6 +54,26 @@
   .main-content {
     flex: 1px;
   }
+
+  .pesan-shopee {
+  position: fixed;
+  bottom: 20px;
+  right: 60px;
+  z-index: 1000;
+}
+
+.btn-pesan-shopee {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -68,6 +88,9 @@
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 
 <body class="  "
@@ -473,6 +496,12 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="pesan-shopee">
+        <button class="btn-pesan-shopee" id="btn-pesan-shopee">
+            <i class="fa fa-comments"></i>
+        </button>
     </div>
 
 

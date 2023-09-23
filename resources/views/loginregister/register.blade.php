@@ -504,24 +504,36 @@
                               <div class="form-group">
                                  <label for="full-name" class="form-label">User Name</label>
                                  <input type="text" name="name" class="form-control form-control-sm" id="full-name" placeholder=" ">
+                                 @if ($errors->has('name'))
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                 @endif
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label for="email" class="form-label">Email</label>
                                  <input type="email" name="email" class="form-control form-control-sm" id="email" placeholder=" ">
+                                 @if ($errors->has('email'))
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                 @endif
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label for="password" class="form-label">Password</label>
                                  <input type="password" name="password" class="form-control form-control-sm" id="password" placeholder=" ">
+                                 @if ($errors->has('password'))
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                 @endif
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label for="confirm-password" class="form-label">Confirm Password</label>
-                                 <input type="text" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
+                                 <input type="text" name="confirm_password" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
+                                 @if ($errors->has('confirm_password'))
+                                    <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
+                                 @endif
                               </div>
                            </div>
                            <div class="col-lg-12 d-flex justify-content-center">

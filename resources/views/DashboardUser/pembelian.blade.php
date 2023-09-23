@@ -317,7 +317,7 @@
                     <div class=" card col-md-12 col-lg-12">
                         <div class="card-body">
                             <div class="">
-                                <h3 class="text-primary">Konfirmasi pesanan</h3>
+                                <h3 class="text-primary">Konfirmasi Pesanan</h3>
                             </div>
                                 <!-- Menampilkan nama penjual dan detail menu dari barangpenjual -->
                                 <div class="mb-2 mt-2">
@@ -379,8 +379,8 @@
             <div class="">
                 <h5 class="text-bold">Total harga</h5>
             </div>
-            <div class="mt-3">
-                <p>Rp. {{ number_format($subtotalorder) }}</p>
+            <div class="mt-3 me-auto">
+                <p>Rp. {{ number_format($subtotalorder) }}<span class="text-danger"> (5% Biaya Admin)</span></p>
             </div>
         </div>
             <div class="mb-3">
@@ -578,7 +578,9 @@
                             // Handle respons dari server jika diperlukan
                             Swal.fire('Sukses', 'Pembayaran berhasil dilakukan.', 'success');
                             // Redirect atau lakukan tindakan lain sesuai kebutuhan Anda
-                            window.location.href = "{{ route('menu.index') }}";
+                            setTimeout(function () {
+                                window.location.href = "{{ route('menu.index') }}";
+                        }, 2000);
                         },
                         error: function(response) {
                             console.log(response);

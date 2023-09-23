@@ -106,7 +106,7 @@
 </head>
     @include('layout.logoloader')
     @foreach ($userOrder as $UserOrder)
-    <form action="{{ route('pengajuandanapenjual') }}" method="post">
+    <form action="{{ route('pengajuandana') }}" method="post">
         @csrf
         
     <div class="modal" id="myModal-{{$UserOrder->id}}" tabindex="-1">
@@ -120,7 +120,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-8">
-                                <p class="fs-6 text-dark">
+                                <!-- <p class="fs-6 text-dark">
                                     nama pembeli :
                                     {{ $UserOrder->User->name }}
                                     <br>
@@ -136,7 +136,7 @@
                                     Rp. {{ $totalharga_penjual_setelah_potongan  }}
                                     <br>
                                     * di kenakan biaya admin
-                                </p>
+                                </p> -->
                             </div>
                         </div>
                     </div>
@@ -372,7 +372,7 @@
                                 @endphp
                                 @foreach ($userOrder as $UserOrder )
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $UserOrder->User->name }}</td>
+                                <td>{{ $UserOrder->username }}</td>
                                 <td>{{ $UserOrder->jumlah }}</td>
                                 <td>{{ $UserOrder->totalharga }}</td>
                                 <td>{{ $UserOrder->metodepembayaran }}</td>

@@ -39,10 +39,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
-{{-- bootstrap --}}
-{{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
-
-{{--  --}}
 </head>
 
 <body class=""
@@ -94,13 +90,75 @@
                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" id="addToCart-{{$p->id}}">Tambah Keranjang</button>
-                        <button type="submit" class="btn btn-primary">Pesan</button>
+                        <button type="button" class="btn btn-primary pesan-btn" id="pembelian-{{$p->id}}" data-id="{{$p->id}}">Pesan</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 @endforeach
+{{-- Modal Pembeli --}}
+
+{{-- AJAX tambah pesanan --}}
+<script>
+    $(document).ready(function () {
+    @foreach ($penjual as $p)
+        $("#pembelian-{{$p->id}}").click(function () {
+
+            var jumlah = $("#jumlah-{{$p->id}}").val();
+            var harga = {{$p->harga}};
+            var pajak = 0.05; // 5% pajak
+
+            // Periksa jika input jumlah kosong
+            if (!jumlah || jumlah <= 0) {
+                Swal.fire('Peringatan', 'Masukkan jumlah yang valid sebelum memesan!', 'warning');
+                return;
+            }
+
+            // Hitung totalHarga
+            var totalHarga = jumlah * harga * (1 + pajak); // jumlah * harga * (1 + pajak)
+
+            // Set nilai totalHarga ke input tersembunyi
+            $("#totalHarga-{{$p->id}}").val(totalHarga);
+
+            // Mendapatkan data yang diperlukan dari modal
+            var user_id = {{$user_id}};
+            var toko_id = {{$p->toko_id}};
+            var barangpenjual_id = {{$p->id}};
+
+            // Kirim permintaan AJAX
+            $.ajax({
+                url: "{{ route('pembelian', ['id' => $p->id]) }}", // Mengarahkan ke rute 'tambahKeranjang'
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "user_id": user_id,
+                    "toko_id": toko_id,
+                    "barangpenjual_id": barangpenjual_id,
+                    "jumlah": jumlah,
+                    "totalHarga": totalHarga, // Sertakan totalHarga dalam data yang dikirim
+                },
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire('Sukses', response.message, 'success');
+
+                        setTimeout(function () {
+                            window.location = `/konfimasipembelian/${response.id}`;
+                        }, 2000);
+                    } else {
+                        Swal.fire('Error', response.message, 'error');
+                    }
+                },
+                error: function () {
+                    Swal.fire('Error', 'Terjadi kesalahan. Item tidak dapat ditambahkan ke keranjang.', 'error');
+                }
+            });
+        });
+    @endforeach
+});
+</script>
+{{-- AJAX tambah pesanan --}}
+
 
 {{-- AJAX tambah keranjang --}}
 <script>
@@ -114,7 +172,7 @@
 
             // Periksa jika input jumlah kosong
             if (!jumlah || jumlah <= 0) {
-                Swal.fire('Error', 'Masukkan jumlah yang valid sebelum menambahkan ke keranjang.', 'error');
+                Swal.fire('Peringatan', 'Masukkan jumlah yang valid sebelum menambah keranjang!', 'warning');
                 return;
             }
 
@@ -157,9 +215,6 @@
 });
 </script>
 {{-- AJAX tambah keranjang --}}
-
-{{-- Modal Pembeli --}}
-
 
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -454,7 +509,6 @@
                             }
                         });
                     } else {
-
                         $('#results').html('');
                     }
                 });

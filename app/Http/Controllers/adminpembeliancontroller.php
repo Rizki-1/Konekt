@@ -128,10 +128,10 @@ $chartData = array_values($processedData);
         $dashboardusercontrollers->adminstatus = 'notapproveadmin';
         $dashboardusercontrollers->save();
 
-        $notifikasi = notifikasi::FindOrFail($id);
-        $notifikasi->keterangan = 'pesanan anda di tolak ';
-        $notifikasi->isi = 'periksa tabel pesanan anda untuk konfirmasi';
-        $notifikasi->save();
+        // $notifikasi = notifikasi::FindOrFail($id);
+        // $notifikasi->keterangan = 'pesanan anda di tolak ';
+        // $notifikasi->isi = 'periksa tabel pesanan anda untuk konfirmasi';
+        // $notifikasi->save();
 
         return redirect()->back();
     }

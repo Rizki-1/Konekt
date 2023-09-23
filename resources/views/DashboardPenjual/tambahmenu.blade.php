@@ -28,6 +28,8 @@
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
+    @include('layout.sweetalert')
+
 @include('layout.sweetalert')
 
 {{-- Modal Store --}}

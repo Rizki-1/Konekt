@@ -60,9 +60,29 @@
       <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
 
       <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
+      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+
+    <!-- Include the SweetAlert 2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
+    <!-- Include the SweetAlert 2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {{-- bootstrap icon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+    <!-- Include the CSRF token as a meta tag -->
+
+    </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+
+    @include('layout.sweetalert')
+
     @include('layout.logoloader')
     @foreach ($user as $u)
     <form action="{{ route('pengembaliandana', ['id' => $u->id  ]) }}" method="POST">

@@ -111,6 +111,24 @@
             /* text-align: justify; */
 
         }
+
+        .custom-tooltip {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            /* z-index: 1; */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .total-td:hover .custom-tooltip {
+            display: block;
+            opacity: 1;
+        }
+
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -213,11 +231,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active" href="{{ asset('UserKeranjang') }}"><!-- Tambahkan / sebelum keranjang -->
                                     <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                                            <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                            </g>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 31 25" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0996 2.50046C14.0294 2.50055 12.9869 2.801 12.1232 3.35832C11.2595 3.91564 10.6194 4.7009 10.2955 5.6004L9.16151 8.75033H21.0377L19.9037 5.6004C19.5798 4.7009 18.9397 3.91564 18.076 3.35832C17.2123 2.801 16.1699 2.50055 15.0996 2.50046ZM24.0117 8.75033L22.6055 4.84416C22.0999 3.43854 21.0998 2.21137 19.7503 1.34042C18.4008 0.469478 16.7719 0 15.0996 0C13.4273 0 11.7984 0.469478 10.4489 1.34042C9.09935 2.21137 8.09935 3.43854 7.59371 4.84416L6.18751 8.75033H2.83501C2.39239 8.75035 1.95591 8.84174 1.56054 9.01721C1.16516 9.19267 0.821875 9.44733 0.558155 9.7608C0.294435 10.0743 0.117611 10.4378 0.0418433 10.8224C-0.0339244 11.2069 -0.00652333 11.6018 0.121835 11.9753L1.71515 16.6127L3.68271 22.3376C3.94735 23.1077 4.48587 23.7823 5.21874 24.2616C5.95161 24.7411 6.83994 25 7.75247 25H22.4467C23.3591 24.9998 24.247 24.7408 24.9796 24.2613C25.7122 23.7819 26.2506 23.1074 26.5151 22.3376L28.4841 16.6127L30.0774 11.9753C30.2058 11.6018 30.2332 11.2069 30.1573 10.8224C30.0816 10.4378 29.9047 10.0743 29.6411 9.7608C29.3774 9.44733 29.0341 9.19267 28.6387 9.01721C28.2434 8.84174 27.8068 8.75035 27.3642 8.75033H24.0117ZM7.22373 11.2503H2.83501L4.12356 15.0002H9.48188L8.90069 11.2503H7.22373ZM11.7627 11.2503L12.3425 15.0002H17.8567L18.4379 11.2503H11.7627ZM21.2985 11.2503L20.7173 15.0002H26.0756L27.3642 11.2503H21.2985ZM25.2166 17.5002H20.3303L19.5578 22.5001H22.4453C22.7495 22.5001 23.0456 22.4138 23.2899 22.2539C23.5341 22.0942 23.7137 21.8693 23.8019 21.6126L25.2166 17.5002ZM16.6972 22.5001L17.4697 17.5002H12.7281L13.502 22.5001H16.6972ZM10.64 22.5001L9.86745 17.5002H4.98259L6.39588 21.6126C6.4841 21.8693 6.6636 22.0942 6.9079 22.2539C7.15219 22.4138 7.4483 22.5001 7.75247 22.5001H10.64Z" fill="#fff"/>
+                                            </svg>
                                     </i>
                                     <span class="item-name">Keranjang</span>
                                 </a>
@@ -331,7 +347,7 @@
 
 
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="profileuser">Profile</a></li>
                     <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
                     <li><hr class="dropdown-divider"></li>
@@ -353,13 +369,6 @@
       </div>
       <div class="content-inner mt-5 py-0">
           <div class="card col-md-12 col-lg-12">
-              <div class="card-body">
-                  <div>
-                      <h4 class="card-title" style="color:#F66F0C">
-                        <i class="fas fa-shopping-cart"></i> Keranjang Saya
-                    </h4>
-                </div>
-            </div>
             <div class="card-body">
                 <div class="col active"
                 data-iq-gsap="onStart"
@@ -369,6 +378,9 @@
         data-iq-delay=".6"
         data-iq-trigger="scroll"
         data-iq-ease="none">
+        <p class="card-title fw-bold fs-3" style="color:#F66F0C">
+            <i class="fas fa-shopping-cart"></i> Keranjang Saya
+        </p>
         <hr>
         <table class="table text-center">
             <thead>
@@ -381,8 +393,8 @@
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($keranjangItems as $p)
+            <tbody id="tabelKeranjang">
+                @forelse ($keranjangItems as $p)
                     <tr>
                         <td><input class="item-checkbox" type="checkbox" value="{{ $p->id }}"></td>
                         <td>
@@ -397,20 +409,28 @@
                                 <button type="button" class="btn btn-outline-primary btn-sm plus-btn">+</button>
                             </div>
                         </td>
-                        <td>Rp. <span class="total">{{number_format($p->totalHarga, 0, ',', '.')}}</span></td>
+                        <td class="total-td">Rp. <span class="total">{{number_format($p->totalHarga, 0, ',', '.')}}</span>
+                            <span class="custom-tooltip">5% biaya admin</span>
+                        </td>
                         <td>
                             <button type="submit" class="btn btn-outline-danger hapus" data-item-id="{{$p->id}}" style="border-radius: 10%;"><i class="bi bi-trash-fill"></i></button>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <p>Anda belum menambahkan keranjang.</p>
+                @endforelse
             </tbody>
         </table>
-        <div class="align-self-center">
-            <input type="checkbox" id="selectAllItems">
-            <span style="color: black;">pilih semua</span>
-        </div>
-        <div class="text-end">
-            <button type="button" class="btn btn-primary" id="beli">Beli</button>
+        <div class="d-flex container-fluid" id="keranjang">
+            <div class="me-2">
+                <input type="checkbox" id="selectAllItems">
+                <label for="selectAllItems" style="cursor: pointer; color:#000000">
+                    Pilih Semua
+                </label>
+            </div>
+            <div class="ms-auto">
+                <button type="button" class="btn btn-primary" id="beli">Beli</button>
+            </div>
         </div>
       </div>
     </div>
@@ -422,6 +442,36 @@
          @include('layout.js')
       </body>
   </html>
+
+{{-- js tampilan --}}
+<script>
+    // Ambil elemen-elemen yang ingin dihapus jika tidak ada <tr>
+    var keranjangContainer = document.getElementById('keranjang');
+    var thead = document.querySelector('thead');
+
+    // Fungsi untuk memeriksa apakah ada <tr> dalam tabel
+    function cekTrAda() {
+        var tabel = document.getElementById('tabelKeranjang'); // Ganti 'tabelKeranjang' dengan ID tabel Anda
+        var trItems = tabel.getElementsByTagName('tr');
+        return trItems.length > 0;
+    }
+
+    // Fungsi untuk mengubah class jika tidak ada <tr>
+        function ubahClassJikaTrTidakAda() {
+        if (!cekTrAda()) {
+            keranjangContainer.classList.remove('d-flex');
+            keranjangContainer.classList.add('d-none');
+            thead.remove();
+        } else {
+            keranjangContainer.classList.remove('d-none');
+            keranjangContainer.classList.add('d-flex');
+        }
+    }
+
+    // Panggil fungsi awal saat halaman dimuat
+    ubahClassJikaTrTidakAda();
+</script>
+{{-- js tampilan --}}
 
 {{-- JS for Update jumlah --}}
 <script>
@@ -504,6 +554,9 @@
 
                                 // Hapus elemen item dari tampilan
                                 itemElement.remove();
+
+                                // Perbarui jumlah item keranjang
+                                updateItemCount();
                             } else {
                                 // Gagal menghapus item keranjang
                                 Swal.fire('Gagal', 'Item keranjang gagal dihapus.',
@@ -520,6 +573,38 @@
                 }
             });
         });
+
+        // Ambil elemen-elemen yang ingin dihapus jika tidak ada <tr>
+            var keranjangContainer = document.getElementById('keranjang');
+        var thead = document.querySelector('thead');
+
+        // Fungsi untuk memeriksa apakah ada <tr> dalam tabel
+        function cekTrAda() {
+            var tabel = document.getElementById('tabelKeranjang'); // Ganti 'tabelKeranjang' dengan ID tabel Anda
+            var trItems = tabel.getElementsByTagName('tr');
+            return trItems.length > 0;
+        }
+
+        // Fungsi untuk mengubah class jika tidak ada <tr>
+            function ubahClassJikaTrTidakAda() {
+            if (!cekTrAda()) {
+                keranjangContainer.classList.remove('d-flex');
+                keranjangContainer.classList.add('d-none');
+                thead.remove();
+            } else {
+                keranjangContainer.classList.remove('d-none');
+                keranjangContainer.classList.add('d-flex');
+            }
+        }
+
+        function updateItemCount() {
+            var itemCount = $(".item-checkbox:checked").length;
+
+            if (itemCount === 0) {
+                ubahClassJikaTrTidakAda();
+                pesanKeranjang.show();
+            }
+        }
     });
 </script>
 {{-- AJAX delete --}}

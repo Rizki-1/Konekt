@@ -59,24 +59,74 @@ class dashboardusercontroller extends Controller
 
     public function pembelian(Request $request)
     {
-        $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
-        $barang = barangpenjual::findOrFail($request->barangpenjual_id);
-        $totalharga = ($barang->harga * $request->jumlah) + ($barang->harga * $request->jumlah * 0.05);
+        try {
 
-        $userOrderData = [
-            'barangpenjual_id' => $request->barangpenjual_id,
-            'jumlah' => $request->jumlah,
-            'adminstatus' => 'notactive',
-            'pembelianstatus' => 'notactive',
-            'toko_id' => $request->toko_id,
-            'user_id' => $request->user_id,
-            'totalharga' => $totalharga,
-            'metodepembayaran' => 'waiting'
-        ];
-        $userOrders =  userOrder::create($userOrderData);
-        return redirect()->route('konfimasipembelian', ['ids' => $userOrders->id]);
+            $pembelian = new userOrder();
+            $pembelian->user_id = $request->user_id;
+            $pembelian->toko_id = $request->toko_id;
+            $pembelian->barangpenjual_id = $request->barangpenjual_id;
+            $pembelian->jumlah = $request->jumlah;
+            $pembelian->totalHarga = $request->totalHarga;
+            $pembelian->adminstatus = 'notactive';
+            $pembelian->pembelianstatus = 'notactive';
+            $pembelian->metodepembayaran = 'waiting';
+            $pembelian->save();
 
+            $response = [
+                'success' => true,
+                'message' => 'Anda berhasil memesan!',
+                'id' => $pembelian->id
+            ];
+
+            return response()->json($response);
+            } catch (\Exception $e) {
+
+            $response = [
+                'success' => false,
+                'message' => 'Terjadi kesalahan. Item tidak dapat ditambahkan ke pesanan.'
+            ];
+
+            return response()->json($response, 500);
+        }
     }
+
+    // public function pembelian(Request $request)
+    // {
+    //     $request->validate([
+    //         'barangpenjual_id' => 'required',
+    //         'jumlah' => 'required|integer',
+    //         'catatan' => 'string',
+    //         'foto' => 'image|mimes:jpeg,png,jpg,gif',
+    //         'toko_id' => 'required',
+    //         'user_id' => 'required'
+    //     ], [
+    //         'barangpenjual_id.required' => 'Kolom barang penjual wajib diisi.',
+    //         'jumlah.required' => 'Kolom jumlah wajib diisi.',
+    //         'jumlah.integer' => 'Kolom jumlah harus berupa angka.',
+    //         'catatan.string' => 'Kolom catatan harus berupa teks.',
+    //         'foto.image' => 'Kolom foto harus berupa gambar.',
+    //         'foto.mimes' => 'Kolom foto harus berformat jpeg, png, jpg, atau gif.',
+    //         'toko_id.required' => 'Kolom toko wajib diisi.',
+    //         'user_id.required' => 'Kolom user wajib diisi.'
+    //     ]);
+
+    //     $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
+    //     $barang = barangpenjual::findOrFail($request->barangpenjual_id);
+    //     $totalharga = ($barang->harga * $request->jumlah) + ($barang->harga * $request->jumlah * 0.05);
+
+    //     $userOrderData = [
+    //         'barangpenjual_id' => $request->barangpenjual_id,
+    //         'jumlah' => $request->jumlah,
+    //         'adminstatus' => 'notactive',
+    //         'pembelianstatus' => 'notactive',
+    //         'toko_id' => $request->toko_id,
+    //         'user_id' => $request->user_id,
+    //         'totalharga' => $totalharga,
+    //         'metodepembayaran' => 'waiting'
+    //     ];
+    //     $userOrders =  userOrder::create($userOrderData);
+    //     return redirect()->route('konfimasipembelian', ['ids' => $userOrders->id]);
+    // }
 
     public function order(Request $request)
     {
@@ -206,7 +256,7 @@ class dashboardusercontroller extends Controller
         'pembelianstatus' => 'dibatalkan',
     ]);
 
-    return redirect()->back()->with('success', 'pesanan berhasil di hapus');
+    return redirect()->back()->with('success', 'pesanan berhasil di batalkan');
 }
 
 
@@ -394,9 +444,6 @@ public function riwayatuser()
     return redirect()->route('riwayatuser');
 }
 
-
-
-
     public function pengembaliandana(Request $request ,$id)
     {
 
@@ -568,4 +615,17 @@ public function riwayatuser()
     {
 
     }
+
+    public function search(Request $request)
+    {
+        // Ambil kata kunci pencarian dari input form
+        $searchTerm = $request->input('query');
+
+        // Lakukan pencarian pada model BarangPenjual (sesuaikan dengan model Anda)
+        $results = BarangPenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
+
+        // Kembalikan hasil pencarian dalam format JSON
+        return response()->json($results);
+    }
 }
+

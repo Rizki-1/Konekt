@@ -82,7 +82,7 @@ class penjualcontroller extends Controller
             $yearMonth = carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
 
             if (isset($processedData[$yearMonth])){
-                $ini = $totalharga - $untung;
+                $ini = $pemasukkan;
                 $masuk =number_format($ini, 3 , ',','.');
                 $processedData[$yearMonth]['statusselesai'] = $ini;
             }
@@ -316,8 +316,8 @@ class penjualcontroller extends Controller
                  'kategori_id' => $request->kategori_id,
                  'harga' => $request->harga,
                  'fotomakanan' => $filePath,
-                 'toko_id' => $request->toko_id,
-                 'keterangan_makanan' => $request->keterangan_makanan,
+                 'toko_id' => $penjualId,
+
              ];
 
              // Simpan data ke database
@@ -370,7 +370,7 @@ class penjualcontroller extends Controller
             'namamenu' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
             'kategori_id' => 'required|exists:adminkategoris,id',
             'harga' => 'required|numeric|min:0',
-            'fotomakanan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'fotomakanan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480',
         ], [
             'namamenu.required' => 'Nama makanan wajib diisi.',
             'namamenu.string' => 'Nama makanan harus berupa teks.',

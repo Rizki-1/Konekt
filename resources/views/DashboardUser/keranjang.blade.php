@@ -326,8 +326,6 @@
             </nav>
         </div>
         <div class="content-inner mt-5 py-0">
-
-
                   </a>
                   <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="profileuser">Profile</a></li>
@@ -351,7 +349,7 @@
       </div>
       <div class="content-inner mt-5 py-0">
           <div class="card col-md-12 col-lg-12">
-            <div class="card-body">
+            <div class="card-body h-100">
                 <div class="col active"
                 data-iq-gsap="onStart"
         data-iq-opacity="0"
@@ -418,7 +416,6 @@
   </div>
 </div>
 
-@include('layout.footer')
   </main>
          @include('layout.js')
       </body>

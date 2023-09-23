@@ -508,38 +508,44 @@
         @method('PUT')
         <input type="hidden" name="toko_id" value="{{ $penjualId }}">
         <input type="hidden" name="item_id" id="editItemID"> <!-- Ini adalah input tersembunyi untuk menyimpan ID item yang akan diubah -->
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalTitle">Edit Menu</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="namamenu" class="form-label fw-bold">Nama Menu</label>
-                        <input type="text" name="namamenu" id="editNamamenu" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="kategori_id" class="form-label fw-bold">Kategori</label>
-                        <select name="kategori_id" id="editKategoriID" class="form-control">
-                            <option value="" disabled>Pilih kategori</option>
-                            @foreach ($adminkategori as $siswa)
-                                <option value="{{ $siswa->id }}">{{ $siswa->kategori }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="harga" class="form-label fw-bold">Harga</label>
-                        <input type="text" name="harga" id="editHarga" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="harga" class="form-label fw-bold">keterangan makanan</label>
-                        <input type="text" name="keterangan_makanan" id="editHarga" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fotomakanan" class="form-label fw-bold">Foto Makanan</label>
-                        <input type="file" name="fotomakanan" class="form-control" id="editPreviewImage">
-                        <div id="editImagePreview" class="mt-2"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="namamenu" class="form-label fw-bold">Nama Menu</label>
+                                <input type="text" name="namamenu" id="editNamamenu" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="kategori_id" class="form-label fw-bold">Kategori</label>
+                                <select name="kategori_id" id="editKategoriID" class="form-control">
+                                    <option value="" disabled>Pilih kategori</option>
+                                    @foreach ($adminkategori as $siswa)
+                                        <option value="{{ $siswa->id }}">{{ $siswa->kategori }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="harga" class="form-label fw-bold">Harga</label>
+                                <input type="text" name="harga" id="editHarga" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="keterangan_makanan" class="form-label fw-bold">keterangan makanan</label>
+                                <input type="text" name="keterangan_makanan" id="editketerangan_makanan" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="fotomakanan" class="form-label fw-bold">Foto Makanan</label>
+                                <input type="file" name="fotomakanan" class="form-control" id="editPreviewImage">
+                                <div id="editImagePreview" class="mt-2"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -574,6 +580,7 @@
                         $("#editNamamenu").val(response.data.namamenu);
                         $("#editKategoriID").val(response.data.kategori_id);
                         $("#editHarga").val(response.data.harga);
+                        $("#editketerangan_makanan").val(response.data.keterangan_makanan);
 
                     // Tampilkan gambar saat ini di modal
                     if (response.data.fotomakanan) {
@@ -655,7 +662,7 @@
                         var responseErrors = xhr.responseJSON.errors;
 
                         $.each(responseErrors, function (key, value) {
-                        var inputField = $("input[name='" + key + "']");
+                        var inputField = $("input[name='" + key + "'], textarea[name='" + key + "'], select[name='" + key + "']");
                         inputField.addClass('is-invalid');
                     if (inputField.is('select')) {
                         inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');

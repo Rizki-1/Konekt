@@ -257,7 +257,7 @@ class penjualcontroller extends Controller
     protected function profilepenjual(Request $request)
     {
         $penjualId = Auth::id();
-        $penjual = barangpenjual::where('toko_id', $penjualId)->get();        
+        $penjual = barangpenjual::where('toko_id', $penjualId)->get();
         return view('DashboardPenjual.profilepenjual', compact('penjual'));
     }
 
@@ -319,7 +319,6 @@ class penjualcontroller extends Controller
                  'harga' => $request->harga,
                  'fotomakanan' => $filePath,
                  'toko_id' => $penjualId,
-
              ];
 
              // Simpan data ke database
@@ -373,6 +372,7 @@ class penjualcontroller extends Controller
             'kategori_id' => 'required|exists:adminkategoris,id',
             'harga' => 'required|numeric|min:0',
             'fotomakanan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480',
+            'keterangan_makanan' => 'required',
         ], [
             'namamenu.required' => 'Nama makanan wajib diisi.',
             'namamenu.string' => 'Nama makanan harus berupa teks.',
@@ -386,6 +386,7 @@ class penjualcontroller extends Controller
             'fotomakanan.image' => 'Foto makanan harus berupa file gambar.',
             'fotomakanan.mimes' => 'Foto makanan harus berformat jpeg, png, jpg, atau gif.',
             'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
+            'keterangan_makanan.required' => 'keterangan makanan tidak boleh kosong',
         ]);
 
         if ($validated) {
@@ -400,6 +401,7 @@ class penjualcontroller extends Controller
             $item->namamenu = $request->namamenu;
             $item->kategori_id = $request->kategori_id;
             $item->harga = $request->harga;
+            $item->keterangan_makanan = $request->keterangan_makanan;
 
             // Jika ada file gambar yang diunggah, simpan gambar baru
             if ($request->hasFile('fotomakanan')) {

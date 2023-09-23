@@ -52,7 +52,7 @@
 <form action="{{ route('pembelian', ['id' => $p->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal fade" id="myModal-{{$p->id}}" tabindex="-1">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Tambah Pesanan</h5>
@@ -89,8 +89,8 @@
                         </div>
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" id="addToCart-{{$p->id}}">Tambah Keranjang</button>
-                        <button type="button" class="btn btn-primary pesan-btn" id="pembelian-{{$p->id}}" data-id="{{$p->id}}">Pesan</button>
+                        <button type="button" class="btn btn-warning text-white rounded-pill" id="addToCart-{{$p->id}}">Tambah Keranjang</button>
+                        <button type="button" class="btn btn-primary pesan-btn rounded-pill" id="pembelian-{{$p->id}}" data-id="{{$p->id}}">Pesan</button>
                     </div>
                 </div>
             </div>

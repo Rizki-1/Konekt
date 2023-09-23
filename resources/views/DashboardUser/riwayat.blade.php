@@ -87,7 +87,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body class="  "
+<body class=" "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
@@ -267,9 +267,6 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
                             <!-- isi dari notifikasi-->
-
-
-
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
                                     <svg width="18" height="21" viewBox="0 0 18 21" fill="none"
@@ -328,82 +325,80 @@
                 </div>
             </nav>
         </div>
-            <div class="content-inner mt-5 py-0">
-                <div class="col-md-12 col-lg-12 my-custom-card">
-                    <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
-            <h2 class="title" style="color: red; text-align:center;">Riwayat Pembelian</h2><br>
-            <div class="d-flex justify-content-evenly">
-                @foreach ($user as $u )
+        <div class="content-inner mt-5 py-0">
+            <div class="col-md-12 col-lg-12 my-custom-card">
+                <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+                    data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
+                    style="position: relative">
+        <h2 class="title" style="color: red; text-align:center;">Riwayat Pembelian</h2><br>
+        <div class="d-flex ">
 
-                    <div class="card col-md-5" style="background-color: white;" >
-                    <div class="card-content p-2" >
-            {{-- evenly merapikan jarak antar div atau table --}}
-            <div class="row d-flex justify-content-evenly">
-                @foreach ($user as $u )
-                @foreach ($penjuallogin as $p)
-                @foreach ($penjual as $p1 )
+                <div class="card-content p-2" >
+        {{-- evenly merapikan jarak antar div atau table --}}
+        <div class="row d-flex justify-content-evenly">
+            @foreach ($user as $u )
+            @foreach ($penjuallogin as $p)
+            @foreach ($penjual as $p1 )
 
-                <div class="card col-md-5" style="background-color: white;" >
-                    <div class="">
+            <div class="card col-md-5" style="background-color: white;" >
+                <div class="">
 
-                        <h3>Warung {{ $p->nama_toko }}</h3>
+                    <h3>Warung {{ $p->nama_toko }}</h3>
+                    <hr>
+                    <div class="d-flex justify-content-between ">
+                        <a>No Antrian : {{ $u->nomor_antrian }}</a>
+                        <a style="color: grey;">{{ $u->pembelianstatus }}</a>
+                    </div>
+                    <p>{{ $u->created_at }}</p>
+                    <div class="img-content">
+                        <img src="{{ asset('Storage/' . $p1->fotomakanan ) }}" style="border-radius: 10px; width: 125px; height: 110px; margin-top:-5px; padding: 5px;" alt="">
+                        <a>{{ $p1->namamenu }}</a><br>
+                        <div class="mx-4">
+                        <a>{{ $u->jumlah }} Menu</a>
+                    </div>
                         <hr>
-                        <div class="d-flex justify-content-between ">
-                            <a>No Antrian : {{ $u->nomor_antrian }}</a>
-                            <a style="color: grey;">{{ $u->pembelianstatus }}</a>
+                        <div class="d-flex justify-content-between">
+                            <h5>Biaya Layanan</h5>
+                            <h5>Rp. {{ number_format ($u->totalharga, 0, ',','.') }}</h5>
                         </div>
-                        <p>{{ $u->created_at }}</p>
-                        <div class="img-content">
-                            <img src="{{ asset('Storage/' . $p1->fotomakanan ) }}" style="border-radius: 10px; width: 120px; height: 85px; margin-top:-5px; padding: 5px;" alt="">
-                            <a>{{ $p1->namamenu }}</a><br>
-                            <div class="mx-4">
-                            <a>{{ $u->jumlah }} Menu</a>
+                        <hr>
+                        {{-- Mengisi semua ruang betwenn --}}
+                        <div class="d-flex justify-content-between">
+                            <h6>Pembayaran</h6>
+                            <h6>{{ $u->metodepembayaran }}</h6>
                         </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <h5>Biaya Layanan</h5>
-                                <h5>Rp. {{ number_format ($u->totalharga, 0, ',','.') }}</h5>
-                            </div>
-                            <hr>
-                            {{-- Mengisi semua ruang betwenn --}}
-                            <div class="d-flex justify-content-between">
-                                <h6>Pembayaran</h6>
-                                <h6>{{ $u->metodepembayaran }}</h6>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                @if ($u->pembelianstatus === 'statusselesai')
-                                   <div class="btn btn-warning" type="submit"
-                                       data-bs-toggle="modal" data-bs-target="#myModal-{{$u->barangpenjual_id}}"
-                                       style="">beri ulasan</div>
-                               @endif
-                                   <a href="{{ route('menu.store') }}" class="btn btn-warning" method="POST" >Pesan Lagi</a>
+                        <div class="d-flex justify-content-between">
+                            @if ($u->pembelianstatus === 'statusselesai')
+                               <div class="btn btn-warning" type="submit"
+                                   data-bs-toggle="modal" data-bs-target="#myModal-{{$u->barangpenjual_id}}"
+                                   style="">beri ulasan</div>
+                           @endif
+                               <a href="{{ route('menu.store') }}" class="btn btn-warning" method="POST" >Pesan Lagi</a>
 
-                                </div>
-                        </div>
+                            </div>
                     </div>
                 </div>
-                @endforeach
-                @endforeach
-                @endforeach
             </div>
-            <div class="d-flex justify-content-evenly">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-              </nav>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
+            @endforeach
+            @endforeach
+            @endforeach
+        </div>
+        <div class="d-flex justify-content-evenly">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
             {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
@@ -425,7 +420,6 @@
     function toggleStart(radioElement) {
         const stars = radioElement.parentNode.querySelectorAll('.fas.fa-star');
         const index = parseInt(radioElement.value) - 1;
-
         for (let i = 0; i < stars.length; i++) {
             if (i <= index) {
                 stars[i].style.color = 'yellow';
@@ -435,10 +429,7 @@
         }
     }
 </script>
-
-
 </body>
-
 </html>
 
 

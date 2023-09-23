@@ -330,9 +330,6 @@ body {
                             <!-- Foto toko -->
                             <div style="position: relative; overflow: hidden;">
                                 <img src="{{ asset('storage/' . $p->foto_toko) }}" class="img-fluid rounded" alt="image" style="width: 80%; max-height: 200px;">
-                                <a href="#" class="chat-button" style="position: absolute; top: 85%; left: 40%; transform: translate(-50%, -50%); text-decoration: none; background-color: rgba(0, 0, 0, 0.5); color: #fff; padding: 10px 20px; border-radius: 5px;">
-                                    <i class="fa fa-comment"></i> Chat
-                                </a>
                             </div>
                         </div>
                         <div class="col-12 col-xl-7">

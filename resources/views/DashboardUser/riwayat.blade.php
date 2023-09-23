@@ -384,9 +384,7 @@
                         </div>
                     </div>
                 </div>
-
                 @endforeach
-
                 @endforeach
                 @endforeach
             </div>

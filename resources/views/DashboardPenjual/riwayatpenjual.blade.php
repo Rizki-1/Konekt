@@ -283,10 +283,10 @@
                     style="position: relative">
                     <center><h2 class="title" style="color:red;">Riwayat</h2></center>
                     <br>
-                    <div class="d-flex justify-content-evenly gap-4">
+                    <div class="row d-flex justify-content-evenly">
                         @foreach ($user as $User)
-                        <div class="card col-md-4">
-                            <div class="card-content p-4 ">
+                        <div class="card col-md-5">
+                            <div class="card-content p-3 ">
                                 <h6>Pesanan no {{ $User->id }}</h6>
                                 <div class="d-flex justify-content-between">
                                     <a>{{ $User->pembelianstatus }}</a>
@@ -294,7 +294,7 @@
                                 </div>
                                 <hr>
                                 <div class="">
-                                <img src="{{ asset('css/img/baru.webp') }}"  style="width: 80px; margin-left:20px; border-radius: 10px;">
+                                <img src="{{ asset('css/img/baru.webp') }}"  style="width: 110px; margin-left:10px; border-radius: 10px;">
                                    <a style="margin-left: 10px;">Jumlah : {{ $User->jumlah }}</a>
                                  </div>
                                       <hr>

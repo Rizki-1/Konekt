@@ -119,35 +119,55 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_store(Request $request)
     {
-        // dd($request->all());
-        $metodePembayaran = $request->input('metodepembayaran');
-        $data = [
-            'metodepembayaran' => $metodePembayaran,
-        ];
+    $request->validate([
+        'metodepembayaran' => 'required',
+        'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
+        'keterangan' => 'required',
+        'tujuan_bank' => 'required_if:metodepembayaran,bank',
+        'keterangan_bank' => 'required_if:metodepembayaran,bank',
+        'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
+    ], [
+        'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+        'tujuan_e_wallet.required_if' => 'Tujuan E-Wallet wajib diisi.',
+        'keterangan.required' => 'Keterangan wajib diisi.',
+        'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
+        'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
+        'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
+        'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
+        'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
+        'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
+    ]);
 
-        if ($metodePembayaran === 'e-wallet') {
-            $data['tujuan'] = $request->input('tujuan_e_wallet');
-            $data['keterangan'] = $request->input('keterangan');
-            $image = $request->file('keterangan');
+    $metodePembayaran = $request->input('metodepembayaran');
+    $data = [
+        'metodepembayaran' => $metodePembayaran,
+    ];
+
+    if ($metodePembayaran === 'e-wallet') {
+        $data['tujuan'] = $request->input('tujuan_e_wallet');
+        $data['keterangan'] = $request->input('keterangan');
+
+        if ($request->hasFile('keterangan_e_wallet')) {
+            $image = $request->file('keterangan_e_wallet');
             $file = $image->hashName();
-            $image->storeAs('public/pembayaran',$file);
+            $image->storeAs('public/pembayaran', $file);
             $data['keterangan'] = $file;
-        } elseif ($metodePembayaran === 'bank') {
-            $data['tujuan'] = $request->input('tujuan_bank');
-            $data['keterangan'] = $request->input('keterangan_bank');
-        } else {
-            session()->flash('notif.error', 'Data pembayaran tidak valid!.');
-            return redirect()->route('pembayaranpenjual');
         }
-
-        // Simpan data ke database
-        PembayaranPenjual::create($data);
-
-        // Redirect atau tampilkan pesan sukses
-        session()->flash('notif.success', 'Data pembayaran berhasil disimpan.');
+    } elseif ($metodePembayaran === 'bank') {
+        $data['tujuan'] = $request->input('tujuan_bank');
+        $data['keterangan'] = $request->input('keterangan_bank');
+    } else {
+        session()->flash('notif.error', 'Data pembayaran tidak valid!');
         return redirect()->route('pembayaranpenjual');
     }
 
+    // Simpan data ke database
+    PembayaranPenjual::create($data);
+
+    // Redirect atau tampilkan pesan sukses
+    session()->flash('notif.success', 'Data pembayaran berhasil disimpan.');
+    return redirect()->route('pembayaranpenjual');
+    }
 
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {
@@ -250,8 +270,8 @@ class penjualcontroller extends Controller
 
     protected function pengajuandana(Request $request)
     {
-        $penjual = barangpenjual::all();
-        return view('DashboardPenjual.pengajuandana', compact('penjual'));
+        $userOrder = userOrder::all();
+        return view('DashboardPenjual.pengajuandana', compact('userOrder'));
     }
 
     protected function profilepenjual(Request $request)
@@ -299,7 +319,7 @@ class penjualcontroller extends Controller
             'fotomakanan.image' => 'Foto makanan harus berupa file gambar.',
             'fotomakanan.mimes' => 'Foto makanan harus berformat jpeg, png, jpg, atau gif.',
             'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
-            'keterangan_makanan.required' => 'keterangan makanan tidak boleh kosong',
+            'keterangan_makanan.required' => 'keterangan makanan tidak boleh kosong', 
         ]);
 
 

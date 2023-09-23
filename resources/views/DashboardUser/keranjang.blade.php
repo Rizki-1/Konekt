@@ -360,9 +360,9 @@
         data-iq-delay=".6"
         data-iq-trigger="scroll"
         data-iq-ease="none">
-        <p class="card-title fw-bold fs-3" style="color:#F66F0C">
+        <h3 class="card-title" style="color:#F66F0C">
             <i class="fas fa-shopping-cart"></i> Keranjang Saya
-        </p>
+        </h3>
         <hr>
         <table class="table text-center">
             <thead>

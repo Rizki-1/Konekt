@@ -395,7 +395,7 @@
       data-iq-ease="none"
       style="position: relative"
       >
-      <center><h3>Kuliner kita <span style="color: #EA6A12">|pesanan</span></h3></center>
+      <center><h2>Kuliner Kita <span style="color: #EA6A12"> | Pesanan</span></h2></center>
       <div class="mt-3">
     <div class="row row-cols-2">
         @foreach ($user as $u)

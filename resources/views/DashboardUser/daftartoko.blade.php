@@ -309,7 +309,7 @@
       data-iq-ease="none"
       style="position: relative"
       >
-      <h2 class="title" style="color: red">Daftar Warung</h2><br><br>
+      <h2 class="title text-primary"><span class="h2">Kuliner Kita | </span>Daftar Toko</h2><br><br>
       <div class="container">
         <div class="row gap-5">
       @foreach ( $penjuallogin as $p)

@@ -111,24 +111,6 @@
             /* text-align: justify; */
 
         }
-
-        .custom-tooltip {
-            display: none;
-            position: absolute;
-            background-color: #333;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
-            /* z-index: 1; */
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .total-td:hover .custom-tooltip {
-            display: block;
-            opacity: 1;
-        }
-
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -161,7 +143,7 @@
     </head>
   <body class="  "  style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
-    {{-- @include('layout.logoloader') --}}
+    @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -409,8 +391,7 @@
                                 <button type="button" class="btn btn-outline-primary btn-sm plus-btn">+</button>
                             </div>
                         </td>
-                        <td class="total-td">Rp. <span class="total">{{number_format($p->totalHarga, 0, ',', '.')}}</span>
-                            <span class="custom-tooltip">5% biaya admin</span>
+                        <td class="total-td">Rp. <span class="total" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="5% Biaya Admin">{{number_format($p->totalHarga, 0, ',', '.')}}</span>
                         </td>
                         <td>
                             <button type="submit" class="btn btn-outline-danger hapus" data-item-id="{{$p->id}}" style="border-radius: 10%;"><i class="bi bi-trash-fill"></i></button>

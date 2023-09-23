@@ -356,13 +356,13 @@
                         style="position: relative">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th scope="col">no</th>
+                                <tr class="text-transform-uppercase">
+                                    <th scope="col">no.</th>
                                     <th scope="col">nama calon penjual</th>
                                     <th scope="col">nama toko</th>
                                     <th scope="col">alamat toko</th>
                                     <th scope="col">Foto Toko</th>
-                                    <th scope="col">no telephone</th>
+                                    <th scope="col">no. telepon</th>
                                     <th scope="col">aksi</th>
                                 </tr>
                             </thead>

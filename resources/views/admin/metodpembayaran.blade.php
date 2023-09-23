@@ -110,11 +110,11 @@
     background-size: cover;">
  <form action="{{ route('pembelianadmin.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="modal" id="myModal" tabindex="-1">
+    <div class="modal fade" id="myModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Tambah Metode Pembayaran</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -132,7 +132,7 @@
                             <input type="text" name="tujuan" class="form-control" value="{{ old('tujuan') }}">
                         </div>
                         <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">Keterangan</label>
+                            <label for="kelas" class="form-label fw-bold">Nomor Rekening</label>
                             <input type="file" name="keterangan" id="keterangan" class="form-control"
                                 value="{{ old('keterangan') }}">
                         </div>
@@ -339,7 +339,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -369,7 +369,7 @@
         </div>
         <div class="content-inner mt-5 py-0">
             <div class="card border-0 shadow rounded">
-                <div class="card-body">                    
+                <div class="card-body">
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">

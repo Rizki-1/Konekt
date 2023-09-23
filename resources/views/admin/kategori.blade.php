@@ -116,7 +116,6 @@
     {{-- bootstrap icon --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
-
 </head>
 
 <body class=""style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed; background-size: cover;">
@@ -302,7 +301,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -337,7 +336,7 @@
         </div>
 
         {{-- Modal Store --}}
-        <div class="modal fade" id="myModal" tabindex="-1">
+        <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
             <form action="{{ route('kstore') }}" method="POST">
                 @csrf
                 <div class="modal-dialog">
@@ -406,12 +405,12 @@
 
         <div class="content-inner mt-5 py-0">
             <div class="card border-0 shadow rounded">
-                <div class="card-body">                    
-                    <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+                <div class="card-body">
+                    <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal">Tambah Kategori</button>
-                        <table class="table" id="tabel-data">
+                        <table class="table text-center" id="tabel-data">
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>

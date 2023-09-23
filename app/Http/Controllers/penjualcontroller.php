@@ -294,7 +294,7 @@ class penjualcontroller extends Controller
             'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
-            'harga.min' => 'Harga harus minimal :min.',
+            'harga.min' => 'Harga tidak boleh minus.',
             'fotomakanan.required' => 'Foto makanan wajib diunggah.',
             'fotomakanan.image' => 'Foto makanan harus berupa file gambar.',
             'fotomakanan.mimes' => 'Foto makanan harus berformat jpeg, png, jpg, atau gif.',
@@ -314,6 +314,7 @@ class penjualcontroller extends Controller
              // Buat data untuk disimpan dalam database
              $penjual = [
                  'namamenu' => $request->namamenu,
+                 'keterangan_makanan' => $request->keterangan_makanan,
                  'kategori_id' => $request->kategori_id,
                  'harga' => $request->harga,
                  'fotomakanan' => $filePath,

@@ -33,60 +33,64 @@
 @include('layout.sweetalert')
 
 {{-- Modal Store --}}
-<div class="modal fade" id="myModal" tabindex="-1" >
+<div class="modal fade" id="myModal" tabindex="-1">
     <form action="{{ route('DashboardPenjual.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="toko_id" value="{{ $penjualId }}">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg"> {{-- Menggunakan class modal-lg untuk membuat modal lebih besar --}}
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah Menu</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="kelas" class="form-label fw-bold">Nama Menu</label>
-                        <input type="text" name="namamenu" class="form-control @error('namamenu') is-invalid @enderror" value="{{ old('namamenu') }}">
-                        @error('namamenu')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="kelas" class="form-label fw-bold">Kategori</label>
-                        <select name="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
-                            <option value="" disabled>Pilih kategori</option>
-                            @foreach ($adminkategori as $siswa)
-                                <option value="{{ $siswa->id }}" {{ old('kategori_id') == $siswa->id ? 'selected' : '' }}>{{ $siswa->kategori }}</option>
-                            @endforeach
-                        </select>
-                        @error('kategori_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="kelas" class="form-label fw-bold">Harga</label>
-                        <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror" value="{{ old('harga') }}">
-                        @error('harga')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="kelas" class="form-label fw-bold">keterangan makanan</label>
-                        <input type="text" name="keterangan_makanan" class="form-control @error('keterangan_makanan') is-invalid @enderror" value="{{ old('keterangan_makanan') }}">
-                        @error('keterangan_makanan')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="kelas" class="form-label fw-bold">Foto Makanan</label>
-                        <input type="file" name="fotomakanan" class="form-control @error('fotomakanan') is-invalid @enderror" id="previewImage">
-                        @error('fotomakanan')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div id="imagePreview" class="mb-3"></div>
-
+                    <div class="row"> {{-- Memulai baris grid --}}
+                        <div class="col-md-6"> {{-- Kolom kiri --}}
+                            <div class="mb-3">
+                                <label for="namamenu" class="form-label fw-bold">Nama Menu</label>
+                                <input type="text" name="namamenu" class="form-control @error('namamenu') is-invalid @enderror" value="{{ old('namamenu') }}">
+                                @error('namamenu')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="kategori_id" class="form-label fw-bold">Kategori</label>
+                                <select name="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
+                                    <option value="" disabled>Pilih kategori</option>
+                                    @foreach ($adminkategori as $siswa)
+                                        <option value="{{ $siswa->id }}" {{ old('kategori_id') == $siswa->id ? 'selected' : '' }}>{{ $siswa->kategori }}</option>
+                                    @endforeach
+                                </select>
+                                @error('kategori_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="harga" class="form-label fw-bold">Harga</label>
+                                <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror" value="{{ old('harga') }}">
+                                @error('harga')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="keterangan_makanan" class="form-label fw-bold">Keterangan Makanan</label>
+                                <textarea name="keterangan_makanan" class="form-control @error('keterangan_makanan') is-invalid @enderror" value="{{ old('keterangan_makanan') }}"></textarea>
+                                @error('keterangan_makanan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div> {{-- Akhir kolom kiri --}}
+                        <div class="col-md-6"> {{-- Kolom kanan --}}
+                            <div class="mb-3">
+                                <label for="fotomakanan" class="form-label fw-bold">Foto Makanan</label>
+                                <input type="file" name="fotomakanan" class="form-control @error('fotomakanan') is-invalid @enderror" id="previewImage">
+                                @error('fotomakanan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div id="imagePreview" class="mb-3" style="width: 300px"></div>
+                        </div> {{-- Akhir kolom kanan --}}
+                    </div> {{-- Akhir baris grid --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
@@ -154,7 +158,7 @@
                     var responseErrors = xhr.responseJSON.errors;
 
                     $.each(responseErrors, function (key, value) {
-                        var inputField = $("input[name='" + key + "']");
+                        var inputField = $("input[name='" + key + "'], textarea[name='" + key + "'], select[name='" + key + "']");
                         inputField.addClass('is-invalid');
                         if (inputField.is('select')) {
                         inputField.after('<div class="invalid-feedback">' + value[0] + '</div>');
@@ -176,7 +180,7 @@
 
 {{-- Modal Store --}}
 
-    @include('layout.logoloader')
+    {{-- @include('layout.logoloader') --}}
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')

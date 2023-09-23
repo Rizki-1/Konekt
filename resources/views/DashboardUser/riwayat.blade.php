@@ -334,6 +334,11 @@
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
             <h2 class="title" style="color: red; text-align:center;">Riwayat Pembelian</h2><br>
+            <div class="d-flex justify-content-evenly">
+                @foreach ($user as $u )
+
+                    <div class="card col-md-5" style="background-color: white;" >
+                    <div class="card-content p-2" >
             {{-- evenly merapikan jarak antar div atau table --}}
             <div class="row d-flex justify-content-evenly">
                 @foreach ($user as $u )
@@ -367,22 +372,21 @@
                                 <h6>Pembayaran</h6>
                                 <h6>{{ $u->metodepembayaran }}</h6>
                             </div>
-                            <div class="d-flex justify-content-between" style="margin-top: -30px;">
+                            <div class="d-flex justify-content-between">
                                 @if ($u->pembelianstatus === 'statusselesai')
-                                   <div class="btn btn-success" style="">pesanan telah selasai
-                                   </div>
-                                   <div class="btn btn-warning" type="button"
-                                       data-bs-toggle="modal" data-bs-target="#myModal"
+                                   <div class="btn btn-warning" type="submit"
+                                       data-bs-toggle="modal" data-bs-target="#myModal-{{$u->barangpenjual_id}}"
                                        style="">beri ulasan</div>
-                                       @else
-                                       <a href="{{ route('menu.store') }}" class="btn btn-warning" method="POST" >Pesan Lagi</a>
-                                       @endif
+                               @endif
+                                   <a href="{{ route('menu.store') }}" class="btn btn-warning" method="POST" >Pesan Lagi</a>
+
                                 </div>
                         </div>
                     </div>
                 </div>
 
                 @endforeach
+
                 @endforeach
                 @endforeach
             </div>

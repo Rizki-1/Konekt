@@ -359,6 +359,15 @@ public function riwayatuser()
         return view ('DashboardUser.daftartoko', compact('penjuallogin'));
     }
 
+    public function detailtoko(Request $request, $id)
+    {
+        $penjualId = Auth::id();
+        $penjual = barangpenjual::where('toko_id', $penjualId)->get();
+        $user = penjuallogin::where('id',$id)->get();
+
+        return view('DashboardUser.detailtoko', compact('penjual','user'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

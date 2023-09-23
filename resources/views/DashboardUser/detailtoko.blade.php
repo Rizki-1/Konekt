@@ -4,48 +4,76 @@
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 <head>
-    <!-- <style>
- body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+<!-- <style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  max-width: 1200px;
+  background-color: #fff;
+  border-radius: 100px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.card-header h2 {
+  font-size: 24px;
   margin: 0;
 }
 
- .container {
-      display: flex;
-  }
+.card-header p {
+  font-size: 14px;
+  color: #888;
+}
 
-  .card {
-    background-color: #EA6A12; /* Warna latar belakang */
-    color: #000000; /* Warna teks */
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    margin: 10px;
-    padding: 10px;
-    width: 500px;
-    margin-bottom: 10px;
-  }
+.info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.info h2{
+  font-size: 24px;
+  
+}
+.info svg {
+  margin-right: 10px;
+}
 
-  .card-content {
-    flex: 1;
-  }
-  .img {
-    margin-top: 20px;
-    margin-bottom: 40px;
-    text-align: left;
-    justify-content: left;
-  }
+.description p {
+  text-align: left;
+  margin-top: 10px;
+}
 
-  .img img {
-    width: 50px;
-    height: 50px;
-  }
-  .main-content {
-    flex: 1px;
-  }
-    </style> -->
+.rating p {
+  font-size: 24px;
+  margin: 0;
+  color: #FFD700;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.view-menu {
+  background-color: #07143B;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-menu:hover {
+  background-color: #000;
+}
+</style> -->
 </head>
 
     <meta charset="utf-8">
@@ -86,7 +114,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="collapse" href="{{ asset('menu') }}" role="button"
+                        <a class="nav-link" data-bs-toggle="collapse" href="{{ asset('menu') }}" role="button"
                             aria-expanded="false" aria-controls="home">
                            <i class="icon">
                                 <svg width="23" height="30" viewBox="0 0 24 24" fill="none"
@@ -102,7 +130,7 @@
                             <span class="item-name">Dashboard</span>
                         </a>
                             <li class="nav-item">
-                                <a class="nav-link "aria-current="page" href="{{ asset('daftartoko') }}">
+                                <a class="nav-link active"aria-current="page" href="{{ asset('daftartoko') }}">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 27 23" fill="none">
                                             <path d="M26.1895 6.67998L24.377 1.24248C24.3139 1.05491 24.1912 0.893125 24.0276 0.781849C23.8639 0.670572 23.6684 0.615917 23.4707 0.626232H3.53323C3.33561 0.615917 3.14004 0.670572 2.9764 0.781849C2.81276 0.893125 2.69004 1.05491 2.62698 1.24248L0.81448 6.67998C0.801423 6.77621 0.801423 6.87376 0.81448 6.96998V12.4075C0.81448 12.6478 0.909959 12.8783 1.07991 13.0483C1.24987 13.2183 1.48038 13.3137 1.72073 13.3137H2.62698V22.3762H4.43948V13.3137H9.87698V22.3762H24.377V13.3137H25.2832C25.5236 13.3137 25.7541 13.2183 25.924 13.0483C26.094 12.8783 26.1895 12.6478 26.1895 12.4075V6.96998C26.2025 6.87376 26.2025 6.77621 26.1895 6.67998ZM22.5645 20.5637H11.6895V13.3137H22.5645V20.5637ZM24.377 11.5012H20.752V7.87623H18.9395V11.5012H14.4082V7.87623H12.5957V11.5012H8.06448V7.87623H6.25198V11.5012H2.62698V7.11498L4.18573 2.43873H22.8182L24.377 7.11498V11.5012Z" fill="#959895"/>
@@ -112,7 +140,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="{{ asset('pesanan') }}">
+                                <a class="nav-link" href="{{ asset('pesanan') }}">
                                     <i class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 26 23" fill="none">
                                             <path d="M2.55044 0C1.13495 0 0 1.13495 0 2.55044V7.65133C0 9.06683 1.13495 10.2018 2.55044 10.2018H7.65133C9.06683 10.2018 10.2018 9.06683 10.2018 7.65133V2.55044C10.2018 1.13495 9.06683 0 7.65133 0M7.90637 1.91283L9.25811 3.25182L4.16997 8.28894L0.943664 5.03713L2.30815 3.69814L4.18273 5.59822M2.55044 12.7522C1.13495 12.7522 0 13.8872 0 15.3027V20.4035C0 21.819 1.13495 22.954 2.55044 22.954H7.65133C9.06683 22.954 10.2018 21.819 10.2018 20.4035V15.3027C10.2018 13.8872 9.06683 12.7522 7.65133 12.7522M2.55044 15.3027H7.65133V20.4035H2.55044M12.7522 2.55044H25.5044V5.10089H12.7522M12.7522 20.4035V17.8531H25.5044V20.4035M12.7522 10.2018H25.5044V12.7522H12.7522V10.2018Z" fill="#959895"/>
@@ -272,9 +300,9 @@
                     <li><hr class="dropdown-divider"></li>
                     <li>
                     <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
-                                   </form>
+                          @csrf
+                      <li><button type="submit" class="dropdown-item"> logout </button></li>
+                      </form>
                     </li>
                   </ul>
                 </li>
@@ -287,83 +315,108 @@
         <!--Nav End-->
       </div>
       <div class="content-inner mt-5 py-0">
-    <div class="row">
-        @foreach ($penjual as $p)
-        <div class="col-lg-6 col-xl-7 mb-4">
+        <div class="row">
+          <div class="col-12">
+            <div class="col-lg-8 col-xl-8">
+              <h2 class="card-title">Detail Toko</h2>
+            </div>
+            @foreach ($user as $p)
             <div class="card">
                 <div class="card-header border-bottom-0 pb-0">
-                    <h2 class="card-title">Detail Menu</h2>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-12 col-xl-5 mb-4 mt-xl-0 text-center">
-                            <img src="{{asset('Storage/' . $p->fotomakanan)}}" class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom" alt="profile-image">
-                            <img src="{{asset('Storage/' . $p->fotomakanan)}}" class="img-fluid rounded-pill avatar-170 hover-image" alt="profile-image" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-scale=".6" data-iq-rotate="180" data-iq-duration="1" data-iq-delay=".6" data-iq-trigger="scroll" data-iq-ease="none">                            <h5 class="mt-3 mb-2">Nama Menu: {{ $p->namamenu }}</h5>
-                            <h5 class="mb-2">Harga : Rp. {{ number_format($p->harga, 0, ',', '.') }}</h5>
-                            <h5 class="mb-2">Kategori : {{ $p->adminkategori->kategori }}</h5>
+                        <div class="col-12 col-xl-5 mb-4 mt-xl-0" style="position: relative;">
+                            <!-- Foto toko -->
+                            <div style="position: relative; overflow: hidden;">
+                                <img src="{{ asset('storage/' . $p->foto_toko) }}" class="img-fluid rounded" alt="image" style="width: 80%; max-height: 200px;">
+                                <a href="#" class="chat-button" style="position: absolute; top: 85%; left: 40%; transform: translate(-50%, -50%); text-decoration: none; background-color: rgba(0, 0, 0, 0.5); color: #fff; padding: 10px 20px; border-radius: 5px;">
+                                    <i class="fa fa-comment"></i> Chat
+                                </a>
+                            </div>
                         </div>
-                        <div class="col-lg-12 col-xl-7">
-                            <h4 class="mb-3">{{ $p->namamenu }}</h4>
-                            <p class="mb-4">{{ $p->keterangan_makanan }}</p>
+                        <div class="col-12 col-xl-7">
+                            <h4 class="mb-2 font-family: Arial, sans-serif;">{{$p->nama_toko}}</h4>
+                            <div class="mb-5">
+                                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 g-lg-3">
+                                    <div class="col">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <p class="heading-title" style="white-space: nowrap; margin-bottom: 0;">No.Telp: {{ $p->notlp }}</p>
+                                                <p class="mb-0" style="white-space: nowrap; margin-top: 0;">Alamat: {{ $p->alamat_toko }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+              @endforeach
+
             </div>
         </div>
-        @endforeach
-        <!-- Ulasan Makanan -->
-        <div class="col-lg-6 col-xl-5">
-            <div class="card" style="max-height: 450px; overflow-y: scroll;">
-                <div class="card-header">
-                    <h4 class="card-title">Ulasan Makanan</h4>
+
+        <!-- Menu -->
+        <div class="col-12">
+            <div class="card">
+                <div class="col-lg-8 col-xl-8">
+                  <h2 class="card-title">Menu</h2>
                 </div>
-                <div class="card-body">
-                    @if ($ulasan->isEmpty())
-                    <p>Belum ada ulasan untuk makanan ini.</p>
-                    @else
-                    @foreach ($ulasan as $u)
-                    <div class="media mb-3">
-                        <div class="media-body">
-                            <h6 class="mb-0">{{ $u->username }}</h6>
-                            <div class="rating">
-                                @for ($i = 1; $i <= 5; $i++)
-                                @if ($i <= $u->rating)
-                                <span class="star">&#9733;</span>
-                                @else
-                                <span class="star">&#9734;</span>
-                                @endif
-                                @endfor
+                <div class="row row-cols-12 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
+                    @foreach ($penjual as $p)
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
+                        <div class="col active"
+                            data-iq-gsap="onStart"
+                            data-iq-opacity="0"
+                            data-iq-position-y="-40"
+                            data-iq-duration=".6"
+                            data-iq-delay=".6"
+                            data-iq-trigger="scroll"
+                            data-iq-ease="none">
+                            <div class="card card-white dish-card profile-img mb-5">
+                                <div class="profile-img21">
+                                    <!-- tempat foto -->
+                                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
+                                        class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                                        alt="profile-image">
+                                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
+                                        class="img-fluid rounded-pill avatar-170 hover-image "
+                                        alt="profile-image" data-iq-gsap="onStart"
+                                        data-iq-opacity="0" data-iq-scale=".6"
+                                        data-iq-rotate="180" data-iq-duration="1"
+                                        data-iq-delay=".6" data-iq-trigger="scroll"
+                                        data-iq-ease="none">
+                                </div>
+                                <!-- Menu muter muter Start -->
+                                <div class="card-body menu-image">
+                                    <h6 class="heading-title fw-bolder mt-4 mb-0">
+                                        {{ $p->namamenu }}</h6>
+                                    <div class="card-rating stars-ratings">
+                                        <!-- Star ratings here -->
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <div class="d-flex align-items-center">
+                                            <span class="text-primary fw-bolder me-2">Rp. {{ number_format($p->harga) }}</span>
+                                            {{-- @dump($p->id) --}}
+                                            {{-- <small class="text-decoration-line-through">$8.49</small> --}}
+                                        </div>
+                                        <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
+                                            data-bs-target="#myModal-{{ $p->id }}">beli
+                                        </button>
+                                        <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
+                                    </div>
+                                </div>
                             </div>
-                            <p class="mt-2">{{ $u->komentar }}</p>
                         </div>
                     </div>
                     @endforeach
-                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
-    <!-- Footer Section Start -->
-    <footer class="footer">
-        <div class="footer-body">
-            <ul class="left-panel list-inline mb-0 p-0">
-                <li class="list-inline-item"><a href="../extra/privacy-policy.html">Privacy Policy</a></li>
-                <li class="list-inline-item"><a href="../extra/terms-of-service.html">Terms of Use</a></li>
-            </ul>
-            <div class="right-panel">
-                ©<script>document.write(new Date().getFullYear())</script> Aprycot, Made with
-                <span class="text-gray">
-                    <svg width="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z" fill="currentColor"></path>
-                    </svg>
-                </span> by <a href="https://iqonic.design/">IQONIC Design</a>.
-            </div>
-        </div>
-    </footer>
-      <!-- Footer Section End -->
-
-      <!-- Required Library Bundle Script -->
+    
     </main>
       <script src="../../assets/js/core/libs.min.js"></script>
 

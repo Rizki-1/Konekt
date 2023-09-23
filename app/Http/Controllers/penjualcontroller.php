@@ -256,7 +256,8 @@ class penjualcontroller extends Controller
 
     protected function profilepenjual(Request $request)
     {
-        $penjual = barangpenjual::all();
+        $penjualId = Auth::id();
+        $penjual = barangpenjual::where('toko_id', $penjualId)->get();        
         return view('DashboardPenjual.profilepenjual', compact('penjual'));
     }
 

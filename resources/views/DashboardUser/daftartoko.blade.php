@@ -329,8 +329,7 @@
                       <a>(26)</a></tr>
                       <div class="btn-custom"><span>12 menu</span></div>
                       <img src="{{ asset('Storage/'.$p->foto_toko) }}" alt="Foto Toko" style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;" class="img" >
-                      <div><br><button type="submit" class="btn btn-warning" style="bottom:15px; margin-top:-10px;">Detail</button>
-                      </div>
+                      <div><br><a class="btn btn-warning" style="bottom:15px; margin-top:-10px;" href="{{ route('detailtoko', ['id' => $p->id]) }}">Detail</a>                      </div>
                     </div>
                     </div>
                   </div>

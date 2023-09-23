@@ -403,35 +403,35 @@
                         <option value="bank" data-target="bankInput">Bank</option>
                     </select>
                 </div>
-
             </div>
-              {{-- ewallet --}}
+
+            {{-- ewallet --}}
             <div class="mb-3" id="ewalletInput" style="display: none;">
                 <div>
                     <p class="text-bold">Jenis QR</p>
                 </div>
                 <select name="JenisEwallet" id="JenisEwallet" class="form-control">
                     <option value="" disabled selected>Pilih</option>
-                    @forelse ($pembelian as $data)
+                    @forelse ($wallet as $data)
                         <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
                     @empty
-                        <option value="" disabled selected>Data Kosong</option>
+                        <option value="" disabled selected>Data E-wallet Kosong</option>
                     @endforelse
                 </select>
                 <div><br>
                     <p class="text-bold">Kode QR</p>
                 </div>
-                @foreach ($pembelian as $data)
+                @foreach ($wallet as $data)
                     @php
                     $jefri = strlen($data->keterangan);
                     @endphp
-                 @if ($jefri >= 20)
-                 <p class="" name="keteranganqr" value="{{ $data->keterangan }}" id="{{ $data->tujuan }}">
-                <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}" style="width: 150px; height=80px;" disabled>
-                </p>
-                  @else
-                  <a></a>
-                   @endif
+                    @if ($jefri >= 20)
+                        <p class="" name="keteranganqr" value="{{ $data->keterangan }}" id="{{ $data->tujuan }}">
+                            <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}" style="width: 150px; height=80px;" disabled>
+                        </p>
+                    @else
+                        <a></a>
+                    @endif
                 @endforeach
                 <div class="">
                     <p class="text-bold">Masukkan Bukti pembayaran Anda</p>
@@ -440,120 +440,85 @@
                     <input type="file" name="foto" class="form-control" id="fotobuktipembayaran">
                 </div>
             </div>
-        </div>
-        {{-- bank --}}
-        <div class="mb-3" id="bankInput" style="display: none;">
-            <div>
-                <p class="text-bold">Jenis Bank</p>
+
+            {{-- bank --}}
+            <div class="mb-3" id="bankInput" style="display: none;">
+                <div>
+                    <p class="text-bold">Jenis Bank</p>
+                </div>
+                <select name="JenisBank" id="JenisBank" class="form-control">
+                    <option value="" disabled selected>Pilih</option>
+                    @forelse ($bank as $data)
+                        <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
+                    @empty
+                        <option value=""disabled selected>Data No Rekening Kosong</option>
+                    @endforelse
+                </select>
+                <div>
+                    <p class="text-bold">No Rekening</p>
+                </div>
+                @foreach ($bank as $data)
+                    @php
+                    $saya = strlen($data->keterangan)
+                    @endphp
+                    @if ($saya >= 20)
+                        {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
+                    @else
+                        <input type="text" name="keterangan" value="{{ $data->keterangan }}"
+                            id="{{ $data->tujuan }}" class="form-control" disabled>
+                    @endif
+                @endforeach
+                <div class="">
+                    <p class="text-bold">Bukti transfer</p>
+                </div>
+                <div class="mt-3">
+                    <input type="file" name="foto" class="form-control" id="foto">
+                </div>
             </div>
-            <select name="JenisBank" id="JenisBank" class="form-control">
-                <option value="" disabled selected>Pilih</optio n>
-                @forelse ($pembelian as $data)
-                    <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
-                @empty
-                    <option value="" disabled selected>Data bank masih kosong</option>
-                @endforelse
-            </select>
-            <div>
-                <p class="text-bold">No Rekening</p>
+
+            <div class="d-flex justify-content-end mt-5">
+                <button type="button" class="btn btn-primary" id="bayar">Bayar</button>
             </div>
-            @foreach ($pembelian as $data)
-            @php
-                $saya = strlen($data->keterangan)
-            @endphp
-            @if ($saya >= 20)
-            {{-- <a class="text-bold">Tidak Tersedia</a> --}}
-            @else
-            <input type="text" name="keterangan" value="{{ $data->keterangan }}"
-                id="{{ $data->tujuan }}" class="form-control" disabled>
-            @endif
-            @endforeach
-            <div class="">
-                <p class="text-bold">Bukti transfer</p>
-            </div>
-            <div class="mt-3">
-                <input type="file" name="foto" class="form-control" id="foto">
-            </div>
-        </div>
-        <div class="d-flex justify-content-end mt-5">
-            <button type="button" class="btn btn-primary" id="bayar">Bayar</button>
-        </div>
-    </div>
-    </div>
-</div>
-        </form>
-                {{-- @include('layout.footer') --}}
-        </main>
-        @include('layout.js')
-    </body>
 
-    </html>
+            {{-- Script Pembayaran --}}
+            <script>
+                const selectElement = document.querySelector('#JenisBank');
+                const inputElements = document.querySelectorAll('input[name="keterangan"]');
+                const spElement = document.querySelector('#JenisEwallet');
+                const pElements = document.querySelectorAll('p[name="keteranganqr"]');
 
-{{-- AJAX Update --}}
-{{-- <script>
-    $(document).ready(function() {
-        $("#bayar").click(function() {
-        var itemIds = [];
-        var selectedMetode = $("#selectMetode").val(); // Mengambil nilai metode pembayaran yang dipilih
+                selectElement.addEventListener('change', function() {
+                    const selectedValue = selectElement.value;
 
-        $(".item-element").each(function() {
-            var orderId = $(this).data("order-id");
-            itemIds.push(orderId);
-        });
-
-        var barangpenjual_id = $("#barangpenjual_id").val();
-        var toko_id = $("#toko_id").val();
-        var user_id = $("#user_id").val();
-        var jumlah = $("#jumlah").val();
-        var metodepembayaran = $("#metodepembayaran").val();
-
-        console.log(itemIds);
-
-            // Tampilkan SweetAlert konfirmasi
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: 'Anda akan melakukan pembayaran.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'OK',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Kirim permintaan Ajax dengan itemIds jika pengguna mengonfirmasi
-                    $.ajax({
-                        url: "{{ route('menu.massUpdate') }}", // Gantilah ini dengan URL yang sesuai
-                        type: "POST",
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            ids: itemIds,
-                            barangpenjual_id: barangpenjual_id,
-                            toko_id: toko_id,
-                            user_id: user_id,
-                            jumlah: jumlah,
-                            metodepembayaran: metodepembayaran
-                        },
-                        success: function(data) {
-                            // Handle respons dari server jika diperlukan
-                            // Misalnya, tampilkan pesan sukses atau perbarui tampilan
-                            Swal.fire('Sukses', 'Pembayaran berhasil dilakukan.', 'success');
-                            // Redirect atau lakukan tindakan lain sesuai kebutuhan Anda
-                            setTimeout(function() {
-                            window.location.href = "{{ route('menu.index') }}";
-                            }, 2000);
-                        },
-                        error: function(response) {
-                            console.log(response);
-                            // Handle kesalahan jika terjadi
-                            Swal.fire('Gagal', 'Terjadi kesalahan saat melakukan pembayaran.', 'error');
+                    inputElements.forEach(function(input) {
+                        if (input.id === selectedValue) {
+                            input.style.display = 'block';
+                            input.disabled = false;
+                        } else {
+                            input.style.display = 'none';
+                            input.disabled = true;
                         }
                     });
-                }
-            });
-        });
-    });
-</script> --}}
-{{-- AJAX Update --}}
+                });
 
+                spElement.addEventListener('change', function() {
+                    const selectedValue = spElement.value;
+
+                    pElements.forEach(function(p) {
+                        if (p.id === selectedValue) {
+                            p.style.display = 'block';
+                            p.disabled = false;
+                        } else {
+                            p.style.display = 'none';
+                            p.disabled = true;
+                        }
+                    });
+                });
+
+                // Menjalankan pengecekan saat halaman pertama kali dimuat
+                selectElement.dispatchEvent(new Event('change'));
+                spElement.dispatchEvent(new Event('change'));
+            </script>
 {{-- AJAX Update --}}
 <script>
     $(document).ready(function() {
@@ -628,60 +593,17 @@
 </script>
 {{-- AJAX Update --}}
 
-{{-- Script Pembayaran --}}
+
 <script>
-    const selectElement = document.querySelector('#JenisBank');
-    const inputElements = document.querySelectorAll('input[name="keterangan"]');
-    const spElement = document.querySelector('#JenisEwallet');
-    const pElements = document.querySelectorAll('p[name="keteranganqr"]');
-
-    selectElement.addEventListener('change', function() {
-        const selectedValue = selectElement.value;
-
-        inputElements.forEach(function(input) {
-            if (input.id === selectedValue) {
-                input.style.display = 'block';
-                input.disabled = false;
-            } else {
-                input.style.display = 'none';
-                input.disabled = true;
-            }
-
-            spElement.addEventListener('change', function() {
-                const selectedValue = spElement.value;
-
-                pElements.forEach(function(p) {
-                  if (p.id === selectedValue){
-                    p.style.display = 'block';
-                    p.disabled = false;
-                   }else{
-                    p.style.display = 'none';
-                    p.disabled = true;
-                   }
-                });
-            });
-
-        });
-    });
-    // Menjalankan pengecekan saat halaman pertama kali dimuat
-    selectElement.dispatchEvent(new Event('change'));
-    spElement.dispatchEvent(new Event('change'));
-</script>
-<script>
- // Menangani perubahan pada elemen select metode pembayaran
  $("#selectMetode").change(function() {
     var selectedOption = $(this).val();
-    // Sesuaikan tindakan yang diperlukan berdasarkan opsi yang dipilih
     if (selectedOption === "e-wallet") {
-        // Tampilkan elemen terkait E-Wallet
         $("#ewalletInput").show();
-        $("#bankInput").hide(); // Sembunyikan elemen Bank
+        $("#bankInput").hide();
     } else if (selectedOption === "bank") {
-        // Tampilkan elemen terkait Bank
         $("#bankInput").show();
-        $("#ewalletInput").hide(); // Sembunyikan elemen E-Wallet
+        $("#ewalletInput").hide();
     } else {
-        // Jika opsi lainnya dipilih, sembunyikan semua elemen terkait
         $("#ewalletInput").hide();
         $("#bankInput").hide();
     }

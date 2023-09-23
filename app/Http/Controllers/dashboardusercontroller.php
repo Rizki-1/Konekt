@@ -177,9 +177,9 @@ class dashboardusercontroller extends Controller
         $user_id = Auth::id();
         $subtotalorder = $userOrder->sum('totalharga');
 
-        $pembelian = adminmetodepembayaran::all();
-
-        return view('DashboardUser.pembelian', compact('userOrder', 'user_id', 'notifikasi', 'subtotalorder', 'pembelian'));
+        $bank = adminmetodepembayaran::where('metodepembayaran','bank')->get();
+        $wallet = adminmetodepembayaran::where('metodepembayaran','e-wallet')->get();
+        return view('DashboardUser.pembelian', compact('userOrder', 'user_id','wallet', 'notifikasi', 'subtotalorder', 'bank'));
     }
 
 

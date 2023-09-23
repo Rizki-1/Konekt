@@ -339,7 +339,7 @@
                             </li>
                             <!-- End notifikasi -->
                             <!-- start pesan -->
-                            
+
                             <!-- End Pesan-->
                             <!-- Start Profile-->
                             <li class="nav-item dropdown">
@@ -369,13 +369,13 @@
         </div>
         <div class="content-inner mt-5 py-0">
             <div class="card border-0 shadow rounded">
-                <div class="card-body">                    
+                <div class="card-body">
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                         style="position: relative">
                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal">Tambah Pembayaran</button>
                         <table class="table">
-                            <thead>
+                            <thead class="">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">metode pembayaran</th>
@@ -390,7 +390,7 @@
                                 @endphp
                                 @foreach ($adminmp as $a)
                                     <tr>
-                                        <th scope="row">{{ $no++ }}</th>
+                                        <td>{{ $no++ }}</th>
                                         <td>{{ $a->metodepembayaran }}</td>
                                         <td>{{ $a->tujuan }}</td>
                                         @php

@@ -322,37 +322,7 @@
                 </li>
                 <!-- End notifikasi -->
                 <!-- start pesan -->
-                <li class="nav-item dropdown">
-                  <a href="#" class="nav-link" id="mail-drop2" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
-                    <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path opacity="0.4" d="M20 13.441C20 16.231 17.76 18.491 14.97 18.501H14.96H5.05C2.27 18.501 0 16.251 0 13.461V13.451C0 13.451 0.006 9.02498 0.014 6.79898C0.015 6.38098 0.495 6.14698 0.822 6.40698C3.198 8.29198 7.447 11.729 7.5 11.774C8.21 12.343 9.11 12.664 10.03 12.664C10.95 12.664 11.85 12.343 12.56 11.763C12.613 11.728 16.767 8.39398 19.179 6.47798C19.507 6.21698 19.989 6.45098 19.99 6.86798C20 9.07698 20 13.441 20 13.441Z" fill="currentColor"/>
-                    <path d="M19.4769 3.174C18.6109 1.542 16.9069 0.5 15.0309 0.5H5.05086C3.17486 0.5 1.47086 1.542 0.60486 3.174C0.41086 3.539 0.50286 3.994 0.82586 4.252L8.25086 10.191C8.77086 10.611 9.40086 10.82 10.0309 10.82C10.0349 10.82 10.0379 10.82 10.0409 10.82C10.0439 10.82 10.0479 10.82 10.0509 10.82C10.6809 10.82 11.3109 10.611 11.8309 10.191L19.2559 4.252C19.5789 3.994 19.6709 3.539 19.4769 3.174Z" fill="currentColor"/>
-                    </svg>
-                    <span class="bg-primary count-mail"></span>
-                  </a>
-                  <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="mail-drop2">
-                      <div class="card shadow-none m-0">
-                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
-                            <div class="header-title">
-                              <h5 class="mb-0 text-white">All Message</h5>
-                            </div>
-                        </div>
-                        <div class="card-body p-0 ">
-                            <a href="#" class="iq-sub-card">
-                              <div class="d-flex  align-items-center">
-                                  <div class="">
-                                    <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
-                                  </div>
-                                  <div class="ms-3">
-                                    <h6 class="mb-0 ">jbdh</h6>
-                                    <small class="float-start font-size-12">13 Jun</small>
-                                  </div>
-                              </div>
-                            </a>
-                        </div>
-                      </div>
-                  </div>
-                </li>
+                
                 <!-- End Pesan-->
                 <!-- Start Profile-->
                 <li class="nav-item dropdown">

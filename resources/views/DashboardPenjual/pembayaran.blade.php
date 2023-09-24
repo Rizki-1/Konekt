@@ -163,10 +163,16 @@
           <div class="mb-3">
             <label for="tujuan_e_wallet" class="form-label fw-bold">Tujuan</label>
             <input type="text" class="form-control" id="tujuan_e_wallet" name="tujuan_e_wallet">
+            @if ($errors->has('tujuan_e_wallet'))
+              <span class="text-danger">{{ $errors->first('tujuan_e_wallet') }}</span>
+            @endif
           </div>
           <div class="mb-3">
             <label for="keterangan_e_wallet" class="form-label fw-bold">Keterangan</label>
             <input type="file" class="form-control" id="keterangan" name="keterangan">
+            @if ($errors->has('keterangan'))
+            <span class="text-danger">{{ $errors->first('keterangan') }}</span>
+            @endif
           </div>
         </div>
         <div class="modal-footer">
@@ -188,10 +194,16 @@
       <div class="mb-3">
             <label for="tujuan_bank" class="form-label fw-bold">Tujuan</label>
             <input type="text" class="form-control" id="tujuan_bank" name="tujuan_bank">
+            @if ($errors->has('tujuan_bank'))
+            <span class="text-danger">{{ $errors->first('tujuan_bank') }}</span>
+            @endif
           </div>
           <div class="mb-3">
             <label for="keterangan_bank" class="form-label fw-bold">Keterangan</label>
             <input type="number" class="form-control" id="keterangan_bank" name="keterangan_bank" rows="3">
+            @if ($errors->has('keterangan_bank'))
+            <span class="text-danger">{{ $errors->first('keterangan_bank') }}</span>
+            @endif
           </div>
         </div>
         <div class="modal-footer">

@@ -120,6 +120,23 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-8">
+                                <!-- <p class="fs-6 text-dark">
+                                    nama pembeli :
+                                    {{ $UserOrder->User->name }}
+                                    <br>
+                                    nama menu :
+                                    {{ $UserOrder->penjual->namamenu}}
+
+                                </p>
+                                <p class="fs-6 text-dark">
+                                    {{ $UserOrder->penjual->namamenu }}
+                                </p>
+                                <p class="fs-6 text-primary">
+                                    total Harga :
+                                    Rp. {{ $totalharga_penjual_setelah_potongan  }}
+                                    <br>
+                                    * di kenakan biaya admin
+                                </p> -->
                             </div>
                         </div>
                     </div>

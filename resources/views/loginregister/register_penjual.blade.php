@@ -19,8 +19,8 @@
       <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
 
       <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  
-      
+      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+
    </head>
   <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
     <!-- loader Start -->
@@ -544,7 +544,7 @@
                            </div>
                            <div class="col-lg-6">
                            </div> -->
-                           
+
                            <div style="margin-left:235px; margin-top:4px;">
                               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
                                  <li class="nav-item" role="presentation">
@@ -603,11 +603,11 @@
                                        </li>
                                  </ul>
                                  <div style="margin-left: -285px; margin-top:-60px;">
-                                 <button type="submit" class="btn btn-primary">Sign Up</button> 
+                                 <button type="submit" class="btn btn-primary">Sign Up</button>
                                  </div>
                               </div>
                             </div>
-                           </div>  
+                           </div>
                            <!-- <div style="margin-left:160px; margin-top:4px;">
                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
                               <li class="nav-item" role="presentation">
@@ -624,14 +624,13 @@
                               <div class="form-check mb-3" >
                                  <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-left: -270px;">
                                  <label class="form-check-label" for="customCheck1" style="margin-left: -250px;">I agree with the terms of use</label>
-                                 <p class="text-center my-3" style="margin-left: -270px;">or sign in with other accounts?</p>
                               </div>
                            </div>
                         </div>
                         <div>
                         </div>
                         <p class="mt-3 text-center" >
-                           Already have an Account <a href="sign-in.html" class="text-underline">Sign In</a>
+                            Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Sign In</a>
                         </p>
                   </div>
                </div>
@@ -651,7 +650,7 @@
       </div>
 
       <script>
-  
+
       </script>
     <!-- Required Library Bundle Script -->
     <script src="../../assets/js/core/libs.min.js"></script>
@@ -687,8 +686,8 @@
     <script src="../../assets/js/app.js"></script>
 
     <!-- moment JavaScript -->
-    <script src="../../assets/vendor/moment.min.js"></script> 
-     
+    <script src="../../assets/vendor/moment.min.js"></script>
+
    </body>
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/auth/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:54:56 GMT -->

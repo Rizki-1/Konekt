@@ -547,7 +547,7 @@
                            <button type="submit" class="btn btn-primary">Sign Up</button>
                         </div>
                         <p class="mt-3 text-center">
-                           Already have an Account <a href="sign-in.html" class="text-underline">Sign In</a>
+                           Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Sign In</a>
                         </p>
 
                   </div>

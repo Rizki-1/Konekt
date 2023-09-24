@@ -6,6 +6,7 @@ use App\Models\penjual;
 use App\Models\penjuallogin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class rolepenjualcontroller extends Controller
 {

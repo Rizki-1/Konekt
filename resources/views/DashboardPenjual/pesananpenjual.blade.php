@@ -113,36 +113,46 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">detail pesanan pembeli</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="namamenu_id" class="form-label fw-bold">dfgh</label>
-                    <input type="text" name="namamenu_id" value="" class="form-control">
+                    <label for="catatan" class="form-label fw-bold">catatan pembeli</label></label>
+                    <input type="text" name="catatan" value="{{$s->catatan}}" class="form-control" readonly>
                 </div>
                 <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">quantity</label>
-                    <input type="text" name="quantity" class="form-control">
+                    <label for="kelas" class="form-label fw-bold">jumlah pesanan</label>
+                    <input type="text" name="jumlah" class="form-control" value="{{$s->jumlah}}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
+                    <input type="text" name="metodepembayaran" class="form-control" value="{{$s->metodepembayaran}}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="kelas" class="form-label fw-bold">total harga</label>
+                    <input type="text" name="totalharga" class="form-control" value="Rp. {{ number_format($s->totalharga) }}" readonly>
                 </div>
                <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
                 <div class="mb-3">
                     <label for="kelas" class="form-label fw-bold">beri nomer antrian</label>
                     <input type="text" name="nomor_antrian" class="form-control">
                 </div>
+                <div class="d-flex justify-content">
                 @if ($s->pembelianstatus === 'menunggu konfirmasi')
-
+                  
                     @csrf
                     @method('PATCH')
-                    <button type="submit" class="btn btn-success accept-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Terima</button>
+                    <button type="submit" class="btn btn-outline-success accept-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Terima</button>
                 </form>
                 <form action="{{ route('tolakpesanan', ['id'=>$s->id]) }}" method="POST">
                     @csrf
                     @method('PATCH')
-                <button type="submit" class="btn btn-danger reject-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Tolak</button>
+                <button type="submit" class="btn btn-outline-danger reject-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Tolak</button>
                 </form>
 
                 @endif
+                </div>
             </div>
             <div class="modal-footer"></div>
         </div>
@@ -383,9 +393,8 @@
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">nama pembeli</th>
-                                    <th scope="col">jumlah pesanan</th>
+                                    <th scope="col">menu</th>
                                     <th scope="col">status</th>
-                                    <th scope="col">total harga</th>
                                     <th scope="col">aksi</th>
                                 </tr>
                             </thead>
@@ -396,10 +405,9 @@
                                 @foreach ($dashboardusercontrollers as $s)
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
-                                        <td>{{ $s->User->name }}</td>
-                                        <td>{{ $s->jumlah}}</td>
+                                        <td>{{ $s->user->name }}</td>
+                                        <td>{{ $s->barangpenjual->namamenu }}</td>
                                         <td>{{ $s->pembelianstatus }}</td>
-                                        <td>Rp.  {{number_format ($s->totalharga) }}</td>
                                         <td>
                                             @if ($s->pembelianstatus === 'sedang di proses')
                                             <form action="{{ route('tandakantelahselesai', ['id' => $s->id]) }}" method="POST">
@@ -426,3 +434,28 @@
     @include('layout.js')
 </body>
 </html>
+<!-- <script>
+    function changeStatus(orderId) {
+        // Gantilah URL ini dengan URL endpoint yang sesuai di backend Anda
+        const apiUrl = `/api/change-order-status/${orderId}`;
+        
+        // Lakukan permintaan HTTP ke backend untuk mengubah status pesanan
+        fetch(apiUrl, {
+            method: 'PUT', // Atau metode HTTP yang sesuai di backend Anda
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                newStatus: 'new_status_value', // Gantilah ini dengan status baru yang diinginkan
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Di sini Anda dapat menangani respons dari backend jika perlu
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script> -->

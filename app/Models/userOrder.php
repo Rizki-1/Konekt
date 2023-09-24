@@ -47,4 +47,9 @@ class userOrder extends Model
     {
         return $this->hasMany(pengembaliandana::class);
     }
+        public function barangpenjual()
+    {
+        return $this->belongsTo(barangpenjual::class, 'barangpenjual_id');
+    }
+
 }

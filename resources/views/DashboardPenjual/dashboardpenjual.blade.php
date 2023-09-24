@@ -499,9 +499,11 @@
     </div>
 
     <div class="pesan-shopee">
+        <a href="{{ route('message') }}">
         <button class="btn-pesan-shopee" id="btn-pesan-shopee">
             <i class="fa fa-comments"></i>
         </button>
+    </a>
     </div>
 
 

@@ -6,8 +6,6 @@
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/auth/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:54:56 GMT -->
 <head>
 
-
-
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Aprycot | Responsive Bootstrap 5 Admin Dashboard Template</title>
@@ -19,9 +17,7 @@
       <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
 
       <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  
-      
-   </head>
+      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
   <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
     <!-- loader Start -->
     <div id="loading">
@@ -498,117 +494,75 @@
                <div class="d-flex justify-content-center mb-0">
                   <div class="card-body mt-5">
                      <a href="../index-2.html">
-                        <img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/logo.svg" class="img-fluid logo-img" alt="img5" style="margin-left:200px;">
+                        <img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/logo.svg" class="img-fluid logo-img" alt="img5" style="margin-left: 55px;">
                      </a>
                      <h2 class="mb-2 text-center">Sign Up</h2>
                      <p class="text-center">Create your Aprycot account.</p>
                      <form action="{{ route('penjualrole.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="row" style="margin-left: 250px;">
+                        <div class="row" style="margin-left: 110px;">
                            <div class="tab-content" id="pills-tabContent">
                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                            <div class="col-lg-6 d-flex flex-row justify-content-center align-items-center">
                               <div class="form-group">
                                  <label for="full-name" class="form-label">User Name</label>
-                                 <input type="text" name="name" style="width:200px;" class="form-control form-control-sm" id="full-name" placeholder=" ">
-                                 @if ($errors->has('name'))
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                 @endif
+                                 <input type="text" name="name" style="width:150px;" class="form-control form-control-sm" id="full-name" placeholder=" ">
                               </div>
                               <div class="form-group" style="margin-left: 30px; margin-top:1px;">
                                  <label for="email" class="form-label">Email</label>
-                                 <input type="email" name="email" style="width:200px;" class="form-control form-control-sm" id="email" placeholder=" ">
-                                 @if ($errors->has('email'))
-                                    <span class="text-danger">{{ $errors->first('email') }}</span>
-                                 @endif
+                                 <input type="email" name="email" style="width:150px;" class="form-control form-control-sm" id="email" placeholder=" ">
                               </div>
                            </div>
                            <div class="col-lg-6 d-flex flex-row justify-content-center align-items-center">
                            <div class="form-group">
                                  <label for="password" class="form-label">Password</label>
-                                 <input type="password" name="password" style="width:200px;" class="form-control form-control-sm" id="password" placeholder=" ">
-                                 @if ($errors->has('password'))
-                                    <span class="text-danger">{{ $errors->first('password') }}</span>
-                                 @endif
+                                 <input type="password" name="password" style="width:150px;" class="form-control form-control-sm" id="password" placeholder=" ">
                               </div>
-                              <div class="form-group" style="margin-left: 20px; margin-bottom:15px;">
+                              <div class="form-group" style="margin-left: 20px; margin-bottom:40px;">
                                  <label for="confirm-password" class="form-label">Confirm Password</label>
-                                 <input type="text" name="confirm_password" style="width:200px;" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
-                                 @if ($errors->has('confirm_password'))
-                                    <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
-                                 @endif
+                                 <input type="text"  style="width:150px;" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
                               </div>
                            </div>
                            <!-- <div class="col-lg-6">
 
                            </div>
                            <div class="col-lg-6">
-                           </div> -->
-                           
-                           <div style="margin-left:235px; margin-top:4px;">
-                              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
-                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile">Next</button>
-                                </li>
-                              </ul>
-                           </div>
 
+                           </div> -->
                            </div>
-                           <div class="tab-pane fade" class="row" style="margin-left:-230px;" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+                           <div class="tab-pane fade" class="row" style="margin-left:-135px;" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
                             <div class="d-flex">
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label for="phone" class="form-label">Nama Toko</label>
-                                 <input type="text" name="nama_toko" style="width:200px;" class="form-control form-control-sm" id="phone" placeholder=" ">
-                                 @if ($errors->has('nama_toko'))
-                                    <span class="text-danger">{{ $errors->first('nama_toko') }}</span>
-                                 @endif
+                                 <input type="text" name="nama_toko" style="width:150px;" class="form-control form-control-sm" id="phone" placeholder=" ">
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label for="phone" class="form-label">Phone No.</label>
-                                 <input type="number" name="notlp" style="width:200px;" class="form-control form-control-sm" id="phone" placeholder=" ">
-                                 @if ($errors->has('notlp'))
-                                    <span class="text-danger">{{ $errors->first('notlp') }}</span>
-                                 @endif
+                                 <input type="number" name="notlp" style="width:150px;" class="form-control form-control-sm" id="phone" placeholder=" ">
                               </div>
                            </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label for="phone" class="form-label">Alamat Toko</label>
-                                 <textarea type="text" name="alamat_toko" style="width:415px;" class="form-control form-control-sm" id="phone" placeholder=" "></textarea>
-                                 @if ($errors->has('alamat_toko'))
-                                    <span class="text-danger">{{ $errors->first('alamat_toko') }}</span>
-                                 @endif
+                                 <textarea type="text" name="alamat_toko" style="width:335px;" class="form-control form-control-sm" id="phone" placeholder=" "></textarea>
                               </div>
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
                                  <label for="phone" class="form-label">Foto Toko</label>
-                                 <input type="file" name="foto_toko" style="width:415px;" id="" class="form-control">
-                                 @if ($errors->has('foto_toko'))
-                                    <span class="text-danger">{{ $errors->first('foto_toko') }}</span>
-                                 @endif
+                                 <input type="file" name="foto_toko" style="width:335px;" id="" class="form-control">
                               </div>
                            </div>
-                           <!-- <div class="col-lg-6">
+                           <div class="col-lg-6">
                               <button type="submit" class="btn btn-primary">Sign Up</button>
-                           </div> -->
-                           <div style="margin-left:300px; margin-top:4px;">
-                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
-                                    <li class="nav-item" role="presentation">
-                                       <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="false">previous</button>
-                                       </li>
-                                 </ul>
-                                 <div style="margin-left: -285px; margin-top:-60px;">
-                                 <button type="submit" class="btn btn-primary">Sign Up</button> 
-                                 </div>
-                              </div>
-                            </div>
-                           </div>  
-                           <!-- <div style="margin-left:160px; margin-top:4px;">
+                           </div>
+                           </div>
+                           </div>
+                           <div style="margin-left:85px; margin-top:4px;">
                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
                               <li class="nav-item" role="presentation">
                                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">previous</button>
@@ -619,18 +573,40 @@
                               </ul>
 
                               </div>
-                              </div> -->
                            <div class="col-lg-12 d-flex justify-content-center" style="margin-top: 1em">
                               <div class="form-check mb-3" >
-                                 <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-left: -270px;">
-                                 <label class="form-check-label" for="customCheck1" style="margin-left: -250px;">I agree with the terms of use</label>
-                                 <p class="text-center my-3" style="margin-left: -270px;">or sign in with other accounts?</p>
+                                 <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-left: -155px;">
+                                 <label class="form-check-label" for="customCheck1" style="margin-left: -135px;">I agree with the terms of use</label>
+                                 <p class="text-center my-3" style="margin-left: -140px;">or sign in with other accounts?</p>
                               </div>
                            </div>
                         </div>
-                        <div>
+                        <!-- <div class="d-flex justify-content-center">
+                           <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </div> -->
+                    <!-- </form>
+                        <p class="text-center my-3">or sign in with other accounts?</p> -->
+                        <div class="d-flex justify-content-center">
+                           <ul class="list-group list-group-horizontal list-group-flush">
+                              <li class="list-group-item border-0 pb-0">
+                                 <a href="#"><img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/brands/gm.svg" alt="gm"></a>
+                              </li>
+                              <li class="list-group-item border-0 pb-0">
+                                 <a href="#"><img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/brands/fb.svg" alt="fb"></a>
+                              </li>
+                              <li class="list-group-item border-0 pb-0">
+                                 <a href="#"><img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/brands/im.svg" alt="im"></a>
+                              </li>
+                              <li class="list-group-item border-0 pb-0">
+                                 <a href="#"><img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/brands/li.svg" alt="li"></a>
+                              </li>
+                           </ul>
                         </div>
-                        <p class="mt-3 text-center" >
+                        <div>
+                           <!-- <a href="" class="previous">&laquo;Previous</a>
+                           <a href="" class="next">Next&raquo;</a> -->
+                        </div>
+                        <p class="mt-3 text-center">
                            Already have an Account <a href="sign-in.html" class="text-underline">Sign In</a>
                         </p>
                   </div>
@@ -650,9 +626,6 @@
       </section>
       </div>
 
-      <script>
-  
-      </script>
     <!-- Required Library Bundle Script -->
     <script src="../../assets/js/core/libs.min.js"></script>
 
@@ -687,11 +660,7 @@
     <script src="../../assets/js/app.js"></script>
 
     <!-- moment JavaScript -->
-    <script src="../../assets/vendor/moment.min.js"></script> 
-     
-   </body>
+    <script src="../../assets/vendor/moment.min.js"></script>  </body>
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/auth/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:54:56 GMT -->
-
-
- </html>
+</html>

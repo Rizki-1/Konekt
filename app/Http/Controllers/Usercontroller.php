@@ -42,21 +42,6 @@ class Usercontroller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password'
-        ], [
-            'name.required' => 'Nama wajib diisi',
-            'email.required' => 'Email Wajib diisi',
-            'email.email' => 'Format email tidak valid',
-            'email.unique' => 'Email sudah digunakan',
-            'password.required' => 'Password wajib diisi',
-            'password.min' => 'Password minimal 8 karakter',
-            'confirm_password.required' => 'Konfirmasi Password wajib diisi',
-            'confirm_password.same' => 'Konfirmasi Password harus sama dengan Password'
-        ]);
 
         $user = $request->all();
         $user['password'] = Hash::make($user['password']);

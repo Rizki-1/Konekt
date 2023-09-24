@@ -270,8 +270,8 @@ class penjualcontroller extends Controller
 
     protected function pengajuandana(Request $request)
     {
-        $penjual = barangpenjual::all();
-        return view('DashboardPenjual.pengajuandana', compact('penjual'));
+        $userOrder = userOrder::all();
+        return view('DashboardPenjual.pengajuandana', compact('userOrder'));
     }
 
     protected function profilepenjual(Request $request)

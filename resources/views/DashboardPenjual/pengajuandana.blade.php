@@ -108,7 +108,7 @@
     @foreach ($userOrder as $UserOrder)
     <form action="{{ route('pengajuandana') }}" method="post">
         @csrf
-        
+
     <div class="modal" id="myModal-{{$UserOrder->id}}" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -16,4 +16,5 @@ class pembayaranpenjual extends Model
     {
         return $this->hasMany(pengajuandanapenjual::class);
     }
+ 
 }

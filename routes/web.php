@@ -96,7 +96,7 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::patch('tolakpesanan/{id}', [penjualcontroller::class, 'tolakpesanan'])->name('tolakpesanan');
     Route::get('DashboardPenjual_', [penjualcontroller::class, 'DashboardPenjual'])->name('DashboardPenjual_');
     Route::get('pengajuanpenjual', [penjualcontroller::class, 'pengajuanpenjual'])->name('pengajuanpenjual');
-    Route::get('pengajuandana', [penjualcontroller::class, 'pengajuandana'])->name('pengajuandana');
+    Route::get('pengajuandana/{id}', [penjualcontroller::class, 'pengajuandana'])->name('pengajuandana');
     Route::get('profilepenjual', [penjualcontroller::class, 'profilepenjual'])->name('profilepenjual');
     Route::get('detailmenupen/{id}', [penjualcontroller::class, 'detailmenupen'])->name('detailmenupen');
 });

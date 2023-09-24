@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\dashboardusercontrollers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Models\pengajuandanapenjual;
 
 class penjualcontroller extends Controller
 {
@@ -185,27 +186,36 @@ class penjualcontroller extends Controller
         return view('DashboardPenjual.detailmenupen', compact('user', 'penjual', 'ulasan'));
     }
 
-    public function terimapesanan($id, Request $request)
-    {
-        // $notifikasi = notifikasi::findOrFail($id);
-        // $notifikasi->keterangan = 'pesanan anda sedang di proses';
-        // $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
-        // $notifikasi->save();
+    // public function terimapesanan($id, Request $request)
+    // {
+    //     // $notifikasi = notifikasi::findOrFail($id);
+    //     // $notifikasi->keterangan = 'pesanan anda sedang di proses';
+    //     // $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
+    //     // $notifikasi->save();
 
-        // dd($request->all());
-        $dashboardusercontrollers =userOrder::findOrFail($id);
-        $dashboardusercontrollers->pembelianstatus = 'sedang di proses';
-        $dashboardusercontrollers->nomor_antrian = $request->nomor_antrian;
+    // //     return redirect()->route('pesananpenjual');
+    // // }
+    public function terimapesanan($id)
+{
+    try {
+        $dashboardusercontroller = userOrder::findOrFail($id);
+        $dashboardusercontroller->pembelianstatus = 'sedang di proses';
+        $dashboardusercontroller->save();
 
+         // Mengupdate status pesanan pembeli
+         $pesananPembeli = userOrder::where('pembelianstatus', $dashboardusercontroller->pembelianstatus)->first();
+         $pesananPembeli->pembelianstatus = 'sedang di proses';
+         $pesananPembeli->save();
 
-        $dashboardusercontrollers->save();
+        // Tambahkan notifikasi kepada pembeli di sini jika diperlukan
 
-
-
-
-
-        return redirect()->route('pesananpenjual');
+        return redirect()->route('pesananpenjual')->with('success', 'Status pesanan berhasil diubah.');
+    } catch (\Exception $e) {
+        // Handle error jika terjadi kesalahan saat mengubah status pesanan
+        return redirect()->route('pesananpenjual')->with('error', 'Gagal mengubah status pesanan.');
     }
+}
+
 
     public function tolakpesanan($id)
     {
@@ -238,6 +248,7 @@ class penjualcontroller extends Controller
     public function pesananpenjual(Request $request)
     {
         $penjualId = Auth::id();
+        $userOrder = userOrder::all();
 
         $dashboardusercontrollers = userOrder::where('adminstatus', 'approve')
             ->where('toko_id', $penjualId)
@@ -262,17 +273,15 @@ class penjualcontroller extends Controller
     }
 
 
-    protected function pengajuanpenjual(Request $request)
-    {
-        $penjual = barangpenjual::all();
-        return view('DashboardPenjual.pengajuanpenjual', compact('penjual'));
-    }
-
     protected function pengajuandana(Request $request)
     {
         $userOrder = userOrder::all();
-        return view('DashboardPenjual.pengajuandana', compact('userOrder'));
+        $pengajuandanapenjual = pembayaranpenjual::all();
+        
+        // $pengajuandana->save();
+        return view('DashboardPenjual.pengajuandana', compact( 'userOrder','pengajuandanapenjual'));
     }
+   
 
     protected function profilepenjual(Request $request)
     {

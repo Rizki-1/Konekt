@@ -61,9 +61,9 @@
             /* Memindahkan gambar ke atas */
         }
 
-        .card-content {
+        /* .card-content {
             flex: 1;
-        }
+        } */
 
         .content-container {
             flex: 1;
@@ -100,60 +100,123 @@
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+    
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Bootstrap JavaScript (termasuk jQuery) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
     @include('layout.logoloader')
     @foreach ($userOrder as $UserOrder)
-    <form action="{{ route('pengajuandana') }}" method="post">
-        @csrf
-
-    <div class="modal" id="myModal-{{$UserOrder->id}}" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
+<div class="modal fade" id="myModal-{{$UserOrder->id}}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('pengajuandana') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">Ajukan pengajuan dana</h5>
+                    <h5 class="modal-title">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container">
                         <div class="row">
                             <div class="col-8">
-                                <!-- <p class="fs-6 text-dark">
-                                    nama pembeli :
-                                    {{ $UserOrder->User->name }}
-                                    <br>
-                                    nama menu :
-                                    {{ $UserOrder->penjual->namamenu}}
+                            </div>
+                            <div class="mb-3">
+                                <label for="metodepembayaran_id-{{$UserOrder->id}}" class="form-label fw-bold">Metode Pembayaran</label>
+                                <select id="metodepembayaran_id-{{$UserOrder->id}}" name="metodepembayaran_id" class="form-control payment-method">
+                                    <option value="" selected disabled>Pilih Metode Pembayaran</option>
+                                    <option value="ewallet">E-Wallet</option>
+                                    <option value="bank">Bank</option>
+                                </select>
+                            </div>
+                            <div id="tujuanDiv-{{$UserOrder->id}}" class="payment-input" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="tujuan-{{$UserOrder->id}}" class="form-label fw-bold">Tujuan</label>
+                                    <select id="tujuan-{{$UserOrder->id}}" name="tujuan" class="form-control tujuan-input">
+                                        <option value="" selected disabled>Pilih Tujuan</option>
+                                        @foreach ($pengajuandana as $metode)
+                                            <option value="{{ $metode->id }}">{{ $metode->tujuan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div id="keteranganDiv-{{$UserOrder->id}}" class="mb-3 keterangan-input" style="display: none;">
+                                    <label for="keterangan-{{$UserOrder->id}}" class="form-label fw-bold">Keterangan</label>
+                                    <input type="hidden" name="keterangan" id="keterangan-{{$UserOrder->id}}" class="form-control">
 
-                                </p>
-                                <p class="fs-6 text-dark">
-                                    {{ $UserOrder->penjual->namamenu }}
-                                </p>
-                                <p class="fs-6 text-primary">
-                                    total Harga :
-                                    Rp. {{ $totalharga_penjual_setelah_potongan  }}
-                                    <br>
-                                    * di kenakan biaya admin
-                                </p> -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="jumlah-{{$UserOrder->id}}" class="form-label fw-bold">Jumlah</label>
-                        <input type="number" id="jumlah-{{$UserOrder->id}}" name="jumlah" class="form-control" placeholder="Masukan jumlah">
-                    </div>
-                    </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" id="addToCart-{{$UserOrder->id}}">Tambah Keranjang</button>
-                    <button type="submit" class="btn btn-primary">Pesan</button>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
+                </div>
+            </form>
         </div>
     </div>
-</form>
+</div>
+
+<script>
+
+    function toggleTujuanDiv(selectElement) {
+        var targetDivId = 'tujuanDiv-' + selectElement.id.split('-').pop();
+        var targetDiv = document.getElementById(targetDivId);
+
+    
+        var allTujuanDivs = document.querySelectorAll('.payment-input');
+        allTujuanDivs.forEach(function (div) {
+            div.style.display = 'none';
+        });
+
+        if (selectElement.value !== '') {
+            targetDiv.style.display = 'block';
+        }
+    }
+
+    function toggleKeteranganDiv(selectElement) {
+        var targetDivId = 'keteranganDiv-' + selectElement.id.split('-').pop();
+        var targetDiv = document.getElementById(targetDivId);
+
+        var allKeteranganDivs = document.querySelectorAll('.keterangan-input');
+        allKeteranganDivs.forEach(function (div) {
+            div.style.display = 'none';
+        });
+
+        if (selectElement.value !== '') {
+            targetDiv.style.display = 'block';
+        }
+    }
+
+    var metodePembayaranSelect = document.getElementById('metodepembayaran_id-{{$UserOrder->id}}');
+    metodePembayaranSelect.addEventListener('change', function () {
+        toggleTujuanDiv(this);
+    });
+
+    var tujuanSelect = document.getElementById('tujuan-{{$UserOrder->id}}');
+    tujuanSelect.addEventListener('change', function () {
+        toggleKeteranganDiv(this);
+    });
+</script>
 @endforeach
+
+
+
+
+
+
+
+
+
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -357,15 +420,16 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="crow">#</th>
                                     <th scope="col">nama pembeli</th>
                                     <th scope="col">jumlah pesanan</th>
-                                    <th scope="col">total</th>
+                                    <!-- <th scope="col">total</th> -->
                                     <th scope="col">metode pembayaran</th>
                                     <th scope="col">aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                
                             <tr>
                                 @php
                                     $no = 1;
@@ -374,16 +438,17 @@
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $UserOrder->username }}</td>
                                 <td>{{ $UserOrder->jumlah }}</td>
-                                <td>{{ $UserOrder->totalharga }}</td>
+                                <!-- <td>{{ $UserOrder->totalharga }}</td> -->
                                 <td>{{ $UserOrder->metodepembayaran }}</td>
                                 <td>
-                                    <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-{{$UserOrder->id}}">
+                                    <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal-{{$UserOrder->id}}">
                                         <i class="fa fa-eye">ajukan pengambilan dana</i>
                                     </button>
                                 </td>
                                 @endforeach
                             </tr>
-                            <!-- Tambahkan baris-baris lain sesuai kebutuhan -->
+                     
+
                         </tbody>
                         </table>
                     </div>
@@ -396,3 +461,8 @@
     @include('layout.js')
 </body>
 </html>
+
+
+
+
+

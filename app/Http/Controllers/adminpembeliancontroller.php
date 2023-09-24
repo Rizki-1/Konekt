@@ -344,34 +344,21 @@ $chartData = array_values($processedData);
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'metodepembayaran' => 'required',
-        'tujuan' => 'required',
-        'keterangan' => 'required|file|mimes:jpeg,jpg,png|max:2048',
-    ], [
-        'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-        'tujuan.required' => 'Tujuan wajib diisi.',
-        'keterangan.required' => 'Keterangan wajib diisi.',
-        'keterangan.file' => 'Keterangan harus berupa file.',
-        'keterangan.mimes' => 'Keterangan harus berupa file dengan format jpeg, jpg, atau png.',
-        'keterangan.max' => 'Ukuran maksimal Keterangan adalah 2MB.',
-    ]);
+    {   // dd($request->all());
+        $adminmp = new adminmetodepembayaran;
+        $adminmp->metodepembayaran = $request->metodepembayaran;
+        $adminmp->tujuan = $request->tujuan;
+        $adminmp->keterangan = $request->input('keterangan');
 
-    $adminmp = new adminmetodepembayaran;
-    $adminmp->metodepembayaran = $request->metodepembayaran;
-    $adminmp->tujuan = $request->tujuan;
-    $adminmp->keterangan = $request->input('keterangan');
-
-    if ($request->file('keterangan')) {
-        $image = $request->file('keterangan');
-        $filename = $image->hashName();
-        $image->storeAs('public/pembayaran', $filename);
-        $adminmp->keterangan = $filename;
+        if ($request->file('keterangan')) {
+            $image = $request->file('keterangan');
+            $filename = $image->hashName();
+            $image->storeAs('public/pembayaran', $filename);
+            $adminmp->keterangan = $filename;
+        }
+        $adminmp->save();
+        return back();
     }
-    $adminmp->save();
-    return back();
-}
 
 
     public function adestroy(adminmetodepembayaran $adminmp)

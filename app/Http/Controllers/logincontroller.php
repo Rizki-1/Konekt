@@ -31,10 +31,6 @@ class logincontroller extends Controller
         $user = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
-        ],[
-            'email.required' => 'email tidak boleh kosong',
-            'email.email' => 'email tidak valid',
-            'password.required' => 'password tidak boleh kosong'
         ]);
 
         $penjuallogin = $request->validate([
@@ -138,26 +134,6 @@ class logincontroller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'confirm_password' => 'required|same:password',
-        ],[
-            'name.required' => 'Name Wajib diisi',
-            'email.required' => 'Email Wajib diisi',
-            'email.email' => 'Format email tidak valid',
-            'email.unique' => 'Email sudah digunakan',
-            'password.required' => 'Password wajib diisi',
-            'password.min' => 'Password minimal 8 karakter',
-            'confirm_password.required' => 'Konfirmasi Password wajib diisi',
-            'confirm_password.same' => 'Konfirmasi Password harus sama dengan Password',
-        ]);
-
-        $user = $request->all();
-        $user['password'] = Hash::make($user['password']);
-        User::create($user);
-        return redirect()->route('user.index');
     }
 
     /**

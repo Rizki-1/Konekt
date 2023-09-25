@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('username');
             $table->string('rating');
             $table->string('komentar')->nullable();
+            $table->string('is_user_rating');
             $table->timestamps();
         });
     }

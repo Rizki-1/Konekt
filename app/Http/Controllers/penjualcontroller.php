@@ -31,7 +31,7 @@ class penjualcontroller extends Controller
         $penjualId = Auth::id();
         $penjual = barangpenjual::where('toko_id', $penjualId)->get();
         $user = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->get();
-        $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi',$penjualId)->get();
+        $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi', $penjualId)->get();
         $adminkategori = adminkategori::all();
         return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual', 'penjualId'));
     }
@@ -40,33 +40,32 @@ class penjualcontroller extends Controller
     {
         $penjualId = Auth::id();
         $menu = barangpenjual::where('toko_id', $penjualId)->count();
-        $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->count();
-        $totalharga = userOrder::where('pembelianstatus', 'statusselesai')->sum('totalharga');
+        $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->where('toko_id', $penjualId)->count();
+        $totalharga = userOrder::where('pembelianstatus', 'statusselesai')->where('toko_id', $penjualId)->sum('totalharga');
         $untung = $totalharga * 0.05;
 
         // $pemasukkan = $totalharga - ($untung - 0.05);
-        if($totalharga > 1)
-        {
+        if ($totalharga > 1) {
             $pemasukkan = $totalharga - ($untung - 0.05);
         } else {
             $pemasukkan = $totalharga - ($untung - 0.05);
         }
-        $tertunda = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->count();
+        $tertunda = userOrder::where('adminstatus', 'approve')->where('toko_id', $penjualId)->count();
 
         $data = userOrder::select(
             DB::raw('MONTH(created_at) as month'),
             DB::raw('YEAR(created_at) as year'),
             DB::raw('SUM(totalharga) as total')
         )
-        ->whereIn('pembelianstatus',['statusselesai'])
-        ->groupBy('year','month','totalharga')->get();
+            ->whereIn('pembelianstatus', ['statusselesai'])
+            ->groupBy('year', 'month', 'totalharga')->get();
 
-         $processedData = [];
+        $processedData = [];
 
-         $currentYear = carbon::now()->year;
-         $currentMonth = Carbon::now()->month;
+        $currentYear = carbon::now()->year;
+        $currentMonth = Carbon::now()->month;
 
-         for ($month = 1; $month <= 12; $month++) {
+        for ($month = 1; $month <= 12; $month++) {
             $date = carbon::createFromDate($currentYear, $month, 1);
             $yearMonth = $date->isoFormat('MMMM');
 
@@ -77,30 +76,30 @@ class penjualcontroller extends Controller
                 'statusselesai' => 0,
                 'color' => $color,
             ];
-         }
-          foreach ($data as $item){
+        }
+        foreach ($data as $item) {
 
             $yearMonth = carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
 
-            if (isset($processedData[$yearMonth])){
+            if (isset($processedData[$yearMonth])) {
                 $ini = $pemasukkan;
-                $masuk =number_format($ini, 3 , ',','.');
+                $masuk = number_format($ini, 3, ',', '.');
                 $processedData[$yearMonth]['statusselesai'] = $ini;
             }
-          }
+        }
 
         //   dd($ini);
 
-          $chartData = array_values($processedData);
-        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda','chartData'));
+        $chartData = array_values($processedData);
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'chartData'));
     }
 
     public function riwayatpenjual()
     {
         $penjualId = Auth::id();
 
-        $user = userOrder::where('pembelianstatus' ,'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
-        $user = userOrder::where('pembelianstatus','selesai')->get();
+        $user = userOrder::where('pembelianstatus', 'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
+        $user = userOrder::where('pembelianstatus', 'selesai')->get();
         $user = userOrder::where('toko_id', $penjualId)->get();
         $adminkategori = adminkategori::all();
         return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
@@ -120,54 +119,49 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_store(Request $request)
     {
-    $request->validate([
-        'metodepembayaran' => 'required',
-        'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
-        'keterangan' => 'required',
-        'tujuan_bank' => 'required_if:metodepembayaran,bank',
-        'keterangan_bank' => 'required_if:metodepembayaran,bank',
-        'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
-    ], [
-        'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-        'tujuan_e_wallet.required_if' => 'Tujuan E-Wallet wajib diisi.',
-        'keterangan.required' => 'Keterangan wajib diisi.',
-        'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
-        'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
-        'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
-        'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
-        'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
-        'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
-    ]);
+        $request->validate([
+            'metodepembayaran' => 'required',
+            'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
+            'tujuan_bank' => 'required_if:metodepembayaran,bank',
+            'keterangan_bank' => 'required_if:metodepembayaran,bank',
+            'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
+        ], [
+            'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+            'tujuan_e_wallet.required_if' => 'Tujuan E-Wallet wajib diisi.',
+            'keterangan.required' => 'Keterangan wajib diisi.',
+            'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
+            'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
+            'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
+            'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
+            'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
+            'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
+        ]);
 
-    $metodePembayaran = $request->input('metodepembayaran');
-    $data = [
-        'metodepembayaran' => $metodePembayaran,
-    ];
+        $metodePembayaran = $request->input('metodepembayaran');
+        $data = [
+            'metodepembayaran' => $metodePembayaran,
+        ];
 
-    if ($metodePembayaran === 'e-wallet') {
-        $data['tujuan'] = $request->input('tujuan_e_wallet');
-        $data['keterangan'] = $request->input('keterangan');
+        if ($metodePembayaran === 'e-wallet') {
+            $data['tujuan'] = $request->input('tujuan_e_wallet');
+            $data['keterangan'] = $request->input('keterangan');
 
-        if ($request->hasFile('keterangan_e_wallet')) {
-            $image = $request->file('keterangan_e_wallet');
-            $file = $image->hashName();
-            $image->storeAs('public/pembayaran', $file);
-            $data['keterangan'] = $file;
+            if ($request->hasFile('keterangan_e_wallet')) {
+                $image = $request->file('keterangan_e_wallet');
+                $file = $image->hashName();
+                $image->storeAs('public/pembayaran', $file);
+                $data['keterangan'] = $file;
+            }
+        } elseif ($metodePembayaran === 'bank') {
+            $data['tujuan'] = $request->input('tujuan_bank');
+            $data['keterangan'] = $request->input('keterangan_bank');
+        } else {
+            session()->flash('notif.error', 'Data pembayaran tidak valid!');
+            return redirect()->route('pembayaranpenjual');
         }
-    } elseif ($metodePembayaran === 'bank') {
-        $data['tujuan'] = $request->input('tujuan_bank');
-        $data['keterangan'] = $request->input('keterangan_bank');
-    } else {
-        session()->flash('notif.error', 'Data pembayaran tidak valid!');
+        PembayaranPenjual::create($data);
+        session()->flash('notif.success', 'Data pembayaran berhasil disimpan.');
         return redirect()->route('pembayaranpenjual');
-    }
-
-    // Simpan data ke database
-    PembayaranPenjual::create($data);
-
-    // Redirect atau tampilkan pesan sukses
-    session()->flash('notif.success', 'Data pembayaran berhasil disimpan.');
-    return redirect()->route('pembayaranpenjual');
     }
 
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
@@ -179,7 +173,7 @@ class penjualcontroller extends Controller
     public function detailmenupen(Request $request, $id)
     {
         $user = BarangPenjual::findOrFail($id);
-        $penjual = BarangPenjual::where('id',$id)->get();
+        $penjual = BarangPenjual::where('id', $id)->get();
         $ulasan = ulasan::where('barangpenjual_id', $id)->get();
         // $penjual = BarangPenjual::all();
 
@@ -196,33 +190,33 @@ class penjualcontroller extends Controller
     // //     return redirect()->route('pesananpenjual');
     // // }
     public function terimapesanan($id)
-{
-    try {
-        $dashboardusercontroller = userOrder::findOrFail($id);
-        $dashboardusercontroller->pembelianstatus = 'sedang di proses';
-        $dashboardusercontroller->save();
+    {
+        try {
+            $dashboardusercontroller = userOrder::findOrFail($id);
+            $dashboardusercontroller->pembelianstatus = 'sedang di proses';
+            $dashboardusercontroller->save();
 
-         // Mengupdate status pesanan pembeli
-         $pesananPembeli = userOrder::where('pembelianstatus', $dashboardusercontroller->pembelianstatus)->first();
-         $pesananPembeli->pembelianstatus = 'sedang di proses';
-         $pesananPembeli->save();
+            // Mengupdate status pesanan pembeli
+            $pesananPembeli = userOrder::where('pembelianstatus', $dashboardusercontroller->pembelianstatus)->first();
+            $pesananPembeli->pembelianstatus = 'sedang di proses';
+            $pesananPembeli->save();
 
-        // Tambahkan notifikasi kepada pembeli di sini jika diperlukan
+            // Tambahkan notifikasi kepada pembeli di sini jika diperlukan
 
-        return redirect()->route('pesananpenjual')->with('success', 'Status pesanan berhasil diubah.');
-    } catch (\Exception $e) {
-        // Handle error jika terjadi kesalahan saat mengubah status pesanan
-        return redirect()->route('pesananpenjual')->with('error', 'Gagal mengubah status pesanan.');
+            return redirect()->route('pesananpenjual')->with('success', 'Status pesanan berhasil diubah.');
+        } catch (\Exception $e) {
+            // Handle error jika terjadi kesalahan saat mengubah status pesanan
+            return redirect()->route('pesananpenjual')->with('error', 'Gagal mengubah status pesanan.');
+        }
     }
-}
 
 
     public function tolakpesanan($id)
     {
-    //     $notifikasi = notifikasi::findOrFail($id);
-    //     $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
-    //     $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
-    //     $notifikasi->save();
+        //     $notifikasi = notifikasi::findOrFail($id);
+        //     $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
+        //     $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
+        //     $notifikasi->save();
         // dd($notifikasi);
         $dashboardusercontrollers = userOrder::findOrFail($id);
         $dashboardusercontrollers->pembelianstatus = 'pesanan di tolak';
@@ -256,17 +250,16 @@ class penjualcontroller extends Controller
             ->get();
 
 
-        if ($dashboardusercontrollers)
-        {
+        if ($dashboardusercontrollers) {
             $notifikasi_penjual =
-            [
-                'keterangan_penjual' => 'ada pesanan',
-                'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut',
-                'toko_id_notifikasi' => $penjualId
-            ];
+                [
+                    'keterangan_penjual' => 'ada pesanan',
+                    'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut',
+                    'toko_id_notifikasi' => $penjualId
+                ];
             notifikasipenjual::create($notifikasi_penjual);
         }
-        $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi',$penjualId)->get();
+        $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi', $penjualId)->get();
 
 
         return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers', 'notifikasi_penjual'));
@@ -277,11 +270,11 @@ class penjualcontroller extends Controller
     {
         $userOrder = userOrder::all();
         $pengajuandanapenjual = pembayaranpenjual::all();
-        
+
         // $pengajuandana->save();
-        return view('DashboardPenjual.pengajuandana', compact( 'userOrder','pengajuandanapenjual'));
+        return view('DashboardPenjual.pengajuandana', compact('userOrder', 'pengajuandanapenjual'));
     }
-   
+
 
     protected function profilepenjual(Request $request)
     {
@@ -304,11 +297,11 @@ class penjualcontroller extends Controller
      * Store a newly created resource in storage.
      */
 
-     public function store(Request $request)
-     {
+    public function store(Request $request)
+    {
         $penjualId = Auth::id();
-         // Validasi input dari request dengan pesan kustom
-         $validated = $request->validate([
+        // Validasi input dari request dengan pesan kustom
+        $validated = $request->validate([
             'namamenu' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
             'kategori_id' => 'required|exists:adminkategoris,id',
             'harga' => 'required|numeric|min:0',
@@ -332,36 +325,36 @@ class penjualcontroller extends Controller
         ]);
 
 
-         if ($validated) {
-             // Simpan foto makanan ke penyimpanan
-             if ($request->hasFile('fotomakanan')) {
-                 $filePath = $request->file('fotomakanan')->store('penjual/menu', 'public');
-             } else {
-                 return response()->json(['success' => false, 'message' => 'Foto makanan tidak ditemukan.'], 422);
-             }
+        if ($validated) {
+            // Simpan foto makanan ke penyimpanan
+            if ($request->hasFile('fotomakanan')) {
+                $filePath = $request->file('fotomakanan')->store('penjual/menu', 'public');
+            } else {
+                return response()->json(['success' => false, 'message' => 'Foto makanan tidak ditemukan.'], 422);
+            }
 
-             // Buat data untuk disimpan dalam database
-             $penjual = [
-                 'namamenu' => $request->namamenu,
-                 'keterangan_makanan' => $request->keterangan_makanan,
-                 'kategori_id' => $request->kategori_id,
-                 'harga' => $request->harga,
-                 'fotomakanan' => $filePath,
-                 'toko_id' => $penjualId,
-             ];
+            // Buat data untuk disimpan dalam database
+            $penjual = [
+                'namamenu' => $request->namamenu,
+                'keterangan_makanan' => $request->keterangan_makanan,
+                'kategori_id' => $request->kategori_id,
+                'harga' => $request->harga,
+                'fotomakanan' => $filePath,
+                'toko_id' => $penjualId,
+            ];
 
-             // Simpan data ke database
-             $create = BarangPenjual::create($penjual);
+            // Simpan data ke database
+            $create = BarangPenjual::create($penjual);
 
-             if ($create) {
-                 return response()->json(['success' => true, 'message' => 'Menu berhasil ditambahkan!']);
-             } else {
-                 return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menambahkan menu.'], 500);
-             }
-         }
+            if ($create) {
+                return response()->json(['success' => true, 'message' => 'Menu berhasil ditambahkan!']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menambahkan menu.'], 500);
+            }
+        }
 
-         return response()->json(['success' => false, 'message' => 'Validasi gagal.'], 422);
-     }
+        return response()->json(['success' => false, 'message' => 'Validasi gagal.'], 422);
+    }
 
     /**
      * Display the specified resource.

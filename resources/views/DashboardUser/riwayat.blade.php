@@ -103,13 +103,13 @@
                             <input type="hidden" name="barangpenjual_id" value="{{ $u->barangpenjual_id }}">
                         </div>
                         <div class="modal-body">
-                        {{ $u->rating }}
-                            @for ($i = 1; $i <= 5; $i++)
-                            <label style="color: gray; cursor: pointer;">
-                                <input type="radio" name="rating" value="{{ $i }}" class="form-control" min="1" max="5" onchange="toggleStart(this)">
-                                <i class="fas fa-star"></i>
-                            </label>
-                            @endfor
+                     {{ $u->rating }}
+@for ($i = 1; $i <= 5; $i++)
+<label style="color: gray; cursor: pointer;">
+    <input type="radio" name="rating" value="{{ $i }}" class="form-control" min="1" max="5" onchange="toggleStart(this)">
+    <i class="fas fa-star"></i>
+</label>
+@endfor
                         </div>
                         <div class="modal-body">
                         {{ $u->komentar }}
@@ -369,6 +369,7 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             @if ($u->pembelianstatus === 'statusselesai')
+                           
                                <div class="btn btn-warning" type="submit"
                                    data-bs-toggle="modal" data-bs-target="#myModal-{{$u->barangpenjual_id}}"
                                    style="">beri ulasan</div>
@@ -418,17 +419,22 @@
 </script>
 <script>
     function toggleStart(radioElement) {
-        const stars = radioElement.parentNode.querySelectorAll('.fas.fa-star');
-        const index = parseInt(radioElement.value) - 1;
-        for (let i = 0; i < stars.length; i++) {
-            if (i <= index) {
-                stars[i].style.color = 'yellow';
-            } else {
-                stars[i].style.color = 'gray';
-            }
+      const stars = radioElement.parentNode.querySelectorAll('.fas.fa-star');
+      const index = parseInt(radioElement.value) - 1;
+      if (radioElement.value >= 1) {
+        for (let i = 0; i < index; i++) {
+          stars[i].style.color = 'yellow';
         }
+        for (let i = index + 1; i < stars.length; i++) {
+          stars[i].style.color = 'gray';
+        }
+      } else {
+        for (let i = 0; i < stars.length; i++) {
+          stars[i].style.color = 'gray';
+        }
+      }
     }
-</script>
+    </script>
 </body>
 </html>
 

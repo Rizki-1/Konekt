@@ -15,7 +15,8 @@ class ulasan extends Model
         'barangpenjual_id',
         'rating',
         'komentar',
-        'username'
+        'username',
+        'is_user_rating'
     ];
 
 
@@ -23,5 +24,5 @@ class ulasan extends Model
     {
         return $this->belongsTo(barangpenjual::class);
     }
-   
+
 }

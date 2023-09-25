@@ -348,7 +348,7 @@ $chartData = array_values($processedData);
     $request->validate([
         'metodepembayaran' => 'required',
         'tujuan' => 'required',
-        'keterangan' => 'required|file|mimes:jpeg,jpg,png|max:2048',
+        'keterangan' => 'required|',
     ], [
         'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
         'tujuan.required' => 'Tujuan wajib diisi.',

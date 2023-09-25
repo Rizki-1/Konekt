@@ -21,6 +21,7 @@ use App\Models\adminmetodepembayaran;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException; // Import QueryException
 use Exception; // Import Exception
+use Illuminate\Validation\ValidationException;
 
 class dashboardusercontroller extends Controller
 {
@@ -572,27 +573,48 @@ public function riwayatuser()
             $itemIds = $request->input('ids');
 
             foreach ($itemIds as $orderId) {
-                $order = userOrder::find($orderId);
-                if ($order) {
+                // Validasi input untuk setiap pesanan
+                $validatedData = $request->validate([
+                    "jumlah_$orderId" => 'required|integer|min:1',
+                    "catatan" => 'nullable|string|max:255',
+                    "foto" => 'required|image|max:2048', // Ubah sesuai dengan aturan validasi foto
+                    "barangpenjual_id_$orderId" => 'required|exists:barangpenjuals,id',
+                    "toko_id_$orderId" => 'required|exists:user_orders,id',
+                    "user_id_$orderId" => 'required|exists:users,id',
+                    "metodepembayaran" => 'required|in:e-wallet,bank', // Sesuaikan dengan metode pembayaran yang valid
+                ], [
+                    "jumlah_$orderId.required" => 'Jumlah harus diisi untuk pesanan ini.',
+                    "jumlah_$orderId.integer" => 'Jumlah harus berupa angka.',
+                    "jumlah_$orderId.min" => 'Jumlah minimal 1.',
+                    "catatan.max" => 'Catatan maksimal 255 karakter.',
+                    "foto.required" => 'Ukuran foto terlalu besar, maksimal 2MB.',
+                    "foto.max" => 'Ukuran foto terlalu besar, maksimal 2MB.',
+                    "foto.image" => 'File harus berupa gambar.',
+                    "barangpenjual_id_$orderId.required" => 'Barang penjual tidak valid.',
+                    "toko_id_$orderId.required" => 'Toko tidak valid.',
+                    "user_id_$orderId.required" => 'User tidak valid.',
+                    "metodepembayaran.required" => 'Metode pembayaran harus dipilih.',
+                    "metodepembayaran.in" => 'Metode pembayaran tidak valid.',
+                ]);
 
-                    $order->barangpenjual_id = $request->input("barangpenjual_id_$orderId");
+                $order = userOrder::find($orderId);
+
+                if ($order) {
+                    $order->barangpenjual_id = $validatedData["barangpenjual_id_$orderId"];
                     $order->adminstatus = 'notapprove';
                     $order->pembelianstatus = 'menunggu konfirmasi';
-                    $order->jumlah = $request->input("jumlah_$orderId");
-                    $order->catatan = $request->input("catatan_$orderId");
-                    $order->foto = $request->foto;
-                    $order->toko_id = $request->input("toko_id_$orderId");
-                    $order->user_id = $request->input("user_id_$orderId");
-                    $order->metodepembayaran = $request->metodepembayaran;
-
-                    $order->save();
+                    $order->jumlah = $validatedData["jumlah_$orderId"];
+                    $order->catatan = $validatedData["catatan"];
+                    $order->toko_id = $validatedData["toko_id_$orderId"];
+                    $order->user_id = $validatedData["user_id_$orderId"];
+                    $order->metodepembayaran = $validatedData["metodepembayaran"];
 
                     if ($request->hasFile('foto')) {
                         $filePath = Storage::disk('public')->put('pembeli/bukti_pembayaran', $request->file('foto'));
                         $order->foto = $filePath;
-                        $order->save();
                     }
 
+                    $order->save();
                 }
             }
 
@@ -605,18 +627,19 @@ public function riwayatuser()
             $userNotification = new notifikasi();
             $userNotification->keterangan = 'Anda berhasil membuat pesanan!';
             $userNotification->isi = 'Lihat pesanan Anda di halaman pesanan';
-            $userNotification->user_id_notifikasi = $request->input("user_id_$orderId");
+            $userNotification->user_id_notifikasi = $validatedData["user_id_$orderId"];
             $userNotification->save();
 
             // Tambahkan respons yang sesuai
             return response()->json(['message' => 'Pembaruan massal berhasil.']);
-        } catch (QueryException $e) {
-            return response()->json(['message' => 'Terjadi kesalahan database: ' . $e->getMessage()], 500);
-        } catch (Exception $e) {
-            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 422);
+        } catch (ValidationException $e) {
+            // Tangkap kesalahan validasi dan kirim respon JSON dengan pesan kesalahan
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            // Tangkap kesalahan lainnya dan kirim respon JSON dengan pesan kesalahan
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
         }
     }
-
     /**
      * Remove the specified resource from storage.
      */

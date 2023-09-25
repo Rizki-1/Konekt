@@ -418,7 +418,7 @@
                         <option value="" disabled selected>Data E-wallet Kosong</option>
                     @endforelse
                 </select>
-                <div><br>
+                <div class="mt-3">
                     <p class="text-bold">Kode QR</p>
                 </div>
                 @foreach ($wallet as $data)
@@ -433,12 +433,6 @@
                         <a></a>
                     @endif
                 @endforeach
-                <div class="">
-                    <p class="text-bold">Masukkan Bukti pembayaran Anda</p>
-                </div>
-                <div class="mt-3">
-                    <input type="file" name="foto" class="form-control" id="fotobuktipembayaran">
-                </div>
             </div>
 
             {{-- bank --}}
@@ -454,7 +448,7 @@
                         <option value=""disabled selected>Data No Rekening Kosong</option>
                     @endforelse
                 </select>
-                <div>
+                <div class="mt-3">
                     <p class="text-bold">No Rekening</p>
                 </div>
                 @foreach ($bank as $data)
@@ -464,17 +458,16 @@
                     @if ($saya >= 20)
                         {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
                     @else
-                        <input type="text" name="keterangan" value="{{ $data->keterangan }}"
-                            id="{{ $data->tujuan }}" class="form-control" disabled>
+                        <input type="text" name="keterangan" value="{{ $data->keterangan }}" id="{{ $data->tujuan }}" class="form-control" disabled>
                     @endif
                 @endforeach
+            </div>
                 <div class="">
-                    <p class="text-bold">Bukti transfer</p>
+                    <p class="text-bold">Masukkan Bukti Pembayaran Anda</p>
                 </div>
                 <div class="mt-3">
                     <input type="file" name="foto" class="form-control" id="foto">
                 </div>
-            </div>
 
             <div class="d-flex justify-content-end mt-5">
                 <button type="button" class="btn btn-primary" id="bayar">Bayar</button>
@@ -525,6 +518,8 @@
         $("#bayar").click(function() {
             var itemIds = [];
             var selectedMetode = $("#selectMetode").val(); // Mengambil nilai metode pembayaran yang dipilih
+            var foto = $('#foto')[0].files[0];
+            var catatan = $("#catatan").val();
 
             $(".item-element").each(function() {
                 var orderId = $(this).data("order-id");
@@ -548,9 +543,10 @@
                 formData.append('barangpenjual_id_' + orderId, barangpenjual_id);
                 formData.append('toko_id_' + orderId, toko_id);
                 formData.append('user_id_' + orderId, user_id);
+                formData.append('foto', foto);
+                formData.append('catatan', catatan);
             }
 
-            // Tambahkan data metodepembayaran ke objek formData
             formData.append('metodepembayaran', selectedMetode);
 
             // Tampilkan SweetAlert konfirmasi
@@ -585,7 +581,7 @@
                         error: function(response) {
                             console.log(response);
                             // Handle kesalahan jika terjadi
-                            Swal.fire('Gagal', 'Terjadi kesalahan saat melakukan pembayaran.', 'error');
+                            Swal.fire('Peringatan', 'Tolong lengkapi pengisian data anda.', 'warning');
                         }
                     });
                 }

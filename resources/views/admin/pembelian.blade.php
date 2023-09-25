@@ -111,6 +111,50 @@
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
+    @foreach ($dashboardusercontrollers as $s)
+<div class="modal" id="myModal_{{ $s->id }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">detail pembelian</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
+                    <input type="text" name="metodepembayaran" class="form-control" value="{{$s->metodepembayaran}}" readonly>
+                </div>
+                
+                <!-- <div class="mb-3">
+                <label for="kelas" class="form-label fw-bold">Bukti Pembayaran</label>
+                <img src="{{ Auth::user()->foto ? asset(Auth::user()->foto) : asset('storage/.')}}" alt="Bukti Pembayaran">
+                 </div> -->
+                 <div class="mb-3">
+                    <label for="kelas" class="form-label fw-bold">Bukti Pembayaran</label>
+                    <img src="{{ asset('storage/pembayaran/' . Auth::id() . '/Screenshot (2)') }}" alt="Bukti Pembayaran">
+                    </div>
+
+
+              
+
+                <div class="d-flex">
+                 <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="PATCH">
+                        <button type="submit" class="btn btn-outline-success"><i class="bi bi-check-circle"></i></button>
+                        </form>
+                        <form action="{{ route('admin.tolak', ['id' => $s->id]) }}" method="POST">
+                            @csrf
+                        <input type="hidden" name="_method" value="PATCH">
+                     <button type="submit" class="btn btn-outline-danger delete-btn" data-id="{{ $s->id }}"><i class="bi bi-x-circle"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+@endforeach
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -291,6 +335,7 @@
                                         @php
                                             $latestNotifications = $adminnotifikasi->sortByDesc('created_at')->take(3);
                                         @endphp
+                                       
                                         @foreach ($latestNotifications as $adminnotif)
                                         <div class="card-body p-0 notifikasi-belum-kedaluwarsa">
                                             <div class="d-flex align-items-center">
@@ -371,7 +416,8 @@
                                     <td>{{$s->metodepembayaran}}</td>
                                     <td><div style="margin-left:40px;">{{number_format($s->totalharga, 0, ',', '.')}}</div></td>
                                     <td class="d-flex">
-                                        <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">detail</button>
+                                        <!-- <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="_method" value="PATCH">
                                             <button type="submit" class="btn btn-outline-success"><i class="bi bi-check-circle"></i></button>
@@ -380,7 +426,7 @@
                                             @csrf
                                             <input type="hidden" name="_method" value="PATCH">
                                             <button type="submit" class="btn btn-outline-danger delete-btn" data-id="{{ $s->id }}"><i class="bi bi-x-circle"></i></button>
-                                        </form>
+                                        </form> -->
                                     </td>
                                 </tr>
                                 @endforeach

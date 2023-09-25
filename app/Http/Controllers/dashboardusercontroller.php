@@ -579,7 +579,7 @@ public function riwayatuser()
                     "catatan" => 'nullable|string|max:255',
                     "foto" => 'required|image|max:2048', // Ubah sesuai dengan aturan validasi foto
                     "barangpenjual_id_$orderId" => 'required|exists:barangpenjuals,id',
-                    "toko_id_$orderId" => 'required|exists:user_orders,id',
+                    "toko_id_$orderId" => 'required|exists:users,id',
                     "user_id_$orderId" => 'required|exists:users,id',
                     "metodepembayaran" => 'required|in:e-wallet,bank', // Sesuaikan dengan metode pembayaran yang valid
                 ], [

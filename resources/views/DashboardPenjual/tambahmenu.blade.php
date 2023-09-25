@@ -180,7 +180,7 @@
 
 {{-- Modal Store --}}
 
-    {{-- @include('layout.logoloader') --}}
+    @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')

@@ -121,21 +121,17 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
+                    <label for="kelas" class="form-label fw-bold">Metode Pembayaran</label>
                     <input type="text" name="metodepembayaran" class="form-control" value="{{$s->metodepembayaran}}" readonly>
                 </div>
-                
-                <!-- <div class="mb-3">
-                <label for="kelas" class="form-label fw-bold">Bukti Pembayaran</label>
-                <img src="{{ Auth::user()->foto ? asset(Auth::user()->foto) : asset('storage/.')}}" alt="Bukti Pembayaran">
-                 </div> -->
+
                  <div class="mb-3">
                     <label for="kelas" class="form-label fw-bold">Bukti Pembayaran</label>
-                    <img src="{{ asset('storage/pembayaran/' . Auth::id() . '/Screenshot (2)') }}" alt="Bukti Pembayaran">
+                    <img src="{{ Storage::url($s->foto) }}" alt="Bukti Pembayaran" class="w-100">
                     </div>
 
 
-              
+
 
                 <div class="d-flex">
                  <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
@@ -335,7 +331,7 @@
                                         @php
                                             $latestNotifications = $adminnotifikasi->sortByDesc('created_at')->take(3);
                                         @endphp
-                                       
+
                                         @foreach ($latestNotifications as $adminnotif)
                                         <div class="card-body p-0 notifikasi-belum-kedaluwarsa">
                                             <div class="d-flex align-items-center">

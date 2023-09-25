@@ -385,9 +385,9 @@
                         style="position: relative">
                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal">Tambah Pembayaran</button>
                         <table class="table">
-                            <thead class="">
+                            <thead class="text-transform-uppercase">
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">No.</th>
                                     <th scope="col">metode pembayaran</th>
                                     <th scope="col">tujuan</th>
                                     <th scope="col">keterangan</th>

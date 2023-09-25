@@ -133,6 +133,7 @@
                     <label for="kelas" class="form-label fw-bold">total harga</label>
                     <input type="text" name="totalharga" class="form-control" value="Rp. {{ number_format($s->totalharga) }}" readonly>
                 </div>
+                @dump($s->id)
                <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
                 <div class="mb-3">
                     <label for="kelas" class="form-label fw-bold">beri nomer antrian</label>
@@ -140,7 +141,7 @@
                 </div>
                 <div class="d-flex justify-content">
                 @if ($s->pembelianstatus === 'menunggu konfirmasi')
-                  
+
                     @csrf
                     @method('PATCH')
                     <button type="submit" class="btn btn-outline-success accept-btn" data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Terima</button>
@@ -438,7 +439,7 @@
     function changeStatus(orderId) {
         // Gantilah URL ini dengan URL endpoint yang sesuai di backend Anda
         const apiUrl = `/api/change-order-status/${orderId}`;
-        
+
         // Lakukan permintaan HTTP ke backend untuk mengubah status pesanan
         fetch(apiUrl, {
             method: 'PUT', // Atau metode HTTP yang sesuai di backend Anda

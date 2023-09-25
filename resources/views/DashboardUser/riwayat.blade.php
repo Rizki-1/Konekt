@@ -94,11 +94,11 @@
 @foreach ($user as $u)
 <form action="{{ route('ulasan', ['id' => $u->barangpenjual_id]) }}" method="POST">
 @csrf
-        <div class="modal" id="myModal-{{$u->barangpenjual_id}}" tabindex="-1">
-            <div class="modal-dialog">
+        <div class="modal fade" id="myModal-{{$u->barangpenjual_id}}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Beri Ulasan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             <input type="hidden" name="barangpenjual_id" value="{{ $u->barangpenjual_id }}">
                         </div>
@@ -113,13 +113,13 @@
                         </div>
                         <div class="modal-body">
                         {{ $u->komentar }}
-                            <label for="ulasan"> berikan komentar </label>
-                            <input type="text" name="komentar" class="form-control" value="{{ $u->komentar }}">
+                            <label for="ulasan">Komentar</label>
+                            <textarea name="komentar" class="form-control" value="{{ $u->komentar }}"></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                             <form action="{{ route('riwayatuser', ['id' => $u->id]) }}" method="GET">
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                             </form>
                         </div>
                     </div>
@@ -330,8 +330,8 @@
                 <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                     data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                     style="position: relative">
-        <h2 class="title" style="color: red; text-align:center;">Riwayat Pembelian</h2><br>
-        <div class="d-flex ">
+      <center><h2>Kuliner Kita <span style="color: #EA6A12"> | Riwayat</span></h2></center>
+        <div class="d-flex py-5">
 
                 <div class="card-content p-2" >
         {{-- evenly merapikan jarak antar div atau table --}}

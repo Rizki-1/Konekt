@@ -572,11 +572,11 @@
                         },
                         success: function(data) {
                             // Handle respons dari server jika diperlukan
-                            Swal.fire('Sukses', 'Pembayaran berhasil dilakukan.', 'success');
+                            Swal.fire('Sukses', 'Pembayaran berhasil dilakukan, silahkan tunggu verifikasi admin.', 'success');
                             // Redirect atau lakukan tindakan lain sesuai kebutuhan Anda
                             setTimeout(function () {
                                 window.location.href = "{{ route('menu.index') }}";
-                        }, 2000);
+                        }, 3000);
                         },
                         error: function(response) {
                             console.log(response);

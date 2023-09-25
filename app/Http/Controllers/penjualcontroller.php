@@ -189,17 +189,18 @@ class penjualcontroller extends Controller
 
     // //     return redirect()->route('pesananpenjual');
     // // }
-    public function terimapesanan($id)
-    {
-        try {
-            $dashboardusercontroller = userOrder::findOrFail($id);
-            $dashboardusercontroller->pembelianstatus = 'sedang di proses';
-            $dashboardusercontroller->save();
+    public function terimapesanan(Request $request ,$id)
+{
+    try {
+        $dashboardusercontroller = userOrder::findOrFail($id);
+        $dashboardusercontroller->pembelianstatus = 'sedang di proses';
+        $dashboardusercontroller->save();
 
-            // Mengupdate status pesanan pembeli
-            $pesananPembeli = userOrder::where('pembelianstatus', $dashboardusercontroller->pembelianstatus)->first();
-            $pesananPembeli->pembelianstatus = 'sedang di proses';
-            $pesananPembeli->save();
+         // Mengupdate status pesanan pembeli
+         $pesananPembeli = userOrder::where('pembelianstatus', $dashboardusercontroller->pembelianstatus)->first();
+         $pesananPembeli->pembelianstatus = 'sedang di proses';
+         $pesananPembeli->nomor_antrian = $request->nomor_antrian;
+         $pesananPembeli->save();
 
             // Tambahkan notifikasi kepada pembeli di sini jika diperlukan
 

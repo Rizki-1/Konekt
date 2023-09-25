@@ -80,7 +80,7 @@ class dashboardusercontroller extends Controller
             ];
 
             return response()->json($response);
-            } catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             $response = [
                 'success' => false,
@@ -228,9 +228,9 @@ class dashboardusercontroller extends Controller
         $user_id = Auth::id();
         $subtotalorder = $userOrder->sum('totalharga');
 
-        $bank = adminmetodepembayaran::where('metodepembayaran','bank')->get();
-        $wallet = adminmetodepembayaran::where('metodepembayaran','e-wallet')->get();
-        return view('DashboardUser.pembelian', compact('userOrder', 'user_id','wallet', 'notifikasi', 'subtotalorder', 'bank'));
+        $bank = adminmetodepembayaran::where('metodepembayaran', 'bank')->get();
+        $wallet = adminmetodepembayaran::where('metodepembayaran', 'e-wallet')->get();
+        return view('DashboardUser.pembelian', compact('userOrder', 'user_id', 'wallet', 'notifikasi', 'subtotalorder', 'bank'));
     }
 
 
@@ -239,9 +239,9 @@ class dashboardusercontroller extends Controller
     {
         $penjualId = Auth::id();
         $user = userOrder::where('user_id', $penjualId)
-        ->whereNotNull('pembelianstatus')
-        ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima', 'dibatalkan'])
-        ->get();
+            ->whereNotNull('pembelianstatus')
+            ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima', 'dibatalkan'])
+            ->get();
         $pesanan = userOrder::where('pembelianstatus', 'selesai')->get();
         $penjual = barangpenjual::all();
 
@@ -250,28 +250,28 @@ class dashboardusercontroller extends Controller
     }
 
     public function batalkanpesanan($id)
-{
+    {
 
-    $order = userOrder::find($id);
-    $order->update([
-        'pembelianstatus' => 'dibatalkan',
-    ]);
+        $order = userOrder::find($id);
+        $order->update([
+            'pembelianstatus' => 'dibatalkan',
+        ]);
 
-    return redirect()->back()->with('success', 'pesanan berhasil di batalkan');
-}
+        return redirect()->back()->with('success', 'pesanan berhasil di batalkan');
+    }
 
 
-public function riwayatuser()
-{
-    $user_id = Auth::id();
-    $user = userOrder::where(function($query) use ($user_id) {
-        $query->whereIn('pembelianstatus', ['statusselesai', 'dibatalkan', 'pesanan di tolak']);
-    })
-        ->where('user_id', $user_id)
-        ->get();
+    public function riwayatuser()
+    {
+        $user_id = Auth::id();
+        $user = userOrder::where(function ($query) use ($user_id) {
+            $query->whereIn('pembelianstatus', ['statusselesai', 'dibatalkan', 'pesanan di tolak']);
+        })
+            ->where('user_id', $user_id)
+            ->get();
         $penjual = barangpenjual::all();
         $penjuallogin = penjuallogin::all();
-        return view('DashboardUser.riwayat', compact('user', 'penjual','penjuallogin'));
+        return view('DashboardUser.riwayat', compact('user', 'penjual', 'penjuallogin'));
     }
 
     public function Userkeranjang()
@@ -347,7 +347,7 @@ public function riwayatuser()
     public function detailmenu(Request $request, $id)
     {
         $user = BarangPenjual::findOrFail($id);
-        $penjual = BarangPenjual::where('id',$id)->get();
+        $penjual = BarangPenjual::where('id', $id)->get();
         $ulasan = ulasan::where('barangpenjual_id', $id)->get();
         // $penjual = BarangPenjual::all();
 
@@ -355,18 +355,19 @@ public function riwayatuser()
     }
 
 
-    public function daftartoko(){
+    public function daftartoko()
+    {
         $penjuallogin = penjuallogin::all();
-        return view ('DashboardUser.daftartoko', compact('penjuallogin'));
+        return view('DashboardUser.daftartoko', compact('penjuallogin'));
     }
 
     public function detailtoko(Request $request, $id)
     {
         $penjualId = Auth::id();
         $penjual = barangpenjual::where('toko_id', $penjualId)->get();
-        $user = penjuallogin::where('id',$id)->get();
+        $user = penjuallogin::where('id', $id)->get();
 
-        return view('DashboardUser.detailtoko', compact('penjual','user'));
+        return view('DashboardUser.detailtoko', compact('penjual', 'user'));
     }
 
     /**
@@ -435,26 +436,26 @@ public function riwayatuser()
 
 
     public function ulasan(Request $request, $id)
-{
+    {
 
-    //dd($request->all());
-    $username=Auth::user()->name;
-    $penjual = BarangPenjual::findOrFail($id);
-    $ulasan = ulasan::where('barangpenjual_id', $penjual->id)->get();
+        //dd($request->all());
+        $username = Auth::user()->name;
+        $penjual = BarangPenjual::findOrFail($id);
+        $ulasan = ulasan::where('barangpenjual_id', $penjual->id)->get();
 
-     $ulasan = [
+        $ulasan = [
             'barangpenjual_id' => $request->barangpenjual_id,
-            'username'=>$username,
+            'username' => $username,
             'rating' => $request->rating,
             'komentar' => $request->komentar
 
         ];
 
-    ulasan::create($ulasan);
-    return redirect()->route('riwayatuser');
-}
+        ulasan::create($ulasan);
+        return redirect()->route('riwayatuser');
+    }
 
-    public function pengembaliandana(Request $request ,$id)
+    public function pengembaliandana(Request $request, $id)
     {
 
         $userOrder = userOrder::findOrFail($id);
@@ -474,7 +475,6 @@ public function riwayatuser()
      */
     public function show(string $id)
     {
-
     }
 
     /**
@@ -482,41 +482,38 @@ public function riwayatuser()
      */
     public function edit(string $id)
     {
-
     }
 
     /**
      * Update the specified resource in storage.
      */
 
-     public function CheckKeranjang($id)
-     {
+    public function CheckKeranjang($id)
+    {
 
-          $user = userOrder::where('user_id', $id)->get();
-          $totalHargaKeseluruhan = 0;
-          foreach ($user as $item) {
-          $totalHargaKeseluruhan += $item->totalharga;
-         }
+        $user = userOrder::where('user_id', $id)->get();
+        $totalHargaKeseluruhan = 0;
+        foreach ($user as $item) {
+            $totalHargaKeseluruhan += $item->totalharga;
+        }
 
-         if($totalHargaKeseluruhan > 1)
-         {
-             $subtotalorder = userOrder::findOrFail($id);
-             $subtotalorder->subtotalorder = $totalHargaKeseluruhan;
-             $subtotalorder->save();
+        if ($totalHargaKeseluruhan > 1) {
+            $subtotalorder = userOrder::findOrFail($id);
+            $subtotalorder->subtotalorder = $totalHargaKeseluruhan;
+            $subtotalorder->save();
 
-             return redirect()->route('konfimasipembelian');
-         }else {
             return redirect()->route('konfimasipembelian');
-         }
-     }
+        } else {
+            return redirect()->route('konfimasipembelian');
+        }
+    }
 
     public function update(Request $request, $id)
     {
 
         $user_id = Auth::id();
         $order = userOrder::findOrFail($id);
-        if($order->user_id != Auth::user()->id)
-        {
+        if ($order->user_id != Auth::user()->id) {
             return back()->with('error', 'data user tidak valid');
         }
         $validatedData = $request->validate([
@@ -538,10 +535,10 @@ public function riwayatuser()
             'user_id' => $user_id,
             'metodepembayaran' => $request->metodepembayaran
         ];
-            $order->adminstatus = 'notapprove';
-            $order->pembelianstatus = 'menunggu konfirmasi';
+        $order->adminstatus = 'notapprove';
+        $order->pembelianstatus = 'menunggu konfirmasi';
 
-            $order->update($dashboardusercontrollers);
+        $order->update($dashboardusercontrollers);
 
 
         if ($request->hasFile('foto')) {
@@ -645,7 +642,6 @@ public function riwayatuser()
      */
     public function destroy(string $id)
     {
-
     }
 
     public function search(Request $request)
@@ -654,10 +650,10 @@ public function riwayatuser()
         $searchTerm = $request->input('query');
 
         // Lakukan pencarian pada model BarangPenjual (sesuaikan dengan model Anda)
-        $results = BarangPenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
+        $results = barangpenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
 
         // Kembalikan hasil pencarian dalam format JSON
+
         return response()->json($results);
     }
 }
-

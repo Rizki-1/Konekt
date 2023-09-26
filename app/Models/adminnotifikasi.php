@@ -11,6 +11,7 @@ class adminnotifikasi extends Model
 
     protected $fillable = [
         'keterangan_admin',
-        'isi_admin'
+        'isi_admin',
+        'is_read',
     ];
 }

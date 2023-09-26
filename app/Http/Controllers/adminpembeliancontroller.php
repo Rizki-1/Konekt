@@ -44,82 +44,85 @@ class adminpembeliancontroller extends Controller
 
     public function DashboardAdmin()
     {
-        $adminnotifikasi = adminnotifikasi::all();
+        $adminnotifikasi = adminnotifikasi::where('is_read', false)->get();
         $totalpengguna = User::where('role', 'penjual')->count();
         $totaluser = User::where('role', 'user')->count();
         $totalpembelian = userOrder::where('pembelianstatus', 'statusselesai')->count();
         $totalharga = userOrder::where('pembelianstatus', 'statusselesai')->sum('totalharga');
         $untung = $totalharga * 0.05;
 
-$data = userOrder::select(
-    DB::raw('MONTH(created_at) as month'),
-    DB::raw('YEAR(created_at) as year'),
-    'pembelianstatus',
-    DB::raw('count(*) as total')
-)
-->whereIn('pembelianstatus', ['statusselesai'])
-->groupBy('year', 'month', 'pembelianstatus')
-->get();
+        $data = userOrder::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('YEAR(created_at) as year'),
+            'pembelianstatus',
+            DB::raw('count(*) as total')
+        )
+            ->whereIn('pembelianstatus', ['statusselesai'])
+            ->groupBy('year', 'month', 'pembelianstatus')
+            ->get();
 
-$processedData = [];
+        $processedData = [];
 
-$currentYear = Carbon::now()->year; // Tahun saat ini
-$currentMonth = Carbon::now()->month; // Bulan saat ini
+        $currentYear = Carbon::now()->year; // Tahun saat ini
+        $currentMonth = Carbon::now()->month; // Bulan saat ini
 
-for ($month = 1; $month <= 12; $month++) {
-    $date = Carbon::createFromDate($currentYear, $month, 1); // Membuat objek Carbon dari tahun dan bulan
-    $yearMonth = $date->isoFormat('MMMM'); // Format bulan menjadi nama bulan dalam bahasa Inggris
+        for ($month = 1; $month <= 12; $month++) {
+            $date = Carbon::createFromDate($currentYear, $month, 1); // Membuat objek Carbon dari tahun dan bulan
+            $yearMonth = $date->isoFormat('MMMM'); // Format bulan menjadi nama bulan dalam bahasa Inggris
 
-    $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green'; // Beri warna biru untuk bulan saat ini, jika bukan bulan saat ini, beri warna hijau
+            $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green'; // Beri warna biru untuk bulan saat ini, jika bukan bulan saat ini, beri warna hijau
 
-    $processedData[$yearMonth] = [
-        'month' => $yearMonth,
-        'statusselesai' => 0,
-        'color' => $color,
-    ];
-}
+            $processedData[$yearMonth] = [
+                'month' => $yearMonth,
+                'statusselesai' => 0,
+                'color' => $color,
+            ];
+        }
 
-foreach ($data as $item) {
-    $yearMonth = Carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM'); // Format bulan pada data
+        foreach ($data as $item) {
+            $yearMonth = Carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM'); // Format bulan pada data
 
-    if (isset($processedData[$yearMonth])) {
-        $processedData[$yearMonth]['statusselesai'] = $item->total;
-    }
-}
+            if (isset($processedData[$yearMonth])) {
+                $processedData[$yearMonth]['statusselesai'] = $item->total;
+            }
+        }
 
-$chartData = array_values($processedData);
+        $chartData = array_values($processedData);
 
-        return view('admin.dashboard', compact('adminnotifikasi', 'totalpengguna', 'totaluser', 'totalpembelian', 'untung','chartData'));
+        return view('admin.dashboard', compact('adminnotifikasi', 'totalpengguna', 'totaluser', 'totalpembelian', 'untung', 'chartData'));
     }
 
     public function terima($id)
-{
-    $dashboardusercontrollers = userOrder::find($id);
+    {
+        $dashboardusercontrollers = userOrder::find($id);
+        $toko_id = $dashboardusercontrollers->toko_id;
 
-    if (!$dashboardusercontrollers) {
-        // Tindakan yang harus diambil jika ID tidak ditemukan
-        return redirect()->back()->with('error', 'Pesanan tidak ditemukan');
+        if (!$dashboardusercontrollers) {
+            // Tindakan yang harus diambil jika ID tidak ditemukan
+            return redirect()->back()->with('error', 'Pesanan tidak ditemukan');
+        }
+
+        $dashboardusercontrollers->adminstatus = 'approve';
+        $dashboardusercontrollers->save();
+
+        $notifikasipenjual = new notifikasipenjual();
+        $notifikasipenjual->keterangan_penjual = 'Ada pesanan baru!';
+        $notifikasipenjual->isi_penjual = 'Cek halaman pesanan untuk informasi lebih lanjut';
+        $notifikasipenjual->toko_id_notifikasi = $toko_id;
+        $notifikasipenjual->save();
+
+        $adminnotifikasi = adminnotifikasi::where('id', $id)->first();
+
+        if ($adminnotifikasi) {
+            $adminnotifikasi->keterangan_admin = 'pesanan berhasil di konfirmasi';
+            $adminnotifikasi->isi_admin = 'pesanan akan disampaikan ke penjual';
+            $adminnotifikasi->is_read = false;
+            $adminnotifikasi->save();
+        }
+
+        // notifikasipenjual::create($notifikasi_penjual);
+        return redirect()->back()->with('success', 'Pesanan berhasil diterima');
     }
-
-    $dashboardusercontrollers->adminstatus = 'approve';
-    $dashboardusercontrollers->save();
-
-    $adminnotifikasi = adminnotifikasi::where('id', $id)->first();
-
-    if ($adminnotifikasi) {
-        $adminnotifikasi->keterangan_admin = 'pesanan berhasil di konfirmasi';
-        $adminnotifikasi->isi_admin = 'pesanan akan disampaikan ke penjual';
-        $adminnotifikasi->save();
-    }
-
-    // $notifikasi_penjual = [
-    //     'keterangan_penjual' => 'ada pesanan',
-    //     'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut'
-    // ];
-
-    // notifikasipenjual::create($notifikasi_penjual);
-    return redirect()->back()->with('success', 'Pesanan berhasil diterima');
-}
 
 
     public function tolak($id)
@@ -128,24 +131,28 @@ $chartData = array_values($processedData);
         $dashboardusercontrollers->adminstatus = 'notapproveadmin';
         $dashboardusercontrollers->save();
 
-        // $notifikasi = notifikasi::FindOrFail($id);
-        // $notifikasi->keterangan = 'pesanan anda di tolak ';
-        // $notifikasi->isi = 'periksa tabel pesanan anda untuk konfirmasi';
-        // $notifikasi->save();
+        $notifikasi = notifikasi::where('id', $id)->first();
+
+        if ($notifikasi) {
+            $notifikasi->keterangan = 'Pesanan Anda ditolak!';
+            $notifikasi->isi = 'Silahkan Chat Admin untuk mengetahui info lengkapnya.';
+            $notifikasi->is_read = false;
+            $notifikasi->save();
+        }
 
         return redirect()->back();
     }
 
     public function calonpenjual(Request $request)
-        {
-    // Mengambil data penjual dengan peran "penjualnotapprove" yang terkait dengan penjuallogin
-    $penjuallogin = penjuallogin::with('user')
-        ->whereHas('user', function ($query) {
-            $query->where('role', 'penjualnotapprove');
-        })
-        ->get();
+    {
+        // Mengambil data penjual dengan peran "penjualnotapprove" yang terkait dengan penjuallogin
+        $penjuallogin = penjuallogin::with('user')
+            ->whereHas('user', function ($query) {
+                $query->where('role', 'penjualnotapprove');
+            })
+            ->get();
 
-    return view('admin.calonpenjual', compact('penjuallogin'));
+        return view('admin.calonpenjual', compact('penjuallogin'));
     }
 
     public function terimapenjual(string $id)
@@ -344,73 +351,63 @@ $chartData = array_values($processedData);
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'metodepembayaran' => 'required',
-        'tujuan' => 'required',
-        'keterangan' => 'required|',
-    ], [
-        'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-        'tujuan.required' => 'Tujuan wajib diisi.',
-        'keterangan.required' => 'Keterangan wajib diisi.',
-        'keterangan.file' => 'Keterangan harus berupa file.',
-        'keterangan.mimes' => 'Keterangan harus berupa file dengan format jpeg, jpg, atau png.',
-        'keterangan.max' => 'Ukuran maksimal Keterangan adalah 2MB.',
-    ]);
+    {
+        $request->validate([
+            'metodepembayaran' => 'required',
+            'tujuan' => 'required',
+            'keterangan' => 'required|',
+        ], [
+            'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+            'tujuan.required' => 'Tujuan wajib diisi.',
+            'keterangan.required' => 'Keterangan wajib diisi.',
+            'keterangan.file' => 'Keterangan harus berupa file.',
+            'keterangan.mimes' => 'Keterangan harus berupa file dengan format jpeg, jpg, atau png.',
+            'keterangan.max' => 'Ukuran maksimal Keterangan adalah 2MB.',
+        ]);
 
-    $adminmp = new adminmetodepembayaran;
-    $adminmp->metodepembayaran = $request->metodepembayaran;
-    $adminmp->tujuan = $request->tujuan;
-    $adminmp->keterangan = $request->input('keterangan');
+        $adminmp = new adminmetodepembayaran;
+        $adminmp->metodepembayaran = $request->metodepembayaran;
+        $adminmp->tujuan = $request->tujuan;
+        $adminmp->keterangan = $request->input('keterangan');
 
-    if ($request->file('keterangan')) {
-        $image = $request->file('keterangan');
-        $filename = $image->hashName();
-        $image->storeAs('public/pembayaran', $filename);
-        $adminmp->keterangan = $filename;
+        if ($request->file('keterangan')) {
+            $image = $request->file('keterangan');
+            $filename = $image->hashName();
+            $image->storeAs('public/pembayaran', $filename);
+            $adminmp->keterangan = $filename;
+        }
+        $adminmp->save();
+        return back();
     }
-    $adminmp->save();
-    return back();
-}
 
 
     public function adestroy(adminmetodepembayaran $adminmp)
     {
-      try{
-        $adminmp->delete();
-        return redirect()->route('metodpembayaran');
-      }catch (Exception $e){
-        return back()->with('error');
-      }
+        try {
+            $adminmp->delete();
+            return redirect()->route('metodpembayaran');
+        } catch (Exception $e) {
+            return back()->with('error');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function notifikasiadmin()
     {
+        // Hitung jumlah notifikasi dari sumber data Anda, misalnya basis data
+        $notificationCount = adminnotifikasi::where('is_read', false)->count(); // Contoh: Menghitung notifikasi yang belum dibaca
+
+        return response()->json(['count' => $notificationCount]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function readnotifikasiadmin($id)
     {
-    }
+        $notification = adminnotifikasi::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
+        if ($notification) {
+            $notification->update(['is_read' => true]);
+            return response()->json(['message' => 'Notifikasi telah dibaca']);
+        }
 
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-
+        return response()->json(['message' => 'Notifikasi tidak ditemukan'], 404);
     }
 }

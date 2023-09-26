@@ -32,7 +32,9 @@ class dashboardusercontroller extends Controller
     {
         $user_id = Auth::id();
         $users = userOrder::all();
-        $notifikasi = notifikasi::where('user_id_notifikasi', $user_id);
+        $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
+            ->where('is_read', false)
+            ->get();
         $penjual =  barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
@@ -90,44 +92,6 @@ class dashboardusercontroller extends Controller
             return response()->json($response, 500);
         }
     }
-
-    // public function pembelian(Request $request)
-    // {
-    //     $request->validate([
-    //         'barangpenjual_id' => 'required',
-    //         'jumlah' => 'required|integer',
-    //         'catatan' => 'string',
-    //         'foto' => 'image|mimes:jpeg,png,jpg,gif',
-    //         'toko_id' => 'required',
-    //         'user_id' => 'required'
-    //     ], [
-    //         'barangpenjual_id.required' => 'Kolom barang penjual wajib diisi.',
-    //         'jumlah.required' => 'Kolom jumlah wajib diisi.',
-    //         'jumlah.integer' => 'Kolom jumlah harus berupa angka.',
-    //         'catatan.string' => 'Kolom catatan harus berupa teks.',
-    //         'foto.image' => 'Kolom foto harus berupa gambar.',
-    //         'foto.mimes' => 'Kolom foto harus berformat jpeg, png, jpg, atau gif.',
-    //         'toko_id.required' => 'Kolom toko wajib diisi.',
-    //         'user_id.required' => 'Kolom user wajib diisi.'
-    //     ]);
-
-    //     $penjual = barangpenjual::with('userOrders')->has('userOrders')->where('id', $request->id)->get();
-    //     $barang = barangpenjual::findOrFail($request->barangpenjual_id);
-    //     $totalharga = ($barang->harga * $request->jumlah) + ($barang->harga * $request->jumlah * 0.05);
-
-    //     $userOrderData = [
-    //         'barangpenjual_id' => $request->barangpenjual_id,
-    //         'jumlah' => $request->jumlah,
-    //         'adminstatus' => 'notactive',
-    //         'pembelianstatus' => 'notactive',
-    //         'toko_id' => $request->toko_id,
-    //         'user_id' => $request->user_id,
-    //         'totalharga' => $totalharga,
-    //         'metodepembayaran' => 'waiting'
-    //     ];
-    //     $userOrders =  userOrder::create($userOrderData);
-    //     return redirect()->route('konfimasipembelian', ['ids' => $userOrders->id]);
-    // }
 
     public function order(Request $request)
     {
@@ -470,24 +434,6 @@ class dashboardusercontroller extends Controller
         return redirect()->back()->with('success', 'pengembalian dana sedang di proses');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-
     public function CheckKeranjang($id)
     {
 
@@ -637,12 +583,6 @@ class dashboardusercontroller extends Controller
             return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
         }
     }
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-    }
 
     public function search(Request $request)
     {
@@ -655,5 +595,25 @@ class dashboardusercontroller extends Controller
         // Kembalikan hasil pencarian dalam format JSON
 
         return response()->json($results);
+    }
+
+    public function notifikasiuser()
+    {
+        // Hitung jumlah notifikasi dari sumber data Anda, misalnya basis data
+        $notificationCount = notifikasi::where('is_read', false)->count(); // Contoh: Menghitung notifikasi yang belum dibaca
+
+        return response()->json(['count' => $notificationCount]);
+    }
+
+    public function readnotifikasiuser($id)
+    {
+        $notification = notifikasi::find($id);
+
+        if ($notification) {
+            $notification->update(['is_read' => true]);
+            return response()->json(['message' => 'Notifikasi telah dibaca']);
+        }
+
+        return response()->json(['message' => 'Notifikasi tidak ditemukan'], 404);
     }
 }

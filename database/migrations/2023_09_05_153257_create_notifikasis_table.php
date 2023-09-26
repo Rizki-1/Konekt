@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('user_id_notifikasi');
             $table->string('keterangan');
             $table->string('isi');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }

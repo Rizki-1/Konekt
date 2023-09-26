@@ -39,6 +39,9 @@ class penjualcontroller extends Controller
     public function DashboardPenjual()
     {
         $penjualId = Auth::id();
+        $notifikasipenjual = notifikasipenjual::where('toko_id_notifikasi', $penjualId)
+            ->where('is_read', false)
+            ->get();
         $menu = barangpenjual::where('toko_id', $penjualId)->count();
         $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->where('toko_id', $penjualId)->count();
         $totalharga = userOrder::where('pembelianstatus', 'statusselesai')->where('toko_id', $penjualId)->sum('totalharga');
@@ -91,7 +94,7 @@ class penjualcontroller extends Controller
         //   dd($ini);
 
         $chartData = array_values($processedData);
-        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'chartData'));
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'chartData', 'notifikasipenjual'));
     }
 
     public function riwayatpenjual()
@@ -180,27 +183,18 @@ class penjualcontroller extends Controller
         return view('DashboardPenjual.detailmenupen', compact('user', 'penjual', 'ulasan'));
     }
 
-    // public function terimapesanan($id, Request $request)
-    // {
-    //     // $notifikasi = notifikasi::findOrFail($id);
-    //     // $notifikasi->keterangan = 'pesanan anda sedang di proses';
-    //     // $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
-    //     // $notifikasi->save();
+    public function terimapesanan(Request $request, $id)
+    {
+        try {
+            $dashboardusercontroller = userOrder::findOrFail($id);
+            $dashboardusercontroller->pembelianstatus = 'sedang di proses';
+            $dashboardusercontroller->save();
 
-    // //     return redirect()->route('pesananpenjual');
-    // // }
-    public function terimapesanan(Request $request ,$id)
-{
-    try {
-        $dashboardusercontroller = userOrder::findOrFail($id);
-        $dashboardusercontroller->pembelianstatus = 'sedang di proses';
-        $dashboardusercontroller->save();
-
-         // Mengupdate status pesanan pembeli
-         $pesananPembeli = userOrder::where('pembelianstatus', $dashboardusercontroller->pembelianstatus)->first();
-         $pesananPembeli->pembelianstatus = 'sedang di proses';
-         $pesananPembeli->nomor_antrian = $request->nomor_antrian;
-         $pesananPembeli->save();
+            // Mengupdate status pesanan pembeli
+            $pesananPembeli = userOrder::where('pembelianstatus', $dashboardusercontroller->pembelianstatus)->first();
+            $pesananPembeli->pembelianstatus = 'sedang di proses';
+            $pesananPembeli->nomor_antrian = $request->nomor_antrian;
+            $pesananPembeli->save();
 
             // Tambahkan notifikasi kepada pembeli di sini jika diperlukan
 
@@ -214,28 +208,32 @@ class penjualcontroller extends Controller
 
     public function tolakpesanan($id)
     {
-        //     $notifikasi = notifikasi::findOrFail($id);
-        //     $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
-        //     $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
-        //     $notifikasi->save();
-        // dd($notifikasi);
         $dashboardusercontrollers = userOrder::findOrFail($id);
         $dashboardusercontrollers->pembelianstatus = 'pesanan di tolak';
         $dashboardusercontrollers->save();
+
+        $notifikasi = notifikasi::where('id', $id)->first();
+        $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
+        $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
+        $notifikasi->is_read = false;
+        $notifikasi->save();
+        // dd($notifikasi);
 
         return redirect()->route('pesananpenjual');
     }
 
     public function tandakantelahselesai($id)
     {
-        // $notifikasi = notifikasi::findOrFail($id);
-        // $notifikasi->keterangan = 'pesanan anda telah selesai ';
-        // $notifikasi->isi = 'lihat tabel pesanan untuk informasi lebih lanjut';
-        // $notifikasi->save();
         $dashboardusercontrollers = userOrder::findOrfail($id);
         $dashboardusercontrollers->adminstatus = 'penjualapprove';
         $dashboardusercontrollers->pembelianstatus = 'selesai';
         $dashboardusercontrollers->save();
+
+        $notifikasi = notifikasi::where('id', $id)->first();
+        $notifikasi->keterangan = 'Pesanan Anda telah selesai.';
+        $notifikasi->isi = 'Lihat halaman pesanan untuk informasi lebih lanjut';
+        $notifikasi->is_read = false;
+        $notifikasi->save();
 
         return redirect()->route('pesananpenjual');
     }
@@ -250,16 +248,6 @@ class penjualcontroller extends Controller
             ->whereIn('pembelianstatus', ['menunggu konfirmasi', 'sedang di proses'])
             ->get();
 
-
-        if ($dashboardusercontrollers) {
-            $notifikasi_penjual =
-                [
-                    'keterangan_penjual' => 'ada pesanan',
-                    'isi_penjual' => 'Cek tabel pesanan untuk informasi lebih lanjut',
-                    'toko_id_notifikasi' => $penjualId
-                ];
-            notifikasipenjual::create($notifikasi_penjual);
-        }
         $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi', $penjualId)->get();
 
 
@@ -471,5 +459,25 @@ class penjualcontroller extends Controller
             'success' => true,
             'message' => 'Menu berhasil dihapus.'
         ]);
+    }
+
+    public function notifikasipenjual()
+    {
+        // Hitung jumlah notifikasi dari sumber data Anda, misalnya basis data
+        $notificationCount = notifikasipenjual::where('is_read', false)->count(); // Contoh: Menghitung notifikasi yang belum dibaca
+
+        return response()->json(['count' => $notificationCount]);
+    }
+
+    public function readnotifikasipenjual($id)
+    {
+        $notification = notifikasipenjual::find($id);
+
+        if ($notification) {
+            $notification->update(['is_read' => true]);
+            return response()->json(['message' => 'Notifikasi telah dibaca']);
+        }
+
+        return response()->json(['message' => 'Notifikasi tidak ditemukan'], 404);
     }
 }

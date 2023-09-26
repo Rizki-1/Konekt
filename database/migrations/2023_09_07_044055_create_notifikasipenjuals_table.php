@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('toko_id_notifikasi');
             $table->string('keterangan_penjual');
             $table->string('isi_penjual');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }

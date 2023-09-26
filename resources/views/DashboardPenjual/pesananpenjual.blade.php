@@ -133,7 +133,6 @@
                     <label for="kelas" class="form-label fw-bold">total harga</label>
                     <input type="text" name="totalharga" class="form-control" value="Rp. {{ number_format($s->totalharga) }}" readonly>
                 </div>
-                @dump($s->id)
                <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
                 <div class="mb-3">
                     <label for="kelas" class="form-label fw-bold">beri nomer antrian</label>

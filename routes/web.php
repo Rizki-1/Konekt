@@ -52,6 +52,8 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::get('pengajuanpembeliad', [adminpembeliancontroller::class, 'pengajuanpembeliad'])->name('pengajuanpembeliad');
     Route::get('pengajuanpenjualad', [adminpembeliancontroller::class, 'pengajuanpenjualad'])->name('pengajuanpenjualad');
     Route::patch('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
+    Route::get('notifikasiadmin', [adminpembeliancontroller::class, 'notifikasiadmin'])->name('notifikasiadmin');
+    Route::post('readnotifikasiadmin/{id}', [adminpembeliancontroller::class, 'readnotifikasiadmin'])->name('readnotifikasiadmin');
 });
 
 
@@ -78,6 +80,8 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::patch('tandakanselesai/{id}', [dashboardusercontroller::class, 'tandakanselesai'])->name('tandakanselesai');
     Route::patch('batalkanpesanan/{id}',  [dashboardusercontroller::class, 'batalkanpesanan'])->name('batalkanpesanan');
     Route::patch('pengembaliandana/{id}', [dashboardusercontroller::class, 'pengembaliandana'])->name('pengembaliandana');
+    Route::get('notifikasiuser', [dashboardusercontroller::class, 'notifikasiuser'])->name('notifikasiuser');
+    Route::post('readnotifikasiuser/{id}', [dashboardusercontroller::class, 'readnotifikasiuser'])->name('readnotifikasiuser');
 
 });
 
@@ -99,6 +103,8 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::get('pengajuandana', [penjualcontroller::class, 'pengajuandana'])->name('pengajuandana');
     Route::get('profilepenjual', [penjualcontroller::class, 'profilepenjual'])->name('profilepenjual');
     Route::get('detailmenupen/{id}', [penjualcontroller::class, 'detailmenupen'])->name('detailmenupen');
+    Route::get('notifikasipenjual', [penjualcontroller::class, 'notifikasipenjual'])->name('notifikasipenjual');
+    Route::post('readnotifikasipenjual/{id}', [penjualcontroller::class, 'readnotifikasipenjual'])->name('readnotifikasipenjual');
 });
 
 

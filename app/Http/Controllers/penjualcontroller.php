@@ -188,13 +188,8 @@ class penjualcontroller extends Controller
         try {
             $dashboardusercontroller = userOrder::findOrFail($id);
             $dashboardusercontroller->pembelianstatus = 'sedang di proses';
+            $dashboardusercontroller->nomor_antrian = $request->nomor_antrian;
             $dashboardusercontroller->save();
-
-            // Mengupdate status pesanan pembeli
-            $pesananPembeli = userOrder::where('pembelianstatus', $dashboardusercontroller->pembelianstatus)->first();
-            $pesananPembeli->pembelianstatus = 'sedang di proses';
-            $pesananPembeli->nomor_antrian = $request->nomor_antrian;
-            $pesananPembeli->save();
 
             // Tambahkan notifikasi kepada pembeli di sini jika diperlukan
 

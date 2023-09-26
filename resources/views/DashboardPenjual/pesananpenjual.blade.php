@@ -138,31 +138,35 @@
                                 value="Rp. {{ number_format($s->totalharga) }}" readonly>
                         </div>
                         <form action="{{ route('terimapesanan', ['id' => $s->id]) }}" method="POST">
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">beri nomer antrian</label>
-                                <input type="text" name="nomor_antrian" class="form-control">
-                            </div>
-                            <div class="d-flex justify-content">
-                                @if ($s->pembelianstatus === 'menunggu konfirmasi')
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-outline-success accept-btn"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#myModal_{{ $s->id }}">Terima</button>
-                        </form>
-                        <form action="{{ route('tolakpesanan', ['id' => $s->id]) }}" method="POST">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-outline-danger reject-btn" data-bs-toggle="modal"
-                                data-bs-target="#myModal_{{ $s->id }}">Tolak</button>
+                            @if ($s->pembelianstatus === 'menunggu konfirmasi')
+                                <div class="mb-3">
+                                    <label for="kelas" class="form-label fw-bold">Beri Nomor Antrian</label>
+                                    <input type="text" name="nomor_antrian" class="form-control">
+                                </div>
+                                <div class="d-flex justify-content gap-2">
+                                    <button type="submit" class="btn btn-outline-success accept-btn"
+                                        data-bs-toggle="modal" data-bs-target="#myModal_{{ $s->id }}">Terima
+                                    </button>
+                            @endif
                         </form>
-    @endif
-    </div>
-    </div>
-    <div class="modal-footer"></div>
-    </div>
-    </div>
-    </div>
+                        <form action="{{ route('tolakpesanan', ['id' => $s->id]) }}" method="POST">
+                            @if ($s->pembelianstatus === 'menunggu konfirmasi')
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-outline-danger reject-btn" data-bs-toggle="modal"
+                                    data-bs-target="#myModal_{{ $s->id }}">Tolak
+                                </button>
+                            @endif
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+        </div>
     @endforeach
 
 

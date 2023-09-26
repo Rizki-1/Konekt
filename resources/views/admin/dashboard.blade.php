@@ -382,7 +382,7 @@
                                                         </div>
                                                     </div>
                                                 @else
-                                                    <a href="{{route('pembelianadmin.index')}}" class="iq-sub-card"
+                                                    <a href="{{ route('pembelianadmin.index') }}" class="iq-sub-card"
                                                         data-notification-id="{{ $notif->id }}">
                                                         <div class="d-flex text-align-center">
                                                             <div class="w-100">
@@ -461,10 +461,10 @@
                                                     }
                                                 });
                                             }
-                                                updateNotificationCount();
+                                            updateNotificationCount();
 
-                                                // Atur interval untuk memperbarui jumlah notifikasi setiap beberapa detik
-                                                setInterval(updateNotificationCount, 5000); // Contoh: 5000 milidetik (5 detik)
+                                            // Atur interval untuk memperbarui jumlah notifikasi setiap beberapa detik
+                                            setInterval(updateNotificationCount, 5000); // Contoh: 5000 milidetik (5 detik)
 
                                             // Public JavaScript file
 

@@ -87,9 +87,9 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @if (session('error'))
-    <script>
-        toastr.success('{{ session('error') }}')
-    </script>
+        <script>
+            toastr.success('{{ session('error') }}')
+        </script>
     @endif
     {{-- @include('layout.logoloader') --}}
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -186,7 +186,7 @@
                         </a>
                     </li>
                 </ul>
-                    </li>
+                </li>
                 </ul>
                 <!-- Sidebar Menu End -->
             </div>
@@ -230,54 +230,6 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
-                            <!-- isi dari notifikasi-->
-
-
-
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
-                                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M16.7695 10.1453C16.039 9.29229 15.7071 8.55305 15.7071 7.29716V6.87013C15.7071 5.23354 15.3304 4.17907 14.5115 3.12459C13.2493 1.48699 11.1244 0.5 9.04423 0.5H8.95577C6.91935 0.5 4.86106 1.44167 3.577 3.0128C2.71333 4.08842 2.29293 5.18822 2.29293 6.87013V7.29716C2.29293 8.55305 1.98284 9.29229 1.23049 10.1453C0.676907 10.7738 0.5 11.5815 0.5 12.4557C0.5 13.3309 0.787226 14.1598 1.36367 14.8336C2.11602 15.6413 3.17846 16.1569 4.26375 16.2466C5.83505 16.4258 7.40634 16.4933 9.0005 16.4933C10.5937 16.4933 12.165 16.3805 13.7372 16.2466C14.8215 16.1569 15.884 15.6413 16.6363 14.8336C17.2118 14.1598 17.5 13.3309 17.5 12.4557C17.5 11.5815 17.3231 10.7738 16.7695 10.1453Z"
-                                            fill="currentColor" />
-                                        <path opacity="0.4"
-                                            d="M11.0097 17.7285C10.5098 17.6217 7.46364 17.6217 6.96372 17.7285C6.53636 17.8272 6.07422 18.0568 6.07422 18.5604C6.09907 19.0408 6.38033 19.4648 6.76992 19.7337L6.76893 19.7347C7.27282 20.1275 7.86416 20.3773 8.48334 20.4669C8.8133 20.5122 9.14923 20.5102 9.49111 20.4669C10.1093 20.3773 10.7006 20.1275 11.2045 19.7347L11.2035 19.7337C11.5931 19.4648 11.8744 19.0408 11.8992 18.5604C11.8992 18.0568 11.4371 17.8272 11.0097 17.7285Z"
-                                            fill="currentColor" />
-                                    </svg>
-                                    <span class="bg-danger dots"></span>
-                                </a>
-                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="notification-drop">
-                                    <div class="card shadow-none m-0">
-                                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
-                                            <div class="header-title">
-                                                <h5 class="mb-0 text-white">All Notifications</h5>
-                                            </div>
-                                        </div>
-                                        @php
-                                        $latestNotifications = $notifikasi->sortByDesc('created_at')->take(3);
-                                        @endphp
-
-                                        @foreach ($latestNotifications as $notif)
-                                            <div class="card-body p-0 notifikasi-belum-kedaluwarsa" >
-                                                    <div class="d-flex align-items-center">
-                                                        <img class="avatar-40 rounded-pill" src="../assets/images/layouts/01.png" alt="">
-                                                        <div class="ms-3 w-100">
-                                                            <h6 class="mb-0">{{ $notif->keterangan }}</h6>
-                                                            <div class="d-flex justify-content-between align-items-center">
-                                                                <p class="mb-0">{{ $notif->isi }}</p>
-                                                                <small class="float-end font-size-12">Just Now</small>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-
-                            </li>
-                            <!-- End notifikasi -->
                             <!-- start pesan -->
 
                             <!-- End Pesan-->
@@ -299,60 +251,68 @@
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
                                     <li><button type="submit" class="dropdown-item"> logout </button></li>
-                                   </form>
-                                    </li>
-                                </ul>
+                                    </form>
                             </li>
-                            <!-- End Profile-->
+                        </ul>
+                        </li>
+                        <!-- End Profile-->
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
         <!-- Loop through pembelian records -->
-                <div class="content-inner mt-5 py-0">
-                    <div class=" card col-md-12 col-lg-12">
-                        <div class="card-body">
-                            <div class="">
-                                <h3 class="text-primary">Konfirmasi Pesanan</h3>
-                            </div>
-                                <!-- Menampilkan nama penjual dan detail menu dari barangpenjual -->
-                                <div class="mb-2 mt-2">
-                                    <i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px" aria-hidden="true"></i>
-                                    {{-- {{ $p->namapenjual }} <!-- Menampilkan nama penjual --> --}}
-                                </div>
-                                @foreach ($userOrder as $p)
-                                <form action="{{ route('menu.massUpdate') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
+        <div class="content-inner mt-5 py-0">
+            <div class=" card col-md-12 col-lg-12">
+                <div class="card-body">
+                    <div class="">
+                        <h3 class="text-primary">Konfirmasi Pesanan</h3>
+                    </div>
+                    <!-- Menampilkan nama penjual dan detail menu dari barangpenjual -->
+                    <div class="mb-2 mt-2">
+                        <i class="fa fa-shopping-basket px-2 mb-2" style="font-size:26px" aria-hidden="true"></i>
+                        {{-- {{ $p->namapenjual }} <!-- Menampilkan nama penjual --> --}}
+                    </div>
+                    @foreach ($userOrder as $p)
+                        <form action="{{ route('menu.massUpdate') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
 
-                                <div class="d-flex justify-content-between item-element" data-order-id="{{ $p->id }}">
-                                    <!-- Menampilkan detail menu -->
-                                    <div class=""><img src="{{ Storage::url($p->penjual->fotomakanan) }}" width="100px" alt="" srcset=""></div>
-                                    <div class="form-label text-bold">
-                                        <h5 class="form-label">Nama Menu</h5>
-                                        <div class="">
-                                            <p class="form-label">{{ $p->penjual->namamenu }}</p>
-                                            <input type="hidden" id="barangpenjual_id" name="barangpenjual_id_{{ $p->id }}" value="{{ $p->penjual->id }}">
-                                            <input type="hidden" id="toko_id" name="toko_id_{{ $p->id }}" value="{{ $p->toko_id }}">
-                                            <input type="hidden" id="user_id" name="user_id_{{ $p->id }}" value="{{ $p->user_id }}">
-                                            <input type="hidden" id="user_id_notifikasi" name="user_id_notifikasi" value="{{ $p->user_id }}">
-                                        </div>
+                            <div class="d-flex justify-content-between item-element"
+                                data-order-id="{{ $p->id }}">
+                                <!-- Menampilkan detail menu -->
+                                <div class=""><img src="{{ Storage::url($p->penjual->fotomakanan) }}"
+                                        width="100px" alt="" srcset=""></div>
+                                <div class="form-label text-bold">
+                                    <h5 class="form-label">Nama Menu</h5>
+                                    <div class="">
+                                        <p class="form-label">{{ $p->penjual->namamenu }}</p>
+                                        <input type="hidden" id="barangpenjual_id"
+                                            name="barangpenjual_id_{{ $p->id }}"
+                                            value="{{ $p->penjual->id }}">
+                                        <input type="hidden" id="toko_id" name="toko_id_{{ $p->id }}"
+                                            value="{{ $p->toko_id }}">
+                                        <input type="hidden" id="user_id" name="user_id_{{ $p->id }}"
+                                            value="{{ $p->user_id }}">
+                                        <input type="hidden" id="user_id_notifikasi" name="user_id_notifikasi"
+                                            value="{{ $p->user_id }}">
                                     </div>
-                                    <div class="form-label text-bold px-4">
-                                        <h5 class="form-label">Harga</h5>
-                                        <div class="">
-                                            <p class="form-label">Rp. {{ number_format($p->penjual->harga) }}</p>
-                                        </div>
+                                </div>
+                                <div class="form-label text-bold px-4">
+                                    <h5 class="form-label">Harga</h5>
+                                    <div class="">
+                                        <p class="form-label">Rp. {{ number_format($p->penjual->harga) }}</p>
                                     </div>
+                                </div>
                                 <div class="form-label text-bold px-4">
                                     <h5 class="form-label">Jumlah</h5>
                                     <div class="">
                                         <p class="form-label">{{ $p->jumlah }}</p>
-                                        <input type="hidden" id="jumlah" name="jumlah_{{ $p->id }}" value="{{ $p->jumlah }}">
+                                        <input type="hidden" id="jumlah" name="jumlah_{{ $p->id }}"
+                                            value="{{ $p->jumlah }}">
                                     </div>
                                 </div>
                                 <!-- Total harga belum dihitung -->
@@ -365,9 +325,9 @@
                                 </div>
                             </div>
                             <hr>
-                            @endforeach
-                    </div>
+                    @endforeach
                 </div>
+            </div>
 
 
 
@@ -375,236 +335,251 @@
             <div class="card col-md-12">
                 <div class="card-body">
 
-        <div class="mb-3">
-            <div class="">
-                <h5 class="text-bold">Total harga</h5>
-            </div>
-            <div class="mt-3 me-auto">
-                <p>Rp. {{ number_format($subtotalorder) }}<span class="text-danger"> (5% Biaya Admin)</span></p>
-            </div>
-        </div>
-            <div class="mb-3">
-                <div>
-                    <h5 class="text-bold">Pesan :</h5>
-                </div>
-                <div class="mt-3">
-                    <input type="text" name="catatan" class="form-control" id="catatan" placeholder="masukan catatan (opsional)">
-                </div>
-            </div>
+                    <div class="mb-3">
+                        <div class="">
+                            <h5 class="text-bold">Total harga</h5>
+                        </div>
+                        <div class="mt-3 me-auto">
+                            <p>Rp. {{ number_format($subtotalorder) }}<span class="text-danger"> (5% Biaya
+                                    Admin)</span></p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div>
+                            <h5 class="text-bold">Pesan :</h5>
+                        </div>
+                        <div class="mt-3">
+                            <input type="text" name="catatan" class="form-control" id="catatan"
+                                placeholder="masukan catatan (opsional)">
+                        </div>
+                    </div>
 
-            <div class="container m-0 p-0 d-flex justify-content-between">
-                <div class="">
-                    <h5 class="text-bold">Metode Pembayaran</h5><br>
-                    <select class="form-select form-select-lg mb-3" name="metodepembayaran"
-                        style="width: 300px; height: 50px; font-size: 18px;"
-                        aria-label=".form-select-lg example" id="selectMetode">
-                        <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
-                        <option value="e-wallet" data-target="ewalletInput">E-Wallet</option>
-                        <option value="bank" data-target="bankInput">Bank</option>
-                    </select>
-                </div>
-            </div>
+                    <div class="container m-0 p-0 d-flex justify-content-between">
+                        <div class="">
+                            <h5 class="text-bold">Metode Pembayaran</h5><br>
+                            <select class="form-select form-select-lg mb-3" name="metodepembayaran"
+                                style="width: 300px; height: 50px; font-size: 18px;"
+                                aria-label=".form-select-lg example" id="selectMetode">
+                                <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
+                                <option value="e-wallet" data-target="ewalletInput">E-Wallet</option>
+                                <option value="bank" data-target="bankInput">Bank</option>
+                            </select>
+                        </div>
+                    </div>
 
-            {{-- ewallet --}}
-            <div class="mb-3" id="ewalletInput" style="display: none;">
-                <div>
-                    <p class="text-bold">Jenis QR</p>
-                </div>
-                <select name="JenisEwallet" id="JenisEwallet" class="form-control">
-                    <option value="" disabled selected>Pilih</option>
-                    @forelse ($wallet as $data)
-                        <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
-                    @empty
-                        <option value="" disabled selected>Data E-wallet Kosong</option>
-                    @endforelse
-                </select>
-                <div class="mt-3">
-                    <p class="text-bold">Kode QR</p>
-                </div>
-                @foreach ($wallet as $data)
-                    @php
-                    $jefri = strlen($data->keterangan);
-                    @endphp
-                    @if ($jefri >= 20)
-                        <p class="" name="keteranganqr" value="{{ $data->keterangan }}" id="{{ $data->tujuan }}">
-                            <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}" style="width: 150px; height=80px;" disabled>
-                        </p>
-                    @else
-                        <a></a>
-                    @endif
-                @endforeach
-            </div>
+                    {{-- ewallet --}}
+                    <div class="mb-3" id="ewalletInput" style="display: none;">
+                        <div>
+                            <p class="text-bold">Jenis QR</p>
+                        </div>
+                        <select name="JenisEwallet" id="JenisEwallet" class="form-control">
+                            <option value="" disabled selected>Pilih</option>
+                            @forelse ($wallet as $data)
+                                <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
+                            @empty
+                                <option value="" disabled selected>Data E-wallet Kosong</option>
+                            @endforelse
+                        </select>
+                        <div class="mt-3">
+                            <p class="text-bold">Kode QR</p>
+                        </div>
+                        @foreach ($wallet as $data)
+                            @php
+                                $jefri = strlen($data->keterangan);
+                            @endphp
+                            @if ($jefri >= 20)
+                                <p class="" name="keteranganqr" value="{{ $data->keterangan }}"
+                                    id="{{ $data->tujuan }}">
+                                    <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}"
+                                        style="width: 150px; height=80px;" disabled>
+                                </p>
+                            @else
+                                <a></a>
+                            @endif
+                        @endforeach
+                    </div>
 
-            {{-- bank --}}
-            <div class="mb-3" id="bankInput" style="display: none;">
-                <div>
-                    <p class="text-bold">Jenis Bank</p>
-                </div>
-                <select name="JenisBank" id="JenisBank" class="form-control">
-                    <option value="" disabled selected>Pilih</option>
-                    @forelse ($bank as $data)
-                        <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
-                    @empty
-                        <option value=""disabled selected>Data No Rekening Kosong</option>
-                    @endforelse
-                </select>
-                <div class="mt-3">
-                    <p class="text-bold">No Rekening</p>
-                </div>
-                @foreach ($bank as $data)
-                    @php
-                    $saya = strlen($data->keterangan)
-                    @endphp
-                    @if ($saya >= 20)
-                        {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
-                    @else
-                        <input type="text" name="keterangan" value="{{ $data->keterangan }}" id="{{ $data->tujuan }}" class="form-control" disabled>
-                    @endif
-                @endforeach
-            </div>
-                <div class="">
-                    <p class="text-bold">Masukkan Bukti Pembayaran Anda</p>
-                </div>
-                <div class="mt-3">
-                    <input type="file" name="foto" class="form-control" id="foto">
-                </div>
+                    {{-- bank --}}
+                    <div class="mb-3" id="bankInput" style="display: none;">
+                        <div>
+                            <p class="text-bold">Jenis Bank</p>
+                        </div>
+                        <select name="JenisBank" id="JenisBank" class="form-control">
+                            <option value="" disabled selected>Pilih</option>
+                            @forelse ($bank as $data)
+                                <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
+                            @empty
+                                <option value=""disabled selected>Data No Rekening Kosong</option>
+                            @endforelse
+                        </select>
+                        <div class="mt-3">
+                            <p class="text-bold">No Rekening</p>
+                        </div>
+                        @foreach ($bank as $data)
+                            @php
+                                $saya = strlen($data->keterangan);
+                            @endphp
+                            @if ($saya >= 20)
+                                {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
+                            @else
+                                <input type="text" name="keterangan" value="{{ $data->keterangan }}"
+                                    id="{{ $data->tujuan }}" class="form-control" disabled>
+                            @endif
+                        @endforeach
+                    </div>
+                    <div class="">
+                        <p class="text-bold">Masukkan Bukti Pembayaran Anda</p>
+                    </div>
+                    <div class="mt-3">
+                        <input type="file" name="foto" class="form-control" id="foto">
+                    </div>
 
-            <div class="d-flex justify-content-end mt-5">
-                <button type="button" class="btn btn-primary" id="bayar">Bayar</button>
-            </div>
+                    <div class="d-flex justify-content-end mt-5">
+                        <button type="button" class="btn btn-primary" id="bayar">Bayar</button>
+                    </div>
 
-            {{-- Script Pembayaran --}}
-            <script>
-                const selectElement = document.querySelector('#JenisBank');
-                const inputElements = document.querySelectorAll('input[name="keterangan"]');
-                const spElement = document.querySelector('#JenisEwallet');
-                const pElements = document.querySelectorAll('p[name="keteranganqr"]');
+                    {{-- Script Pembayaran --}}
+                    <script>
+                        const selectElement = document.querySelector('#JenisBank');
+                        const inputElements = document.querySelectorAll('input[name="keterangan"]');
+                        const spElement = document.querySelector('#JenisEwallet');
+                        const pElements = document.querySelectorAll('p[name="keteranganqr"]');
 
-                selectElement.addEventListener('change', function() {
-                    const selectedValue = selectElement.value;
+                        selectElement.addEventListener('change', function() {
+                            const selectedValue = selectElement.value;
 
-                    inputElements.forEach(function(input) {
-                        if (input.id === selectedValue) {
-                            input.style.display = 'block';
-                            input.disabled = false;
-                        } else {
-                            input.style.display = 'none';
-                            input.disabled = true;
-                        }
-                    });
-                });
+                            inputElements.forEach(function(input) {
+                                if (input.id === selectedValue) {
+                                    input.style.display = 'block';
+                                    input.disabled = false;
+                                } else {
+                                    input.style.display = 'none';
+                                    input.disabled = true;
+                                }
+                            });
+                        });
 
-                spElement.addEventListener('change', function() {
-                    const selectedValue = spElement.value;
+                        spElement.addEventListener('change', function() {
+                            const selectedValue = spElement.value;
 
-                    pElements.forEach(function(p) {
-                        if (p.id === selectedValue) {
-                            p.style.display = 'block';
-                            p.disabled = false;
-                        } else {
-                            p.style.display = 'none';
-                            p.disabled = true;
-                        }
-                    });
-                });
+                            pElements.forEach(function(p) {
+                                if (p.id === selectedValue) {
+                                    p.style.display = 'block';
+                                    p.disabled = false;
+                                } else {
+                                    p.style.display = 'none';
+                                    p.disabled = true;
+                                }
+                            });
+                        });
 
-                // Menjalankan pengecekan saat halaman pertama kali dimuat
-                selectElement.dispatchEvent(new Event('change'));
-                spElement.dispatchEvent(new Event('change'));
-            </script>
-{{-- AJAX Update --}}
-<script>
-    $(document).ready(function() {
-        $("#bayar").click(function() {
-            var itemIds = [];
-            var selectedMetode = $("#selectMetode").val(); // Mengambil nilai metode pembayaran yang dipilih
-            var foto = $('#foto')[0].files[0];
-            var catatan = $("#catatan").val();
+                        // Menjalankan pengecekan saat halaman pertama kali dimuat
+                        selectElement.dispatchEvent(new Event('change'));
+                        spElement.dispatchEvent(new Event('change'));
+                    </script>
+                    {{-- AJAX Update --}}
+                    <script>
+                        $(document).ready(function() {
+                            $("#bayar").click(function() {
+                                var itemIds = [];
+                                var selectedMetode = $("#selectMetode")
+                            .val(); // Mengambil nilai metode pembayaran yang dipilih
+                                var foto = $('#foto')[0].files[0];
+                                var catatan = $("#catatan").val();
 
-            $(".item-element").each(function() {
-                var orderId = $(this).data("order-id");
-                itemIds.push(orderId);
-            });
+                                $(".item-element").each(function() {
+                                    var orderId = $(this).data("order-id");
+                                    itemIds.push(orderId);
+                                });
 
-            // Inisialisasi objek data
-            var formData = new FormData();
+                                // Inisialisasi objek data
+                                var formData = new FormData();
 
-            // Loop melalui itemIds
-            for (var i = 0; i < itemIds.length; i++) {
-                var orderId = itemIds[i];
-                var jumlah = $("input[name='jumlah_" + orderId + "']").val(); // Ambil nilai jumlah dinamis
-                var barangpenjual_id = $("input[name='barangpenjual_id_" + orderId + "']").val(); // Ambil nilai barangpenjual_id dinamis
-                var toko_id = $("input[name='toko_id_" + orderId + "']").val(); // Ambil nilai toko_id dinamis
-                var user_id = $("input[name='user_id_" + orderId + "']").val(); // Ambil nilai user_id dinamis
+                                // Loop melalui itemIds
+                                for (var i = 0; i < itemIds.length; i++) {
+                                    var orderId = itemIds[i];
+                                    var jumlah = $("input[name='jumlah_" + orderId + "']")
+                                .val(); // Ambil nilai jumlah dinamis
+                                    var barangpenjual_id = $("input[name='barangpenjual_id_" + orderId + "']")
+                                .val(); // Ambil nilai barangpenjual_id dinamis
+                                    var toko_id = $("input[name='toko_id_" + orderId + "']")
+                                .val(); // Ambil nilai toko_id dinamis
+                                    var user_id = $("input[name='user_id_" + orderId + "']")
+                                .val(); // Ambil nilai user_id dinamis
 
-                // Tambahkan data ke objek formData
-                formData.append('ids[]', orderId);
-                formData.append('jumlah_' + orderId, jumlah);
-                formData.append('barangpenjual_id_' + orderId, barangpenjual_id);
-                formData.append('toko_id_' + orderId, toko_id);
-                formData.append('user_id_' + orderId, user_id);
-                formData.append('foto', foto);
-                formData.append('catatan', catatan);
-            }
+                                    // Tambahkan data ke objek formData
+                                    formData.append('ids[]', orderId);
+                                    formData.append('jumlah_' + orderId, jumlah);
+                                    formData.append('barangpenjual_id_' + orderId, barangpenjual_id);
+                                    formData.append('toko_id_' + orderId, toko_id);
+                                    formData.append('user_id_' + orderId, user_id);
+                                    formData.append('foto', foto);
+                                    formData.append('catatan', catatan);
+                                }
 
-            formData.append('metodepembayaran', selectedMetode);
+                                formData.append('metodepembayaran', selectedMetode);
 
-            // Tampilkan SweetAlert konfirmasi
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: 'Anda akan melakukan pembayaran.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'OK',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Kirim permintaan Ajax dengan formData jika pengguna mengonfirmasi
-                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                    $.ajax({
-                        url: "{{ route('menu.massUpdate') }}",
-                        type: "POST",
-                        data: formData,
-                        processData: false, // Hindari pemrosesan otomatis data
-                        contentType: false, // Hindari penambahan header otomatis
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken // Sertakan token CSRF dalam header
-                        },
-                        success: function(data) {
-                            // Handle respons dari server jika diperlukan
-                            Swal.fire('Sukses', 'Pembayaran berhasil dilakukan, silahkan tunggu verifikasi admin.', 'success');
-                            // Redirect atau lakukan tindakan lain sesuai kebutuhan Anda
-                            setTimeout(function () {
-                                window.location.href = "{{ route('menu.index') }}";
-                        }, 3000);
-                        },
-                        error: function(response) {
-                            console.log(response);
-                            // Handle kesalahan jika terjadi
-                            Swal.fire('Peringatan', 'Tolong lengkapi pengisian data anda.', 'warning');
-                        }
-                    });
-                }
-            });
-        });
-    });
-</script>
-{{-- AJAX Update --}}
+                                // Tampilkan SweetAlert konfirmasi
+                                Swal.fire({
+                                    title: 'Apakah Anda yakin?',
+                                    text: 'Anda akan melakukan pembayaran.',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'OK',
+                                    cancelButtonText: 'Batal'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Kirim permintaan Ajax dengan formData jika pengguna mengonfirmasi
+                                        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                                        $.ajax({
+                                            url: "{{ route('menu.massUpdate') }}",
+                                            type: "POST",
+                                            data: formData,
+                                            processData: false, // Hindari pemrosesan otomatis data
+                                            contentType: false, // Hindari penambahan header otomatis
+                                            headers: {
+                                                'X-CSRF-TOKEN': csrfToken // Sertakan token CSRF dalam header
+                                            },
+                                            success: function(data) {
+                                                // Handle respons dari server jika diperlukan
+                                                Swal.fire('Sukses',
+                                                    'Pembayaran berhasil dilakukan, silahkan tunggu verifikasi admin.',
+                                                    'success');
+                                                // Redirect atau lakukan tindakan lain sesuai kebutuhan Anda
+                                                setTimeout(function() {
+                                                    window.location.href =
+                                                        "{{ route('menu.index') }}";
+                                                }, 3000);
+                                            },
+                                            error: function(response) {
+                                                console.log(response);
+                                                // Handle kesalahan jika terjadi
+                                                Swal.fire('Peringatan',
+                                                    'Tolong lengkapi pengisian data anda.',
+                                                    'warning');
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                    {{-- AJAX Update --}}
 
 
-<script>
- $("#selectMetode").change(function() {
-    var selectedOption = $(this).val();
-    if (selectedOption === "e-wallet") {
-        $("#ewalletInput").show();
-        $("#bankInput").hide();
-    } else if (selectedOption === "bank") {
-        $("#bankInput").show();
-        $("#ewalletInput").hide();
-    } else {
-        $("#ewalletInput").hide();
-        $("#bankInput").hide();
-    }
-});
-</script>
-{{-- Script Pembayaran --}}
+                    <script>
+                        $("#selectMetode").change(function() {
+                            var selectedOption = $(this).val();
+                            if (selectedOption === "e-wallet") {
+                                $("#ewalletInput").show();
+                                $("#bankInput").hide();
+                            } else if (selectedOption === "bank") {
+                                $("#bankInput").show();
+                                $("#ewalletInput").hide();
+                            } else {
+                                $("#ewalletInput").hide();
+                                $("#bankInput").hide();
+                            }
+                        });
+                    </script>
+                    {{-- Script Pembayaran --}}

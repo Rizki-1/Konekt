@@ -57,17 +57,17 @@
             flex: 1px;
         }
 
-    input[type="radio"] {
-        position: absolute;
-        opacity: 0;
-    }
+        input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
 
-    label i.fas.fa-star {
-        font-size: 24px; /* Ganti ukuran sesuai keinginan Anda */
-    }
+        label i.fas.fa-star {
+            font-size: 24px;
+            /* Ganti ukuran sesuai keinginan Anda */
+        }
 
-    /*  */
-
+        /*  */
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -84,35 +84,37 @@
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class=" "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
-@foreach ($user as $u)
-<form action="{{ route('ulasan', ['id' => $u->barangpenjual_id]) }}" method="POST">
-@csrf
-        <div class="modal fade" id="myModal-{{$u->barangpenjual_id}}" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Beri Ulasan</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    @foreach ($user as $u)
+        <form action="{{ route('ulasan', ['id' => $u->barangpenjual_id]) }}" method="POST">
+            @csrf
+            <div class="modal fade" id="myModal-{{ $u->barangpenjual_id }}" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Beri Ulasan</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                             <input type="hidden" name="barangpenjual_id" value="{{ $u->barangpenjual_id }}">
                         </div>
                         <div class="modal-body">
-                     {{ $u->rating }}
-@for ($i = 1; $i <= 5; $i++)
-<label style="color: gray; cursor: pointer;">
-    <input type="radio" name="rating" value="{{ $i }}" class="form-control" min="1" max="5" onchange="toggleStart(this)">
-    <i class="fas fa-star"></i>
-</label>
-@endfor
+                            {{ $u->rating }}
+                            @for ($i = 1; $i <= 5; $i++)
+                                <label style="color: gray; cursor: pointer;">
+                                    <input type="radio" name="rating" value="{{ $i }}"
+                                        class="form-control" min="1" max="5" onchange="toggleStart(this)">
+                                    <i class="fas fa-star"></i>
+                                </label>
+                            @endfor
                         </div>
                         <div class="modal-body">
-                        {{ $u->komentar }}
+                            {{ $u->komentar }}
                             <label for="ulasan">Komentar</label>
                             <textarea name="komentar" class="form-control" value="{{ $u->komentar }}"></textarea>
                         </div>
@@ -125,8 +127,8 @@
                     </div>
                 </div>
             </div>
-            @endforeach
-        </form>
+    @endforeach
+    </form>
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -266,32 +268,6 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
-                            <!-- isi dari notifikasi-->
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
-                                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M16.7695 10.1453C16.039 9.29229 15.7071 8.55305 15.7071 7.29716V6.87013C15.7071 5.23354 15.3304 4.17907 14.5115 3.12459C13.2493 1.48699 11.1244 0.5 9.04423 0.5H8.95577C6.91935 0.5 4.86106 1.44167 3.577 3.0128C2.71333 4.08842 2.29293 5.18822 2.29293 6.87013V7.29716C2.29293 8.55305 1.98284 9.29229 1.23049 10.1453C0.676907 10.7738 0.5 11.5815 0.5 12.4557C0.5 13.3309 0.787226 14.1598 1.36367 14.8336C2.11602 15.6413 3.17846 16.1569 4.26375 16.2466C5.83505 16.4258 7.40634 16.4933 9.0005 16.4933C10.5937 16.4933 12.165 16.3805 13.7372 16.2466C14.8215 16.1569 15.884 15.6413 16.6363 14.8336C17.2118 14.1598 17.5 13.3309 17.5 12.4557C17.5 11.5815 17.3231 10.7738 16.7695 10.1453Z"
-                                            fill="currentColor" />
-                                        <path opacity="0.4"
-                                            d="M11.0097 17.7285C10.5098 17.6217 7.46364 17.6217 6.96372 17.7285C6.53636 17.8272 6.07422 18.0568 6.07422 18.5604C6.09907 19.0408 6.38033 19.4648 6.76992 19.7337L6.76893 19.7347C7.27282 20.1275 7.86416 20.3773 8.48334 20.4669C8.8133 20.5122 9.14923 20.5102 9.49111 20.4669C10.1093 20.3773 10.7006 20.1275 11.2045 19.7347L11.2035 19.7337C11.5931 19.4648 11.8744 19.0408 11.8992 18.5604C11.8992 18.0568 11.4371 17.8272 11.0097 17.7285Z"
-                                            fill="currentColor" />
-                                    </svg>
-                                    <span class="bg-danger dots"></span>
-                                </a>
-                                <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
-                                    aria-labelledby="notification-drop">
-                                    <div class="card shadow-none m-0">
-                                        <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
-                                            <div class="header-title">
-                                                <h5 class="mb-0 text-white">All Notifications</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- End notifikasi -->
                             <!-- start pesan -->
 
                             <!-- End Pesan-->
@@ -302,7 +278,7 @@
                                     <img src="../assets/images/avatars/01.png" alt="User-Profile"
                                         class="img-fluid avatar avatar-50 avatar-rounded">
                                     <div class="caption ms-3 d-none d-md-block ">
-                                    <h6 class="mb-0 caption-title">{{ Auth::user()->name }}</h6>
+                                        <h6 class="mb-0 caption-title">{{ Auth::user()->name }}</h6>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -330,114 +306,116 @@
                 <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                     data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
                     style="position: relative">
-      <center><h2>Kuliner Kita <span style="color: #EA6A12"> | Riwayat</span></h2></center>
-        <div class="d-flex py-5">
+                    <center>
+                        <h2>Kuliner Kita <span style="color: #EA6A12"> | Riwayat</span></h2>
+                    </center>
+                    <div class="d-flex py-5">
 
-                <div class="card-content p-2" >
-        {{-- evenly merapikan jarak antar div atau table --}}
-        <div class="row d-flex justify-content-evenly">
-            @foreach ($user as $u )
-            @foreach ($penjuallogin as $p)
-            @foreach ($penjual as $p1 )
+                        <div class="card-content p-2">
+                            {{-- evenly merapikan jarak antar div atau table --}}
+                            <div class="row d-flex justify-content-evenly">
+                                @foreach ($user as $u)
+                                    @foreach ($penjuallogin as $p)
+                                        @foreach ($penjual as $p1)
+                                            <div class="card col-md-5" style="background-color: white;">
+                                                <div class="">
 
-            <div class="card col-md-5" style="background-color: white;" >
-                <div class="">
+                                                    <h3>Warung {{ $p->nama_toko }}</h3>
+                                                    <hr>
+                                                    <div class="d-flex justify-content-between ">
+                                                        <a>No Antrian : {{ $u->nomor_antrian }}</a>
+                                                        <a style="color: grey;">{{ $u->pembelianstatus }}</a>
+                                                    </div>
+                                                    <p>{{ $u->created_at }}</p>
+                                                    <div class="img-content">
+                                                        <img src="{{ asset('Storage/' . $p1->fotomakanan) }}"
+                                                            style="border-radius: 10px; width: 125px; height: 110px; margin-top:-5px; padding: 5px;"
+                                                            alt="">
+                                                        <a>{{ $p1->namamenu }}</a><br>
+                                                        <div class="mx-4">
+                                                            <a>{{ $u->jumlah }} Menu</a>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="d-flex justify-content-between">
+                                                            <h5>Biaya Layanan</h5>
+                                                            <h5>Rp. {{ number_format($u->totalharga, 0, ',', '.') }}
+                                                            </h5>
+                                                        </div>
+                                                        <hr>
+                                                        {{-- Mengisi semua ruang betwenn --}}
+                                                        <div class="d-flex justify-content-between">
+                                                            <h6>Pembayaran</h6>
+                                                            <h6>{{ $u->metodepembayaran }}</h6>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            @if ($u->pembelianstatus === 'statusselesai')
+                                                                <div class="btn btn-warning" type="submit"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#myModal-{{ $u->barangpenjual_id }}"
+                                                                    style="">beri ulasan</div>
+                                                            @endif
+                                                            <a href="{{ route('menu.store') }}"
+                                                                class="btn btn-warning" method="POST">Pesan Lagi</a>
 
-                    <h3>Warung {{ $p->nama_toko }}</h3>
-                    <hr>
-                    <div class="d-flex justify-content-between ">
-                        <a>No Antrian : {{ $u->nomor_antrian }}</a>
-                        <a style="color: grey;">{{ $u->pembelianstatus }}</a>
-                    </div>
-                    <p>{{ $u->created_at }}</p>
-                    <div class="img-content">
-                        <img src="{{ asset('Storage/' . $p1->fotomakanan ) }}" style="border-radius: 10px; width: 125px; height: 110px; margin-top:-5px; padding: 5px;" alt="">
-                        <a>{{ $p1->namamenu }}</a><br>
-                        <div class="mx-4">
-                        <a>{{ $u->jumlah }} Menu</a>
-                    </div>
-                        <hr>
-                        <div class="d-flex justify-content-between">
-                            <h5>Biaya Layanan</h5>
-                            <h5>Rp. {{ number_format ($u->totalharga, 0, ',','.') }}</h5>
-                        </div>
-                        <hr>
-                        {{-- Mengisi semua ruang betwenn --}}
-                        <div class="d-flex justify-content-between">
-                            <h6>Pembayaran</h6>
-                            <h6>{{ $u->metodepembayaran }}</h6>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            @if ($u->pembelianstatus === 'statusselesai')
-                           
-                               <div class="btn btn-warning" type="submit"
-                                   data-bs-toggle="modal" data-bs-target="#myModal-{{$u->barangpenjual_id}}"
-                                   style="">beri ulasan</div>
-                           @endif
-                               <a href="{{ route('menu.store') }}" class="btn btn-warning" method="POST" >Pesan Lagi</a>
-
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endforeach
+                                @endforeach
                             </div>
+                            <div class="d-flex justify-content-evenly">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            @endforeach
-            @endforeach
-            @endforeach
         </div>
-        <div class="d-flex justify-content-evenly">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-            {{-- @include('layout.footer') --}}
+        {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
-     <script>
-    function toggleStar(radioElement) {
-        const stars = document.querySelectorAll('.fas.fa-star');
-        const index = parseInt(radioElement.value) - 1;
+    <script>
+        function toggleStar(radioElement) {
+            const stars = document.querySelectorAll('.fas.fa-star');
+            const index = parseInt(radioElement.value) - 1;
 
-        for (let i = 0; i < stars.length; i++) {
-            if (i <= index) {
-                stars[i].style.color = 'yellow';
-            } else {
-                stars[i].style.color = 'gray';
+            for (let i = 0; i < stars.length; i++) {
+                if (i <= index) {
+                    stars[i].style.color = 'yellow';
+                } else {
+                    stars[i].style.color = 'gray';
+                }
             }
         }
-    }
-</script>
-<script>
-    function toggleStart(radioElement) {
-      const stars = radioElement.parentNode.querySelectorAll('.fas.fa-star');
-      const index = parseInt(radioElement.value) - 1;
-      if (radioElement.value >= 1) {
-        for (let i = 0; i < index; i++) {
-          stars[i].style.color = 'yellow';
+    </script>
+    <script>
+        function toggleStart(radioElement) {
+            const stars = radioElement.parentNode.querySelectorAll('.fas.fa-star');
+            const index = parseInt(radioElement.value) - 1;
+            if (radioElement.value >= 1) {
+                for (let i = 0; i < index; i++) {
+                    stars[i].style.color = 'yellow';
+                }
+                for (let i = index + 1; i < stars.length; i++) {
+                    stars[i].style.color = 'gray';
+                }
+            } else {
+                for (let i = 0; i < stars.length; i++) {
+                    stars[i].style.color = 'gray';
+                }
+            }
         }
-        for (let i = index + 1; i < stars.length; i++) {
-          stars[i].style.color = 'gray';
-        }
-      } else {
-        for (let i = 0; i < stars.length; i++) {
-          stars[i].style.color = 'gray';
-        }
-      }
-    }
     </script>
 </body>
+
 </html>
-
-
-
-

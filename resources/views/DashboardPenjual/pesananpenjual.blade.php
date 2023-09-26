@@ -380,7 +380,7 @@
                                 data-iq-ease="none" style="position: relative">
                                 <table class="table">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-capitalize">
                                             <th scope="col">No</th>
                                             <th scope="col">nama pembeli</th>
                                             <th scope="col">menu</th>
@@ -406,7 +406,7 @@
                                                             @csrf
                                                             @method('PATCH')
                                                             <button type="submit"
-                                                                class="btn btn-info complete-btn">Tandakan Telah
+                                                                class="btn btn-outline-success complete-btn">Tandakan Telah
                                                                 Selesai</button>
                                                         </form>
                                                     @else

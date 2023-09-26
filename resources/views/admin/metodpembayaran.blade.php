@@ -111,13 +111,13 @@
     <form action="{{ route('pembelianadmin.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal fade" id="myModal" tabindex="-1">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Tambah Metode Pembayaran</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body text-capitalize">
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
                             <select name="metodepembayaran" id="selectMetode" class="form-control">

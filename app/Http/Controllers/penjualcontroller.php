@@ -91,10 +91,17 @@ class penjualcontroller extends Controller
             }
         }
 
-        //   dd($ini);
+        $produk = barangpenjual::all();
+
+        foreach ($produk as $item)
+        {
+            $item->terjual = UserOrder::where('barangpenjual_id', $item->id)->sum('jumlah');
+        }
+
+        $produk = $produk->sortByDesc('terjual')->take(5);
 
         $chartData = array_values($processedData);
-        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'chartData', 'notifikasipenjual'));
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'chartData', 'notifikasipenjual', 'produk'));
     }
 
     public function riwayatpenjual()

@@ -626,21 +626,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img class="bg-soft-primary rounded img-fluid avatar-80 me-3"
-                                                        src="../assets/images/avatars/06.png" alt="profile">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                Nasi Goreng
-                                            </td>
-                                            <td>15.000</td>
-                                            <td>
-                                                41
-                                            </td>
-                                        </tr>
+                                        @forelse ($produk as $item)
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="bg-soft-primary rounded img-fluid avatar-80 me-3"
+                                                            src="{{Storage::url($item->fotomakanan)}}" alt="profile">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{$item->namamenu}}
+                                                </td>
+                                                <td>Rp.{{number_format($item->harga)}}</td>
+                                                <td>
+                                                    {{$item->terjual}}
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <p>Tidak ada menu populer</p>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

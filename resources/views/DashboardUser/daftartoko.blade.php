@@ -382,14 +382,11 @@
                                     </div>
                                 @endforeach
                             </div>
-<<<<<<< Updated upstream
-=======
                             @if ($penjuallogin->count() > 0)
                                 <div class="text-center mt-3">
                                     {{ $penjuallogin->links('pagination::default') }}
                                 </div>
                             @endif
->>>>>>> Stashed changes
                         </div>
 
 

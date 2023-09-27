@@ -315,57 +315,67 @@
                             {{-- evenly merapikan jarak antar div atau table --}}
                             <div class="row d-flex justify-content-evenly">
                                 @foreach ($user as $u)
-                                    <div class="card col-md-5" style="background-color: white;">
-                                        <div class="">
+                                    @foreach ($penjuallogin as $p)
+                                        @foreach ($penjual as $p1)
+                                            <div class="card col-md-5" style="background-color: white;">
+                                                <div class="">
 
-                                            <h3>Warung {{ $u->toko->nama_toko }}</h3>
-                                            <hr>
-                                            <div class="d-flex justify-content-between ">
-                                                <a>No Antrian : {{ $u->nomor_antrian }}</a>
-                                                <a style="color: grey;">{{ $u->pembelianstatus }}</a>
-                                            </div>
-                                            <p>{{ $u->created_at }}</p>
-                                            <div class="img-content">
-                                                <img src="{{ asset('Storage/' . $u->penjual->fotomakanan) }}"
-                                                    style="border-radius: 10px; width: 125px; height: 110px; margin-top:-5px; padding: 5px;"
-                                                    alt="">
-                                                <a>{{ $u->namamenu }}</a><br>
-                                                <div class="mx-4">
-                                                    <a>{{ $u->jumlah }} Menu</a>
-                                                </div>
-                                                <hr>
-                                                <div class="d-flex justify-content-between">
-                                                    <h5>Biaya Layanan</h5>
-                                                    <h5>Rp. {{ number_format($u->totalharga, 0, ',', '.') }}
-                                                    </h5>
-                                                </div>
-                                                <hr>
-                                                {{-- Mengisi semua ruang betwenn --}}
-                                                <div class="d-flex justify-content-between">
-                                                    <h6>Pembayaran</h6>
-                                                    <h6>{{ $u->metodepembayaran }}</h6>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    @if ($u->pembelianstatus === 'statusselesai')
-                                                        <div class="btn btn-warning" type="submit"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#myModal-{{ $u->barangpenjual_id }}"
-                                                            style="">beri ulasan</div>
-                                                    @endif
-                                                    <a href="{{ route('menu.store') }}" class="btn btn-warning"
-                                                        method="POST">Pesan Lagi</a>
+                                                    <h3>Warung {{ $p->nama_toko }}</h3>
+                                                    <hr>
+                                                    <div class="d-flex justify-content-between ">
+                                                        <a>No Antrian : {{ $u->nomor_antrian }}</a>
+                                                        <a style="color: grey;">{{ $u->pembelianstatus }}</a>
+                                                    </div>
+                                                    <p>{{ $u->created_at }}</p>
+                                                    <div class="img-content">
+                                                        <img src="{{ asset('Storage/' . $p1->fotomakanan) }}"
+                                                            style="border-radius: 10px; width: 125px; height: 110px; margin-top:-5px; padding: 5px;"
+                                                            alt="">
+                                                        <a>{{ $p1->namamenu }}</a><br>
+                                                        <div class="mx-4">
+                                                            <a>{{ $u->jumlah }} Menu</a>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="d-flex justify-content-between">
+                                                            <h5>Biaya Layanan</h5>
+                                                            <h5>Rp. {{ number_format($u->totalharga, 0, ',', '.') }}
+                                                            </h5>
+                                                        </div>
+                                                        <hr>
+                                                        {{-- Mengisi semua ruang betwenn --}}
+                                                        <div class="d-flex justify-content-between">
+                                                            <h6>Pembayaran</h6>
+                                                            <h6>{{ $u->metodepembayaran }}</h6>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            @if ($u->pembelianstatus === 'statusselesai')
+                                                                <div class="btn btn-warning" type="submit"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#myModal-{{ $u->barangpenjual_id }}"
+                                                                    style="">beri ulasan</div>
+                                                            @endif
+                                                            <a href="{{ route('menu.store') }}"
+                                                                class="btn btn-warning" method="POST">Pesan Lagi</a>
 
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        @endforeach
+                                    @endforeach
                                 @endforeach
                             </div>
-                            @if ($user->count() > 0)
-                                <div class="text-center mt-3">
-                                    {{ $user->links('pagination::default') }}
-                                </div>
-                            @endif
+                            <div class="d-flex justify-content-evenly">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>

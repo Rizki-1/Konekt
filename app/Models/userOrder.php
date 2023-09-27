@@ -32,6 +32,7 @@ class userOrder extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+
     public function penjual(): BelongsTo
     {
         return $this->belongsTo(barangpenjual::class, 'barangpenjual_id');
@@ -49,11 +50,6 @@ class userOrder extends Model
         public function barangpenjual()
     {
         return $this->belongsTo(barangpenjual::class, 'barangpenjual_id');
-    }
-
-    public function toko(): BelongsTo
-    {
-        return $this->belongsTo(penjuallogin::class, 'toko_id');
     }
 
 }

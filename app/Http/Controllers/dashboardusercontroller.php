@@ -35,7 +35,7 @@ class dashboardusercontroller extends Controller
         $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
             ->where('is_read', false)
             ->get();
-        $penjual =  barangpenjual::paginate(8);
+        $penjual =  barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
         // $ulasan = ulasan::where('barangpenjual_id', $penjual->id);
@@ -201,13 +201,16 @@ class dashboardusercontroller extends Controller
 
     public function pesanan()
     {
-        $userId = Auth::id();
-        $user = userOrder::where('user_id', $userId)
+        $penjualId = Auth::id();
+        $user = userOrder::where('user_id', $penjualId)
             ->whereNotNull('pembelianstatus')
             ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima', 'dibatalkan'])
-            ->paginate(4);
+            ->get();
+        $pesanan = userOrder::where('pembelianstatus', 'selesai')->get();
+        $penjual = barangpenjual::all();
 
-        return view('DashboardUser.pesanan', compact('user', 'userId'));
+
+        return view('DashboardUser.pesanan', compact('user', 'penjual', 'penjualId', 'pesanan'));
     }
 
     public function batalkanpesanan($id)
@@ -224,14 +227,15 @@ class dashboardusercontroller extends Controller
 
     public function riwayatuser()
     {
-
         $user_id = Auth::id();
-        $user = userOrder::where('user_id', $user_id)
-            ->whereNotNull('pembelianstatus')
-            ->whereIn('pembelianstatus', ['statusselesai', 'pesanan di tolak', 'dibatalkan'])
-            ->paginate(4);
-
-        return view('DashboardUser.riwayat', compact('user', 'user_id'));
+        $user = userOrder::where(function ($query) use ($user_id) {
+            $query->whereIn('pembelianstatus', ['statusselesai', 'dibatalkan', 'pesanan di tolak']);
+        })
+            ->where('user_id', $user_id)
+            ->get();
+        $penjual = barangpenjual::all();
+        $penjuallogin = penjuallogin::all();
+        return view('DashboardUser.riwayat', compact('user', 'penjual', 'penjuallogin'));
     }
 
     public function Userkeranjang()
@@ -317,7 +321,7 @@ class dashboardusercontroller extends Controller
 
     public function daftartoko()
     {
-        $penjuallogin = penjuallogin::paginate(4);
+        $penjuallogin = penjuallogin::all();
         return view('DashboardUser.daftartoko', compact('penjuallogin'));
     }
 

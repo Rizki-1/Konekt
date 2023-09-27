@@ -33,16 +33,11 @@ class penjuallogin extends Model
 
     public function keranjang()
     {
-        return $this->belongsTo(keranjang::class);
+    return $this->belongsTo(keranjang::class);
     }
-
     public function pengajuandanapenjual(): HasMany
     {
         return $this->hasMany(pengajuayanapenjual::class);
     }
 
-    public function order(): HasMany
-    {
-        return $this->hasMany(userOrder::class);
-    }
 }

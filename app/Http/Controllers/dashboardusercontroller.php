@@ -226,9 +226,11 @@ class dashboardusercontroller extends Controller
     {
 
         $user_id = Auth::id();
-        $user = userOrder::where('user_id', $user_id)
+        $user = userOrder::where('user_orders.user_id', $user_id)
             ->whereNotNull('pembelianstatus')
             ->whereIn('pembelianstatus', ['statusselesai', 'pesanan di tolak', 'dibatalkan'])
+            ->join('penjuallogins', 'penjuallogins.user_id', '=', 'user_orders.toko_id')
+            ->select('user_orders.*', 'penjuallogins.nama_toko')
             ->paginate(4);
 
         return view('DashboardUser.riwayat', compact('user', 'user_id'));

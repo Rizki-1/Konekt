@@ -318,7 +318,7 @@
                                     <div class="card col-md-5" style="background-color: white;">
                                         <div class="">
 
-                                            <h3>Warung {{ $u->toko->nama_toko }}</h3>
+                                            <h3>Warung {{ $u->nama_toko }}</h3>
                                             <hr>
                                             <div class="d-flex justify-content-between ">
                                                 <a>No Antrian : {{ $u->nomor_antrian }}</a>

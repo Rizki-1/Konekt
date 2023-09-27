@@ -382,6 +382,11 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @if ($penjual->count() > 0)
+                                <div class="text-center mt-3">
+                                    {{ $penjuallogin->links('pagination::default') }}
+                                </div>
+                            @endif
                         </div>
 
 

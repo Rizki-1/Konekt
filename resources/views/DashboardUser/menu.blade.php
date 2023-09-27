@@ -640,10 +640,10 @@
                                     </button>
                                 </a>
                             </div>
-
-
-
                         </div>
+                        @if ($penjual->count() > 0)
+                        {{$penjual->links('pagination::default')}}
+                        @endif
                     </div>
                     @include('layout.footer')
                 </div>

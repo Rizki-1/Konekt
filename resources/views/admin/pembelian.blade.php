@@ -134,7 +134,7 @@
 
 
 
-                        <div class="d-flex">
+                        <div class="d-flex gap-3">
                             <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">

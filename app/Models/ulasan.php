@@ -16,7 +16,7 @@ class ulasan extends Model
         'rating',
         'komentar',
         'username',
-        'is_user_rating'
+        
     ];
 
 

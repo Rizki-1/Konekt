@@ -24,7 +24,6 @@ class logincontroller extends Controller
         $penjuallogin = penjuallogin::all();
         return view('loginregister.index', compact('user', 'penjuallogin'));
     }
-
     public function authenticate(Request $request): RedirectResponse
     {
         // dd($request->all());
@@ -36,12 +35,10 @@ class logincontroller extends Controller
             'email.email' => 'email tidak valid',
             'password.required' => 'password tidak boleh kosong'
         ]);
-
         $penjuallogin = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
         if (Auth::attempt($penjuallogin)) {
             if (auth()->user()->role == 'penjual') {
                 return redirect()->route('DashboardPenjual_');
@@ -52,7 +49,6 @@ class logincontroller extends Controller
                 return redirect()->route('DashboardPenjual.index')->with('warning', 'tunggu proses konfirmasi pembuatan akun anda');
             }
         }
-
         if (Auth::attempt($user)) {
             if (auth()->user()->role == 'admin') {
                 return redirect()->route('DashboardAdmin');
@@ -68,18 +64,15 @@ class logincontroller extends Controller
             'email' => 'email dan password salah atau tidak terdaftar'
         ])->onlyInput('email');
     }
-
     public function logout()
     {
         Auth::logout();
         return redirect()->route('user.index');
     }
-
     public function forgotpassword()
     {
         return view('auth.forgot-password');
     }
-
     public function forgotpassword_store(Request $request)
     {
         $request->validate([ 'email'=> 'required|email']);
@@ -91,12 +84,10 @@ class logincontroller extends Controller
         ? back()->with(['status' => __($status)])
         : back()->withErrors(['email'=>__($status)]);
     }
-
     public function resetpassword_token(string $token)
     {
-    return view('auth.reset-password', ['token' => $token]);
+        return view('auth.reset-password', ['token' => $token]);
     }
-
     public function resetpassword(Request $request)
     {
         $request->validate([
@@ -125,14 +116,12 @@ class logincontroller extends Controller
         ? redirect()->route('user.index')->with('status',  __($status))
         : back()->withErrors(['email'=> __($status)]);
     }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -167,7 +156,6 @@ class logincontroller extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -175,7 +163,6 @@ class logincontroller extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      */

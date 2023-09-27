@@ -485,13 +485,13 @@
         </div>
     </div>
 
-    <div class="pesan-shopee">
+    {{-- <div class="pesan-shopee">
         <a href="{{ route('message') }}">
         <button class="btn-pesan-shopee" id="btn-pesan-shopee">
             <i class="fa fa-comments"></i>
         </button>
     </a>
-    </div>
+    </div> --}}
 
 
 </div>
@@ -526,10 +526,6 @@
             const options = {
                 series: [{
                     name:'Data Pembelian',
-                    type: 'column',
-                    data: chartData.map(data => parseInt(data.statusselesai))
-                }, {
-                    name:'data yang sama',
                         type: 'line',
                         curve: 'smooth',
                     data: chartData.map(data => parseInt(data.statusselesai))
@@ -561,11 +557,10 @@
                     enabled: true,
                 },
                 stroke: {
-                    width: [0, 2]
+                    width: 2
                 },
                 dataLabels: {
                     enabled: true,
-                    enabledOnSeries: [1],
                     offsetX: 3.0,
                     offsetY: -1.6,
                     style: {
@@ -585,15 +580,7 @@
                     }
 
                 },
-                colors: ["#EA6A12", "#EA6A12"],
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        columnWidth: '16%',
-                        endingShape: 'rounded',
-                        borderRadius: 5,
-                    },
-                },
+                colors: ["#EA6A12"],
                 legend: {
                     show: false,
                     offsetY: -25,

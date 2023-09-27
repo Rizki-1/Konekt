@@ -498,13 +498,13 @@
 
     </div>
 
-    <div class="pesan-shopee">
-        <a href="{{ route('message') }}">
+    {{-- <div class="pesan-shopee">
+        <a href="{{ r oute('message') }}">
         <button class="btn-pesan-shopee" id="btn-pesan-shopee">
             <i class="fa fa-comments"></i>
         </button>
     </a>
-    </div>
+    </div> --}}
 
 
     </div>
@@ -513,104 +513,91 @@
     </main>
     @include('layout.js')
     <script>
-            var chartData = @json($chartData);
-    console.log(chartData);
+        var chartData = @json($chartData);
+        console.log(chartData);
 
-      if (jQuery('#admin-chart-1').length) {
-  const options = {
-      series: [{
-          name: 'Jumlah pemasukkan',
-          type: 'column',
-          data: chartData.map(data => parseInt(data.statusselesai))
-      }, {
-          name: 'Data yang sama',
-          type: 'line',
-          curve: 'smooth',
-          data: chartData.map(data => parseInt(data.statusselesai))
-      }],
-      chart: {
-          height: 350,
-          type: 'line',
-          animations: {
-              enabled: true,
-              easing: 'easeinout',
-              speed: 800,
-              animateGradually: {
-                  enabled: false,
-                  delay: 150
-              },
-              dynamicAnimation: {
-                  enabled: true,
-                  speed: 350
-              }
-          },
-          zoom: {
-              enabled: false,
-          },
-          toolbar: {
-              show: false
-          }
-      },
-      tooltip: {
-        enabled: true,
-      },
-      stroke: {
-          width: [0, 2]
-      },
-      dataLabels: {
-          enabled: true,
-          enabledOnSeries: [1],
-          offsetX: 3.0,
-          offsetY: -1.6,
-          style: {
-              fontSize: '1px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 'bold',
-            },
-            background: {
-                enabled: true,
-                foreColor: '#fff',
-                color: '#fff',
-                padding: 10,
-                borderRadius: 10,
-                borderWidth: 0,
-                borderColor: '#fff',
-                opacity: 1,
-              }
+        if (jQuery('#admin-chart-1').length) {
+            const options = {
+                series: [{
+                    name: 'Jumlah pemasukkan',
+                    type: 'line',
+                    curve: 'smooth',
+                    data: chartData.map(data => parseInt(data.statusselesai))
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: false,
+                            delay: 150
+                        },
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350
+                        }
+                    },
+                    zoom: {
+                        enabled: false,
+                    },
+                    toolbar: {
+                        show: false
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                },
+                stroke: {
+                    width: 2
+                },
+                dataLabels: {
+                    enabled: true,
+                    offsetX: 3.0,
+                    offsetY: -1.6,
+                    style: {
+                        fontSize: '1px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        fontWeight: 'bold',
+                    },
+                    background: {
+                        enabled: true,
+                        foreColor: '#fff',
+                        color: '#fff',
+                        padding: 10,
+                        borderRadius: 10,
+                        borderWidth: 0,
+                        borderColor: '#fff',
+                        opacity: 1,
+                    }
+                },
+                colors: ["#EA6A12"],
+                legend: {
+                    show: false,
+                    offsetY: -25,
+                    offsetX: -5
+                },
+                xaxis: {
+                    categories: chartData.map(data => data.month),
+                    labels: {
+                        minHeight: 20,
+                        maxHeight: 20,
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        minWidth: 20,
+                        maxWidth: 20,
+                    }
+                },
+            };
 
-      },
-      colors: ["#EA6A12", "#EA6A12"],
-      plotOptions: {
-          bar: {
-              horizontal: false,
-              columnWidth: '16%',
-              endingShape: 'rounded',
-              borderRadius: 5,
-          },
-      },
-      legend: {
-          show: false,
-          offsetY: -25,
-          offsetX: -5
-      },
-      xaxis: {
-          categories:chartData.map(data => data.month) ,
-          labels: {
-              minHeight: 20,
-              maxHeight: 20,
-          }
-      },
-      yaxis: {
-        labels: {
-            minWidth: 20,
-            maxWidth: 20,
+            const chart = new ApexCharts(document.querySelector("#admin-chart-1"), options);
+            chart.render();
         }
-    },
-  };
-
-  const chart = new ApexCharts(document.querySelector("#admin-chart-1"), options);
-  chart.render();
-}
     </script>
+
 </body>
 </html>

@@ -709,10 +709,6 @@
             const options = {
                 series: [{
                     name: 'Jumlah pemasukkan',
-                    type: 'column',
-                    data: chartData.map(data => parseInt(data.statusselesai))
-                }, {
-                    name: 'Data yang sama',
                     type: 'line',
                     curve: 'smooth',
                     data: chartData.map(data => parseInt(data.statusselesai))
@@ -744,11 +740,10 @@
                     enabled: true,
                 },
                 stroke: {
-                    width: [0, 2]
+                    width: 2
                 },
                 dataLabels: {
                     enabled: true,
-                    enabledOnSeries: [1],
                     offsetX: 3.0,
                     offsetY: -1.6,
                     style: {
@@ -766,17 +761,8 @@
                         borderColor: '#fff',
                         opacity: 1,
                     }
-
                 },
-                colors: ["#EA6A12", "#EA6A12"],
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        columnWidth: '16%',
-                        endingShape: 'rounded',
-                        borderRadius: 5,
-                    },
-                },
+                colors: ["#EA6A12"],
                 legend: {
                     show: false,
                     offsetY: -25,
@@ -801,6 +787,7 @@
             chart.render();
         }
     </script>
+
 </body>
 
 </html>

@@ -33,9 +33,9 @@ class dashboardusercontroller extends Controller
         $user_id = Auth::id();
         $users = userOrder::all();
         $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
-            ->where('is_read', false)
-            ->get();
-        $penjual =  barangpenjual::paginate(8);
+        ->where('is_read', false)
+        ->get();
+    $penjual =  barangpenjual::paginate(8);
         $adminnotifikasi = adminnotifikasi::all();
         $waktuKadaluwarsa = notifikasi::all();
         // $ulasan = ulasan::where('barangpenjual_id', $penjual->id);
@@ -82,7 +82,7 @@ class dashboardusercontroller extends Controller
             ];
 
             return response()->json($response);
-        } catch (\Exception $e) {
+            } catch (\Exception $e) {
 
             $response = [
                 'success' => false,
@@ -178,7 +178,7 @@ class dashboardusercontroller extends Controller
         ]);
     }
 
-    public function konfimasipembelian($ids)
+    public function konfimasipembelian(Request $request, $ids)
     {
         $orderIds = explode(',', $ids);
         $userOrder = userOrder::whereIn('id', $orderIds)->with('penjual')->get();
@@ -211,30 +211,31 @@ class dashboardusercontroller extends Controller
     }
 
     public function batalkanpesanan($id)
-    {
+{
 
-        $order = userOrder::find($id);
-        $order->update([
-            'pembelianstatus' => 'dibatalkan',
-        ]);
+    $order = userOrder::find($id);
+    $order->update([
+        'pembelianstatus' => 'dibatalkan',
+    ]);
 
-        return redirect()->back()->with('success', 'pesanan berhasil di batalkan');
-    }
+    return redirect()->back()->with('success', 'pesanan berhasil di batalkan');
+}
 
 
-    public function riwayatuser()
-    {
+public function riwayatuser()
+{
 
-        $user_id = Auth::id();
-        $user = userOrder::where('user_orders.user_id', $user_id)
-            ->whereNotNull('pembelianstatus')
-            ->whereIn('pembelianstatus', ['statusselesai', 'pesanan di tolak', 'dibatalkan'])
-            ->join('penjuallogins', 'penjuallogins.user_id', '=', 'user_orders.toko_id')
-            ->select('user_orders.*', 'penjuallogins.nama_toko')
-            ->paginate(4);
+    $user_id = Auth::id();
+    $user = userOrder::where('user_orders.user_id', $user_id)
+        ->whereNotNull('pembelianstatus')
+        ->whereIn('pembelianstatus', ['statusselesai', 'pesanan di tolak', 'dibatalkan'])
+        ->join('penjuallogins', 'penjuallogins.user_id', '=', 'user_orders.toko_id')
+        ->select('user_orders.*', 'penjuallogins.nama_toko')
+        ->paginate(4);
 
-        return view('DashboardUser.riwayat', compact('user', 'user_id'));
-    }
+    return view('DashboardUser.riwayat', compact('user', 'user_id'));
+}
+
 
     public function Userkeranjang()
     {
@@ -292,8 +293,9 @@ class dashboardusercontroller extends Controller
         }
     }
 
-    public function pengajuanuser()
+    public function pengajuanuser(Request $request)
     {
+        // dd($request->all());
         $penjualId = Auth::id();
         $user = userOrder::where('user_id', $penjualId);
         return view('DashboardUser.pengajuanuser', compact('user'));
@@ -322,7 +324,7 @@ class dashboardusercontroller extends Controller
         $penjuallogin = penjuallogin::paginate(4);
         return view('DashboardUser.daftartoko', compact('penjuallogin'));
     }
-
+    
     public function detailtoko(Request $request, $id)
     {
         $penjualId = Auth::id();
@@ -398,39 +400,48 @@ class dashboardusercontroller extends Controller
 
 
     public function ulasan(Request $request, $id)
-    {
+{
 
-        //dd($request->all());
-        $username = Auth::user()->name;
-        $penjual = BarangPenjual::findOrFail($id);
-        $ulasan = ulasan::where('barangpenjual_id', $penjual->id)->get();
+    //dd($request->all());
+    $username = Auth::user()->name;
+    $penjual = BarangPenjual::findOrFail($id);
+    $ulasan = ulasan::where('barangpenjual_id', $penjual->id)->get();
 
-        $ulasan = [
+     $ulasan = [
             'barangpenjual_id' => $request->barangpenjual_id,
-            'username' => $username,
+            'username'=>$username,
             'rating' => $request->rating,
             'komentar' => $request->komentar
 
         ];
 
-        ulasan::create($ulasan);
-        return redirect()->route('riwayatuser');
-    }
+    ulasan::create($ulasan);
+    return redirect()->route('riwayatuser');
+}
 
-    public function pengembaliandana(Request $request, $id)
-    {
+public function pengembaliandana(Request $request, $id)
+{
+  // Validasi data
+        if (empty($request->input("tujuanpembayaran-$id"))) {
+            return redirect()->back()->with('error', 'Tujuan pembayaran harus diisi');
+        }
 
-        $userOrder = userOrder::findOrFail($id);
-        // dd($userOrder);
-        $userOrder->pembelianstatus = 'mengajukan pengembalian dana';
-        $userOrder->metodepembayaran = $request->metodepembayaran;
-        $userOrder->tujuanpembayaran = 'test dana';
-        // dd($userOrder);
-        $userOrder->save();
-        // dd($userOrder);
+        if (!in_array($request->input("tujuanpembayaran-$id"), ["e-wallet", "bank"])) {
+            return redirect()->back()->with('error', 'Metode pembayaran tidak valid');
+        }
 
-        return redirect()->back()->with('success', 'pengembalian dana sedang di proses');
-    }
+    $userOrder = userOrder::findOrFail($id);
+
+    $userOrder->pembelianstatus = 'mengajukan pengembalian dana';
+    $userOrder->tujuanpembayaran = $request->input("tujuanpembayaran-$id");
+
+    $userOrder->metode_pengembalian = $request->input("metode_pengembalian-$id");
+    $userOrder->keterangan_metode_pengembalian = $request->input("keterangan_metode_pengembalian-$id");
+
+    $userOrder->save();
+    dd($request->all());
+    return redirect()->back()->with('success', 'Pengajuan pengembalian dana berhasil');
+}
 
     public function CheckKeranjang($id)
     {
@@ -479,10 +490,10 @@ class dashboardusercontroller extends Controller
             'user_id' => $user_id,
             'metodepembayaran' => $request->metodepembayaran
         ];
-        $order->adminstatus = 'notapprove';
-        $order->pembelianstatus = 'menunggu konfirmasi';
+            $order->adminstatus = 'notapprove';
+            $order->pembelianstatus = 'menunggu konfirmasi';
 
-        $order->update($dashboardusercontrollers);
+            $order->update($dashboardusercontrollers);
 
 
         if ($request->hasFile('foto')) {
@@ -591,7 +602,6 @@ class dashboardusercontroller extends Controller
         $results = barangpenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
 
         // Kembalikan hasil pencarian dalam format JSON
-
         return response()->json($results);
     }
 
@@ -615,3 +625,4 @@ class dashboardusercontroller extends Controller
         return response()->json(['message' => 'Notifikasi tidak ditemukan'], 404);
     }
 }
+

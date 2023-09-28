@@ -91,59 +91,110 @@
     @include('layout.sweetalert')
 
     @include('layout.logoloader')
+   
     @foreach ($user as $u)
-        <form action="{{ route('pengembaliandana', ['id' => $u->id]) }}" method="POST">
-            @csrf
-            @method('PATCH')
-            <div class="modal" id="myModal-{{ $u->id }}" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Tambah Pesanan</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+<form action="{{ route('pengembaliandana', ['id' => $u->id]) }}" method="POST">
+    @csrf
+    @method('PATCH')
+    <div class="modal" id="myModal-{{$u->id}}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pengajuan Dana Kembali</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="selectMetode-{{$u->id}}" class="form-label fw-bold">Pilih Metode Pembayaran</label>
+                        <select class="form-select form-select-lg mb-3" name="tujuanpembayaran-{{$u->id}}" style="width: 200px; height: 40px; font-size: 16px;" aria-label=".form-select-lg example" id="selectMetode-{{$u->id}}">
+                            <option value="" disabled selected>Pilih Cara Pengembalian Pembayaran</option>
+                            <option value="e-wallet">E-Wallet</option>
+                            <option value="bank">Bank</option>
+                        </select>
+                    </div>
+                    <!-- Input E-Wallet -->
+                    <div class="mb-3 ewallet-input" id="ewalletInput-{{$u->id}}" style="display: none;">
+                        <div class="form-group">
+                            <label for="totalharga-{{$u->id}}">Total Harga Pesanan</label>
+                            <input type="text" class="form-control" id="totalharga-{{$u->id}}" name="totalharga-{{$u->id}}" value="Rp{{number_format ($u->totalharga)}}" readonly>
                         </div>
-                        <div class="modal-body">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-4">
-                                        {{-- <img src="{{ $u->toko_id }}" alt="Foto Menu" class="img-fluid"> --}}
-                                        {{-- <input type="text" value="{{ $u->toko_id }}"> --}}
-                                    </div>
-                                    <div class="col-8">
-                                        {{-- @dump($u->all()); --}}
-
-                                        <p class="fs-4 text-dark">
-                                            {{ $u->namamenu }}
-                                        </p>
-                                        <input type="hidden" name="barangpenjual_id" value="{{ $u->id }}">
-                                        <input type="hidden" name="id_toko" value="{{ $u->id }}">
-                                        <p class="fs-6 text-primary">
-                                            Harga :
-                                            Rp. {{ $u->harga }}
-                                            <input type="hidden" id="harga-{{ $u->id }}" name="harga"
-                                                value="{{ $u->id }}">
-                                            <input type="hidden" id="totalHarga-{{ $u->id }}" name="totalHarga"
-                                                value="">
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="jumlah-{{ $u->id }}" class="form-label fw-bold">Jumlah</label>
-                                <input type="number" id="jumlah-{{ $u->id }}" name="jumlah"
-                                    class="form-control" placeholder="Masukan jumlah">
-                            </div>
+                        <div class="form-group">
+                            <label for="metode_pengembalian-{{$u->id}}">Tujuan pengembalian</label>
+                            <input type="text" class="form-control" id="metode_pengembalian-{{$u->id}}" name="metode_pengembalian-{{$u->id}}" required>
                         </div>
-                        <div class="modal-footer">
-
-                            <button type="submit" class="btn btn-primary">ajukan pengembalian dana</button>
+                        <div class="form-group">
+                            <label for="keterangan_metode_pengembalian-{{$u->id}}">Upload Kode Qr</label>
+                            <input type="file" class="form-control" id="keterangan_metode_pengembalian-{{$u->id}}" name="keterangan_metode_pengembalian-{{$u->id}}">
+                        </div>
+                    </div>
+                    <!-- Input Bank -->
+                    <div class="mb-3 bank-input" id="bankInput-{{$u->id}}" style="display: none;">
+                        <div class="form-group">
+                            <label for="totalharga-{{$u->id}}">Total Harga Pesanan</label>
+                            <input type="text" class="form-control" id="totalharga-{{$u->id}}" name="totalharga-{{$u->id}}" value="Rp{{number_format ($u->totalharga)}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="metode_pengembalian-{{$u->id}}">Tujuan pembayaran</label>
+                            <input type="text" class="form-control" id="metode_pengembalian-{{$u->id}}" name="metode_pengembalian-{{$u->id}}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan_metode_pengembalian-{{$u->id}}">No Rekening</label>
+                            <input type="text" class="form-control" id="keterangan_metode_pengembalian-{{$u->id}}" name="keterangan_metode_pengembalian-{{$u->id}}">
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Ajukan Pengembalian Dana</button>
+                </div>
             </div>
-        </form>
-    @endforeach
+        </div>
+    </div>
+</form>
+@endforeach
+<script>
+$(document).ready(function() {
+    // Cek nilai input tujuanpembayaran dan keterangan_metode_pembayaran
+    var tujuanpembayaran = $('#selectMetode-{{$u->id}}').val();
+    var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian-{{$u->id}}').val();
+    if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '') {
+        // Jika nilai input tujuanpembayaran dan keterangan_metode_pembayaran tidak kosong, maka ajukan pengajuan
+        return true;
+    }
+});
+
+    // Cek nilai input keterangan_metode_pembayaran
+    var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian{{$u->id}}').val();
+    if (keterangan_metode_pengembalian === '') {
+        // Jika nilai input keterangan_metode_pembayaran kosong, maka tampilkan pesan error
+        alert('Keterangan metode pembayaran harus diisi');
+        return false;
+    }
+   // Cek nilai input metode_pengembalian
+   var metodePengembalian = $('#metode_pengembalian-{{$u->id}}').val();
+
+if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '' && metode_pengembalian !== '') {
+    // Jika nilai input tujuanpembayaran, keterangan_metode_pembayaran, dan metode_pengembalian tidak kosong, maka ajukan pengajuan
+    return true;
+
+    // Cek nilai input tujuanpembayaran
+    if (tujuanpembayaran !== 'e-wallet') {
+        // Jika nilai input tujuanpembayaran bukan e-wallet, maka ajukan pengajuan
+        return true;
+    } else {
+        // Jika nilai input tujuanpembayaran adalah e-wallet, maka tampilkan pesan error
+        alert('Pengembalian dana hanya dapat dilakukan melalui bank');
+        return false;
+    }
+
+</script>
+
+
+
+
+
+
+
+
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -427,3 +478,30 @@
 </body>
 
 </html>
+<script>
+@foreach ($user as $u)
+    var selectMetode{{$u->id}} = document.getElementById('selectMetode-{{$u->id}}');
+    var bankInput{{$u->id}} = document.getElementById('bankInput-{{$u->id}}');
+    var ewalletInput{{$u->id}} = document.getElementById('ewalletInput-{{$u->id}}');
+
+    selectMetode{{$u->id}}.addEventListener('change', function() {
+        // Sembunyikan semua elemen input terlebih dahulu
+        bankInput{{$u->id}}.style.display = 'none';
+        ewalletInput{{$u->id}}.style.display = 'none';
+
+        // Tampilkan input teks hanya ketika "Bank" dipilih
+        if (selectMetode{{$u->id}}.value === 'bank') {
+            bankInput{{$u->id}}.style.display = 'block';
+        }
+        
+        // Tampilkan input foto hanya ketika "E-Wallet" dipilih
+        if (selectMetode{{$u->id}}.value === 'e-wallet') {
+            ewalletInput{{$u->id}}.style.display = 'block';
+        }
+    });
+@endforeach
+</script>
+
+
+
+

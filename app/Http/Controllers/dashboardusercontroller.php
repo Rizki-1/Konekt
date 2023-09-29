@@ -407,6 +407,18 @@ class dashboardusercontroller extends Controller
         $penjual = BarangPenjual::findOrFail($id);
         $ulasan = ulasan::where('barangpenjual_id', $penjual->id)->get();
 
+        $request->validate([
+            'barangpenjual_id' => 'required',
+            'rating' => 'required|min:1',
+            'komentar' => 'required|max:255',
+        ], [
+            'barangpenjual_id.required' => 'ada kesalahan',
+            'rating.required' => 'rating tidak boleh kosong ',
+            'rating.min' => 'rating minimal 1',
+            'komentar.required' => 'komentar tidak boleh kosong',
+            'komentar.max' => 'komentar maximal hanya 255 karakter'
+        ]);
+
         $ulasan = [
             'barangpenjual_id' => $request->barangpenjual_id,
             'username' => $username,
@@ -415,9 +427,15 @@ class dashboardusercontroller extends Controller
 
         ];
 
+        // Validasi dilakukan sebelum halaman di-refresh
+        if ($request->hasErrors()) {
+            return redirect()->back()->withErrors($request->errors());
+        }
+
         ulasan::create($ulasan);
         return redirect()->route('riwayatuser');
     }
+
 
     public function pengembaliandana(Request $request, $id)
     {

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('namamenu');
             $table->string('keterangan_makanan');
-            $table->foreignId('toko_id');
+            $table->string('toko_id');
             $table->foreignId('kategori_id')->constrained('adminkategoris')->cascadeOnDelete();
             $table->string('harga');
             $table->string('fotomakanan');

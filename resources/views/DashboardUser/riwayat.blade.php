@@ -108,17 +108,23 @@
                             <div class="mb-3">
                                 {{ $u->rating }}
                                 @for ($i = 1; $i <= 5; $i++)
-                                    <label style="color: gray; cursor: pointer;" class="star">
+                                    <label style="color: gray; cursor: pointer;" class="star   @error('komentar') is-invalid @enderror" value="{{ $u->komentar }}">
                                         <input type="radio" name="rating" value="{{ $i }}"
-                                            class="form-control rating-input" min="1" max="5">
+                                            class="form-control rating-input  " min="1" max="5">
                                         <i class="fas fa-star"></i>
                                     </label>
-                                @endfor
+                                    @endfor
+                                    @error('rating')
+                                    <p class="" style="color: red">{{ $message }}</p>
+                                    @enderror
                             </div>
                             <div class="my-3">
                                 {{ $u->komentar }}
                                 <label for="ulasan">Komentar</label>
-                                <textarea name="komentar" class="form-control" value="{{ $u->komentar }}"></textarea>
+                                <textarea name="komentar" class="form-control   @error('komentar') is-invalid @enderror" value="{{ $u->komentar }}"></textarea>
+                                @error('komentar')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 

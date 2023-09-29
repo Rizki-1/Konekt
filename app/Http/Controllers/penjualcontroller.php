@@ -291,13 +291,12 @@ class penjualcontroller extends Controller
     public function store(Request $request)
     {
         $penjualId = Auth::id();
-        // Validasi input dari request dengan pesan kustom
         $validated = $request->validate([
             'namamenu' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
             'kategori_id' => 'required|exists:adminkategoris,id',
             'harga' => 'required|numeric|min:0',
             'fotomakanan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'keterangan_makanan' => 'required',
+            'keterangan_makanan' => 'required|max:255',
         ], [
             'namamenu.required' => 'Nama makanan wajib diisi.',
             'namamenu.string' => 'Nama makanan harus berupa teks.',
@@ -313,6 +312,7 @@ class penjualcontroller extends Controller
             'fotomakanan.mimes' => 'Foto makanan harus berformat jpeg, png, jpg, atau gif.',
             'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
             'keterangan_makanan.required' => 'keterangan makanan tidak boleh kosong',
+            'ketrangan_makanan.max' => 'Keterangan makanan maximal 255',
         ]);
 
 

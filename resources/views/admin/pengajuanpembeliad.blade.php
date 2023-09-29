@@ -109,7 +109,7 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
-    @foreach ($pengajuanuser as $Pengajuanuser)
+    @foreach ($userOrder as $Pengajuanuser)
     <div class="modal" id="myModal-{{$Pengajuanuser->id}}" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -381,7 +381,7 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @foreach ($pengajuanuser as $Pengajuanuser)
+                                    @foreach ($userOrder as $Pengajuanuser)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $Pengajuanuser->user->name }}</td>

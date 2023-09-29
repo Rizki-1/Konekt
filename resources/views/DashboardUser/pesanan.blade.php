@@ -142,41 +142,43 @@
             </div>
         </form>
     @endforeach
-    <script>
-        $(document).ready(function() {
-            // Cek nilai input tujuanpembayaran dan keterangan_metode_pembayaran
-            var tujuanpembayaran = $('#selectMetode-{{ $u->id }}').val();
-            var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian-{{ $u->id }}').val();
-            if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '') {
-                // Jika nilai input tujuanpembayaran dan keterangan_metode_pembayaran tidak kosong, maka ajukan pengajuan
-                return true;
-            }
-        });
+    @if ($user->count() > 0)
+        <script>
+            $(document).ready(function() {
+                // Cek nilai input tujuanpembayaran dan keterangan_metode_pembayaran
+                var tujuanpembayaran = $('#selectMetode-{{ $u->id }}').val();
+                var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian-{{ $u->id }}').val();
+                if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '') {
+                    // Jika nilai input tujuanpembayaran dan keterangan_metode_pembayaran tidak kosong, maka ajukan pengajuan
+                    return true;
+                }
+            });
 
-        // Cek nilai input keterangan_metode_pembayaran
-        var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian{{ $u->id }}').val();
-        if (keterangan_metode_pengembalian === '') {
-            // Jika nilai input keterangan_metode_pembayaran kosong, maka tampilkan pesan error
-            alert('Keterangan metode pembayaran harus diisi');
-            return false;
-        }
-        // Cek nilai input metode_pengembalian
-        var metodePengembalian = $('#metode_pengembalian-{{ $u->id }}').val();
-
-        if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '' && metode_pengembalian !== '') {
-            // Jika nilai input tujuanpembayaran, keterangan_metode_pembayaran, dan metode_pengembalian tidak kosong, maka ajukan pengajuan
-            return true;
-
-            // Cek nilai input tujuanpembayaran
-            if (tujuanpembayaran !== 'e-wallet') {
-                // Jika nilai input tujuanpembayaran bukan e-wallet, maka ajukan pengajuan
-                return true;
-            } else {
-                // Jika nilai input tujuanpembayaran adalah e-wallet, maka tampilkan pesan error
-                alert('Pengembalian dana hanya dapat dilakukan melalui bank');
+            // Cek nilai input keterangan_metode_pembayaran
+            var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian{{ $u->id }}').val();
+            if (keterangan_metode_pengembalian === '') {
+                // Jika nilai input keterangan_metode_pembayaran kosong, maka tampilkan pesan error
+                alert('Keterangan metode pembayaran harus diisi');
                 return false;
             }
-    </script>
+            // Cek nilai input metode_pengembalian
+            var metodePengembalian = $('#metode_pengembalian-{{ $u->id }}').val();
+
+            if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '' && metode_pengembalian !== '') {
+                // Jika nilai input tujuanpembayaran, keterangan_metode_pembayaran, dan metode_pengembalian tidak kosong, maka ajukan pengajuan
+                return true;
+
+                // Cek nilai input tujuanpembayaran
+                if (tujuanpembayaran !== 'e-wallet') {
+                    // Jika nilai input tujuanpembayaran bukan e-wallet, maka ajukan pengajuan
+                    return true;
+                } else {
+                    // Jika nilai input tujuanpembayaran adalah e-wallet, maka tampilkan pesan error
+                    alert('Pengembalian dana hanya dapat dilakukan melalui bank');
+                    return false;
+                }
+        </script>
+    @endif
 
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -477,6 +479,7 @@
                                                 // Periksa apakah respons adalah array
                                                 if (typeof(data) == typeof([]) && data.length > 0) {
                                                     data.forEach(function(menu) {
+                                                        var formattedHarga = formatCurrency(menu.harga);
                                                         var pembelianstatus = menu.pembelianstatus;
                                                         var menuId = menu.id;
                                                         var createdDate = new Date(menu.created_at);
@@ -513,7 +516,7 @@
 
                                                                     <div class="d-flex justify-content-between">
                                                                         <a class="card-text">No Antrian :
-                                                                            <tr>{{ $u->nomor_antrian }}</tr>
+                                                                            <tr>${menu.nomor_antrian}</tr>
                                                                         </a>
                                                                     </div>
 
@@ -521,7 +524,7 @@
 
                                                                     <div class="d-flex justify-content-between">
                                                                         <h6 class="card-text">Harga :
-                                                                            <tr>Rp. {{ number_format($u->totalharga) }}</tr>
+                                                                            <tr>${formattedHarga}</tr>
                                                                         </h6>
                                                                     </div>
 
@@ -529,7 +532,7 @@
 
                                                                     <div class="d-flex justify-content-between">
                                                                         <h6 class="card-text">Pembayaran :
-                                                                            <tr>{{ $u->metodepembayaran }}</tr>
+                                                                            <tr>${menu.metodepembayaran}</tr>
                                                                         </h6>
                                                                     </div>
 
@@ -605,6 +608,16 @@
                                 }
 
                                 return actionHTML;
+                            }
+
+                            // Fungsi untuk memformat angka menjadi format mata uang dengan pemisah ribuan
+                            function formatCurrency(amount) {
+                                var formatter = new Intl.NumberFormat('id-ID', {
+                                    style: 'currency',
+                                    currency: 'IDR',
+                                    minimumFractionDigits: 0
+                                });
+                                return formatter.format(amount);
                             }
                         </script>
 

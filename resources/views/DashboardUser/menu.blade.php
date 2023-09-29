@@ -606,7 +606,8 @@
                                                     <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
                                                         {{ $p->namamenu }}</h6>
                                                     <div class="d-flex justify-content-evenly">
-                                                        <p class="text-primary fw-bolder my-2">Rp. {{ $p->harga }}
+                                                        <p class="text-primary fw-bolder my-2">Rp.
+                                                            {{ number_format($p->harga, 0, ',', '.') }}
                                                         </p>
                                                     </div>
                                                     <div class="card-rating stars-ratings text-center">
@@ -679,6 +680,7 @@
                             // Periksa apakah respons adalah array
                             if (typeof(data) == typeof([]) && data.length > 0) {
                                 data.forEach(function(menu) {
+                                    var formattedHarga = formatCurrency(menu.harga);
                                     var menuItem = `
                                                 <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
                                                     <div class="col active"
@@ -708,7 +710,7 @@
                                                     <div class="card-body menu-image">
                                                         <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">${menu.namamenu}</h6>
                                                         <div class="d-flex justify-content-evenly">
-                                                            <p class="text-primary fw-bolder my-2">Rp. ${menu.harga}</p>
+                                                            <p class="text-primary fw-bolder my-2">${formattedHarga}</p>
                                                         </div>
                                                             <div class="card-rating stars-ratings text-center">
                                                                 @for ($i = 0; $i < 5; $i++)
@@ -767,6 +769,15 @@
                     });
                 }
             });
+            // Fungsi untuk memformat angka menjadi format mata uang dengan pemisah ribuan
+            function formatCurrency(amount) {
+                var formatter = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0
+                });
+                return formatter.format(amount);
+            }
         });
     </script>
     {{-- search --}}

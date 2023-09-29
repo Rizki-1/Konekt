@@ -93,8 +93,7 @@ class penjualcontroller extends Controller
 
         $produk = barangpenjual::all();
 
-        foreach ($produk as $item)
-        {
+        foreach ($produk as $item) {
             $item->terjual = UserOrder::where('barangpenjual_id', $item->id)->sum('jumlah');
         }
 
@@ -465,9 +464,12 @@ class penjualcontroller extends Controller
 
     public function notifikasipenjual()
     {
-        // Hitung jumlah notifikasi dari sumber data Anda, misalnya basis data
-        $notificationCount = notifikasipenjual::where('is_read', false)->count(); // Contoh: Menghitung notifikasi yang belum dibaca
 
+        $user = Auth::id();
+        // Hitung jumlah notifikasi dari sumber data Anda, misalnya basis data
+        $notificationCount = notifikasipenjual::where('toko_id_notifikasi', $user)
+            ->where('is_read', false)
+            ->count(); // Contoh: Menghitung notifikasi yang belum dibaca
         return response()->json(['count' => $notificationCount]);
     }
 

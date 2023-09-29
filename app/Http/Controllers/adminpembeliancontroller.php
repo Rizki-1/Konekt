@@ -318,9 +318,8 @@ class adminpembeliancontroller extends Controller
 
     public function pengajuanpembeliad(Request $request)
     {
-        $userOrder = userOrder::where('pembelianstatus', 'mengajukan pengembalian')->get();
-        $pengajuanuser = userOrder::all();
-        return view('admin.pengajuanpembeliad', compact('userOrder', 'pengajuanuser'));
+        $userOrder = userOrder::where('pembelianstatus', 'mengajukan pengembalian dana')->get();
+        return view('admin.pengajuanpembeliad', compact('userOrder'));
     }
 
 
@@ -391,7 +390,7 @@ class adminpembeliancontroller extends Controller
         'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
         'tujuan.required' => 'Tujuan wajib diisi.',
     ]);
-    
+
 
         $adminmp = new adminmetodepembayaran;
         $adminmp->metodepembayaran = $request->metodepembayaran;

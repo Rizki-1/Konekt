@@ -658,9 +658,11 @@ class dashboardusercontroller extends Controller
 
     public function notifikasiuser()
     {
+        $user = Auth::id();
         // Hitung jumlah notifikasi dari sumber data Anda, misalnya basis data
-        $notificationCount = notifikasi::where('is_read', false)->count(); // Contoh: Menghitung notifikasi yang belum dibaca
-
+        $notificationCount = notifikasi::where('user_id_notifikasi', $user)
+            ->where('is_read', false)
+            ->count(); // Contoh: Menghitung notifikasi yang belum dibaca
         return response()->json(['count' => $notificationCount]);
     }
 

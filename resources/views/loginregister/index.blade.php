@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Aprycot | Responsive Bootstrap 5 Admin Dashboard Template</title>
+      <title>Login</title>
 
       <!-- Favicon -->
       <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
@@ -32,8 +32,8 @@
                   <a href="../index-2.html">
                      <img src="../../assets/images/favicon.png" class="img-fluid logo-img" alt="img4">
                   </a>
-                           <h2 class="mb-2 text-center">Sign In</h2>
-                           <p class="text-center">Sign in to stay connected.</p>
+                           <h2 class="mb-2 text-center">Selamat Datang</h2>
+                           <p class="text-center">di Kuliner Kita</p>
                            <form action="{{ route('authenticate') }}" method="POST">
                             @csrf
                               <div class="row">
@@ -60,12 +60,12 @@
                                        <input type="checkbox" class="form-check-input" id="customCheck1">
                                        <label class="form-check-label" for="customCheck1">Remember Me</label>
                                     </div>
-                                    <a href="{{ route('password.request') }}">Forgot Password?</a>
+                                    <a href="{{ route('password.request') }}">Lupa Password?</a>
 
                                  </div>
                               </div>
                               <div class="d-flex justify-content-center">
-                                 <button type="submit" class="btn btn-primary">Sign In</button>
+                                 <button type="submit" class="btn btn-primary">Login</button>
                               </div>
                             <!-- </form>
                               <p class="text-center my-3">or sign in with other accounts?</p>

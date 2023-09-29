@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Aprycot | Responsive Bootstrap 5 Admin Dashboard Template</title>
+      <title>Register</title>
 
       <!-- Favicon -->
       <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
@@ -495,14 +495,14 @@
                      <a href="../index-2.html">
                         <img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/logo.svg" class="img-fluid logo-img" alt="img5">
                      </a>
-                     <h2 class="mb-2 text-center">Sign Up</h2>
-                     <p class="text-center">Create your Aprycot account.</p>
+                     <h2 class="mb-2 text-center">Register</h2>
+                     <p class="text-center">Buat akun Kuliner Anda.</p>
                      <form action="{{ route('user.store') }}" method="POST">
                         @csrf
                         <div class="row">
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label for="full-name" class="form-label">User Name</label>
+                                 <label for="full-name" class="form-label">Nama</label>
                                  <input type="text" name="name" class="form-control form-control-sm" id="full-name" placeholder=" ">
                                  @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -520,7 +520,7 @@
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label for="password" class="form-label">Password</label>
+                                 <label for="password" class="form-label">Kata Sandi</label>
                                  <input type="password" name="password" class="form-control form-control-sm" id="password" placeholder=" ">
                                  @if ($errors->has('password'))
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
@@ -529,7 +529,7 @@
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label for="confirm-password" class="form-label">Confirm Password</label>
+                                 <label for="confirm-password" class="form-label">Konfir Kata Sandi</label>
                                  <input type="text" name="confirm_password" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
                                  @if ($errors->has('confirm_password'))
                                     <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
@@ -539,15 +539,15 @@
                            <div class="col-lg-12 d-flex justify-content-center">
                               <div class="form-check mb-3">
                                  <input type="checkbox" class="form-check-input" id="customCheck1">
-                                 <label class="form-check-label" for="customCheck1">I agree with the terms of use</label>
+                                 <label class="form-check-label" for="customCheck1">Saya setuju dengan kebijakan privasi</label>
                               </div>
                            </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                           <button type="submit" class="btn btn-primary">Sign Up</button>
+                           <button type="submit" class="btn btn-primary">Daftar</button>
                         </div>
                         <p class="mt-3 text-center">
-                           Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Sign In</a>
+                           Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Login</a>
                         </p>
 
                   </div>

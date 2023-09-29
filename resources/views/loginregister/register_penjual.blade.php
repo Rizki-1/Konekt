@@ -10,7 +10,7 @@
 
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Aprycot | Responsive Bootstrap 5 Admin Dashboard Template</title>
+      <title>Register</title>
 
       <!-- Favicon -->
       <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
@@ -500,8 +500,8 @@
                      <a href="../index-2.html">
                         <img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/logo.svg" class="img-fluid logo-img" alt="img5" style="margin-left:200px;">
                      </a>
-                     <h2 class="mb-2 text-center">Sign Up</h2>
-                     <p class="text-center">Create your Aprycot account.</p>
+                     <h2 class="mb-2 text-center">Register</h2>
+                     <p class="text-center">Buat akun sebagai penjual di Kuliner Kita.</p>
                      <form action="{{ route('penjualrole.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row" style="margin-left: 250px;">
@@ -509,7 +509,7 @@
                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                            <div class="col-lg-6 d-flex flex-row justify-content-center align-items-center">
                               <div class="form-group">
-                                 <label for="full-name" class="form-label">User Name</label>
+                                 <label for="full-name" class="form-label">Nama</label>
                                  <input type="text" name="name" style="width:200px;" class="form-control form-control-sm" id="full-name" placeholder=" ">
                                  @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -532,7 +532,7 @@
                                  @endif
                               </div>
                               <div class="form-group" style="margin-left: 20px; margin-bottom:15px;">
-                                 <label for="confirm-password" class="form-label">Confirm Password</label>
+                                 <label for="confirm-password" class="form-label">Konfir Password</label>
                                  <input type="text" name="confirm_password" style="width:200px;" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
                                  @if ($errors->has('confirm_password'))
                                     <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
@@ -548,7 +548,7 @@
                            <div style="margin-left:235px; margin-top:4px;">
                               <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
                                  <li class="nav-item" role="presentation">
-                                    <button class="nav-link " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile">Next</button>
+                                    <button class="nav-link " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile">Selanjutnya</button>
                                 </li>
                               </ul>
                            </div>
@@ -567,7 +567,7 @@
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label for="phone" class="form-label">Phone No.</label>
+                                 <label for="phone" class="form-label">Nomer Hp</label>
                                  <input type="number" name="notlp" style="width:200px;" class="form-control form-control-sm" id="phone" placeholder=" ">
                                  @if ($errors->has('notlp'))
                                     <span class="text-danger">{{ $errors->first('notlp') }}</span>
@@ -599,11 +599,11 @@
                            <div style="margin-left:300px; margin-top:4px;">
                                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
                                     <li class="nav-item" role="presentation">
-                                       <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="false">previous</button>
+                                       <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Sebelumnya</button>
                                        </li>
                                  </ul>
                                  <div style="margin-left: -285px; margin-top:-60px;">
-                                 <button type="submit" class="btn btn-primary">Sign Up</button>
+                                 <button type="submit" class="btn btn-primary">Daftar</button>
                                  </div>
                               </div>
                             </div>
@@ -623,14 +623,14 @@
                            <div class="col-lg-12 d-flex justify-content-center" style="margin-top: 1em">
                               <div class="form-check mb-3" >
                                  <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-left: -270px;">
-                                 <label class="form-check-label" for="customCheck1" style="margin-left: -250px;">I agree with the terms of use</label>
+                                 <label class="form-check-label" for="customCheck1" style="margin-left: -250px;">Saya setuju dengan kebijakan privasi</label>
                               </div>
                            </div>
                         </div>
                         <div>
                         </div>
                         <p class="mt-3 text-center" >
-                            Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Sign In</a>
+                            Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Login</a>
                         </p>
                   </div>
                </div>

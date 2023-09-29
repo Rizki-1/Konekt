@@ -49,6 +49,14 @@
         .main-content {
             flex: 1px;
         }
+
+        .editable-field {
+            border: 1px solid #ccc;
+            padding: 3px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -251,36 +259,28 @@
                                     </div>
                                     <div class="d-flex align-items-center mb-3 mb-sm-0 ms-sm-4">
                                         <div>
-                                            <h6 class="me-2 text-primary">{{ Auth::user()->name }}</h6>
-                                            <span><svg width="19" height="19" class="me-2"
-                                                    viewBox="0 0 24 24" fill="none"
+                                            <h6 class="me-2 text-primary" id="profileNameDisplay">{{ Auth::user()->name }}</h6>
+                                            <!-- <span>
+                                                <svg width="19" height="19" class="me-2" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M21 10.8421C21 16.9172 12 23 12 23C12 23 3 16.9172 3 10.8421C3 4.76697 7.02944 1 12 1C16.9706 1 21 4.76697 21 10.8421Z"
                                                         stroke="#07143B" stroke-width="1.5" />
-                                                    <circle cx="12" cy="9" r="3"
-                                                        stroke="#07143B" stroke-width="1.5" />
-                                                </svg><small class="mb-0 text-dark">Jl Wendit</small></span>
+                                                    <circle cx="12" cy="9" r="3" stroke="#07143B" stroke-width="1.5" />
+                                                </svg>
+                                                <small class="mb-0 text-dark" id="profileLocationDisplay">Jl Wendit</small>
+                                            </span> -->
                                         </div>
-                                        <div class="ms-4">
-                                            <p class="me-2 mb-0 text-primary">08154154402432</p>
-                                            <p class="me-2 mb-0 text-dark">{{ Auth::user()->email }}</p>
-                                            <p class="mb-0 text-dark">030306</p>
-                                        </div>
+                                        <!-- <div class="ms-4">
+                                            <p class="me-2 mb-0 text-primary" id="profilePhoneDisplay">08154154402432</p>
+                                            <p class="me-2 mb-0 text-dark" id="profileEmailDisplay">{{ Auth::user()->email }}</p>
+                                            <p class="mb-0 text-dark" id="profileCodeDisplay">030306</p>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <ul class="d-flex mb-0 text-center ">
                                     <li class="badge bg-primary py-2 me-2">
-                                        <button class="btn btn-primary" id="edit-profile-button">Edit Profil</button>
-                                    </li>
-                                    <li class="badge bg-primary py-2 me-2">
-                                        <p class="mb-3 mt-2">5</p>
-                                        <small class="mb-1 fw-normal">Menu</small>
-                                    </li>
-                                    <li class="badge bg-primary py-2 me-2">
-                                        <p class="mb-3 mt-2">3.1k</p>
-                                        <small class="mb-1 fw-normal">Followers</small>
-                                    </li>
+                                    <button class="btn btn-primary" id="edit-profile-button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profil</button>                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -295,6 +295,127 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-3">
+    <div class="card">
+        <div class="card-header">
+            <div class="header-title">
+                <h4 class="card-title">Intro</h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <p>Ubah sesuai seleramu.</p>
+            <div class="mb-1">Email: <span id="email">{{ Auth::user()->email }}</span></div>
+            <div class="mb-1">Phone: <span id="phone">001 2351 256 12</span></div>
+            <div>Location: <span id="location" class="text-primary">USA</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal untuk mengedit profil -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Profil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulir pengeditan profil -->
+                <form id="profileForm">
+                    <div class="mb-3">
+                        <label for="profileName" class="form-label">Nama</label>
+                        <input type="text" class="form-control" id="profileName" value="{{ Auth::user()->name }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="profileEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="profileEmail" value="{{ Auth::user()->email }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="profileLocation" class="form-label">Alamat</label>
+                        <input type="text" class="form-control" id="profileLocation" value="Jl Wendit">
+                    </div>
+                    <div class="mb-3">
+                        <label for="profilePhone" class="form-label">Nomor Telepon</label>
+                        <input type="text" class="form-control" id="profilePhone" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="profilePicture" class="form-label">Foto Profil</label>
+                        <input type="file" class="form-control" id="profilePicture" accept="image/*">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary" id="saveProfileChanges">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tambahkan JavaScript di bawah modal content -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Temukan elemen-elemen dalam modal
+        const profileForm = document.getElementById("profileForm");
+        const saveProfileChanges = document.getElementById("saveProfileChanges");
+
+        // Fungsi untuk menyimpan data ke local storage
+        function saveDataToLocalStorage() {
+            const newEmail = document.getElementById("profileEmail").value;
+            const newLocation = document.getElementById("profileLocation").value;
+            const newPhone = document.getElementById("profilePhone").value;
+
+            // Simpan data di local storage
+            localStorage.setItem("profileEmail", newEmail);
+            localStorage.setItem("profileLocation", newLocation);
+            localStorage.setItem("profilePhone", newPhone);
+
+            // Perbarui data di bagian intro jika email diubah
+            document.getElementById("email").textContent = newEmail;
+            document.getElementById("location").textContent = newLocation;
+            document.getElementById("phone").textContent = newPhone;
+        }
+
+        // Fungsi untuk mengisi kembali data dari local storage
+        function loadProfileDataFromLocalStorage() {
+            const newEmail = localStorage.getItem("profileEmail");
+            const newLocation = localStorage.getItem("profileLocation");
+            const newPhone = localStorage.getItem("profilePhone");
+
+            // Perbarui elemen-elemen tampilan profil dari local storage
+            document.getElementById("profileEmail").value = newEmail || "{{ Auth::user()->email }}";
+            document.getElementById("profileLocation").value = newLocation || "Jl Wendit";
+            document.getElementById("profilePhone").value = newPhone || "08154154402432";
+
+            // Perbarui data di bagian intro
+            document.getElementById("email").textContent = newEmail || "{{ Auth::user()->email }}";
+            document.getElementById("location").textContent = newLocation || "Jl Wendit";
+            document.getElementById("phone").textContent = newPhone || "08154154402432";
+        }
+
+        // Panggil fungsi untuk mengisi data dari local storage saat halaman dimuat
+        loadProfileDataFromLocalStorage();
+
+        // Tambahkan event listener untuk tombol "Simpan Perubahan"
+        saveProfileChanges.addEventListener("click", function () {
+            // Ambil nilai dari input form
+            const newEmail = document.getElementById("profileEmail").value;
+            const newLocation = document.getElementById("profileLocation").value;
+            const newPhone = document.getElementById("profilePhone").value;
+
+            // Perbarui elemen-elemen tampilan profil
+            document.getElementById("email").textContent = newEmail;
+            document.getElementById("location").textContent = newLocation;
+            document.getElementById("phone").textContent = newPhone;
+
+            // Simpan data ke local storage
+            saveDataToLocalStorage();
+
+            // Sembunyikan modal
+            $('#editProfileModal').modal('hide');
+        });
+    });
+</script>
                 <div class="row">
                     <!-- Footer Section Start -->
                     <footer class="footer">
@@ -323,6 +444,28 @@
                     </footer>
                     <!-- Footer Section End -->
     </main>
+
+    <script>
+        function editField(field) {
+    const fieldValue = document.getElementById(field);
+    const originalValue = fieldValue.innerText;
+    
+    const input = document.createElement('input');
+    input.value = originalValue;
+
+    // Replace the text with an input field
+    fieldValue.innerHTML = '';
+    fieldValue.appendChild(input);
+    
+    input.focus();
+    
+    input.addEventListener('blur', () => {
+        // Save changes and replace the input field with the new value
+        const newValue = input.value;
+        fieldValue.innerHTML = newValue + ` <a href="profileuser" onclick="editField('${field}')">Edit</a>`;
+    });
+}
+</script>
     <!-- Wrapper End-->
     <!-- offcanvas start -->
 

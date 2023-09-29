@@ -68,6 +68,8 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('profileuser', [dashboardusercontroller::class, 'profileuser'])->name('profileuser');
     Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
     Route::get('searching', [dashboardusercontroller::class, 'search'])->name('searching');
+    Route::get('caritoko', [dashboardusercontroller::class, 'caritoko'])->name('caritoko');
+    Route::get('caripesanan', [dashboardusercontroller::class, 'caripesanan'])->name('caripesanan');
     Route::post('beli', [dashboardusercontroller::class, 'beli'])->name('beli');
     Route::get('konfimasipembelian/{ids}', [dashboardusercontroller::class, 'konfimasipembelian'])->name('konfimasipembelian');
     Route::get('UserKeranjang', [dashboardusercontroller::class, 'Userkeranjang'])->name('Userkeranjang');
@@ -82,7 +84,6 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::patch('pengembaliandana/{id}', [dashboardusercontroller::class, 'pengembaliandana'])->name('pengembaliandana');
     Route::get('notifikasiuser', [dashboardusercontroller::class, 'notifikasiuser'])->name('notifikasiuser');
     Route::post('readnotifikasiuser/{id}', [dashboardusercontroller::class, 'readnotifikasiuser'])->name('readnotifikasiuser');
-
 });
 
 

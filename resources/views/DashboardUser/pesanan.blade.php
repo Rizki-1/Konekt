@@ -23,10 +23,8 @@
             /* Warna teks */
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
             margin: 10px;
             padding: 10px;
-            width: 500px;
             margin-bottom: 10px;
         }
 
@@ -53,34 +51,8 @@
             flex: 2px;
         }
     </style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Kuliner kita</title>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
-
-    <!-- Library / Plugin Css Build -->
-    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
-
-    <!-- Include the SweetAlert 2 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
-
-    <!-- Include the SweetAlert 2 JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-    {{-- bootstrap icon --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
-    {{-- jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-
-    <!-- Include the CSRF token as a meta tag -->
+    @include('layout.link')
 
 </head>
 
@@ -91,109 +63,120 @@
     @include('layout.sweetalert')
 
     @include('layout.logoloader')
-   
+
     @foreach ($user as $u)
-<form action="{{ route('pengembaliandana', ['id' => $u->id]) }}" method="POST">
-    @csrf
-    @method('PATCH')
-    <div class="modal" id="myModal-{{$u->id}}" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Pengajuan Dana Kembali</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="selectMetode-{{$u->id}}" class="form-label fw-bold">Pilih Metode Pembayaran</label>
-                        <select class="form-select form-select-lg mb-3" name="tujuanpembayaran-{{$u->id}}" style="width: 200px; height: 40px; font-size: 16px;" aria-label=".form-select-lg example" id="selectMetode-{{$u->id}}">
-                            <option value="" disabled selected>Pilih Cara Pengembalian Pembayaran</option>
-                            <option value="e-wallet">E-Wallet</option>
-                            <option value="bank">Bank</option>
-                        </select>
+        <form action="{{ route('pengembaliandana', ['id' => $u->id]) }}" method="POST">
+            @csrf
+            @method('PATCH')
+            <div class="modal" id="myModal-{{ $u->id }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Pengajuan Dana Kembali</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="selectMetode-{{ $u->id }}" class="form-label fw-bold">Pilih Metode
+                                    Pembayaran</label>
+                                <select class="form-select form-select-lg mb-3"
+                                    name="tujuanpembayaran-{{ $u->id }}"
+                                    style="width: 200px; height: 40px; font-size: 16px;"
+                                    aria-label=".form-select-lg example" id="selectMetode-{{ $u->id }}">
+                                    <option value="" disabled selected>Pilih Cara Pengembalian Pembayaran</option>
+                                    <option value="e-wallet">E-Wallet</option>
+                                    <option value="bank">Bank</option>
+                                </select>
+                            </div>
+                            <!-- Input E-Wallet -->
+                            <div class="mb-3 ewallet-input" id="ewalletInput-{{ $u->id }}"
+                                style="display: none;">
+                                <div class="form-group">
+                                    <label for="totalharga-{{ $u->id }}">Total Harga Pesanan</label>
+                                    <input type="text" class="form-control" id="totalharga-{{ $u->id }}"
+                                        name="totalharga-{{ $u->id }}"
+                                        value="Rp{{ number_format($u->totalharga) }}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="metode_pengembalian-{{ $u->id }}">Tujuan pengembalian</label>
+                                    <input type="text" class="form-control"
+                                        id="metode_pengembalian-{{ $u->id }}"
+                                        name="metode_pengembalian-{{ $u->id }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="keterangan_metode_pengembalian-{{ $u->id }}">Upload Kode
+                                        Qr</label>
+                                    <input type="file" class="form-control"
+                                        id="keterangan_metode_pengembalian-{{ $u->id }}"
+                                        name="keterangan_metode_pengembalian-{{ $u->id }}">
+                                </div>
+                            </div>
+                            <!-- Input Bank -->
+                            <div class="mb-3 bank-input" id="bankInput-{{ $u->id }}" style="display: none;">
+                                <div class="form-group">
+                                    <label for="totalharga-{{ $u->id }}">Total Harga Pesanan</label>
+                                    <input type="text" class="form-control" id="totalharga-{{ $u->id }}"
+                                        name="totalharga-{{ $u->id }}"
+                                        value="Rp{{ number_format($u->totalharga) }}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="metode_pengembalian-{{ $u->id }}">Tujuan pembayaran</label>
+                                    <input type="text" class="form-control"
+                                        id="metode_pengembalian-{{ $u->id }}"
+                                        name="metode_pengembalian-{{ $u->id }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="keterangan_metode_pengembalian-{{ $u->id }}">No Rekening</label>
+                                    <input type="text" class="form-control"
+                                        id="keterangan_metode_pengembalian-{{ $u->id }}"
+                                        name="keterangan_metode_pengembalian-{{ $u->id }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Ajukan Pengembalian Dana</button>
+                        </div>
                     </div>
-                    <!-- Input E-Wallet -->
-                    <div class="mb-3 ewallet-input" id="ewalletInput-{{$u->id}}" style="display: none;">
-                        <div class="form-group">
-                            <label for="totalharga-{{$u->id}}">Total Harga Pesanan</label>
-                            <input type="text" class="form-control" id="totalharga-{{$u->id}}" name="totalharga-{{$u->id}}" value="Rp{{number_format ($u->totalharga)}}" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="metode_pengembalian-{{$u->id}}">Tujuan pengembalian</label>
-                            <input type="text" class="form-control" id="metode_pengembalian-{{$u->id}}" name="metode_pengembalian-{{$u->id}}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="keterangan_metode_pengembalian-{{$u->id}}">Upload Kode Qr</label>
-                            <input type="file" class="form-control" id="keterangan_metode_pengembalian-{{$u->id}}" name="keterangan_metode_pengembalian-{{$u->id}}">
-                        </div>
-                    </div>
-                    <!-- Input Bank -->
-                    <div class="mb-3 bank-input" id="bankInput-{{$u->id}}" style="display: none;">
-                        <div class="form-group">
-                            <label for="totalharga-{{$u->id}}">Total Harga Pesanan</label>
-                            <input type="text" class="form-control" id="totalharga-{{$u->id}}" name="totalharga-{{$u->id}}" value="Rp{{number_format ($u->totalharga)}}" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="metode_pengembalian-{{$u->id}}">Tujuan pembayaran</label>
-                            <input type="text" class="form-control" id="metode_pengembalian-{{$u->id}}" name="metode_pengembalian-{{$u->id}}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="keterangan_metode_pengembalian-{{$u->id}}">No Rekening</label>
-                            <input type="text" class="form-control" id="keterangan_metode_pengembalian-{{$u->id}}" name="keterangan_metode_pengembalian-{{$u->id}}">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Ajukan Pengembalian Dana</button>
                 </div>
             </div>
-        </div>
-    </div>
-</form>
-@endforeach
-<script>
-$(document).ready(function() {
-    // Cek nilai input tujuanpembayaran dan keterangan_metode_pembayaran
-    var tujuanpembayaran = $('#selectMetode-{{$u->id}}').val();
-    var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian-{{$u->id}}').val();
-    if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '') {
-        // Jika nilai input tujuanpembayaran dan keterangan_metode_pembayaran tidak kosong, maka ajukan pengajuan
-        return true;
-    }
-});
+        </form>
+    @endforeach
+    <script>
+        $(document).ready(function() {
+            // Cek nilai input tujuanpembayaran dan keterangan_metode_pembayaran
+            var tujuanpembayaran = $('#selectMetode-{{ $u->id }}').val();
+            var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian-{{ $u->id }}').val();
+            if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '') {
+                // Jika nilai input tujuanpembayaran dan keterangan_metode_pembayaran tidak kosong, maka ajukan pengajuan
+                return true;
+            }
+        });
 
-    // Cek nilai input keterangan_metode_pembayaran
-    var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian{{$u->id}}').val();
-    if (keterangan_metode_pengembalian === '') {
-        // Jika nilai input keterangan_metode_pembayaran kosong, maka tampilkan pesan error
-        alert('Keterangan metode pembayaran harus diisi');
-        return false;
-    }
-   // Cek nilai input metode_pengembalian
-   var metodePengembalian = $('#metode_pengembalian-{{$u->id}}').val();
+        // Cek nilai input keterangan_metode_pembayaran
+        var keterangan_metode_pengembalian = $('#keterangan_metode_pengembalian{{ $u->id }}').val();
+        if (keterangan_metode_pengembalian === '') {
+            // Jika nilai input keterangan_metode_pembayaran kosong, maka tampilkan pesan error
+            alert('Keterangan metode pembayaran harus diisi');
+            return false;
+        }
+        // Cek nilai input metode_pengembalian
+        var metodePengembalian = $('#metode_pengembalian-{{ $u->id }}').val();
 
-if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '' && metode_pengembalian !== '') {
-    // Jika nilai input tujuanpembayaran, keterangan_metode_pembayaran, dan metode_pengembalian tidak kosong, maka ajukan pengajuan
-    return true;
+        if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '' && metode_pengembalian !== '') {
+            // Jika nilai input tujuanpembayaran, keterangan_metode_pembayaran, dan metode_pengembalian tidak kosong, maka ajukan pengajuan
+            return true;
 
-    // Cek nilai input tujuanpembayaran
-    if (tujuanpembayaran !== 'e-wallet') {
-        // Jika nilai input tujuanpembayaran bukan e-wallet, maka ajukan pengajuan
-        return true;
-    } else {
-        // Jika nilai input tujuanpembayaran adalah e-wallet, maka tampilkan pesan error
-        alert('Pengembalian dana hanya dapat dilakukan melalui bank');
-        return false;
-    }
-
-</script>
-
-
-
-
-
-
-
+            // Cek nilai input tujuanpembayaran
+            if (tujuanpembayaran !== 'e-wallet') {
+                // Jika nilai input tujuanpembayaran bukan e-wallet, maka ajukan pengajuan
+                return true;
+            } else {
+                // Jika nilai input tujuanpembayaran adalah e-wallet, maka tampilkan pesan error
+                alert('Pengembalian dana hanya dapat dilakukan melalui bank');
+                return false;
+            }
+    </script>
 
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -312,16 +295,7 @@ if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '' && metode_p
                         </i>
                     </div>
                     <div class="input-group search-input">
-                        <span class="input-group-text" id="search-input">
-                            <svg width="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                                <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                        <input type="search" class="form-control" placeholder="Search...">
+                        <input type="search" id="search" class="form-control" placeholder="Cari...">
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -379,129 +353,286 @@ if (tujuanpembayaran !== '' && keterangan_metode_pengembalian !== '' && metode_p
                         <center>
                             <h2>Kuliner Kita <span style="color: #EA6A12"> | Pesanan</span></h2>
                         </center>
-                        <div class="mt-3">
-                            <div class="row row-cols-2">
-                                @foreach ($user as $u)
-                                    <div class="col mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{ $u->penjual->namamenu }}</h5>
-                                                <hr style="border-top: 2px solid #EA6A12; margin-top: 10px 0;">
+                        <div id="result">
+                            <div class="mt-3">
+                                <div class="row row-cols-2">
+                                    @foreach ($user as $u)
+                                        <div class="col mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ $u->penjual->namamenu }}</h5>
+                                                    <hr style="border-top: 2px solid #EA6A12; margin-top: 10px 0;">
 
-                                                <div class="d-flex justify-content-between">
-                                                    <div>
-                                                        <img src="{{ asset('Storage/' . $u->penjual->fotomakanan) }}"
-                                                            alt="Gambar Menu" width="100"
-                                                            style="border-radius:10px;">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div>
+                                                            <img src="{{ asset('Storage/' . $u->penjual->fotomakanan) }}"
+                                                                alt="Gambar Menu" width="100"
+                                                                style="border-radius:10px;">
+                                                        </div>
+                                                        <div>
+                                                            <a>
+                                                                <small class="card-text">{{ $u->created_at }}</small>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <a>
-                                                            <small class="card-text">{{ $u->created_at }}</small>
+
+                                                    <hr style="border-top: 1px solid #d3d3d3; margin: 10px 0;">
+
+                                                    <div class="d-flex justify-content-between">
+                                                        <a class="card-text">No Antrian :
+                                                            <tr>{{ $u->nomor_antrian }}</tr>
                                                         </a>
                                                     </div>
-                                                </div>
 
-                                                <hr style="border-top: 1px solid #d3d3d3; margin: 10px 0;">
+                                                    <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
 
-                                                <div class="d-flex justify-content-between">
-                                                    <a class="card-text">No Antrian :
-                                                        <tr>{{ $u->nomor_antrian }}</tr>
-                                                    </a>
-                                                </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="card-text">Harga :
+                                                            <tr>Rp. {{ number_format($u->totalharga) }}</tr>
+                                                        </h6>
+                                                    </div>
 
-                                                <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
+                                                    <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
 
-                                                <div class="d-flex justify-content-between">
-                                                    <h6 class="card-text">Harga :
-                                                        <tr>Rp. {{ number_format($u->totalharga) }}</tr>
-                                                    </h6>
-                                                </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="card-text">Pembayaran :
+                                                            <tr>{{ $u->metodepembayaran }}</tr>
+                                                        </h6>
+                                                    </div>
 
-                                                <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="card-text">Status :
+                                                            <tr>{{ $u->pembelianstatus }}</tr>
+                                                        </h6>
+                                                    </div>
 
-                                                <div class="d-flex justify-content-between">
-                                                    <h6 class="card-text">Pembayaran :
-                                                        <tr>{{ $u->metodepembayaran }}</tr>
-                                                    </h6>
-                                                </div>
+                                                    <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
 
-                                                <div class="d-flex justify-content-between">
-                                                    <h6 class="card-text">Status :
-                                                        <tr>{{ $u->pembelianstatus }}</tr>
-                                                    </h6>
-                                                </div>
+                                                    <div>
+                                                        @if ($u->pembelianstatus === 'selesai')
+                                                            <form
+                                                                action="{{ route('tandakanselesai', ['id' => $u->id]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <button class="btn btn-primary"
+                                                                    type="submit">Tandakan
+                                                                    telah selesai</button>
+                                                            </form>
+                                                        @elseif ($u->pembelianstatus === 'pesanan di tolak')
+                                                            <button class="btn btn-warning" data-bs-toggle="modal"
+                                                                data-bs-target="#myModal-{{ $u->id }}"
+                                                                type="submit">Ajukan pengembalian dana</button>
+                                                        @elseif ($u->pembelianstatus === 'menunggu konfirmasi')
+                                                            <form
+                                                                action="{{ route('batalkanpesanan', ['id' => $u->id]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    batalkan pesanan </button>
+                                                            </form>
+                                                        @elseif ($u->pembelianstatus === 'sedang di proses')
+                                                        @endif
 
-                                                <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
-
-                                                <div>
-                                                    @if ($u->pembelianstatus === 'selesai')
-                                                        <form
-                                                            action="{{ route('tandakanselesai', ['id' => $u->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PATCH')
-                                                            <button class="btn btn-primary" type="submit">Tandakan
-                                                                telah selesai</button>
-                                                        </form>
-                                                    @elseif ($u->pembelianstatus === 'pesanan di tolak')
-                                                        <button class="btn btn-warning" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal-{{ $u->id }}"
-                                                            type="submit">Ajukan pengembalian dana</button>
-                                                    @elseif ($u->pembelianstatus === 'menunggu konfirmasi')
-                                                        <form
-                                                            action="{{ route('batalkanpesanan', ['id' => $u->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PATCH')
-                                                            <button type="submit" class="btn btn-danger">
-                                                                batalkan pesanan </button>
-                                                        </form>
-                                                    @elseif ($u->pembelianstatus === 'sedang di proses')
-                                                    @endif
-
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                            @if ($user->count() > 0)
-                                <div class="text-center mt-3">
-                                    {{ $user->links('pagination::default') }}
+                                    @endforeach
                                 </div>
-                            @endif
+                                @if ($user->count() > 0)
+                                    <div class="text-center mt-3">
+                                        {{ $user->links('pagination::default') }}
+                                    </div>
+                                @endif
+                            </div>
                         </div>
 
                         {{-- @include('layout.footer') --}}
+
+                        <script>
+                            $(document).ready(function() {
+                                // Simpan hasil awal semua item
+                                var allItems = $(".row.row-cols-2").html();
+
+                                $('#search').keyup(function() {
+                                    var query = $(this).val();
+                                    if (query != '') {
+                                        $.ajax({
+                                            url: "{{ route('caripesanan') }}",
+                                            method: 'GET',
+                                            data: {
+                                                query: query
+                                            },
+                                            success: function(data) {
+
+                                                var resultsContainer = $(".row.row-cols-2");
+                                                resultsContainer
+                                                    .empty(); // Bersihkan konten sebelum menambahkan hasil pencarian
+
+                                                console.log(query);
+                                                console.log(data);
+
+                                                // Periksa apakah respons adalah array
+                                                if (typeof(data) == typeof([]) && data.length > 0) {
+                                                    data.forEach(function(menu) {
+                                                        var pembelianstatus = menu.pembelianstatus;
+                                                        var menuId = menu.id;
+                                                        var createdDate = new Date(menu.created_at);
+                                                        var formattedDate =
+                                                            createdDate.getFullYear() + '-' +
+                                                            ('0' + (createdDate.getMonth() + 1)).slice(-2) +
+                                                            '-' +
+                                                            ('0' + createdDate.getDate()).slice(-2) + ' ' +
+                                                            ('0' + createdDate.getHours()).slice(-2) + ':' +
+                                                            ('0' + createdDate.getMinutes()).slice(-2) +
+                                                            ':' +
+                                                            ('0' + createdDate.getSeconds()).slice(-2);
+                                                        var menuItem = `
+                                                        <div class="col mb-4">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">${menu.penjual.namamenu}</h5>
+                                                                    <hr style="border-top: 2px solid #EA6A12; margin-top: 10px 0;">
+
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div>
+                                                                            <img src="{{ asset('Storage/') }}/${menu.penjual.fotomakanan}"
+                                                                                alt="Gambar Menu" width="100"
+                                                                                style="border-radius:10px;">
+                                                                        </div>
+                                                                        <div>
+                                                                            <a>
+                                                                                <small class="card-text">${formattedDate}</small>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <hr style="border-top: 1px solid #d3d3d3; margin: 10px 0;">
+
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <a class="card-text">No Antrian :
+                                                                            <tr>{{ $u->nomor_antrian }}</tr>
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
+
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h6 class="card-text">Harga :
+                                                                            <tr>Rp. {{ number_format($u->totalharga) }}</tr>
+                                                                        </h6>
+                                                                    </div>
+
+                                                                    <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
+
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h6 class="card-text">Pembayaran :
+                                                                            <tr>{{ $u->metodepembayaran }}</tr>
+                                                                        </h6>
+                                                                    </div>
+
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h6 class="card-text">Status :
+                                                                            <tr>${pembelianstatus}</tr>
+                                                                        </h6>
+                                                                    </div>
+
+                                                                    <hr style="border-top: 1px solid #d3d3d3; margin: 5px 0;">
+
+                                                                    <div>
+                                                                        ${generateActionHTML(pembelianstatus, menuId)}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        `;
+
+                                                        resultsContainer.append(menuItem);
+                                                    });
+                                                } else {
+                                                    console.log("gagal");
+
+                                                    var errorMessage =
+                                                        `<p class="error-message my-3">Menu tidak ditemukan.</p>`;
+                                                    resultsContainer.append(errorMessage);
+                                                }
+                                            },
+                                            error: function(response) {
+                                                // Tampilkan pesan kesalahan jika terjadi kesalahan pada permintaan
+                                                console.log(response.responseText);
+                                                var errorMessage =
+                                                    `<p class="error-message">Terjadi kesalahan saat mengirim permintaan.</p>`;
+                                                resultsContainer.append(errorMessage);
+                                            }
+                                        });
+                                    } else {
+                                        // Jika query kosong, bersihkan konten
+                                        $(".row.row-cols-2").html(allItems);
+                                        // Reset style elemen-elemen .col active
+                                    }
+                                });
+                            });
+
+                            function generateActionHTML(pembelianstatus, menuId) {
+                                var actionHTML = '';
+
+                                if (pembelianstatus === 'selesai') {
+                                    actionHTML = `
+                                        <form action="/tandakanselesai/${menuId}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button class="btn btn-primary" type="submit">Tandakan telah selesai</button>
+                                        </form>
+                                    `;
+                                } else if (pembelianstatus === 'pesanan di tolak') {
+                                    actionHTML = `
+                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-${menuId}" type="submit">
+                                            Ajukan pengembalian dana
+                                        </button>
+                                    `;
+                                } else if (pembelianstatus === 'menunggu konfirmasi') {
+                                    actionHTML = `
+                                        <form action="batalkanpesanan/${menuId}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-danger">batalkan pesanan</button>
+                                        </form>
+                                    `;
+                                } else if (pembelianstatus === 'sedang di proses') {
+                                    // Tindakan atau kode HTML yang sesuai untuk status ini
+                                }
+
+                                return actionHTML;
+                            }
+                        </script>
+
     </main>
     @include('layout.js')
 </body>
 
 </html>
 <script>
-@foreach ($user as $u)
-    var selectMetode{{$u->id}} = document.getElementById('selectMetode-{{$u->id}}');
-    var bankInput{{$u->id}} = document.getElementById('bankInput-{{$u->id}}');
-    var ewalletInput{{$u->id}} = document.getElementById('ewalletInput-{{$u->id}}');
+    @foreach ($user as $u)
+        var selectMetode{{ $u->id }} = document.getElementById('selectMetode-{{ $u->id }}');
+        var bankInput{{ $u->id }} = document.getElementById('bankInput-{{ $u->id }}');
+        var ewalletInput{{ $u->id }} = document.getElementById('ewalletInput-{{ $u->id }}');
 
-    selectMetode{{$u->id}}.addEventListener('change', function() {
-        // Sembunyikan semua elemen input terlebih dahulu
-        bankInput{{$u->id}}.style.display = 'none';
-        ewalletInput{{$u->id}}.style.display = 'none';
+        selectMetode{{ $u->id }}.addEventListener('change', function() {
+            // Sembunyikan semua elemen input terlebih dahulu
+            bankInput{{ $u->id }}.style.display = 'none';
+            ewalletInput{{ $u->id }}.style.display = 'none';
 
-        // Tampilkan input teks hanya ketika "Bank" dipilih
-        if (selectMetode{{$u->id}}.value === 'bank') {
-            bankInput{{$u->id}}.style.display = 'block';
-        }
-        
-        // Tampilkan input foto hanya ketika "E-Wallet" dipilih
-        if (selectMetode{{$u->id}}.value === 'e-wallet') {
-            ewalletInput{{$u->id}}.style.display = 'block';
-        }
-    });
-@endforeach
+            // Tampilkan input teks hanya ketika "Bank" dipilih
+            if (selectMetode{{ $u->id }}.value === 'bank') {
+                bankInput{{ $u->id }}.style.display = 'block';
+            }
+
+            // Tampilkan input foto hanya ketika "E-Wallet" dipilih
+            if (selectMetode{{ $u->id }}.value === 'e-wallet') {
+                ewalletInput{{ $u->id }}.style.display = 'block';
+            }
+        });
+    @endforeach
 </script>
-
-
-
-

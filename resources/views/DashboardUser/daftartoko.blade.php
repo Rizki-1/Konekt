@@ -135,26 +135,12 @@
         }
 
         .card-body {
-            height: 1000px;
+            height: auto;
         }
     </style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Kuliner kita</title>
 
+    @include('layout.link')
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-
-    <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
-
-    <!-- Library / Plugin Css Build -->
-    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 
 <body class="  "
@@ -287,7 +273,7 @@
                                     stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
-                        <input type="search" class="form-control" placeholder="Search...">
+                        <input type="search" id="search" class="form-control" placeholder="Cari...">
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -343,58 +329,154 @@
                         style="position: relative">
                         <h2 class="title text-primary"><span class="h2">Kuliner Kita | </span>Daftar Toko</h2>
                         <br><br>
-                        <div class="container">
-                            <div class="row gap-5">
-                                @foreach ($penjuallogin as $p)
-                                    <div class="card col-md-5" style="background-color:#ea68121e; margin-left:4%;">
-                                        <div class="card-content">
-                                            <div class="conten-container "
-                                                style="margin-left: 5px; margin-top: 10px;">
-                                                <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a
-                                                        style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
-                                                <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
-                                                        Hubungi Kami : {{ $p->notlp }}</a></p>
-                                                <a>Masakan Tradisional</a>
-                                                <h3>{{ $p->nama_toko }}</h3>
-                                                <tr>
-                                                    <i class="fa fa-star" style="color:rgb(196, 196, 16)"
-                                                        aria-hidden="true"></i>
-                                                    <i class="fa fa-star" style="color:rgb(196, 196, 16)"
-                                                        aria-hidden="true"></i>
-                                                    <i class="fa fa-star" style="color:rgb(196, 196, 16)"
-                                                        aria-hidden="true"></i>
-                                                    <i class="fa fa-star" style="color:rgb(196, 196, 16)"
-                                                        aria-hidden="true"></i>
-                                                    <i class="fa fa-star" style="color:rgb(196, 196, 16)"
-                                                        aria-hidden="true"></i>
-                                                    <a>(26)</a>
-                                                </tr>
-                                                <div class="btn-custom"><span>12 menu</span></div>
-                                                <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
-                                                    style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;"
-                                                    class="img">
-                                                <div><br><a class="btn btn-warning"
-                                                        style="bottom:15px; margin-top:-10px;"
-                                                        href="{{ route('detailtoko', ['id' => $p->id]) }}">Detail</a>
+                        <div id="result">
+                            <div class="container">
+                                <div class="row gap-5">
+                                    @foreach ($penjuallogin as $p)
+                                        <div class="card col-md-5"
+                                            style="background-color:#ea68121e; margin-left:4%;">
+                                            <div class="card-content">
+                                                <div class="content-container my-5">
+                                                    <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a
+                                                            style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
+                                                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
+                                                            Hubungi Kami : {{ $p->notlp }}</a></p>
+                                                    <a>Masakan Tradisional</a>
+                                                    <h3>{{ $p->nama_toko }}</h3>
+                                                    <tr>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <a>(26)</a>
+                                                    </tr>
+                                                    <div class="btn-custom"><span>12 menu</span></div>
+                                                    <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
+                                                        style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;"
+                                                        class="img">
+                                                    <div><br><a class="btn btn-warning"
+                                                            style="bottom:15px; margin-top:-10px;"
+                                                            href="{{ route('detailtoko', ['id' => $p->id]) }}">Detail</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                            @if ($penjuallogin->count() > 0)
-                                <div class="text-center mt-3">
-                                    {{ $penjuallogin->links('pagination::default') }}
+                                    @endforeach
                                 </div>
-                            @endif
+                            </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
-            {{-- @include('layout.footer') --}}
-            @include('layout.js')
+        </div>
+        <div class="container">
+            @if ($penjuallogin->count() > 0)
+                {{ $penjuallogin->links('pagination::default') }}
+            @endif
+        </div>
+        </div>
+        {{-- @include('layout.footer') --}}
+
+        {{-- search --}}
+        <script>
+            $(document).ready(function() {
+                // Simpan hasil awal semua item
+                var allItems = $(".row.gap-5").html();
+
+                $('#search').keyup(function() {
+                    var query = $(this).val();
+                    if (query != '') {
+                        $.ajax({
+                            url: "{{ route('caritoko') }}",
+                            method: 'GET',
+                            data: {
+                                query: query
+                            },
+                            success: function(data) {
+
+                                var resultsContainer = $(
+                                    ".row.gap-5");
+                                resultsContainer
+                                    .empty(); // Bersihkan konten sebelum menambahkan hasil pencarian
+
+                                console.log(query);
+                                console.log(data);
+
+                                // Periksa apakah respons adalah array
+                                if (typeof(data) == typeof([]) && data.length > 0) {
+                                    data.forEach(function(menu) {
+                                        var menuItem = `
+                                            <div class="card col-md-5"
+                                            style="background-color:#ea68121e; margin-left:4%;">
+                                            <div class="card-content">
+                                                <div class="content-container my-5">
+                                                    <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a
+                                                            style="margin-left: 5px;">${menu.alamat_toko}</a></a>
+                                                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
+                                                            Hubungi Kami : ${menu.notlp}</a></p>
+                                                    <a>Masakan Tradisional</a>
+                                                    <h3>${menu.nama_toko}</h3>
+                                                    <tr>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <i class="fa fa-star" style="color:gold"
+                                                            aria-hidden="true"></i>
+                                                        <a>(26)</a>
+                                                    </tr>
+                                                    <div class="btn-custom"><span>12 menu</span></div>
+                                                    <img src="{{ asset('Storage/') }}/${menu.foto_toko}" alt="Foto Toko"
+                                                        style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;"
+                                                        class="img">
+                                                    <div><br><a class="btn btn-warning"
+                                                            style="bottom:15px; margin-top:-10px;"
+                                                            href="{{ route('detailtoko', ['id' => '/']) }}/${menu.id}">Detail</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                `;
+
+                                        resultsContainer.append(menuItem);
+                                    });
+                                } else {
+                                    console.log("gagal");
+
+                                    var errorMessage =
+                                        `<p class="error-message my-3">Menu tidak ditemukan.</p>`;
+                                    resultsContainer.append(errorMessage);
+                                }
+                            },
+                            error: function(response) {
+                                // Tampilkan pesan kesalahan jika terjadi kesalahan pada permintaan
+                                console.log(response.responseText);
+                                var errorMessage =
+                                    `<p class="error-message">Terjadi kesalahan saat mengirim permintaan.</p>`;
+                                resultsContainer.append(errorMessage);
+                            }
+                        });
+                    } else {
+                        // Jika query kosong, bersihkan konten
+                        $(".row.gap-5").html(allItems);
+                        // Reset style elemen-elemen .col active
+                    }
+                });
+            });
+        </script>
+        {{-- search --}}
+
+        @include('layout.js')
 </body>
 
 </html>

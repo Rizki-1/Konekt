@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
-            'password' => 'adminpassword',
+            'password' => '12345678',
             'role' => 'admin',
         ]);
         \App\Models\User::factory()->create([
             'name' => 'user',
             'email' => 'user@gmail.com',
-            'password' => 'penjual',
+            'password' => '12345678',
             'role' => 'user',
         ]);
         // \App\Models\adminkategori::factory()->create([

@@ -382,7 +382,7 @@
                                     stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
-                        <input type="search" id="search" class="form-control" placeholder="Search...">
+                        <input type="search" id="search" class="form-control" placeholder="Cari...">
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -641,12 +641,14 @@
                                 </a>
                             </div>
                         </div>
-                        @if ($penjual->count() > 0)
-                        {{$penjual->links('pagination::default')}}
-                        @endif
                     </div>
-                    @include('layout.footer')
                 </div>
+                <div class="pagination">
+                    @if ($penjual->count() > 0)
+                        {{ $penjual->links('pagination::default') }}
+                    @endif
+                </div>
+                {{-- @include('layout.footer') --}}
     </main>
 
     {{-- search --}}

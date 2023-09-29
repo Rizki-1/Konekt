@@ -67,24 +67,25 @@
             /* Ganti ukuran sesuai keinginan Anda */
         }
 
+        .rating {
+            font-size: 24px;
+        }
+
+        .star {
+            color: gray;
+            cursor: pointer;
+        }
+
+        .star:hover {
+            color: gold;
+        }
+
+
         /*  */
     </style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Kuliner kita</title>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+    @include('layout.link')
 
-    <!-- Library / Plugin Css Build -->
-    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class=" "
@@ -104,20 +105,23 @@
                             <input type="hidden" name="barangpenjual_id" value="{{ $u->barangpenjual_id }}">
                         </div>
                         <div class="modal-body">
-                            {{ $u->rating }}
-                            @for ($i = 1; $i <= 5; $i++)
-                                <label style="color: gray; cursor: pointer;">
-                                    <input type="radio" name="rating" value="{{ $i }}"
-                                        class="form-control" min="1" max="5" onchange="toggleStart(this)">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                            @endfor
+                            <div class="mb-3">
+                                {{ $u->rating }}
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <label style="color: gray; cursor: pointer;" class="star">
+                                        <input type="radio" name="rating" value="{{ $i }}"
+                                            class="form-control rating-input" min="1" max="5">
+                                        <i class="fas fa-star"></i>
+                                    </label>
+                                @endfor
+                            </div>
+                            <div class="my-3">
+                                {{ $u->komentar }}
+                                <label for="ulasan">Komentar</label>
+                                <textarea name="komentar" class="form-control" value="{{ $u->komentar }}"></textarea>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            {{ $u->komentar }}
-                            <label for="ulasan">Komentar</label>
-                            <textarea name="komentar" class="form-control" value="{{ $u->komentar }}"></textarea>
-                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                             <form action="{{ route('riwayatuser', ['id' => $u->id]) }}" method="GET">
@@ -245,18 +249,6 @@
                             </svg>
                         </i>
                     </div>
-                    <div class="input-group search-input">
-                        <span class="input-group-text" id="search-input">
-                            <svg width="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                                <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                        <input type="search" class="form-control" placeholder="Search...">
-                    </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -374,38 +366,29 @@
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
-    <script>
-        function toggleStar(radioElement) {
-            const stars = document.querySelectorAll('.fas.fa-star');
-            const index = parseInt(radioElement.value) - 1;
 
-            for (let i = 0; i < stars.length; i++) {
-                if (i <= index) {
-                    stars[i].style.color = 'yellow';
-                } else {
-                    stars[i].style.color = 'gray';
-                }
-            }
-        }
-    </script>
+    {{-- js bintang --}}
     <script>
-        function toggleStart(radioElement) {
-            const stars = radioElement.parentNode.querySelectorAll('.fas.fa-star');
-            const index = parseInt(radioElement.value) - 1;
-            if (radioElement.value >= 1) {
-                for (let i = 0; i < index; i++) {
-                    stars[i].style.color = 'yellow';
-                }
-                for (let i = index + 1; i < stars.length; i++) {
-                    stars[i].style.color = 'gray';
-                }
-            } else {
-                for (let i = 0; i < stars.length; i++) {
-                    stars[i].style.color = 'gray';
-                }
-            }
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            const stars = document.querySelectorAll('.star');
+
+            stars.forEach(function(star, index) {
+                star.addEventListener('click', function() {
+
+                    stars.forEach(function(innerStar, innerIndex) {
+                        if (innerIndex <= index) {
+
+                            innerStar.querySelector('i').style.color = 'gold';
+                        } else {
+
+                            innerStar.querySelector('i').style.color = 'gray';
+                        }
+                    });
+                });
+            });
+        });
     </script>
+    {{-- js bintang --}}
 </body>
 
 </html>

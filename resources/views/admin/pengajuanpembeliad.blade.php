@@ -127,7 +127,7 @@
                                 <div class="mb-3">
                                     <label for="" class="form-label fw-bold">Tujuan</label>
                                     <input type="" class="form-control" id="keterangan_metode_pemgembalian" name="keterangan_metode_pemgembalian" value="{{$Pengajuanuser->keterangan_metode_pengembalian}}" readonly>
-                                </div> 
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -309,18 +309,6 @@
                                     d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
                             </svg>
                         </i>
-                    </div>
-                    <div class="input-group search-input">
-                        <span class="input-group-text" id="search-input">
-                            <svg width="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                                <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                        <input type="search" class="form-control" placeholder="Search...">
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

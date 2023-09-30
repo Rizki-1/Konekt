@@ -38,7 +38,7 @@ class penjuallogin extends Model
 
     public function pengajuandanapenjual(): HasMany
     {
-        return $this->hasMany(pengajuayanapenjual::class);
+        return $this->hasMany(pengajuandanapenjual::class);
     }
 
     public function order(): HasMany

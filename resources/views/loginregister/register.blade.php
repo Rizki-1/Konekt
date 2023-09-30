@@ -7,10 +7,14 @@
 <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<<<<<<< Updated upstream
       <title>Register</title>
+=======
+      <title>Kuliner Kita</title>
+>>>>>>> Stashed changes
 
       <!-- Favicon -->
-      <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+      <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/kuliner.png" />
 
       <!-- Library / Plugin Css Build -->
       <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
@@ -493,7 +497,7 @@
                <div class="d-flex justify-content-center mb-0">
                   <div class="card-body mt-5">
                      <a href="../index-2.html">
-                        <img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/logo.svg" class="img-fluid logo-img" alt="img5">
+                        <img src="../../assets/images/kuliner.png" class="img-fluid logo-img" alt="img5">
                      </a>
                      <h2 class="mb-2 text-center">Register</h2>
                      <p class="text-center">Buat akun Kuliner Anda.</p>

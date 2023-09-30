@@ -498,7 +498,7 @@
                <div class="d-flex justify-content-center mb-0">
                   <div class="card-body mt-5">
                      <a href="../index-2.html">
-                        <img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/logo.svg" class="img-fluid logo-img" alt="img5" style="margin-left:200px;">
+                        <img src="../../assets/images/kuliner.png" class="img-fluid logo-img" alt="img5" style="margin-left:110px;" >
                      </a>
                      <h2 class="mb-2 text-center">Register</h2>
                      <p class="text-center">Buat akun sebagai penjual di Kuliner Kita.</p>
@@ -593,9 +593,6 @@
                                  @endif
                               </div>
                            </div>
-                           <!-- <div class="col-lg-6">
-                              <button type="submit" class="btn btn-primary">Sign Up</button>
-                           </div> -->
                            <div style="margin-left:300px; margin-top:4px;">
                                  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
                                     <li class="nav-item" role="presentation">
@@ -608,18 +605,6 @@
                               </div>
                             </div>
                            </div>
-                           <!-- <div style="margin-left:160px; margin-top:4px;">
-                           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
-                              <li class="nav-item" role="presentation">
-                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">previous</button>
-                              </li>
-                              <li class="nav-item" role="presentation">
-                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Next</button>
-                              </li>
-                              </ul>
-
-                              </div>
-                              </div> -->
                            <div class="col-lg-12 d-flex justify-content-center" style="margin-top: 1em">
                               <div class="form-check mb-3" >
                                  <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-left: -270px;">
@@ -636,14 +621,7 @@
                </div>
             </div>
             <div class="col-md-12 col-lg-5 col-xl-8 d-lg-block d-none vh-100 overflow-hidden">
-            <img src="../../assets/images/auth/01.png" class="hover-img rounded-circle first-img" alt="images">
-                  <img src="../../assets/images/auth/02.png" class="hover-img rounded-circle second-img" alt="images">
-                  <img src="../../assets/images/auth/03.png" class="hover-img rounded-circle third-img" alt="images">
-                  <img src="../../assets/images/auth/04.png" class="hover-img rounded-circle fourth-img" alt="images">
-                  <img src="../../assets/images/auth/05.png" class="hover-img rounded-circle fifth-img" alt="images">
-                  <img src="../../assets/images/auth/06.png" class="hover-img rounded-circle six-img" alt="images">
-                  <img src="../../assets/images/auth/01.png" class="hover-img rounded-circle seventh-img" alt="images">
-                  <img src="../../assets/images/auth/02.png" class="hover-img rounded-circle eight-img" alt="images">
+               <img src="../../assets/images/auth/09.png" class="img-fluid sign-in-img" alt="images">
             </div>
          </div>
       </section>

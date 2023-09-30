@@ -19,6 +19,7 @@ use App\Models\dashboardusercontrollers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\pengajuandanapenjual;
+use App\Models\penjuallogin;
 
 class penjualcontroller extends Controller
 {
@@ -128,6 +129,7 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_store(Request $request)
     {
+<<<<<<< Updated upstream
         $request->validate([
             'metodepembayaran' => 'required',
             'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
@@ -145,15 +147,41 @@ class penjualcontroller extends Controller
             'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
             'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
         ]);
+=======
+    // $request->validate([
+    //     'metodepembayaran' => 'required',
+    //     'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
+    //     'keterangan' => 'required',
+    //     'tujuan_bank' => 'required_if:metodepembayaran,bank',
+    //     'keterangan_bank' => 'required_if:metodepembayaran,bank',
+    //     'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
+    // ], [
+    //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+    //     'tujuan_e_wallet.required_if' => 'Tujuan E-Wallet wajib diisi.',
+    //     'keterangan.required' => 'Keterangan wajib diisi.',
+    //     'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
+    //     'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
+    //     'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
+    //     'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
+    //     'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
+    //     'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
+    // ]);
+>>>>>>> Stashed changes
 
         $metodePembayaran = $request->input('metodepembayaran');
         $data = [
             'metodepembayaran' => $metodePembayaran,
         ];
 
+<<<<<<< Updated upstream
         if ($metodePembayaran === 'e-wallet') {
             $data['tujuan'] = $request->input('tujuan_e_wallet');
             $data['keterangan'] = $request->input('keterangan');
+=======
+    if ($metodePembayaran === 'e-wallet') {
+        $data['tujuan'] = $request->input('tujuan_e_wallet');
+        $data['keterangan'] = $request->input('keterangan_e_wallet');
+>>>>>>> Stashed changes
 
             if ($request->hasFile('keterangan_e_wallet')) {
                 $image = $request->file('keterangan_e_wallet');
@@ -173,6 +201,17 @@ class penjualcontroller extends Controller
         return redirect()->route('pembayaranpenjual');
     }
 
+<<<<<<< Updated upstream
+=======
+    // Simpan data ke database
+    PembayaranPenjual::create($data);
+    // Redirect atau tampilkan pesan sukses
+    session()->flash('notif.success', 'Data pembayaran berhasil disimpan.');
+    return redirect()->route('pembayaranpenjual');
+
+}
+
+>>>>>>> Stashed changes
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {
         $pembayaranpenjual->delete();
@@ -258,13 +297,44 @@ class penjualcontroller extends Controller
 
     protected function pengajuandana(Request $request)
     {
-        $userOrder = userOrder::all();
+
+        $userOrder = userOrder::where('pembelianstatus', 'statusselesai')->get();
         $pengajuandanapenjual = pembayaranpenjual::all();
+<<<<<<< Updated upstream
 
         // $pengajuandana->save();
         return view('DashboardPenjual.pengajuandana', compact('userOrder', 'pengajuandanapenjual'));
     }
 
+=======
+        $bank = pembayaranpenjual::where('metodepembayaran','bank')->get();
+        $wallet = pembayaranpenjual::where('metodepembayaran','e-wallet')->get();
+        // dd($wallet);
+        // $pengajuandana->save();
+        return view('DashboardPenjual.pengajuandana', compact('userOrder','pengajuandanapenjual','bank','wallet'));
+    }
+
+    protected function mengajukandana(Request $request)
+    {
+        $id = Auth::id();
+        $b = pembayaranpenjual::all();
+
+        // dd($request->input('keterangan_e_wallet'));
+
+        $mengajukandana =
+        [
+            'penjual_id' => $id,
+            'barangpenjual_id' => $request->barangpenjual_id,
+            'metodepembayaran_id' => $request->metodepembayaran_id,
+            'keterangan_pengajuan' => $request->input('keterangan_e_wallet', 'keterangan_bank'),
+            'tujuan_pengajuan' => $request->input('tujuan_e_wallet', 'tujuan_bank'),
+        ];
+        // dd($mengajukandana);
+        pengajuandanapenjual::create($mengajukandana);
+        return redirect()->route('pengajuanpenjualad');
+    }
+
+>>>>>>> Stashed changes
 
     protected function profilepenjual(Request $request)
     {

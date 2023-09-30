@@ -7,10 +7,14 @@
 <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<<<<<<< Updated upstream
       <title>Login</title>
+=======
+      <title>kuliner</title>
+>>>>>>> Stashed changes
 
       <!-- Favicon -->
-      <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+      <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/kuliner.png" />
 
       <!-- Library / Plugin Css Build -->
       <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
@@ -23,17 +27,22 @@
     <script>
         toastr.success('{{ session('warning') }}')
     </script>
-    @endif  
+    @endif
       <div class="wrapper">
       <section class="container-fluid bg-circle-login" id="auth-sign">
          <div class="row align-items-center">
             <div class="col-md-12 col-lg-7 col-xl-4">
                <div class="card-body">
                   <a href="../index-2.html">
-                     <img src="../../assets/images/favicon.png" class="img-fluid logo-img" alt="img4">
+                     <img src="../../assets/images/kuliner.png" class="img-fluid logo-img" alt="img4">
                   </a>
+<<<<<<< Updated upstream
                            <h2 class="mb-2 text-center">Selamat Datang</h2>
                            <p class="text-center">di Kuliner Kita</p>
+=======
+                           <h2 class="mb-2 text-center">Log In</h2>
+                           <p class="text-center">Sign in to stay connected.</p>
+>>>>>>> Stashed changes
                            <form action="{{ route('authenticate') }}" method="POST">
                             @csrf
                               <div class="row">

@@ -128,11 +128,22 @@ class dashboardusercontroller extends Controller
 
             $userOrder = userOrder::create($userOrderData);
 
+
             $keranjang->delete();
 
             $userOrdersIds[] = $userOrder->id;
-        }
 
+            // dd($userOrdersIds);
+
+        //     return response()->json(['success' => true, 'message' => 'Pembelian berhasil.', 'orderIds' => $userOrdersIds]);
+        // } catch (\Exception $e) {
+        //     // Rollback transaksi jika terjadi kesalahan
+        //     DB::rollback();
+
+        //     return response()->json(['message' => 'Terjadi kesalahan dalam melakukan pembelian.'], 500);
+        //     // dd($e->getMessage());
+        // }
+        }
         $orderId = $userOrder->id;
 
         DB::commit();
@@ -187,7 +198,6 @@ class dashboardusercontroller extends Controller
         if ($userOrder->isEmpty()) {
             return redirect()->back()->with('error', 'Tidak ada pesanan yang ditemukan.');
         }
-
 
         $notifikasi = notifikasi::all();
         $user_id = Auth::id();

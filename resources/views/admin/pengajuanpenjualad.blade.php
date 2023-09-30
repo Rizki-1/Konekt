@@ -104,8 +104,43 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
+@foreach ($p as $b )
+<form action="{{ route('terimapengajuan',['id' => $b->id]) }}" method="post">
+    @csrf
+    <div class="modal" name="terimapengajuan" id="myModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="" class="form-label fw-bold">Tujuan</label>
+                    <a class="form-control" value="">{{ $b->tujuan_pengajuan }}</a>
+                </div>
+            <div class="modal-body ">
+              <label for="" class="form-label fw-bold">Keterangan</label>
+              @php
+              $saya = strlen($b->pembayaranpenjual->keterangan)
+              @endphp
+              @if ($saya >= 20)
+                  {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
+                  <p name="keterangan"><img value="" src="{{ asset('storage/pembayaran/'.$b->pembayaranpenjual->keterangan) }}" alt="" style="max-width:150px; height:100px;"></p>
+                  @else
+                  <p class="form-control" name="keterangan">{{ $b->pembayaranpenjual->keterangan }}</p>
+              @endif
+            </div>
+            <div class="modal-footer mx-3">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Kirim</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+@endforeach
 
-<body class="  "
+<body class=""
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
@@ -348,6 +383,26 @@
                                             <th scope="col">aksi</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        @php
+                                            $no = 1;
+                                        @endphp
+                                        @foreach ($p as $b )
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $b->penjuallogin->nama_toko}}</td>
+                                            <td>{{ $b->barangpenjual->namamenu }}</td>
+                                            <td>{{ $b->barangpenjual->harga }}</td>
+                                            <td>{{ $b->pembayaranpenjual->metodepembayaran }}</td>
+                                            <td>
+                                                <div class="btn btn-warning" type="submit"
+                                                data-bs-toggle="modal" data-bs-target="#myModal"
+                                                style="">Detail</div>
+                                            </td>
+                                            {{-- @dump($b->penjuallogin) --}}
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -359,5 +414,6 @@
     </main>
     @include('layout.js')
 </body>
-
 </html>
+
+

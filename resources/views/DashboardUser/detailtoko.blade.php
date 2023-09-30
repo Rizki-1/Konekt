@@ -297,9 +297,16 @@ body {
                                     </div>
                                 </div>
                             </div>
+<<<<<<< Updated upstream
                     @endforeach
 
                 </div>
+=======
+                        </div>
+                    </div>
+                </div>
+              @endforeach
+>>>>>>> Stashed changes
             </div>
 
             <!-- Menu -->
@@ -355,7 +362,12 @@ body {
                 </div>
             </div>
         </div>
+<<<<<<< Updated upstream
         </div>
+=======
+    </div>
+</div>
+>>>>>>> Stashed changes
 
     </main>
     <script src="../../assets/js/core/libs.min.js"></script>

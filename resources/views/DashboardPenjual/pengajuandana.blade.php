@@ -114,6 +114,7 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
+<<<<<<< Updated upstream
 @include('layout.logoloader')
 @foreach ($userOrder as $UserOrder)
     <div class="modal fade" id="myModal-{{ $UserOrder->id }}" tabindex="-1">
@@ -123,6 +124,21 @@
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Modal title</h5>
+=======
+
+
+
+@foreach ($userOrder as $UserOrder)
+@foreach ($wallet as $w)
+@foreach ($bank as $b)
+<form action="{{ route('mengajukandana') }}" method="post">
+        @csrf
+        <div class="modal" id="myModal-{{ $UserOrder->id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Mengajukan Dana</h5>
+>>>>>>> Stashed changes
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -131,6 +147,7 @@
                                 <div class="col-8">
                                 </div>
                                 <div class="mb-3">
+<<<<<<< Updated upstream
                                     <label for="metodepembayaran_id-{{ $UserOrder->id }}"
                                         class="form-label fw-bold">Metode Pembayaran</label>
                                     <select id="metodepembayaran_id-{{ $UserOrder->id }}" name="metodepembayaran_id"
@@ -159,12 +176,239 @@
                                         <input type="hidden" name="keterangan" id="keterangan-{{ $UserOrder->id }}"
                                             class="form-control">
 
+=======
+                                    <label for="metodepembayaran_id" class="form-label fw-bold">Metode
+                                        Pembayaran</label>
+                                    <input type="hidden" name="barangpenjual_id"
+                                        value="{{ $UserOrder->barangpenjual_id }}">
+                                    <select class="form-select form-select-lg mb-3" name="metodepembayaran_id"
+                                        style="width: 300px; height: 50px; font-size: 18px;"
+                                        aria-label=".form-select-lg example" id="selectMetode">
+                                        <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
+                                        <option value="{{ $w->id }}" data-target="ewalletInput-{{ $w->id }}">E-Wallet</option>
+                                        <option value="{{ $b->id }}" data-target="bankInput-{{ $b->id }}">Bank</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3" id="ewalletInput-{{ $w->id }}" style="display: none;">
+                                    <div>
+                                        <p class="text-bold">Jenis QR</p>
+                                    </div>
+                                    <select name="tujuan_e_wallet" id="JenisEwallet" class="form-control">
+                                        <option value="" disabled selected>Pilih</option>
+                                        @forelse ($wallet as $data)
+                                            <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
+                                        @empty
+                                            <option value="" disabled selected>Data E-wallet Kosong</option>
+                                        @endforelse
+                                    </select>
+                                    <div><br>
+                                        <p class="text-bold">Kode QR</p>
+                                    </div>
+                                    @foreach ($wallet as $data)
+                                        @php
+                                            $jefri = strlen($data->keterangan);
+                                        @endphp
+                                        @if ($jefri >= 20)
+                                            <p class="" name="keterangan_e_wallet" value="{{ $data->keterangan }}"
+                                                id="{{ $data->tujuan }}">
+                                                <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}"
+                                                    style="width: 150px; height=80px;" disabled>
+                                            </p>
+                                        @else
+                                            <a></a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <div class="mb-3" id="bankInput-{{ $b->id }}" style="display: none;">
+                                    <div>
+                                        <p class="text-bold">Jenis Bank</p>
+                                    </div>
+                                    <select name="tujuan_bank" id="JenisBank" class="form-control">
+                                        <option value="" disabled selected>Pilih</option>
+                                        @forelse ($bank as $data)
+                                            <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
+                                        @empty
+                                            <option value=""disabled selected>Data No Rekening Kosong</option>
+                                        @endforelse
+                                    </select>
+                                    <div>
+                                        <p class="text-bold">No Rekening</p>
+                                    </div>
+                                    @foreach ($bank as $data)
+                                        @php
+                                            $saya = strlen($data->keterangan);
+                                        @endphp
+                                        @if ($saya >= 20)
+                                            {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
+                                         @else
+                                            <input type="text" name="keterangan_bank" value="{{ $data->keterangan }}"
+                                                id="{{ $data->tujuan }}" class="form-control" disabled>
+                                        @endif
+                                    @endforeach
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        let selectElement = document.querySelector('#JenisBank');
+        let inputElements = document.querySelectorAll('input[name="keterangan_bank"]');
+        let spElement = document.querySelector('#JenisEwallet');
+        let pElements = document.querySelectorAll('p[name="keterangan_e_wallet"]');
+
+        selectElement.addEventListener('change', function() {
+            let selectedValue = selectElement.value;
+
+            inputElements.forEach(function(input) {
+                if (input.id === selectedValue) {
+                    input.style.display = 'block';
+                    input.disabled = false;
+                } else {
+                    input.style.display = 'none';
+                    input.disabled = true;
+                }
+            });
+        });
+
+        spElement.addEventListener('change', function() {
+            let selectedValue = spElement.value;
+
+            pElements.forEach(function(p) {
+                if (p.id === selectedValue) {
+                    p.style.display = 'block';
+                    p.disabled = false;
+                } else {
+                    p.style.display = 'none';
+                    p.disabled = true;
+                }
+            });
+        });
+
+        // Menjalankan pengecekan saat halaman pertama kali dimuat
+        selectElement.dispatchEvent(new Event('change'));
+        spElement.dispatchEvent(new Event('change'));
+    </script>
+
+    <script>
+        // $("#selectMetode").change(function() {
+        //     var selectedOption = $(this).val();
+        //     if (selectedOption === "{{ $w->id }}" && "{{ $w->id }}" !== "") {
+        //     $("#ewalletInput-{{ $w->id }}").show();
+        //     $("#bankInput").hide();
+        //     } else if (selectedOption === "{{ $b->id }}" && "{{ $b->id }}" !== "") {
+        //         $("#ewalletInput").hide();
+        //         $("#bankInput-{{ $b->id }}").show();
+        //      } else {
+        //         $("#ewalletInput").hide();
+        //         $("#bankInput").hide();
+        //     }
+        // });
+        $("#selectMetode").change(function() {
+      var selectedOption = $(this).val();
+
+    // Sembunyikan semua elemen
+    $("#ewalletInput-{{ $w->id }}").hide();
+    $("#bankInput-{{ $b->id }}").hide();
+
+    // Periksa opsi yang dipilih
+    if (selectedOption === "{{ $w->id }}" && "{{ $w->id }}" !== "") {
+        $("#ewalletInput-{{ $w->id }}").show();
+        $("#tujuan_e_wallet").val(selectedOption);
+    } else if (selectedOption === "{{ $b->id }}" && "{{ $b->id }}" !== "") {
+        $("#bankInput-{{ $b->id }}").show();
+        $("#tujuan_bank").val(selectedOption);
+    }
+});
+
+        </script>
+@endforeach
+@endforeach
+@endforeach
+
+
+{{-- @php
+        $ewalletOptions = $wallet->where('tujuan', '<>', '');
+        $bankOptions = $bank->where('tujuan', '<>', '');
+        @endphp
+        @foreach ($userOrder as $UserOrder)
+        @foreach ($ewalletOptions as $p)
+        @foreach ($bankOptions as $b)
+        <form action="{{ route('mengajukandana') }}" method="post">
+            @csrf
+            <div class="modal" id="myModal-{{$UserOrder->id}}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-8">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="metodepembayaran_id-{{$UserOrder->id}}" class="form-label fw-bold">Metode Pembayaran</label>
+                                    <input type="hidden" name="barangpenjual_id" value="{{ $UserOrder->barangpenjual_id }}">
+                                    <select id="metodepembayaran_id-{{$UserOrder->id}}" name="metodepembayaran_id" class="form-control payment-method">
+                                        <option value="" selected disabled>Pilih Metode Pembayaran</option>
+                                        <option value="{{ $p->id }}">{{ $p->metodepembayaran }}</option>
+                                        <option value="{{ $b->id }}">{{ $b->metodepembayaran }}</option>
+                                    </select>
+                                </div>
+                                <div id="tujuanDiv-{{ $p->id }}-{{$UserOrder->id}}" class="payment" style="display: none;">
+                                    <div class="mb-3">
+                                        <label for="tujuan-{{ $p->id }}-{{$UserOrder->id}}" class="form-label fw-bold">Tujuan</label>
+                                        <select id="tujuan-{{ $p->id }}-{{$UserOrder->id}}" name="tujuan" class="form-control tujuan-input">
+                                            <option value="" selected disabled>Pilih Tujuan</option>
+                                            @forelse ($ewalletOptions as $metode)
+                                            <option value="{{ $metode->id }}" data-keterangan="{{ $metode->keterangan }}">{{ $metode->tujuan }}</option>
+                                            @empty
+                                            <option value="" disabled>Tidak ada pilihan E-Wallet</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                    <div id="keteranganDiv-{{ $p->id }}-{{$UserOrder->id}}" class="mb-3 keterangan-input" style="display: none;">
+                                        <label for="keterangan-{{ $p->id }}-{{$UserOrder->id}}" class="form-label fw-bold">Keterangan E-Wallet</label>
+                                        <div id="keterangan-img-{{ $p->id }}-{{$UserOrder->id}}">
+                                            <!-- Gambar akan ditampilkan di sini -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tujuanDiv-{{ $b->id }}-{{$UserOrder->id}}" class="payment" style="display: none;">
+                                    <div class="mb-3">
+                                        <label for="tujuan-{{ $b->id }}-{{$UserOrder->id}}" class="form-label fw-bold">Tujuan</label>
+                                        <select id="tujuan-{{ $b->id }}-{{$UserOrder->id}}" name="tujuan" class="form-control tujuan-input">
+                                            <option value="" selected disabled>Pilih Tujuan</option>
+                                            @forelse ($bankOptions as $metode)
+                                            <option value="{{ $metode->id }}" data-keterangan="{{ $metode->keterangan }}">{{ $metode->tujuan }}</option>
+                                            @empty
+                                            <option value="" disabled>Tidak ada pilihan bank</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                    <div id="keteranganDiv-{{ $b->id }}-{{$UserOrder->id}}" class="mb-3 keterangan-input" style="display: none;">
+                                        <label for="keterangan-{{ $p->id }}-{{$UserOrder->id}}" class="form-label fw-bold">Keterangan bank</label>
+                                        <div id="keterangan-text-{{ $b->id }}-{{$UserOrder->id}}" class="form-control fw-bold">
+                                            <!-- Keterangan {} akan ditampilkan di sini -->
+                                        </div>
+>>>>>>> Stashed changes
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
+<<<<<<< Updated upstream
                         <button type="button" class="btn btn-outline-secondary rounded-pill"
                             data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
@@ -239,6 +483,84 @@
             </i>
         </div>
     </div>
+=======
+                        <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        var metodePembayaranSelect = document.getElementById('metodepembayaran_id-{{$UserOrder->id}}');
+        var ewalletTujuanDiv = document.getElementById('tujuanDiv-{{ $p->id }}-{{$UserOrder->id}}');
+        var bankTujuanDiv = document.getElementById('tujuanDiv-{{ $b->id }}-{{$UserOrder->id}}');
+        var ewalletKeteranganDiv = document.getElementById('keteranganDiv-{{ $p->id }}-{{$UserOrder->id}}');
+        var bankKeteranganDiv = document.getElementById('keteranganDiv-{{ $b->id }}-{{$UserOrder->id}}');
+        var keteranganImgEwallet = document.getElementById('keterangan-img-{{ $p->id }}-{{$UserOrder->id}}');
+        var keteranganTextBank = document.getElementById('keterangan-text-{{ $b->id }}-{{$UserOrder->id}}');
+
+        metodePembayaranSelect.addEventListener('change', function () {
+            var selectedValue = this.value;
+
+            // Sembunyikan semua elemen terkait terlebih dahulu
+            ewalletTujuanDiv.style.display = 'none';
+            bankTujuanDiv.style.display = 'none';
+            ewalletKeteranganDiv.style.display = 'none';
+            bankKeteranganDiv.style.display = 'none';
+
+            if (selectedValue === '{{ $p->id }}') {
+                // Jika yang dipilih adalah '{}', tampilkan inputan untuk E-Wallet
+                ewalletTujuanDiv.style.display = 'block';
+                ewalletKeteranganDiv.style.display = 'block';
+            } else if (selectedValue === '{{ $b->id }}') {
+                // Jika yang dipilih adalah '{}', tampilkan inputan untuk bank
+                bankTujuanDiv.style.display = 'block';
+                bankKeteranganDiv.style.display = 'block';
+            }
+        });
+
+        // Tambahkan event listener untuk setiap pilihan "Tujuan" pada E-Wallet
+        var tujuanEwalletSelect = document.getElementById('tujuan-{{ $p->id }}-{{$UserOrder->id}}');
+        tujuanEwalletSelect.addEventListener('change', function () {
+            var selectedOption = this.options[this.selectedIndex];
+            var keterangan = selectedOption.getAttribute('data-keterangan');
+            keteranganImgEwallet.innerHTML =  '<img src="{{ asset('storage/pembayaran') }}/' + keterangan + '" alt="Keterangan E-Wallet" style="max-width:150px; height:100px;">';
+        });
+
+        // Tambahkan event listener untuk setiap pilihan "Tujuan" pada {}
+        var tujuanBankSelect = document.getElementById('tujuan-{{ $b->id }}-{{$UserOrder->id}}');
+        tujuanBankSelect.addEventListener('change', function () {
+            var selectedOption = this.options[this.selectedIndex];
+            var keterangan = selectedOption.getAttribute('data-keterangan');
+            keteranganTextBank.innerHTML = keterangan; // Tampilkan keterangan {} sebagai teks
+        });
+    </script>
+@endforeach
+@endforeach
+@endforeach --}}
+
+
+
+
+
+<aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
+    <div class="sidebar-header d-flex align-items-center justify-content-start">
+        @include('layout.minilogo')
+        <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
+            <i class="icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.25 12.2744L19.25 12.2744" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </i>
+        </div>
+    </div>
+>>>>>>> Stashed changes
     <div class="sidebar-body pt-0 data-scrollbar">
         <div class="navbar-collapse" id="sidebar">
             <!-- Sidebar Menu Start -->
@@ -366,6 +688,20 @@
                         </svg>
                     </i>
                 </div>
+<<<<<<< Updated upstream
+=======
+                <div class="input-group search-input">
+                    <span class="input-group-text" id="search-input">
+                        <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
+                            <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </span>
+                    <input type="search" class="form-control" placeholder="Search...">
+                </div>
+>>>>>>> Stashed changes
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -377,6 +713,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
+<<<<<<< Updated upstream
                         <!-- start pesan -->
 
                         <!-- End Pesan-->
@@ -448,6 +785,115 @@
 
                         </tbody>
                     </table>
+=======
+                        <!-- isi dari notifikasi-->
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
+                                <svg width="18" height="21" viewBox="0 0 18 21" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M16.7695 10.1453C16.039 9.29229 15.7071 8.55305 15.7071 7.29716V6.87013C15.7071 5.23354 15.3304 4.17907 14.5115 3.12459C13.2493 1.48699 11.1244 0.5 9.04423 0.5H8.95577C6.91935 0.5 4.86106 1.44167 3.577 3.0128C2.71333 4.08842 2.29293 5.18822 2.29293 6.87013V7.29716C2.29293 8.55305 1.98284 9.29229 1.23049 10.1453C0.676907 10.7738 0.5 11.5815 0.5 12.4557C0.5 13.3309 0.787226 14.1598 1.36367 14.8336C2.11602 15.6413 3.17846 16.1569 4.26375 16.2466C5.83505 16.4258 7.40634 16.4933 9.0005 16.4933C10.5937 16.4933 12.165 16.3805 13.7372 16.2466C14.8215 16.1569 15.884 15.6413 16.6363 14.8336C17.2118 14.1598 17.5 13.3309 17.5 12.4557C17.5 11.5815 17.3231 10.7738 16.7695 10.1453Z"
+                                        fill="currentColor" />
+                                    <path opacity="0.4"
+                                        d="M11.0097 17.7285C10.5098 17.6217 7.46364 17.6217 6.96372 17.7285C6.53636 17.8272 6.07422 18.0568 6.07422 18.5604C6.09907 19.0408 6.38033 19.4648 6.76992 19.7337L6.76893 19.7347C7.27282 20.1275 7.86416 20.3773 8.48334 20.4669C8.8133 20.5122 9.14923 20.5102 9.49111 20.4669C10.1093 20.3773 10.7006 20.1275 11.2045 19.7347L11.2035 19.7337C11.5931 19.4648 11.8744 19.0408 11.8992 18.5604C11.8992 18.0568 11.4371 17.8272 11.0097 17.7285Z"
+                                        fill="currentColor" />
+                                </svg>
+                                <span class="bg-danger dots"></span>
+                            </a>
+                            <div class="sub-drop dropdown-menu dropdown-menu-end p-0"
+                                aria-labelledby="notification-drop">
+                                <div class="card shadow-none m-0">
+                                    <div class="card-header d-flex justify-content-between bg-primary mx-0 px-4">
+                                        <div class="header-title">
+                                            <h5 class="mb-0 text-white">All Notifications</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- End notifikasi -->
+                        <!-- start pesan -->
+                        <!-- End Pesan-->
+                        <!-- Start Profile-->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="../assets/images/avatars/01.png" alt="User-Profile"
+                                    class="img-fluid avatar avatar-50 avatar-rounded">
+                                <div class="caption ms-3 d-none d-md-block ">
+                                    <h6 class="mb-0 caption-title">{{ Auth::user()->name }}</h6>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="profilepenjual">Profile</a></li>
+                                <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                            </ul>
+                        </li>
+                        <!-- End Profile-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <style>
+        *::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+
+    <div class="content-inner mt-5 py-0">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body" style="overflow: hidden; padding-right: 40px">
+                        <div class="row">
+                            <div style="overflow: auto" class="" data-iq-gsap="onStart" data-iq-opacity="0"
+                                data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".8"
+                                data-iq-trigger="scroll" data-iq-ease="none" style="position: relative">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">nama pembeli</th>
+                                            <th scope="col">jumlah pesanan</th>
+                                            <!-- <th scope="col">total</th> -->
+                                            <th scope="col">metode pembayaran</th>
+                                            <th scope="col">aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $no = 1;
+                                        @endphp
+                                        @foreach ($userOrder as $UserOrder)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $UserOrder->User->name }}</td>
+                                                <td>{{ $UserOrder->jumlah }}</td>
+                                                <!-- <td>{{ $UserOrder->totalharga }}</td> -->
+                                                <td>{{ $UserOrder->metodepembayaran }}</td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-outline-primary"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#myModal-{{ $UserOrder->id }}">
+                                                        ajukan pengambilan dana
+                                                    </button>
+                                                </td>
+                                                {{-- @dump($userOrder) --}}
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>

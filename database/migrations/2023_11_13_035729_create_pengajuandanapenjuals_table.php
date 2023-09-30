@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('pengajuandanapenjuals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('penjual_id')->constrained('penjuallogins')->onUpdate('cascade');
+            $table->foreignId('penjual_id')->references('user_id')->on('penjuallogins')->onDelete('cascade');
             $table->foreignId('barangpenjual_id')->constrained('barangpenjuals')->onUpdate('cascade');
             $table->foreignId('metodepembayaran_id')->constrained('pembayaranpenjuals')->onUpdate('cascade');
+            $table->string('keterangan_pengajuan');
+            $table->string('tujuan_pengajuan');
             $table->timestamps();
         });
     }

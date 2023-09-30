@@ -13,7 +13,6 @@ class Usercontroller extends Controller
      */
     public function index()
     {
-
         $User = User::all();
         return view('loginregister.index', compact('User'));
     }

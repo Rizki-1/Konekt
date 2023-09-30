@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Models\adminmetodepembayaran;
-
+use App\Models\pengajuandanapenjual;
 class adminpembeliancontroller extends Controller
 {
     /**
@@ -322,11 +322,13 @@ class adminpembeliancontroller extends Controller
         return view('admin.pengajuanpembeliad', compact('userOrder'));
     }
 
-
     protected function pengajuanpenjualad(Request $request)
     {
-        $penjual = barangpenjual::all();
-        return view('admin.pengajuanpenjualad', compact('penjual'));
+        $penjual = penjuallogin::all();
+        $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual','barangpenjual')->get();
+        // dd($p);
+        // dd($p->all());
+        return view('admin.pengajuanpenjualad', compact('penjual','p'));
     }
 
     public function terimapengajuan($id)
@@ -334,9 +336,9 @@ class adminpembeliancontroller extends Controller
         $userOrder = userOrder::findOrFail($id);
         $userOrder->pembelianstatus = 'pengembalian dana di terima';
         $userOrder->save();
-
         return redirect()->back()->with('success', 'pengembalian dana telah di setujui');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -360,11 +362,15 @@ class adminpembeliancontroller extends Controller
     //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
     //     'tujuan.required' => 'Tujuan wajib diisi.',
     //     'keterangan.required' => 'Keterangan wajib diisi.',
+<<<<<<< Updated upstream
     //     'keterangan.numeric'=>'keterangan harus angka',
+=======
+>>>>>>> Stashed changes
     //     'keterangan.file' => 'Keterangan harus berupa file.',
     //     'keterangan.mimes' => 'Keterangan harus berupa file dengan format jpeg, jpg, atau png.',
     //     'keterangan.max' => 'Ukuran maksimal Keterangan adalah 2MB.',
     // ]);
+<<<<<<< Updated upstream
     $request->validate([
         'metodepembayaran' => 'required',
         'tujuan' => 'required',
@@ -390,6 +396,8 @@ class adminpembeliancontroller extends Controller
         'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
         'tujuan.required' => 'Tujuan wajib diisi.',
     ]);
+=======
+>>>>>>> Stashed changes
 
 
         $adminmp = new adminmetodepembayaran;

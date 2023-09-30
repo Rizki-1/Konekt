@@ -118,7 +118,7 @@
 
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link.active {
-    color: var(--primary) !important;
+    color: var(--danger) !important;
 }
 
 .navbar-dark .navbar-brand img {
@@ -163,14 +163,15 @@
     
     .sticky-top.navbar-dark {
         position: fixed;
-        background: var(--dark) !important;
+        background: var(--primary) !important;
     }
 }
 
 
 /*** Hero Header ***/
 .hero-header {
-    background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url(../img/bg-hero.jpg);
+    /* Menggunakan gradient dengan warna putih transparan untuk latar belakang */
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(../img/bg-hero.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -187,7 +188,7 @@
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
-    color: rgba(255, 255, 255, .5);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 
@@ -340,19 +341,11 @@
 
 <body>
     <div class="container-xxl bg-white p-0">
-        <!-- Spinner Start -->
-        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div> -->
-        <!-- Spinner End -->
-
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
-                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Kuliner Kita</h1>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4 px-lg-5 py-3 py-lg-0">
+                <a href="/" class="navbar-brand p-0">
+                    <h1 class="text-white m-0"><i class="fa fa-utensils me-3"></i>Kuliner Kita</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -360,11 +353,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="index.html" class="nav-item nav-link active">Beranda</a>
-                        <a href="about.html" class="nav-item nav-link">tentang kami</a>
-                        <a href="service.html" class="nav-item nav-link">jelajahi makanan</a>
-                        <a href="menu.html" class="nav-item nav-link">FAQ</a>
-                        <a href="{{route('user.index')}}" class="btn btn-primary py-2 px-4">Login</a>
+                        <a href="/" class="nav-item nav-link active">Beranda</a>
+                        <a href="#about" class="nav-item nav-link">tentang kami</a>
+                        <a href="#jelajah" class="nav-item nav-link">jelajahi makanan</a>
+                        <a href="#toko" class="nav-item nav-link">daftar toko</a>
+                    </div>
+                    <a href="{{route('user.index')}}" class="btn btn-warning py-2 px-4">Login</a>
                 </div>
             </nav>
 
@@ -372,9 +366,9 @@
                 <div class="container my-5 py-5">
                     <div class="row align-items-center g-5">
                         <div class="col-lg-6 text-center text-lg-start">
-                            <h6 class="display-3 text-white animated slideInLeft">Lezat<br>Menu Makananmu</h6>
-                            <p class="text-white animated slideInLeft mb-4 pb-2">Di setiap hidangan, ada keajaiban yang menanti untuk ditemukan, dan kami mengundang Anda untuk menjelajahi keajaiban-keajaiban itu bersama kuliner kami.</p>
-                            <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Pesan</a>
+                            <h6 class="display-3 text-dark animated slideInLeft">Lezat<br>Menu Makananmu</h6>
+                            <p class="text-dark animated slideInLeft mb-4 pb-2">Di setiap hidangan, ada keajaiban yang menanti untuk ditemukan, dan kami mengundang Anda untuk menjelajahi keajaiban-keajaiban itu bersama kuliner kami.</p>
+                            <a href="{{route('user.index')}}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Pesan</a>
                         </div>
                         <div class="col-lg-6 text-center text-lg-end overflow-hidden">
                             <img class="img-fluid" src="./../asset/img/hero.png" alt="">
@@ -387,9 +381,9 @@
 
 
         <!-- Service Start -->
-        <div class="container-xxl py-5">
+        <div class="container-xxl py-5 text-center">
             <div class="container">
-                <div class="row g-4">
+                <div class="row justify-content-center g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
@@ -403,7 +397,7 @@
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
                                 <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
-                                <h5>Penjual</h5>
+                                <h5>Menu</h5>
                                 <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">33</h1>
                             </div>
                         </div>
@@ -411,17 +405,8 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-cart-plus text-primary mb-4"></i>
-                                <h5>Pembelian</h5>
-                                <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">150</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
                                 <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                                <h5>Foto</h5>
+                                <h5>Penjual</h5>
                                 <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">225</h1>
                             </div>
                         </div>
@@ -432,7 +417,7 @@
         <!-- Service End -->
 
         <!-- About Start -->
-        <div class="container-xxl py-5">
+        <div id="about" class="container-xxl py-5">
             <div class="container">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6">
@@ -452,10 +437,10 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">About Us</h5>
+                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">tentang kami</h5>
                         <h1 class="mb-4">Selamat datang di <i class="fa fa-utensils text-primary me-2"></i>Kuliner Kita</h1>
-                        <p class="mb-4">Di setiap hidangan, ada keajaiban yang menanti untuk ditemukan, dan kami mengundang Anda untuk menjelajahi keajaiban-keajaiban itu bersama kuliner kami.</p>
                         <p class="mb-4">Kami adalah platform jual beli makanan yang berdedikasi untuk memenuhi hasrat kuliner Anda. Dengan jaringan pedagang berkualitas, kami menyediakan akses mudah untuk menemukan dan menikmati hidangan lezat dari berbagai jenis masakan.  Bergabunglah dengan kami dalam petualangan tak terbatas melalui cita rasa di Kuliner Kita.</p>
+                        <p class="mb-4">Di setiap hidangan, ada keajaiban yang menanti untuk ditemukan, dan kami mengundang Anda untuk menjelajahi keajaiban-keajaiban itu bersama kuliner kami.</p>
                     </div>
                 </div>
             </div>
@@ -463,11 +448,11 @@
 
 
         <!-- Menu Start -->
-        <div class="container-xxl py-5">
+        <div id="jelajah" class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Jelajahi makanan kami</h5>
-                    <h5 class="mb-6">Most Popular Items</h5>
+                    <h5 class="mb-6">kategori populer</h5>
                 </div>
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
                     <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
@@ -475,8 +460,8 @@
                             <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
                                 <i class="fa fa-coffee fa-2x text-primary"></i>
                                 <div class="ps-3">
-                                    <small class="text-body">Popular</small>
-                                    <h6 class="mt-n1 mb-0">Breakfast</h6>
+                                    <small class="text-body">Populer</small>
+                                    <h6 class="mt-n1 mb-0">Minuman</h6>
                                 </div>
                             </a>
                         </li>
@@ -484,8 +469,8 @@
                             <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
                                 <i class="fa fa-hamburger fa-2x text-primary"></i>
                                 <div class="ps-3">
-                                    <small class="text-body">Special</small>
-                                    <h6 class="mt-n1 mb-0">Launch</h6>
+                                    <small class="text-body">Spesial</small>
+                                    <h6 class="mt-n1 mb-0">Camilan</h6>
                                 </div>
                             </a>
                         </li>
@@ -493,8 +478,8 @@
                             <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
                                 <i class="fa fa-utensils fa-2x text-primary"></i>
                                 <div class="ps-3">
-                                    <small class="text-body">Lovely</small>
-                                    <h6 class="mt-n1 mb-0">Dinner</h6>
+                                    <small class="text-body">Favorit</small>
+                                    <h6 class="mt-n1 mb-0">Makanan</h6>
                                 </div>
                             </a>
                         </li>
@@ -807,7 +792,7 @@
         <!-- Menu End -->
 
         <!-- Team Start -->
-        <div class="container-xxl pt-5 pb-3">
+        <div id="toko" class="container-xxl pt-5 pb-3">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">daftar toko</h5>
@@ -819,13 +804,8 @@
                             <div class="rounded-circle overflow-hidden m-4">
                                 <img class="img-fluid" src="./../asset/img/team-1.jpg" alt="">
                             </div>
-                            <h5 class="mb-0">Full Name</h5>
-                            <small>Designation</small>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
+                            <h5 class="mb-0">Warteg</h5>
+                            <small>Jl Wendit</small>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -833,13 +813,8 @@
                             <div class="rounded-circle overflow-hidden m-4">
                                 <img class="img-fluid" src="./../asset/img/team-2.jpg" alt="">
                             </div>
-                            <h5 class="mb-0">Full Name</h5>
-                            <small>Designation</small>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
+                            <h5 class="mb-0">Barokah</h5>
+                            <small>Jl Bantaran</small>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
@@ -847,13 +822,8 @@
                             <div class="rounded-circle overflow-hidden m-4">
                                 <img class="img-fluid" src="./../asset/img/team-3.jpg" alt="">
                             </div>
-                            <h5 class="mb-0">Full Name</h5>
-                            <small>Designation</small>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
+                            <h5 class="mb-0">Meduro</h5>
+                            <small>Jl GPA Ngijo</small>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
@@ -861,13 +831,8 @@
                             <div class="rounded-circle overflow-hidden m-4">
                                 <img class="img-fluid" src="./../asset/img/team-4.jpg" alt="">
                             </div>
-                            <h5 class="mb-0">Full Name</h5>
-                            <small>Designation</small>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
+                            <h5 class="mb-0">Nice cafe</h5>
+                            <small>Jl Singosari</small>
                         </div>
                     </div>
                 </div>
@@ -876,7 +841,7 @@
         <!-- Team End -->
         
         <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container-fluid bg-primary text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">
                 <div class="copyright">
                     <div class="row">
@@ -884,14 +849,14 @@
                             &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
 							
 							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+							Designed By <a class="border-bottom" href="https://htmlcodex.com">Konekt</a>
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
                                 <a href="">Home</a>
                                 <a href="">Cookies</a>
-                                <a href="">Help</a>
-                                <a href="">FQAs</a>
+                                <a href="#myModal">Help</a>
+                                <a data-toggle="modal" data-target="#myModal" >FQAs</a>
                             </div>
                         </div>
                     </div>
@@ -899,6 +864,43 @@
             </div>
         </div>
         <!-- Footer End -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Header Modal -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Judul Modal</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Isi Modal -->
+                    <div class="modal-body">
+                        <h6>Bagaimana cara menggunakan layanan antrian makanan di website ini?</h6>
+                        <p>Untuk menggunakan layanan antrian makanan online kami, Anda perlu melakukan langkah-langkah berikut:</p>
+                        <ol>
+                            <li>Pilih restoran atau tempat makan yang Anda inginkan.</li>
+                            <li>Pilih makanan yang ingin Anda pesan.</li>
+                            <li>Tentukan waktu pengambilan yang sesuai dengan jadwal Anda.</li>
+                            <li>Selesaikan pembayaran lewat online atau langsung bayar ke toko.</li>
+                        </ol>
+                        <h6>Bagaimana cara membuat akun di website ini?</h6>
+                        <p>Untuk membuat akun, Anda akan diarahkan terlebih dahulu ke halaman login/register, di mana Anda akan diberikan 2 pilihan, yaitu daftar sebagai penjual/pembeli. Isi informasi yang diperlukan, seperti nama, alamat, email, dan kata sandi, dan ikuti langkah-langkah yang diberikan.</p>
+                        <h6>Apa keuntungan menggunakan antrian makanan online?</h6>
+                        <p>Anda dapat memesan makanan dari berbagai restoran tanpa harus mengantri panjang. Anda juga akan mendapatkan nomor antrian. Antrian makanan online ini memungkinkan Anda untuk memesan makanan dengan mudah dan nyaman. Setelah pesanan Anda dikonfirmasi oleh restoran.</p>
+                        <h6>Bagaimana saya tahu pesanan saya sudah diterima?</h6>
+                        <p>Setelah Anda menyelesaikan pesanan Anda, Anda akan menerima pesan/notifikasi bahwa pesanan Anda telah diterima dan mendapatkan notifikasi nomor antrian pengambilan pesanan Anda di situs web kami.</p>
+                        <h6>Bagaimana cara untuk pembayaran?</h6>
+                        <p>Kami menerima metode pembayaran, kode QRIS, dan bank. Anda dapat memilih metode pembayaran yang nyaman untuk Anda gunakan.</p>
+                        <h6>Apakah ada opsi untuk membatalkan pesanan?</h6>
+                        <p>Anda dapat membatalkan pesanan Anda, tetapi harap lakukan sebelum restoran memproses pesanan Anda. Untuk membatalkan pesanan, periksa status pesanan Anda di akun Anda.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 
         <!-- Back to Top -->
@@ -919,6 +921,11 @@
 
     <!-- Template Javascript -->
     <script src="../../asset/js/main.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

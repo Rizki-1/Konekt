@@ -213,10 +213,10 @@ class dashboardusercontroller extends Controller
 
     public function batalkanpesanan($id)
     {
-
         $order = userOrder::find($id);
         $order->update([
             'pembelianstatus' => 'dibatalkan',
+            'adminstatus' => 'pesanan di batalkan',
         ]);
 
         return redirect()->back()->with('success', 'pesanan berhasil di batalkan');

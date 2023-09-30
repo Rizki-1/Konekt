@@ -363,7 +363,8 @@
                                         <td scope="row">{{ $no++ }}</td>
                                         <td>{{ $s->user->name }}</td>
                                         <td>{{ $s->nama_toko }}</td>
-                                        <td>{{ $s->alamat_toko }}</td>
+
+                                        <td>{{Str::limit($s->alamat_toko, 10)  }}</td>
                                         <td>
                                             @if ($s->foto_toko)
                                                 <img src="{{ asset('storage/' . $s->foto_toko) }}" alt="Foto Toko"

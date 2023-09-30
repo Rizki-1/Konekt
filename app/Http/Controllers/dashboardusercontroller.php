@@ -10,18 +10,19 @@ use App\Models\userOrder;
 use App\Models\notifikasi;
 use App\Models\penjuallogin;
 use Illuminate\Http\Request;
+use App\Models\adminkategori;
 use App\Models\barangpenjual;
 use App\Models\adminnotifikasi;
 use App\Models\pengembaliandana;
 use App\Models\notifikasipenjual;
 use App\Models\pengemmbaliandana;
+use Exception; // Import Exception
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\adminmetodepembayaran;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\QueryException; // Import QueryException
-use Exception; // Import Exception
 use Illuminate\Validation\ValidationException;
+use Illuminate\Database\QueryException; // Import QueryException
 
 class dashboardusercontroller extends Controller
 {
@@ -35,13 +36,13 @@ class dashboardusercontroller extends Controller
         $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
             ->where('is_read', false)
             ->get();
-        $penjual =  barangpenjual::paginate(8);
+        $penjualpagination =  barangpenjual::paginate(8);
+        $penjual = barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
-        $waktuKadaluwarsa = notifikasi::all();
-        // $ulasan = ulasan::where('barangpenjual_id', $penjual->id);
-        $ulasan = ulasan::all();
+        $kategori = adminkategori::all();
+        $ulasan = ulasan::avg('rating');
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'waktuKadaluwarsa', 'adminnotifikasi', 'ulasan', 'user_id'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination'));
     }
 
     public function beli(Request $request)
@@ -655,6 +656,21 @@ class dashboardusercontroller extends Controller
         // Kembalikan hasil pencarian dalam format JSON
         return response()->json($results);
     }
+
+
+    public function kategorifilter($Kategori)
+    {
+        $user_id = Auth::id();
+        $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
+        ->where('is_read', false)
+        ->get();
+        $kategori = adminkategori::all();
+        $penjualpagination =  barangpenjual::paginate(8);
+        $penjual = Barangpenjual::where('kategori_id', $Kategori)->get();
+        $ulasan = ulasan::avg('rating');
+
+        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan'));
+   }
 
     public function notifikasiuser()
     {

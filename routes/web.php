@@ -27,9 +27,7 @@ use App\Http\Controllers\mailcontroller;
 */
 
 Route::middleware(['ceklogin'])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+
 
 
 
@@ -84,6 +82,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::patch('pengembaliandana/{id}', [dashboardusercontroller::class, 'pengembaliandana'])->name('pengembaliandana');
     Route::get('notifikasiuser', [dashboardusercontroller::class, 'notifikasiuser'])->name('notifikasiuser');
     Route::post('readnotifikasiuser/{id}', [dashboardusercontroller::class, 'readnotifikasiuser'])->name('readnotifikasiuser');
+    Route::get('kategorifilter/{kategori}', [dashboardusercontroller::class, 'kategorifilter'])->name('kategorifilter');
 });
 
 
@@ -110,6 +109,9 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
 
 
 Route::post('logout', [logincontroller::class, 'logout'])->name('logout');
+});
+Route::get('/', function () {
+    return view('welcome');
 });
 Route::get('/forgot-password',[logincontroller::class, 'forgotpassword'])->middleware('guest')->name('password.request');
 Route::post('/forgot-password', [logincontroller::class, 'forgotpassword_store'] )->middleware('guest')->name('password.email');

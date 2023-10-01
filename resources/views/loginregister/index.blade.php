@@ -33,7 +33,7 @@
                      <img src="../../assets/images/kuliner.png" class="img-fluid logo-img" alt="img4">
                   </a>
                            <h2 class="mb-2 text-center">Selamat Datang</h2>
-                           <p class="text-center">di Kuliner Kita</p>
+                           <p class="text-center">Di Kuliner Kita.</p>
                            <form action="{{ route('authenticate') }}" method="POST">
                             @csrf
                               <div class="row">
@@ -56,57 +56,85 @@
                                     </div>
                                  </div>
                                  <div class="col-lg-12 d-flex justify-content-between">
-                                    <div class="form-check mb-3">
-                                       <input type="checkbox" class="form-check-input" id="customCheck1">
-                                       <label class="form-check-label" for="customCheck1">Remember Me</label>
-                                    </div>
-                                    <a href="{{ route('password.request') }}">Lupa Password?</a>
+                              <div class="form-check mb-3">
+                           <input type="checkbox" class="form-check-input" id="customCheck1">
+                           <label class="form-check-label" for="customCheck1">Kebijakan privasi</label>
+                        </div>
+                        <script>
+                           const checkbox = document.getElementById('customCheck1');
+                           const form = document.querySelector('form');
 
-                                 </div>
+                           form.addEventListener('submit', function(event) {
+                              if (!checkbox.checked) {
+                                 event.preventDefault(); // Menghentikan pengiriman formulir
+                                 alert('Anda harus menyetujui kebijakan privasi untuk melanjutkan.');
+                              }
+                           });
+                        </script>
+                              <a href="{{ route('password.request') }}">Lupa Password?</a>
+                           </div>
+                              <style>
+                           .wide-button {
+                              width: 500px; /* Atur lebar sesuai kebutuhan Anda */
+                           }
+                        </style>
+                        <style>
+                     .rounded-button {
+                        border-radius: 30px; /* Sesuaikan dengan tingkat ke-tumpulan yang diinginkan */
+                     }
+                  </style>
+
+                  <div class="d-flex justify-content-center">
+                     <button type="submit" class="btn btn-primary wide-button rounded-button">Login</button>
+                  </div>
+                  <center>
+                     <div class="row" style="padding-top: 25px;">
+                        <div class="col-sm-6">
+                           <div class="card">
+                              <div class="card-body">
+                                 <a href="{{ route('register') }}">
+                                    <img src="{{asset('assets/images/admin/pembelii.jpg')}}" class="card-img-top" alt="...">
+                                 </a>
+                                 <h5 class="card-title"></h5>
+                                 <center>
+                                    <p>Pembeli</p>
+                                 </center>
                               </div>
-                              <div class="d-flex justify-content-center">
-                                 <button type="submit" class="btn btn-primary">Login</button>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card">
+                              <div class="card-body">
+                                 <a href="{{ route('penjualrole.index') }}">
+                                    <img src="{{asset('assets/images/admin/penjuall.jpg')}}" class="card-img-top" alt="...">
+                                 </a>
+                                 <h5 class="card-title"></h5>
+                                 <center>
+                                    <p>Penjual</p>
+                                 </center>
                               </div>
-                            <!-- </form>
-                              <p class="text-center my-3">or sign in with other accounts?</p>
-                              <div class="d-flex justify-content-center">
-                                 <ul class="list-group list-group-horizontal list-group-flush">
-                                    <li class="list-group-item border-0 pb-0">
-                                       <a href="#"><img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/brands/fb.svg" alt="fb"></a>
-                                    </li>
-                                    <li class="list-group-item border-0 pb-0">
-                                       <a href="#"><img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/brands/gm.svg" alt="gm"></a>
-                                    </li>
-                                    <li class="list-group-item border-0 pb-0">
-                                       <a href="#"><img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/brands/im.svg" alt="im"></a>
-                                    </li>
-                                    <li class="list-group-item border-0 pb-0">
-                                       <a href="#"><img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/brands/li.svg" alt="li"></a>
-                                    </li>
-                                 </ul>
-                              </div> -->
-<div class="row" style="padding-top: 25px;">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-      <img src="{{asset('assets/images/admin/pembelii.jpg')}}" class="card-img-top" alt="...">
-        <h5 class="card-title"></h5>
-        <center><p class="card-text">Belum punya akun?</p>
-        <a href="{{ route('register') }}" class="btn btn-primary">Klik disini</a></center>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-      <img src="{{asset('assets/images/admin/penjuall.jpg')}}" class="card-img-top" alt="...">
-        <h5 class="card-title"></h5>
-        <center><p class="card-text">Daftar jadi penjual?</p>
-        <a href="{{ route('penjualrole.index') }}" class="btn btn-primary">klik disini</a></center>
-      </div>
-    </div>
-  </div>
-</div>
+                           </div>
+                        </div>
+                     </div>
+                  </center>
+
+                  <style>
+                     .card-link {
+                        color: blue;
+                        text-decoration: none;
+                     }
+
+                     .card-link:hover {
+                        text-decoration: underline;
+                     }
+                  </style>
+
+                     <style>
+                     .card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                     }
+                     </style>
                         </div>
             </div>
             <div class="col-md-12 col-lg-5 col-xl-8 d-lg-block d-none vh-100 overflow-hidden">

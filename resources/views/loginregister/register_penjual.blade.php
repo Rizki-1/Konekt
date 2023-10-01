@@ -532,8 +532,8 @@
                                  @endif
                               </div>
                               <div class="form-group" style="margin-left: 20px; margin-bottom:15px;">
-                                 <label for="confirm-password" class="form-label">Konfir Password</label>
-                                 <input type="text" name="confirm_password" style="width:200px;" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
+                                 <label for="confirm-password" class="form-label">Confirm Password</label>
+                                 <input type="password" name="confirm_password" style="width:200px;" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
                                  @if ($errors->has('confirm_password'))
                                     <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
                                  @endif
@@ -605,17 +605,23 @@
                               </div>
                             </div>
                            </div>
-                           <div class="col-lg-12 d-flex justify-content-center" style="margin-top: 1em">
-                              <div class="form-check mb-3" >
-                                 <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-left: -270px;">
-                                 <label class="form-check-label" for="customCheck1" style="margin-left: -250px;">Saya setuju dengan kebijakan privasi</label>
+                           <!-- <div style="margin-left:160px; margin-top:4px;">
+                           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
+                              <li class="nav-item" role="presentation">
+                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">previous</button>
+                              </li>
+                              <li class="nav-item" role="presentation">
+                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Next</button>
+                              </li>
+                              </ul>
+
                               </div>
-                           </div>
+                              </div> -->
                         </div>
                         <div>
                         </div>
                         <p class="mt-3 text-center" >
-                            Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Login</a>
+                            Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Masuk</a>
                         </p>
                   </div>
                </div>

@@ -529,17 +529,11 @@
                            </div>
                            <div class="col-lg-6">
                               <div class="form-group">
-                                 <label for="confirm-password" class="form-label">Konfir Kata Sandi</label>
-                                 <input type="text" name="confirm_password" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
+                                 <label for="confirm-password" class="form-label">Confirm Password</label>
+                                 <input type="password" name="confirm_password" class="form-control form-control-sm" id="confirm-password" placeholder=" ">
                                  @if ($errors->has('confirm_password'))
                                     <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
                                  @endif
-                              </div>
-                           </div>
-                           <div class="col-lg-12 d-flex justify-content-center">
-                              <div class="form-check mb-3">
-                                 <input type="checkbox" class="form-check-input" id="customCheck1">
-                                 <label class="form-check-label" for="customCheck1">Saya setuju dengan kebijakan privasi</label>
                               </div>
                            </div>
                         </div>
@@ -547,7 +541,7 @@
                            <button type="submit" class="btn btn-primary">Daftar</button>
                         </div>
                         <p class="mt-3 text-center">
-                           Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Login</a>
+                           Sudah punya akun? <a href="{{route('user.index')}}" class="text-underline">Masuk</a>
                         </p>
 
                   </div>

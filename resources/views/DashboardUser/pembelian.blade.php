@@ -342,7 +342,6 @@
                         </div>
                     </div>
 
-<<<<<<< Updated upstream
                     <div class="container m-0 p-0 d-flex justify-content-between">
                         <div class="">
                             <h5 class="text-bold">Metode Pembayaran</h5><br>
@@ -387,55 +386,6 @@
                             @endif
                         @endforeach
                     </div>
-=======
-            <div class="container m-0 p-0 d-flex justify-content-between">
-                <div class="">
-                    <h5 class="text-bold">Metode Pembayaran</h5><br>
-                    <select class="form-select form-select-lg mb-3" name="metodepembayaran"
-                        style="width: 300px; height: 50px; font-size: 18px;"
-                        aria-label=".form-select-lg example" id="selectMetode">
-                        <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
-                        <option value="e-wallet" data-target="ewalletInput">E-Wallet</option>
-                        <option value="bank" data-target="bankInput">Bank</option>
-                    </select>
-                </div>
-            </div>
-            {{-- ewallet --}}
-            <div class="mb-3" id="ewalletInput" style="display: none;">
-                <div>
-                    <p class="text-bold">Jenis QR</p>
-                </div>
-                <select name="JenisEwallet" id="JenisEwallet" class="form-control">
-                    <option value="" disabled selected>Pilih</option>
-                    @forelse ($wallet as $data)
-                        <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
-                    @empty
-                        <option value="" disabled selected>Data E-wallet Kosong</option>
-                    @endforelse
-                </select>
-                <div><br>
-                    <p class="text-bold">Kode QR</p>
-                </div>
-                @foreach ($wallet as $data)
-                    @php
-                    $jefri = strlen($data->keterangan);
-                    @endphp
-                    @if ($jefri >= 20)
-                        <p class="" name="keteranganqr" value="{{ $data->keterangan }}" id="{{ $data->tujuan }}">
-                            <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}" style="width: 150px; height=80px;" disabled>
-                        </p>
-                    @else
-                        <a></a>
-                    @endif
-                @endforeach
-                <div class="">
-                    <p class="text-bold">Masukkan Bukti pembayaran Anda</p>
-                </div>
-                <div class="mt-3">
-                    <input type="file" name="foto" class="form-control" id="fotobuktipembayaran">
-                </div>
-            </div>
->>>>>>> Stashed changes
 
                     {{-- bank --}}
                     <div class="mb-3" id="bankInput" style="display: none;">
@@ -511,7 +461,6 @@
                             });
                         });
 
-<<<<<<< Updated upstream
                         // Menjalankan pengecekan saat halaman pertama kali dimuat
                         selectElement.dispatchEvent(new Event('change'));
                         spElement.dispatchEvent(new Event('change'));
@@ -525,36 +474,6 @@
                             .val(); // Mengambil nilai metode pembayaran yang dipilih
                                 var foto = $('#foto')[0].files[0];
                                 var catatan = $("#catatan").val();
-=======
-                // Menjalankan pengecekan saat halaman pertama kali dimuat
-                selectElement.dispatchEvent(new Event('change'));
-                spElement.dispatchEvent(new Event('change'));
-            </script>
-
-<script>
-    $("#selectMetode").change(function() {
-       var selectedOption = $(this).val();
-       if (selectedOption === "e-wallet") {
-           $("#ewalletInput").show();
-           $("#bankInput").hide();
-       } else if (selectedOption === "bank") {
-           $("#bankInput").show();
-           $("#ewalletInput").hide();
-       } else {
-           $("#ewalletInput").hide();
-           $("#bankInput").hide();
-       }
-   });
-   </script>
-   {{-- Script Pembayaran --}}
-{{-- AJAX Update --}}
-<script>
-    $(document).ready(function() {
-        $("#bayar").click(function() {
-            var itemIds = [];
-            var selectedMetode = $("#selectMetode").val(); // Mengambil nilai metode pembayaran yang dipilih
->>>>>>> Stashed changes
-
                                 $(".item-element").each(function() {
                                     var orderId = $(this).data("order-id");
                                     itemIds.push(orderId);
@@ -635,7 +554,6 @@
                     {{-- AJAX Update --}}
 
 
-<<<<<<< Updated upstream
                     <script>
                         $("#selectMetode").change(function() {
                             var selectedOption = $(this).val();
@@ -652,6 +570,3 @@
                         });
                     </script>
                     {{-- Script Pembayaran --}}
-=======
-
->>>>>>> Stashed changes

@@ -114,21 +114,11 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
-<<<<<<< Updated upstream
-@include('layout.logoloader')
-@foreach ($userOrder as $UserOrder)
-    <div class="modal fade" id="myModal-{{ $UserOrder->id }}" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('pengajuandana') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-=======
 
 
 
 @foreach ($userOrder as $UserOrder)
+@foreach ( $pengajuandanapenjual as $U)
 @foreach ($wallet as $w)
 @foreach ($bank as $b)
 <form action="{{ route('mengajukandana') }}" method="post">
@@ -138,7 +128,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Mengajukan Dana</h5>
->>>>>>> Stashed changes
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -147,36 +136,8 @@
                                 <div class="col-8">
                                 </div>
                                 <div class="mb-3">
-<<<<<<< Updated upstream
-                                    <label for="metodepembayaran_id-{{ $UserOrder->id }}"
-                                        class="form-label fw-bold">Metode Pembayaran</label>
-                                    <select id="metodepembayaran_id-{{ $UserOrder->id }}" name="metodepembayaran_id"
-                                        class="form-control payment-method">
-                                        <option value="" selected disabled>Pilih Metode Pembayaran</option>
-                                        <option value="ewallet">E-Wallet</option>
-                                        <option value="bank">Bank</option>
-                                    </select>
-                                </div>
-                                <div id="tujuanDiv-{{ $UserOrder->id }}" class="payment-input" style="display: none;">
-                                    <div class="mb-3">
-                                        <label for="tujuan-{{ $UserOrder->id }}"
-                                            class="form-label fw-bold">Tujuan</label>
-                                        <select id="tujuan-{{ $UserOrder->id }}" name="tujuan"
-                                            class="form-control tujuan-input">
-                                            <option value="" selected disabled>Pilih Tujuan</option>
-                                            @foreach ($pengajuandana as $metode)
-                                                <option value="{{ $metode->id }}">{{ $metode->tujuan }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div id="keteranganDiv-{{ $UserOrder->id }}" class="mb-3 keterangan-input"
-                                        style="display: none;">
-                                        <label for="keterangan-{{ $UserOrder->id }}"
-                                            class="form-label fw-bold">Keterangan</label>
-                                        <input type="hidden" name="keterangan" id="keterangan-{{ $UserOrder->id }}"
-                                            class="form-control">
-
-=======
+                                    <input type="hidden" name="penjual_id"
+                                        value="{{ $UserOrder->user_id }}">
                                     <label for="metodepembayaran_id" class="form-label fw-bold">Metode
                                         Pembayaran</label>
                                     <input type="hidden" name="barangpenjual_id"
@@ -196,7 +157,7 @@
                                     <select name="tujuan_e_wallet" id="JenisEwallet" class="form-control">
                                         <option value="" disabled selected>Pilih</option>
                                         @forelse ($wallet as $data)
-                                            <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
+                                            <option value="{{ $w->tujuan }}">{{ $w->tujuan }}</option>
                                         @empty
                                             <option value="" disabled selected>Data E-wallet Kosong</option>
                                         @endforelse
@@ -209,9 +170,9 @@
                                             $jefri = strlen($data->keterangan);
                                         @endphp
                                         @if ($jefri >= 20)
-                                            <p class="" name="keterangan_e_wallet" value="{{ $data->keterangan }}"
-                                                id="{{ $data->tujuan }}">
-                                                <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}"
+                                            <p class="" name="keterangan_e_wallet" value="{{ $w->keterangan }}"
+                                                id="{{ $w->tujuan }}">
+                                                <img src="{{ asset('storage/pembayaran/' . $w->keterangan) }}"
                                                     style="width: 150px; height=80px;" disabled>
                                             </p>
                                         @else
@@ -259,6 +220,7 @@
             </div>
         </div>
     </form>
+
     <script>
         let selectElement = document.querySelector('#JenisBank');
         let inputElements = document.querySelectorAll('input[name="keterangan_bank"]');
@@ -312,7 +274,7 @@
         //         $("#bankInput").hide();
         //     }
         // });
-        $("#selectMetode").change(function() {
+     $("#selectMetode").change(function() {
       var selectedOption = $(this).val();
 
     // Sembunyikan semua elemen
@@ -328,11 +290,12 @@
         $("#tujuan_bank").val(selectedOption);
     }
 });
+   </script>
+       @endforeach
+       @endforeach
+       @endforeach
+       @endforeach
 
-        </script>
-@endforeach
-@endforeach
-@endforeach
 
 
 {{-- @php
@@ -401,89 +364,12 @@
                                         <div id="keterangan-text-{{ $b->id }}-{{$UserOrder->id}}" class="form-control fw-bold">
                                             <!-- Keterangan {} akan ditampilkan di sini -->
                                         </div>
->>>>>>> Stashed changes
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-<<<<<<< Updated upstream
-                        <button type="button" class="btn btn-outline-secondary rounded-pill"
-                            data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function toggleTujuanDiv(selectElement) {
-            var targetDivId = 'tujuanDiv-' + selectElement.id.split('-').pop();
-            var targetDiv = document.getElementById(targetDivId);
-
-
-            var allTujuanDivs = document.querySelectorAll('.payment-input');
-            allTujuanDivs.forEach(function(div) {
-                div.style.display = 'none';
-            });
-
-            if (selectElement.value !== '') {
-                targetDiv.style.display = 'block';
-            }
-        }
-
-        function toggleKeteranganDiv(selectElement) {
-            var targetDivId = 'keteranganDiv-' + selectElement.id.split('-').pop();
-            var targetDiv = document.getElementById(targetDivId);
-
-            var allKeteranganDivs = document.querySelectorAll('.keterangan-input');
-            allKeteranganDivs.forEach(function(div) {
-                div.style.display = 'none';
-            });
-
-            if (selectElement.value !== '') {
-                targetDiv.style.display = 'block';
-            }
-        }
-
-        var metodePembayaranSelect = document.getElementById('metodepembayaran_id-{{ $UserOrder->id }}');
-        metodePembayaranSelect.addEventListener('change', function() {
-            toggleTujuanDiv(this);
-        });
-
-        var tujuanSelect = document.getElementById('tujuan-{{ $UserOrder->id }}');
-        tujuanSelect.addEventListener('change', function() {
-            toggleKeteranganDiv(this);
-        });
-    </script>
-@endforeach
-
-
-
-
-
-
-
-
-
-<aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
-    <div class="sidebar-header d-flex align-items-center justify-content-start">
-        @include('layout.minilogo')
-        <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
-            <i class="icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.25 12.2744L19.25 12.2744" stroke="currentColor" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976" stroke="currentColor" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-            </i>
-        </div>
-    </div>
-=======
                         <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
                     </div>
@@ -560,7 +446,6 @@
             </i>
         </div>
     </div>
->>>>>>> Stashed changes
     <div class="sidebar-body pt-0 data-scrollbar">
         <div class="navbar-collapse" id="sidebar">
             <!-- Sidebar Menu Start -->
@@ -688,8 +573,6 @@
                         </svg>
                     </i>
                 </div>
-<<<<<<< Updated upstream
-=======
                 <div class="input-group search-input">
                     <span class="input-group-text" id="search-input">
                         <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -701,7 +584,6 @@
                     </span>
                     <input type="search" class="form-control" placeholder="Search...">
                 </div>
->>>>>>> Stashed changes
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -713,79 +595,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
-<<<<<<< Updated upstream
-                        <!-- start pesan -->
-
-                        <!-- End Pesan-->
-                        <!-- Start Profile-->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../assets/images/avatars/01.png" alt="User-Profile"
-                                    class="img-fluid avatar avatar-50 avatar-rounded">
-                                <div class="caption ms-3 d-none d-md-block ">
-                                    <h6 class="mb-0 caption-title">{{ Auth::user()->name }}</h6>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="profilepenjual">Profile</a></li>
-                                <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
-                            </ul>
-                        </li>
-                        <!-- End Profile-->
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-    <div class="content-inner mt-5 py-0">
-        <div class="card border-0 shadow rounded">
-            <div class="card-body">
-                <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                    data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                    style="position: relative">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="crow">#</th>
-                                <th scope="col">nama pembeli</th>
-                                <th scope="col">jumlah pesanan</th>
-                                <!-- <th scope="col">total</th> -->
-                                <th scope="col">metode pembayaran</th>
-                                <th scope="col">aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr>
-                                @php
-                                    $no = 1;
-                                @endphp
-                                @foreach ($userOrder as $UserOrder)
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $UserOrder->username }}</td>
-                                    <td>{{ $UserOrder->jumlah }}</td>
-                                    <!-- <td>{{ $UserOrder->totalharga }}</td> -->
-                                    <td>{{ $UserOrder->metodepembayaran }}</td>
-                                    <td>
-                                        <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                            data-bs-target="#myModal-{{ $UserOrder->id }}">
-                                            <i class="fa fa-eye">ajukan pengambilan dana</i>
-                                        </button>
-                                    </td>
-                                @endforeach
-                            </tr>
-
-
-                        </tbody>
-                    </table>
-=======
                         <!-- isi dari notifikasi-->
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
@@ -893,7 +702,6 @@
                             </div>
                         </div>
                     </div>
->>>>>>> Stashed changes
                 </div>
             </div>
         </div>

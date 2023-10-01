@@ -369,9 +369,6 @@
                 </div>
             </div>
         </div>
-<<<<<<< Updated upstream
-        {{-- @include('layout.footer') --}}
-=======
         {{-- <div class="d-flex justify-content-evenly">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -389,7 +386,6 @@
         </div>
         </div>
             {{-- @include('layout.footer') --}}
->>>>>>> Stashed changes
     </main>
     @include('layout.js')
 

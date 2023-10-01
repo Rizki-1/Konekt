@@ -163,27 +163,9 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< Updated upstream
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Next</button>
-=======
-                    <div class="" value="bank" id="bankInput" style="display: none;">
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">tujuan</label>
-                            <input type="text" name="tujuan" id="tujuan-bank" class="form-control"  value="{{ old('tujuan') }}">
-                            @if ($errors->has('tujuan'))
-                                <span class="text-tujuan">{{ $errors->first('tujuan') }}</span>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">keterangan</label>
-                            <input type="number" name="keterangan" class="form-control" value="{{ old('keterangan') }}">
-                            @if ($errors->has('keterangan'))
-                                <span class="text-danger">{{ $errors->first('keterangan') }}</span>
-                            @endif
-                        </div>
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>

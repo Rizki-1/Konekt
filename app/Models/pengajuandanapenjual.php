@@ -14,7 +14,7 @@ class pengajuandanapenjual extends Model
 
     public function penjuallogin(): BelongsTo
     {
-        return $this->belongsTo(penjuallogin::class,'id');
+        return $this->belongsTo(penjuallogin::class,'penjual_id');
     }
 
     public function barangpenjual(): BelongsTo

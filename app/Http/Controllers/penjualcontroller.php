@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\pembayaranpenjual;
 use App\Models\User;
 use App\Models\admink;
 use App\Models\penjual;
@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use App\Models\adminkategori;
 use App\Models\barangpenjual;
 use App\Models\notifikasipenjual;
-use App\Models\pembayaranpenjual;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\dashboardusercontrollers;
@@ -129,25 +128,6 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_store(Request $request)
     {
-<<<<<<< Updated upstream
-        $request->validate([
-            'metodepembayaran' => 'required',
-            'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
-            'tujuan_bank' => 'required_if:metodepembayaran,bank',
-            'keterangan_bank' => 'required_if:metodepembayaran,bank',
-            'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
-        ], [
-            'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-            'tujuan_e_wallet.required_if' => 'Tujuan E-Wallet wajib diisi.',
-            'keterangan.required' => 'Keterangan wajib diisi.',
-            'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
-            'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
-            'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
-            'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
-            'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
-            'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
-        ]);
-=======
     // $request->validate([
     //     'metodepembayaran' => 'required',
     //     'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
@@ -166,22 +146,15 @@ class penjualcontroller extends Controller
     //     'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
     //     'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
     // ]);
->>>>>>> Stashed changes
 
         $metodePembayaran = $request->input('metodepembayaran');
         $data = [
             'metodepembayaran' => $metodePembayaran,
         ];
 
-<<<<<<< Updated upstream
-        if ($metodePembayaran === 'e-wallet') {
-            $data['tujuan'] = $request->input('tujuan_e_wallet');
-            $data['keterangan'] = $request->input('keterangan');
-=======
     if ($metodePembayaran === 'e-wallet') {
         $data['tujuan'] = $request->input('tujuan_e_wallet');
         $data['keterangan'] = $request->input('keterangan_e_wallet');
->>>>>>> Stashed changes
 
             if ($request->hasFile('keterangan_e_wallet')) {
                 $image = $request->file('keterangan_e_wallet');
@@ -196,22 +169,12 @@ class penjualcontroller extends Controller
             session()->flash('notif.error', 'Data pembayaran tidak valid!');
             return redirect()->route('pembayaranpenjual');
         }
-        PembayaranPenjual::create($data);
+        pembayaranpenjual::create($data);
         session()->flash('notif.success', 'Data pembayaran berhasil disimpan.');
         return redirect()->route('pembayaranpenjual');
     }
 
-<<<<<<< Updated upstream
-=======
-    // Simpan data ke database
-    PembayaranPenjual::create($data);
-    // Redirect atau tampilkan pesan sukses
-    session()->flash('notif.success', 'Data pembayaran berhasil disimpan.');
-    return redirect()->route('pembayaranpenjual');
 
-}
-
->>>>>>> Stashed changes
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {
         $pembayaranpenjual->delete();
@@ -299,42 +262,28 @@ class penjualcontroller extends Controller
     {
 
         $userOrder = userOrder::where('pembelianstatus', 'statusselesai')->get();
-        $pengajuandanapenjual = pembayaranpenjual::all();
-<<<<<<< Updated upstream
-
-        // $pengajuandana->save();
-        return view('DashboardPenjual.pengajuandana', compact('userOrder', 'pengajuandanapenjual'));
-    }
-
-=======
+        $pengajuandanapenjual = penjuallogin::all();
         $bank = pembayaranpenjual::where('metodepembayaran','bank')->get();
         $wallet = pembayaranpenjual::where('metodepembayaran','e-wallet')->get();
-        // dd($wallet);
-        // $pengajuandana->save();
         return view('DashboardPenjual.pengajuandana', compact('userOrder','pengajuandanapenjual','bank','wallet'));
     }
 
     protected function mengajukandana(Request $request)
     {
         $id = Auth::id();
-        $b = pembayaranpenjual::all();
-
-        // dd($request->input('keterangan_e_wallet'));
-
         $mengajukandana =
         [
-            'penjual_id' => $id,
+            'penjual_id' => $request->barangpenjual_id,
             'barangpenjual_id' => $request->barangpenjual_id,
             'metodepembayaran_id' => $request->metodepembayaran_id,
-            'keterangan_pengajuan' => $request->input('keterangan_e_wallet', 'keterangan_bank'),
-            'tujuan_pengajuan' => $request->input('tujuan_e_wallet', 'tujuan_bank'),
+            'keterangan_pengajuan' => $request->input('keterangan_bank','keterangan_e_wallet'),
+            'tujuan_pengajuan' => $request->input('tujuan_bank','tujuan_e_wallet'),
         ];
-        // dd($mengajukandana);
         pengajuandanapenjual::create($mengajukandana);
         return redirect()->route('pengajuanpenjualad');
+
     }
 
->>>>>>> Stashed changes
 
     protected function profilepenjual(Request $request)
     {
@@ -550,8 +499,7 @@ class penjualcontroller extends Controller
         if ($notification) {
             $notification->update(['is_read' => true]);
             return response()->json(['message' => 'Notifikasi telah dibaca']);
-        }
-
+        }else{
         return response()->json(['message' => 'Notifikasi tidak ditemukan'], 404);
-    }
-}
+        }
+    }}

@@ -49,13 +49,11 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::get('calonpenjual', [adminpembeliancontroller::class, 'calonpenjual'])->name('calonpenjual');
     Route::get('pengajuanpembeliad', [adminpembeliancontroller::class, 'pengajuanpembeliad'])->name('pengajuanpembeliad');
     Route::get('pengajuanpenjualad', [adminpembeliancontroller::class, 'pengajuanpenjualad'])->name('pengajuanpenjualad');
-<<<<<<< Updated upstream
-    Route::patch('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
+    // Route::patch('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
     Route::get('notifikasiadmin', [adminpembeliancontroller::class, 'notifikasiadmin'])->name('notifikasiadmin');
     Route::post('readnotifikasiadmin/{id}', [adminpembeliancontroller::class, 'readnotifikasiadmin'])->name('readnotifikasiadmin');
-=======
     Route::post('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
->>>>>>> Stashed changes
+
 });
 
 
@@ -107,12 +105,9 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::get('pengajuandana', [penjualcontroller::class, 'pengajuandana'])->name('pengajuandana');
     Route::get('profilepenjual', [penjualcontroller::class, 'profilepenjual'])->name('profilepenjual');
     Route::get('detailmenupen/{id}', [penjualcontroller::class, 'detailmenupen'])->name('detailmenupen');
-<<<<<<< Updated upstream
     Route::get('notifikasipenjual', [penjualcontroller::class, 'notifikasipenjual'])->name('notifikasipenjual');
     Route::post('readnotifikasipenjual/{id}', [penjualcontroller::class, 'readnotifikasipenjual'])->name('readnotifikasipenjual');
-=======
     Route::post('mengajukandana', [penjualcontroller::class, 'mengajukandana'])->name('mengajukandana');
->>>>>>> Stashed changes
 });
 
 

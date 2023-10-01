@@ -105,7 +105,7 @@
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 @foreach ($p as $b )
-<form action="{{ route('terimapengajuan',['id' => $b->id]) }}" method="post">
+<form action="{{ route('terimapengajuan', ['id' => $b->penjual_id]) }}" method="post">
     @csrf
     <div class="modal" name="terimapengajuan" id="myModal" tabindex="-1">
         <div class="modal-dialog">
@@ -125,9 +125,9 @@
               @endphp
               @if ($saya >= 20)
                   {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
-                  <p name="keterangan"><img value="" src="{{ asset('storage/pembayaran/'.$b->pembayaranpenjual->keterangan) }}" alt="" style="max-width:150px; height:100px;"></p>
+                  <p><img value="" src="{{ asset('storage/pembayaran/'.$b->pembayaranpenjual->keterangan) }}" alt="" style="max-width:150px; height:100px;"></p>
                   @else
-                  <p class="form-control" name="keterangan">{{ $b->pembayaranpenjual->keterangan }}</p>
+                  <p class="form-control">{{ $b->pembayaranpenjual->keterangan }}</p>
               @endif
             </div>
             <div class="modal-footer mx-3">
@@ -390,7 +390,7 @@
                                         @foreach ($p as $b )
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $b->penjuallogin->nama_toko}}</td>
+                                            <td>{{ $b->penjuallogin->nama_toko }}</td>
                                             <td>{{ $b->barangpenjual->namamenu }}</td>
                                             <td>{{ $b->barangpenjual->harga }}</td>
                                             <td>{{ $b->pembayaranpenjual->metodepembayaran }}</td>
@@ -399,7 +399,6 @@
                                                 data-bs-toggle="modal" data-bs-target="#myModal"
                                                 style="">Detail</div>
                                             </td>
-                                            {{-- @dump($b->penjuallogin) --}}
                                         </tr>
                                         @endforeach
                                     </tbody>

@@ -325,16 +325,17 @@ class adminpembeliancontroller extends Controller
     protected function pengajuanpenjualad(Request $request)
     {
         $penjual = penjuallogin::all();
+        $u = pengajuandanapenjual::where('status','1')->get();
         $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual','barangpenjual')->get();
-        // dd($p);
-        // dd($p->all());
-        return view('admin.pengajuanpenjualad', compact('penjual','p'));
+        return view('admin.pengajuanpenjualad', compact('penjual','p','u'));
     }
 
     public function terimapengajuan($id)
     {
         $userOrder = userOrder::findOrFail($id);
+        $user = pengajuandanapenjual::where('id',$id)->get();
         $userOrder->pembelianstatus = 'pengembalian dana di terima';
+        $user->status = '2';
         $userOrder->save();
         return redirect()->back()->with('success', 'pengembalian dana telah di setujui');
     }
@@ -362,42 +363,36 @@ class adminpembeliancontroller extends Controller
     //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
     //     'tujuan.required' => 'Tujuan wajib diisi.',
     //     'keterangan.required' => 'Keterangan wajib diisi.',
-<<<<<<< Updated upstream
     //     'keterangan.numeric'=>'keterangan harus angka',
-=======
->>>>>>> Stashed changes
     //     'keterangan.file' => 'Keterangan harus berupa file.',
     //     'keterangan.mimes' => 'Keterangan harus berupa file dengan format jpeg, jpg, atau png.',
     //     'keterangan.max' => 'Ukuran maksimal Keterangan adalah 2MB.',
     // ]);
-<<<<<<< Updated upstream
-    $request->validate([
-        'metodepembayaran' => 'required',
-        'tujuan' => 'required',
-        'keterangan' => [
-            'required',
-            function ($attribute, $value, $fail) use ($request) {
-                if ($request->input('metodepembayaran') == 'bank') {
-                    if (!is_numeric($value)) {
-                        $fail('Keterangan untuk metode pembayaran bank harus berupa angka.');
-                    }
-                } elseif ($request->input('metodepembayaran') == 'ewallet') {
-                    if (!$request->file('keterangan')->isValid() ||
-                        !in_array($request->file('keterangan')->getClientOriginalExtension(), ['jpeg', 'jpg', 'png'])) {
-                        $fail('Keterangan untuk metode pembayaran e-wallet harus berupa file dengan format jpeg, jpg, atau png.');
-                    }
-                    if ($request->file('keterangan')->getSize() > 2048) {
-                        $fail('Ukuran maksimal Keterangan untuk metode pembayaran e-wallet adalah 2MB.');
-                    }
-                }
-            },
-        ],
-    ], [
-        'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-        'tujuan.required' => 'Tujuan wajib diisi.',
-    ]);
-=======
->>>>>>> Stashed changes
+    // $request->validate([
+    //     'metodepembayaran' => 'required',
+    //     'tujuan' => 'required',
+    //     'keterangan' => [
+    //         'required',
+    //         function ($attribute, $value, $fail) use ($request) {
+    //             if ($request->input('metodepembayaran') == 'bank') {
+    //                 if (!is_numeric($value)) {
+    //                     $fail('Keterangan untuk metode pembayaran bank harus berupa angka.');
+    //                 }
+    //             } elseif ($request->input('metodepembayaran') == 'ewallet') {
+    //                 if (!$request->file('keterangan')->isValid() ||
+    //                     !in_array($request->file('keterangan')->getClientOriginalExtension(), ['jpeg', 'jpg', 'png'])) {
+    //                     $fail('Keterangan untuk metode pembayaran e-wallet harus berupa file dengan format jpeg, jpg, atau png.');
+    //                 }
+    //                 if ($request->file('keterangan')->getSize() > 2048) {
+    //                     $fail('Ukuran maksimal Keterangan untuk metode pembayaran e-wallet adalah 2MB.');
+    //                 }
+    //             }
+    //         },
+    //     ],
+    // ], [
+    //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+    //     'tujuan.required' => 'Tujuan wajib diisi.',
+    // ]);
 
 
         $adminmp = new adminmetodepembayaran;

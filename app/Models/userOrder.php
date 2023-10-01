@@ -55,5 +55,9 @@ class userOrder extends Model
     {
         return $this->belongsTo(penjuallogin::class, 'toko_id');
     }
+    public function pengajuan(): BelongsTo
+    {
+        return $this->belongsTo(penjuallogin::class, 'penjual_id');
+    }
 
 }

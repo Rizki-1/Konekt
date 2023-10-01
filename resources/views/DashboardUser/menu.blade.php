@@ -680,13 +680,13 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="pesan-shopee">
+                            {{-- <div class="pesan-shopee">
                                 <a href="{{ route('message') }}">
                                     <button class="btn-pesan-shopee" id="btn-pesan-shopee">
                                         <i class="fa fa-comments"></i>
                                     </button>
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -779,138 +779,7 @@
                                 </div>
                                 `;
 
-<<<<<<< Updated upstream
                                     resultsContainer.append(menuItem);
-=======
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="../assets/images/avatars/01.png" alt="User-Profile"
-                                        class="img-fluid avatar avatar-50 avatar-rounded">
-                                    <div class="caption ms-3 d-none d-md-block ">
-                                        <h6 class="mb-0 caption-title">{{ Auth::user()->name }}</h6>
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="profileuser">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
-                                   </form>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    <div class="content-inner mt-5 py-0">
-    <div class="row">
-        <div class="col-md-12 col-lg-12">
-            <div class=""
-            data-iq-gsap="onStart"
-            data-iq-opacity="0"
-            data-iq-position-y="-40"
-                data-iq-duration=".6"
-                data-iq-delay=".8"
-                data-iq-trigger="scroll"
-                data-iq-ease="none"
-                style="position: relative">
-                @include('layout.bilboard')
-                <!-- Start Isi Dashboard -->
-                <ul id="results"></ul>
-
-                @php
-                    $no = 1;
-                @endphp
-
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
-               @foreach ($penjual as $p)
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
-                        <div class="col active"
-                        data-iq-gsap="onStart"
-                        data-iq-opacity="0"
-                        data-iq-position-y="-40"
-                        data-iq-duration=".6"
-                        data-iq-delay=".6"
-                        data-iq-trigger="scroll"
-                        data-iq-ease="none">
-                        <div class="card card-white dish-card profile-img mb-5">
-                        <div class="profile-img21">
-                    <!-- tempat foto -->
-                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
-                        class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
-                        alt="profile-image">
-                    <img src="{{asset('Storage/' . $p->fotomakanan)}}"
-                        class="img-fluid rounded-pill avatar-170 hover-image "
-                        alt="profile-image" data-iq-gsap="onStart"
-                        data-iq-opacity="0" data-iq-scale=".6"
-                        data-iq-rotate="180" data-iq-duration="1"
-                        data-iq-delay=".6" data-iq-trigger="scroll"
-                        data-iq-ease="none">
-                </div>
-                <!-- Menu muter muter Start -->
-                <div class="card-body menu-image">
-                    <h6 class="heading-title fw-bolder mt-4 mb-0">
-                        {{ $p->namamenu }}</h6>
-                    <div class="card-rating stars-ratings">
-                        <!-- Star ratings here -->
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <div class="d-flex align-items-center">
-                            <span class="text-primary fw-bolder me-2">Rp. {{ number_format($p->harga) }}</span>
-                            {{-- @dump($p->id) --}}
-                            {{-- <small class="text-decoration-line-through">$8.49</small> --}}
-                        </div>
-                        <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
-                            data-bs-target="#myModal-{{ $p->id }}">beli
-                        </button>
-                        <a class="btn btn-primary rounded-pill" href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endforeach
-</div>
-{{-- <div class="pesan-shopee">
-    <a href="{{ route('message') }}">
-  <button class="btn-pesan-shopee" id="btn-pesan-shopee">
-    <i class="fa fa-comments"></i>
-  </button>
-</a>
-</div> --}}
-
-
-
-        </div>
-    </div>
-    @include('layout.footer')
-</div>
-
-        </main>
-        <script>
-            $(document).ready(function() {
-                $('#search').keyup(function() {
-                    var query = $(this).val();
-                    if (query != '') {
-                        $.ajax({
-                            url: "{{ route('menu.search') }}",
-                            method: 'GET',
-                            data: { query: query },
-                            success: function(data) {
-                                $('#results').html('');
-                                data.forEach(function(menu) {
-                                    var listItem = '<li>' + menu.namamenu + '</li>';
-                                    $('#results').append(listItem);
->>>>>>> Stashed changes
                                 });
                             } else {
                                 console.log("gagal");

@@ -263,15 +263,33 @@ class dashboardusercontroller extends Controller
     public function tambahKeranjang(Request $request, $id)
     {
         try {
+            $user_id = $request->user_id;
+            $toko_id = $request->toko_id;
+            $barangpenjual_id = $request->barangpenjual_id;
+            $jumlah = $request->jumlah;
+            $totalHarga = $request->totalHarga;
 
-            $keranjang = new keranjang();
-            $keranjang->user_id = $request->user_id;
-            $keranjang->toko_id = $request->toko_id;
-            $keranjang->barangpenjual_id = $request->barangpenjual_id;
-            $keranjang->jumlah = $request->jumlah;
-            $keranjang->totalHarga = $request->totalHarga;
-            $keranjang->save();
+            // Cek apakah sudah ada entri dengan user_id, toko_id, dan barangpenjual_id yang sama
+            $existingItem = keranjang::where('user_id', $user_id)
+                ->where('toko_id', $toko_id)
+                ->where('barangpenjual_id', $barangpenjual_id)
+                ->first();
 
+            if ($existingItem) {
+                // Jika sudah ada, update jumlah dan total harga dengan menambahkannya
+                $existingItem->jumlah += $jumlah;
+                $existingItem->totalHarga += $totalHarga;
+                $existingItem->save();
+            } else {
+                // Jika belum ada, buat entri baru
+                $keranjang = new keranjang();
+                $keranjang->user_id = $user_id;
+                $keranjang->toko_id = $toko_id;
+                $keranjang->barangpenjual_id = $barangpenjual_id;
+                $keranjang->jumlah = $jumlah;
+                $keranjang->totalHarga = $totalHarga;
+                $keranjang->save();
+            }
 
             $response = [
                 'success' => true,

@@ -690,8 +690,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="pagination">
-                    @if ($penjualpagination->count() > 0)
+                <div class="pagination" style="text-align: center  justify-content:center">
+                    @if ($penjual->count() > 0)
                         {{ $penjualpagination->links('pagination::default') }}
                     @endif
                 </div>

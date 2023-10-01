@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\barangpenjual;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,11 @@ class Usercontroller extends Controller
     }
 
    public function dashboard(){
-    return view('dashboard');
+    $totalpenjual = User::where('role', 'penjual')->count();
+    $totaluser = User::where('role', 'user')->count();
+    $totalmenu = barangpenjual::all()->count();
+
+    return view('welcome' , compact('totaluser', 'totalpenjual', 'totalmenu'));
    }
     public function register()
     {

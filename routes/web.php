@@ -113,9 +113,7 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
 
 Route::post('logout', [logincontroller::class, 'logout'])->name('logout');
 });
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [Usercontroller::class, 'dashboard'])->name('dashboard');
 Route::get('/forgot-password',[logincontroller::class, 'forgotpassword'])->middleware('guest')->name('password.request');
 Route::post('/forgot-password', [logincontroller::class, 'forgotpassword_store'] )->middleware('guest')->name('password.email');
 Route::get('/reset-password/{token}', [logincontroller::class, 'resetpassword_token'])->middleware('guest')->name('password.reset');

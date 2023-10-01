@@ -46,6 +46,7 @@ class penjualcontroller extends Controller
         $totalpenjualan = userOrder::where('pembelianstatus', 'statusselesai')->where('toko_id', $penjualId)->count();
         $totalharga = userOrder::where('pembelianstatus', 'statusselesai')->where('toko_id', $penjualId)->sum('totalharga');
         $untung = $totalharga * 0.05;
+        $user = userOrder::where('toko_id', $penjualId)->whereIn('pembelianstatus', ['statusselesai', 'pesanan di tolak', 'pesanan di batalkan'])->get();
 
         // $pemasukkan = $totalharga - ($untung - 0.05);
         if ($totalharga > 1) {
@@ -94,25 +95,23 @@ class penjualcontroller extends Controller
         $produk = barangpenjual::all();
 
         foreach ($produk as $item) {
-            $item->terjual = UserOrder::where('barangpenjual_id', $item->id)->sum('jumlah');
+            $item->terjual = UserOrder::where('barangpenjual_id', $item->id)->where('pembelianstatus', 'statusselesai')->count();
         }
 
         $produk = $produk->sortByDesc('terjual')->take(5);
 
         $chartData = array_values($processedData);
-        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'chartData', 'notifikasipenjual', 'produk'));
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'chartData', 'notifikasipenjual', 'produk', 'user'));
     }
 
     public function riwayatpenjual()
     {
         $penjualId = Auth::id();
-
-        $user = userOrder::where('pembelianstatus', 'selesai')->orWhere('pembelianstatus', 'pesanan di tolak')->get();
-        $user = userOrder::where('pembelianstatus', 'selesai')->get();
-        $user = userOrder::where('toko_id', $penjualId)->get();
+        $user = userOrder::where('toko_id', $penjualId)->whereIn('pembelianstatus', ['selesai', 'pesanan di tolak', 'pesanan di batalkan'])->get();
         $adminkategori = adminkategori::all();
         return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
     }
+
 
     public function pembayaranpenjual()
     {
@@ -270,15 +269,22 @@ class penjualcontroller extends Controller
 
     protected function mengajukandana(Request $request)
     {
-        $id = Auth::id();
+        // $id = Auth::id();
+        // dd($request->all());
+        $penjuallogin = penjuallogin::all();
+        // foreach ($penjuallogin as $p)
+        // {
+        //     $id = $p->user->id;
+        // }
         $mengajukandana =
         [
-            'penjual_id' => $request->barangpenjual_id,
+            'penjual_id' => $request->penjual_id,
             'barangpenjual_id' => $request->barangpenjual_id,
             'metodepembayaran_id' => $request->metodepembayaran_id,
             'keterangan_pengajuan' => $request->input('keterangan_bank','keterangan_e_wallet'),
             'tujuan_pengajuan' => $request->input('tujuan_bank','tujuan_e_wallet'),
         ];
+        dd($mengajukandana);
         pengajuandanapenjual::create($mengajukandana);
         return redirect()->route('pengajuanpenjualad');
 

@@ -3,15 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-<<<<<<< Updated upstream
-    <title>Welcome</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-=======
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Kuliner Kita </title>
->>>>>>> Stashed changes
 
     <!-- Favicon -->
     <link href="../../asset/img/favicon.ico" rel="icon">
@@ -165,7 +158,7 @@
         z-index: 999;
         background: transparent !important;
     }
-    
+
     .sticky-top.navbar-dark {
         position: fixed;
         background: var(--primary) !important;
@@ -186,10 +179,10 @@
     animation: imgRotate 50s linear infinite;
 }
 
-@keyframes imgRotate { 
-    100% { 
-        transform: rotate(360deg); 
-    } 
+@keyframes imgRotate {
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
@@ -358,7 +351,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="/" class="nav-item nav-link active">Beranda</a>
+                        <a href="/" class="nav-item nav-link ">Beranda</a>
                         <a href="#about" class="nav-item nav-link">tentang kami</a>
                         <a href="#jelajah" class="nav-item nav-link">jelajahi makanan</a>
                         <a href="#toko" class="nav-item nav-link">daftar toko</a>
@@ -383,8 +376,6 @@
             </div>
         </div>
         <!-- Navbar & Hero End -->
-
-
         <!-- Service Start -->
         <div class="container-xxl py-5 text-center">
             <div class="container">
@@ -394,7 +385,7 @@
                             <div class="p-4">
                                 <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
                                 <h5>Pengguna</h5>
-                                <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">132</h1>
+                                <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">{{ $totaluser }}</h1>
                             </div>
                         </div>
                     </div>
@@ -403,7 +394,7 @@
                             <div class="p-4">
                                 <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
                                 <h5>Menu</h5>
-                                <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">33</h1>
+                                <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">{{ $totalmenu }}</h1>
                             </div>
                         </div>
                     </div>
@@ -412,7 +403,7 @@
                             <div class="p-4">
                                 <i class="fa fa-3x fa-headset text-primary mb-4"></i>
                                 <h5>Penjual</h5>
-                                <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">225</h1>
+                                <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">{{ $totalpenjual }}</h1>
                             </div>
                         </div>
                     </div>
@@ -420,7 +411,6 @@
             </div>
         </div>
         <!-- Service End -->
-
         <!-- About Start -->
         <div id="about" class="container-xxl py-5">
             <div class="container">
@@ -449,9 +439,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
-
-
+        </div>
         <!-- Menu Start -->
         <div id="jelajah" class="container-xxl py-5">
             <div class="container">
@@ -795,7 +783,6 @@
             </div>
         </div>
         <!-- Menu End -->
-
         <!-- Team Start -->
         <div id="toko" class="container-xxl pt-5 pb-3">
             <div class="container">
@@ -844,15 +831,14 @@
             </div>
         </div>
         <!-- Team End -->
-        
         <!-- Footer Start -->
         <div class="container-fluid bg-primary text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
-							
+                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+
 							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
 							Designed By <a class="border-bottom" href="https://htmlcodex.com">Konekt</a>
                         </div>
@@ -869,18 +855,15 @@
             </div>
         </div>
         <!-- Footer End -->
-
         <!-- Modal -->
         <div class="modal fade" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">
-
                     <!-- Header Modal -->
                     <div class="modal-header">
                         <h4 class="modal-title">Judul Modal</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-
                     <!-- Isi Modal -->
                     <div class="modal-body">
                         <h6>Bagaimana cara menggunakan layanan antrian makanan di website ini?</h6>

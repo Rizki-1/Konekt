@@ -351,7 +351,11 @@ class dashboardusercontroller extends Controller
     public function daftartoko()
     {
         $penjuallogin = penjuallogin::paginate(4);
-        return view('DashboardUser.daftartoko', compact('penjuallogin'));
+        foreach($penjuallogin as $p)
+        {
+            $url = url('/chatify/' . $p->user->id);
+        }
+        return view('DashboardUser.daftartoko', compact('penjuallogin', 'url'));
     }
 
     public function detailtoko(Request $request, $id)

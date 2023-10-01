@@ -364,6 +364,12 @@
                                                             style="bottom:15px; margin-top:-10px;"
                                                             href="{{ route('detailtoko', ['id' => $p->id]) }}">Detail</a>
                                                     </div>
+
+                                                    <div><br><a class="btn btn-warning"
+                                                        style="bottom:15px; margin-top:-10px;"
+                                                        href='{{ $url }}'>
+                                                        chat penjual</a>
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>

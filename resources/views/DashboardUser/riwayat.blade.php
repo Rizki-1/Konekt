@@ -328,12 +328,12 @@
                                                     style="border-radius: 10px; width: 125px; height: 110px; margin-top:-5px; padding: 5px;"
                                                     alt="">
                                                 <a>{{ $u->namamenu }}</a><br>
-                                                <div class="mx-4">
-                                                    <a>{{ $u->jumlah }} Menu</a>
+                                                <div class="mx-1">
+                                                    <a>jumlah pembelian :{{ $u->jumlah }} </a>
                                                 </div>
                                                 <hr>
                                                 <div class="d-flex justify-content-between">
-                                                    <h5>Biaya Layanan</h5>
+                                                    <h5>total harga</h5>
                                                     <h5>Rp. {{ number_format($u->totalharga, 0, ',', '.') }}
                                                     </h5>
                                                 </div>

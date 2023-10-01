@@ -138,6 +138,7 @@
                                 <div class="mb-3">
                                     <input type="hidden" name="penjual_id"
                                         value="{{ $UserOrder->user_id }}">
+                                        <input type="hidden" name="penjual_id" value="{{ $U->user->id }}">
                                     <label for="metodepembayaran_id" class="form-label fw-bold">Metode
                                         Pembayaran</label>
                                     <input type="hidden" name="barangpenjual_id"

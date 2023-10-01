@@ -646,35 +646,26 @@
                         </div>
                         <div class="card-body">
                             <!-- Tambahkan riwayat pesanan di sini -->
+                            @forelse ($user as $User)
                             <div class="media">
                                 <img class="bg-soft-primary rounded img-fluid avatar-80 me-3"
-                                    src="../assets/images/avatars/06.png" alt="profile">
+                                 src="{{Storage::url($User->fotomakanan)}}" alt="profile">
                                 <div class="media-body">
-                                    <h6 class="mb-0">Nasi Goreng</h6>
+                                    <h6 class="mb-0">{{ $User->barangpenjual->namamenu }}</h6>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <p>Nomor Pesanan: #12345</p>
-                                        <p>Harga: 15.000</p>
+                                        <p>nama pembeli:{{ $User->user->name }}</p>
+                                        <p>{{ $User->totalharga }}</p>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="media">
-                                <img class="bg-soft-primary rounded img-fluid avatar-80 me-3"
-                                    src="../assets/images/avatars/06.png" alt="profile">
-                                <div class="media-body">
-                                    <h6 class="mb-0">Mie Ayam</h6>
-                                    <p>Nomor Pesanan: #54321</p>
-                                    <p>Harga: 18.000</p>
-                                </div>
-                            </div>
-
+                            @empty
+                            <p>tidak ada riwayat pesanan</p>
+                            @endforelse
                             <!-- Tambahkan informasi riwayat pesanan lainnya di sini -->
                         </div>
                     </div>
                 </div>
-
             </div>
-
             {{-- <div class="pesan-shopee">
                 <a href="{{ route('message') }}">
                     <button class="btn-pesan-shopee" id="btn-pesan-shopee">
@@ -682,8 +673,6 @@
                     </button>
                 </a>
             </div> --}}
-
-
         </div>
         </div>
         {{-- @include('layout.footer') --}}

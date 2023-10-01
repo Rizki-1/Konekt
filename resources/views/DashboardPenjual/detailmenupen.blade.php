@@ -263,37 +263,36 @@
                 @endforeach
                 <!-- Ulasan Makanan -->
                 <div class="col-lg-6 col-xl-5">
-                    <div class="card" style="max-height: 450px; overflow-y: scroll;">
-                        <div class="card-header">
-                            <h4 class="card-title">Ulasan Makanan</h4>
-                        </div>
-                        <div class="card-body">
-                            @if ($ulasan->isEmpty())
-                                <p>Belum ada ulasan untuk makanan ini.</p>
-                            @else
-                                @foreach ($ulasan as $u)
-                                    <div class="media mb-3">
-                                        <div class="media-body">
-                                            <h6 class="mb-0">{{ $u->username }}</h6>
-                                            <div class="rating">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    @if ($i <= $u->rating)
-                                                        <span class="star">&#9733;</span>
-                                                    @else
-                                                        <span class="star">&#9734;</span>
-                                                    @endif
-                                                @endfor
-                                            </div>
-                                            <p class="mt-2">{{ $u->komentar }}</p>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
+    <div class="card" style="max-height: 450px; overflow-y: scroll;">
+        <div class="card-header">
+            <h4 class="card-title">Ulasan Makanan</h4>
+        </div>
+        <div class="card-body">
+            @if ($ulasan->isEmpty())
+                <p>Belum ada ulasan untuk makanan ini.</p>
+            @else
+                @foreach ($ulasan as $u)
+                    <div class="media mb-3">
+                        <div class="media-body">
+                            <h6 class="mb-0">{{ $u->username }}</h6>
+                            <div class="rating">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= $u->rating)
+                                        <span class="star" style="color: yellow;">&#9733;</span>
+                                    @else
+                                        <span class="star" style="color: yellow;">&#9734;</span>
+                                    @endif
+                                @endfor
+                            </div>
+                            <p class="mt-2">{{ $u->komentar }}</p>
                         </div>
                     </div>
-                </div>
-            </div>
+                @endforeach
+            @endif
         </div>
+    </div>
+</div>
+
         <!-- Footer Section Start -->
         <footer class="footer">
             <div class="footer-body">

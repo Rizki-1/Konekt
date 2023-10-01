@@ -273,12 +273,13 @@ class penjualcontroller extends Controller
         $id = Auth::id();
         $mengajukandana =
         [
-            'penjual_id' => $request->barangpenjual_id,
+            'penjual_id' => $request->baarangpenjual_id,
             'barangpenjual_id' => $request->barangpenjual_id,
             'metodepembayaran_id' => $request->metodepembayaran_id,
             'keterangan_pengajuan' => $request->input('keterangan_bank','keterangan_e_wallet'),
             'tujuan_pengajuan' => $request->input('tujuan_bank','tujuan_e_wallet'),
         ];
+        // dd($mengajukandana);
         pengajuandanapenjual::create($mengajukandana);
         return redirect()->route('pengajuanpenjualad');
 

@@ -3,15 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-<<<<<<< Updated upstream
-    <title>Welcome</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-=======
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Kuliner Kita </title>
->>>>>>> Stashed changes
+      <title style="font-family:'Courier New', Courier, monospace;">Kuliner kita</title>
 
     <!-- Favicon -->
     <link href="../../asset/img/favicon.ico" rel="icon">
@@ -165,7 +158,7 @@
         z-index: 999;
         background: transparent !important;
     }
-    
+
     .sticky-top.navbar-dark {
         position: fixed;
         background: var(--primary) !important;
@@ -186,10 +179,10 @@
     animation: imgRotate 50s linear infinite;
 }
 
-@keyframes imgRotate { 
-    100% { 
-        transform: rotate(360deg); 
-    } 
+@keyframes imgRotate {
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
@@ -449,7 +442,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
 
 
         <!-- Menu Start -->
@@ -844,15 +837,15 @@
             </div>
         </div>
         <!-- Team End -->
-        
+
         <!-- Footer Start -->
         <div class="container-fluid bg-primary text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
-							
+                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+
 							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
 							Designed By <a class="border-bottom" href="https://htmlcodex.com">Konekt</a>
                         </div>

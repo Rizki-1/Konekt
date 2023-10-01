@@ -29,7 +29,6 @@
          <div class="row align-items-center">
             <div class="col-md-12 col-lg-7 col-xl-4">
                <div class="card-body">
-                  <a href="../index-2.html">
                      <img src="../../assets/images/kuliner.png" class="img-fluid logo-img" alt="img4">
                   </a>
                            <h2 class="mb-2 text-center">Selamat Datang</h2>

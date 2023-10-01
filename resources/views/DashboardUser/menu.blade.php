@@ -601,17 +601,17 @@
                         data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
                         data-iq-trigger="scroll" data-iq-ease="none"
                         style="transform: translate(0px, 0px); opacity: 1;">
-                        <h2 class="d-flex justify-content-center gap-2 mt-3" >kategori</h2>
+                        <h2 class="d-flex justify-content-center gap-2 mt-3" >Kategori</h2>
                         <div class="d-flex justify-content-center gap-2 mt-3">
 
-                            <a href="{{ route('menu.index')  }}" class="btn btn-warning"> semua kategori </a>
+                            <a href="{{ route('menu.index')  }}" class="btn btn-outline-primary"> Semua Kategori </a>
                             @php
                                 $kategoriterbaru = $kategori->sortByDesc('created_at')->take(3);
                             @endphp
                             @foreach ($kategoriterbaru as $Kategori )
-                            <a href="{{ route('kategorifilter', ['kategori' => $Kategori->id]) }}" class="btn btn-warning">  {{ $Kategori->kategori }} </a>
+                            <a href="{{ route('kategorifilter', ['kategori' => $Kategori->id]) }}" class="btn btn-outline-primary">  {{ $Kategori->kategori }} </a>
                             @endforeach
-                            <button class="btn btn-warning" data-bs-target="#modalkategori" data-bs-toggle="modal"> lihat semua kategori </button>
+                            <button class="btn btn-outline-primary" data-bs-target="#modalkategori" data-bs-toggle="modal"> Lihat Semua Kategori </button>
                         </div>
                     </div>
 

@@ -109,19 +109,21 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @foreach ($dashboardusercontrollers as $s)
-        <div class="modal" id="myModal_{{ $s->id }}" tabindex="-1">
-            <div class="modal-dialog">
+        <div class="modal fade" id="myModal_{{ $s->id }}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">detail pesanan pembeli</h5>
+                        <h5 class="modal-title">Detail Pesanan Pembeli</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="catatan" class="form-label fw-bold">catatan pembeli</label></label>
-                            <input type="text" name="catatan" value="{{ $s->catatan }}" class="form-control"
-                                readonly>
-                        </div>
+                    <div class="modal-body text-capitalize">
+                        @if ($s->catatan)
+                            <div class="mb-3">
+                                <label for="catatan" class="form-label fw-bold">catatan pembeli</label>
+                                <input type="text" name="catatan" value="{{ $s->catatan }}" class="form-control"
+                                    readonly>
+                            </div>
+                        @endif
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">jumlah pesanan</label>
                             <input type="text" name="jumlah" class="form-control" value="{{ $s->jumlah }}"
@@ -143,7 +145,11 @@
                             @if ($s->pembelianstatus === 'menunggu konfirmasi')
                                 <div class="mb-3">
                                     <label for="kelas" class="form-label fw-bold">Beri Nomor Antrian</label>
-                                    <input type="text" name="nomor_antrian" class="form-control">
+                                    <input type="text" name="nomor_antrian"
+                                        class="form-control @error('nomor_antrian') is-invalid @enderror">
+                                    @error('nomor_antrian')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="d-flex justify-content gap-2">
                                     <button type="submit" class="btn btn-outline-success accept-btn"
@@ -394,7 +400,8 @@
                                                             @csrf
                                                             @method('PATCH')
                                                             <button type="submit"
-                                                                class="btn btn-outline-success complete-btn">Tandakan Telah
+                                                                class="btn btn-outline-success complete-btn">Tandakan
+                                                                Telah
                                                                 Selesai</button>
                                                         </form>
                                                     @else

@@ -21,6 +21,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Models\adminmetodepembayaran;
 use App\Models\pengajuandanapenjual;
+
 class adminpembeliancontroller extends Controller
 {
     /**
@@ -28,7 +29,10 @@ class adminpembeliancontroller extends Controller
      */
     public function index()
     {
-        $dashboardusercontrollers = userOrder::where('adminstatus', 'notapprove')->get();
+        $dashboardusercontrollers = userOrder::where('adminstatus', 'notapprove')
+            ->join('penjuallogins', 'penjuallogins.user_id', '=', 'user_orders.toko_id')
+            ->select('user_orders.*', 'penjuallogins.nama_toko')
+            ->get();
         $penjual = barangpenjual::all();
         $adminnotifikasi = adminnotifikasi::all();
         $notifikasi_penjual = notifikasipenjual::all();

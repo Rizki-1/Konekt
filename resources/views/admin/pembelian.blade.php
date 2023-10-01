@@ -112,11 +112,11 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @foreach ($dashboardusercontrollers as $s)
-        <div class="modal" id="myModal_{{ $s->id }}" tabindex="-1">
-            <div class="modal-dialog">
+        <div class="modal fade" id="myModal_{{ $s->id }}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">detail pembelian</h5>
+                        <h5 class="modal-title">Detail Pembelian</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -125,27 +125,21 @@
                             <input type="text" name="metodepembayaran" class="form-control"
                                 value="{{ $s->metodepembayaran }}" readonly>
                         </div>
-
                         <div class="mb-3">
                             <label for="kelas" class="form-label fw-bold">Bukti Pembayaran</label>
                             <img src="{{ Storage::url($s->foto) }}" alt="Bukti Pembayaran" class="w-100">
                         </div>
-
-
-
-
                         <div class="d-flex gap-3">
                             <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
-                                <button type="submit" class="btn btn-outline-success"><i
-                                        class="bi bi-check-circle"></i></button>
+                                <button type="submit" class="btn btn-outline-success">Terima</button>
                             </form>
                             <form action="{{ route('admin.tolak', ['id' => $s->id]) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="_method" value="PATCH">
                                 <button type="submit" class="btn btn-outline-danger delete-btn"
-                                    data-id="{{ $s->id }}"><i class="bi bi-x-circle"></i></button>
+                                    data-id="{{ $s->id }}">Tolak</button>
                             </form>
                         </div>
                     </div>
@@ -353,18 +347,15 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <li><button type="submit" class="dropdown-item">logout</button></li>
-                                    </form>
-                                </ul>
+                                    <hr class="dropdown-divider">
                             </li>
-                            <!-- End Profile-->
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <li><button type="submit" class="dropdown-item">logout</button></li>
+                            </form>
+                        </ul>
+                        </li>
+                        <!-- End Profile-->
                         </ul>
                     </div>
                 </div>
@@ -381,6 +372,8 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Nama pembeli</th>
+                                    <th scope="col">Nama toko</th>
+                                    <th scope="col">Nama menu</th>
                                     <th scope="col">Jumlah Pesanan</th>
                                     <th scope="col">metode pembayaran</th>
                                     <th scope="col">Total Harga</th>
@@ -395,25 +388,16 @@
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
                                         <td>{{ $s->User->name }}</td>
+                                        <td>{{ $s->nama_toko }}</td>
+                                        <td>{{ $s->penjual->namamenu }}</td>
                                         <td>{{ $s->jumlah }}</td>
                                         <td>{{ $s->metodepembayaran }}</td>
                                         <td>
-                                            <div style="margin-left:40px;">
-                                                {{ number_format($s->totalharga, 0, ',', '.') }}</div>
+                                            Rp. {{ number_format($s->totalharga, 0, ',', '.') }}
                                         </td>
                                         <td class="d-flex">
                                             <button class="btn btn-secondary" data-bs-toggle="modal"
                                                 data-bs-target="#myModal_{{ $s->id }}">detail</button>
-                                            <!-- <form action="{{ route('admin.terima', ['id' => $s->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="PATCH">
-                                            <button type="submit" class="btn btn-outline-success"><i class="bi bi-check-circle"></i></button>
-                                        </form>
-                                        <form action="{{ route('admin.tolak', ['id' => $s->id]) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="PATCH">
-                                            <button type="submit" class="btn btn-outline-danger delete-btn" data-id="{{ $s->id }}"><i class="bi bi-x-circle"></i></button>
-                                        </form> -->
                                         </td>
                                     </tr>
                                 @endforeach

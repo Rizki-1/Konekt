@@ -193,6 +193,12 @@ class penjualcontroller extends Controller
     public function terimapesanan(Request $request, $id)
     {
         try {
+            $request->validate([
+                'nomor_antrian' => 'required',
+            ],[
+                'nomor_antrian.required' => 'Nomor Antrian wajib di isi'
+            ]);
+
             $dashboardusercontroller = userOrder::findOrFail($id);
             $dashboardusercontroller->pembelianstatus = 'sedang di proses';
             $dashboardusercontroller->nomor_antrian = $request->nomor_antrian;
@@ -203,7 +209,7 @@ class penjualcontroller extends Controller
             return redirect()->route('pesananpenjual')->with('success', 'Status pesanan berhasil diubah.');
         } catch (\Exception $e) {
             // Handle error jika terjadi kesalahan saat mengubah status pesanan
-            return redirect()->route('pesananpenjual')->with('error', 'Gagal mengubah status pesanan.');
+            return redirect()->route('pesananpenjual')->with('error', 'Tolong beri nomor antrian!');
         }
     }
 

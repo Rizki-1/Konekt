@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class notifikasi extends Model
 {
+
+    public $timestamps = true; // Pastikan ini ada
+    
     use HasFactory;
 
     protected $fillable = [

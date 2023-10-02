@@ -70,7 +70,7 @@ class rolepenjualcontroller extends Controller
         $foto_tokoPath = null; // Inisialisasi variabel foto_tokoPath dengan null
 
         if ($request->hasFile('foto_toko')) {
-            $filePath = Storage::disk('public')->put('foto_toko', $request->file('foto_toko'));
+            $filePath = Storage::disk('public')->put('fotoToko', $request->file('foto_toko'));
             $foto_tokoPath = $filePath; // Set foto_tokoPath jika ada file yang diunggah
         }
 

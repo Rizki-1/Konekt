@@ -123,6 +123,9 @@ class adminpembeliancontroller extends Controller
             $adminnotifikasi->isi_admin = 'pesanan akan disampaikan ke penjual';
             $adminnotifikasi->is_read = false;
             $adminnotifikasi->save();
+
+            // Menyamakan created_at dengan updated_at
+            $adminnotifikasi->touch();
         }
 
         // notifikasipenjual::create($notifikasi_penjual);
@@ -408,45 +411,47 @@ class adminpembeliancontroller extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    // $request->validate([
-    //     'metodepembayaran' => 'required',
-    //     'tujuan' => 'required',
-    //     'keterangan' => 'required|file|mimes:jpeg,jpg,png|max:2048',
-    // ], [
-    //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-    //     'tujuan.required' => 'Tujuan wajib diisi.',
-    //     'keterangan.required' => 'Keterangan wajib diisi.',
-    //     'keterangan.numeric'=>'keterangan harus angka',
-    //     'keterangan.file' => 'Keterangan harus berupa file.',
-    //     'keterangan.mimes' => 'Keterangan harus berupa file dengan format jpeg, jpg, atau png.',
-    //     'keterangan.max' => 'Ukuran maksimal Keterangan adalah 2MB.',
-    // ]);
-    $request->validate([
-        'metodepembayaran' => 'required',
-        'tujuan' => 'required',
-        'keterangan' => [
-            'required',
-            function ($attribute, $value, $fail) use ($request) {
-                if ($request->input('metodepembayaran') == 'bank') {
-                    if (!is_numeric($value)) {
-                        $fail('Keterangan untuk metode pembayaran bank harus berupa angka.');
+    {
+        // $request->validate([
+        //     'metodepembayaran' => 'required',
+        //     'tujuan' => 'required',
+        //     'keterangan' => 'required|file|mimes:jpeg,jpg,png|max:2048',
+        // ], [
+        //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+        //     'tujuan.required' => 'Tujuan wajib diisi.',
+        //     'keterangan.required' => 'Keterangan wajib diisi.',
+        //     'keterangan.numeric'=>'keterangan harus angka',
+        //     'keterangan.file' => 'Keterangan harus berupa file.',
+        //     'keterangan.mimes' => 'Keterangan harus berupa file dengan format jpeg, jpg, atau png.',
+        //     'keterangan.max' => 'Ukuran maksimal Keterangan adalah 2MB.',
+        // ]);
+        $request->validate([
+            'metodepembayaran' => 'required',
+            'tujuan' => 'required',
+            'keterangan' => [
+                'required',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($request->input('metodepembayaran') == 'bank') {
+                        if (!is_numeric($value)) {
+                            $fail('Keterangan untuk metode pembayaran bank harus berupa angka.');
+                        }
+                    } elseif ($request->input('metodepembayaran') == 'ewallet') {
+                        if (
+                            !$request->file('keterangan')->isValid() ||
+                            !in_array($request->file('keterangan')->getClientOriginalExtension(), ['jpeg', 'jpg', 'png'])
+                        ) {
+                            $fail('Keterangan untuk metode pembayaran e-wallet harus berupa file dengan format jpeg, jpg, atau png.');
+                        }
+                        if ($request->file('keterangan')->getSize() > 2048) {
+                            $fail('Ukuran maksimal Keterangan untuk metode pembayaran e-wallet adalah 2MB.');
+                        }
                     }
-                } elseif ($request->input('metodepembayaran') == 'ewallet') {
-                    if (!$request->file('keterangan')->isValid() ||
-                        !in_array($request->file('keterangan')->getClientOriginalExtension(), ['jpeg', 'jpg', 'png'])) {
-                        $fail('Keterangan untuk metode pembayaran e-wallet harus berupa file dengan format jpeg, jpg, atau png.');
-                    }
-                    if ($request->file('keterangan')->getSize() > 2048) {
-                        $fail('Ukuran maksimal Keterangan untuk metode pembayaran e-wallet adalah 2MB.');
-                    }
-                }
-            },
-        ],
-    ], [
-        'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-        'tujuan.required' => 'Tujuan wajib diisi.',
-    ]);
+                },
+            ],
+        ], [
+            'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+            'tujuan.required' => 'Tujuan wajib diisi.',
+        ]);
 
 
         $adminmp = new adminmetodepembayaran;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Kuliner Kita </title>
+      <title style="font-family:'Courier New', Courier, monospace;">Kuliner kita</title>
 
     <!-- Favicon -->
     <link href="../../asset/img/favicon.ico" rel="icon">
@@ -440,6 +440,8 @@
                 </div>
             </div>
         </div>
+
+
         <!-- Menu Start -->
         <div id="jelajah" class="container-xxl py-5">
             <div class="container">
@@ -831,6 +833,7 @@
             </div>
         </div>
         <!-- Team End -->
+
         <!-- Footer Start -->
         <div class="container-fluid bg-primary text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">

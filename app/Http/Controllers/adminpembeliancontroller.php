@@ -325,17 +325,17 @@ class adminpembeliancontroller extends Controller
     protected function pengajuanpenjualad(Request $request)
     {
         $penjual = penjuallogin::all();
-        $u = pengajuandanapenjual::where('status','1')->get();
+        // $u = pengajuandanapenjual::where('status','1')->get();
         $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual','barangpenjual')->get();
-        return view('admin.pengajuanpenjualad', compact('penjual','p','u'));
+        return view('admin.pengajuanpenjualad', compact('penjual','p'));
     }
 
     public function terimapengajuan($id)
     {
         $userOrder = userOrder::findOrFail($id);
-        $user = pengajuandanapenjual::where('id',$id)->get();
+        // $user = pengajuandanapenjual::where('id',$id)->get();
         $userOrder->pembelianstatus = 'pengembalian dana di terima';
-        $user->status = '2';
+        // $user->status = '2';
         $userOrder->save();
         return redirect()->back()->with('success', 'pengembalian dana telah di setujui');
     }

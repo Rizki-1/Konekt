@@ -31,7 +31,7 @@ return [
         'middleware' => env('CHATIFY_API_ROUTES_MIDDLEWARE', ['api']),
         'namespace' => env('CHATIFY_API_ROUTES_NAMESPACE', 'Chatify\Http\Controllers\Api'),
     ],
-
+    
     /*
     |-------------------------------------
     | Pusher API credentials

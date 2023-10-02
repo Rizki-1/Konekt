@@ -240,7 +240,7 @@ class penjualcontroller extends Controller
         $dashboardusercontrollers = userOrder::findOrfail($id);
         $dashboardusercontrollers->adminstatus = 'penjualapprove';
         $dashboardusercontrollers->pembelianstatus = 'selesai';
-        $dashboardusercontrollers->save();
+        $dashboardusercontrollers->update();
 
         $notifikasi = notifikasi::where('id', $id)->get();
         $notifikasi->keterangan = 'Pesanan Anda telah selesai.';

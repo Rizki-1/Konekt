@@ -218,7 +218,17 @@ class dashboardusercontroller extends Controller
             ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima', 'dibatalkan'])
             ->paginate(4);
 
-        return view('DashboardUser.pesanan', compact('user', 'userId'));
+            $url = '';
+
+            foreach ($user as $User)
+            {
+                $url = url('/chatify/' . $User->toko_id);
+
+                // Simpan nilai id toko ke session
+                session(['toko_id' => $User->toko_id]);
+            }
+
+        return view('DashboardUser.pesanan', compact('user', 'userId', 'url'));
     }
 
     public function batalkanpesanan($id)
@@ -437,6 +447,10 @@ class dashboardusercontroller extends Controller
 
         //dd($request->all());
         $username = Auth::user()->name;
+        $telahDiulas = ulasan::where('barangpenjual_id', $id)->where('username', $username)->exists();
+        if ($telahDiulas) {
+            return redirect()->route('riwayatuser')->with('peringatan', 'Anda sudah pernah membuat ulasan untuk produk ini.');
+        }
         $penjual = BarangPenjual::findOrFail($id);
         $ulasan = ulasan::where('barangpenjual_id', $penjual->id)->get();
 
@@ -472,7 +486,7 @@ class dashboardusercontroller extends Controller
     public function pengembaliandana(Request $request, $id)
     {
         $userOrder = UserOrder::findOrFail($id);
-    
+
         $userOrder->pembelianstatus = 'mengajukan pengembalian dana';
         $userOrder->tujuanpembayaran = $request->input('tujuanpembayaran');
         $userOrder->metode_pengembalian = $request->input('metode_pengembalian');
@@ -482,7 +496,7 @@ class dashboardusercontroller extends Controller
         // dd($request->all());
         return redirect()->back()->with('success', 'Pengajuan pengembalian dana berhasil');
     }
-    
+
 
     public function CheckKeranjang($id)
     {

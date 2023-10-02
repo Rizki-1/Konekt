@@ -133,22 +133,21 @@
         </form>
     @endforeach
     <div class="modal fade" id="modalkategori" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered d-flex flex-wrap flex-row justify-content: flex-end">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">semua kategori</h5>
+                    <h5 class="modal-title">Semua Kategori</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                @foreach ($kategori as $Kategori)
-                    <div class="d-flex flex-wrap flex-row justify-content: flex-end">
-                        <a href="{{ route('kategorifilter', ['kategori' => $Kategori->id]) }}" class="btn btn-warning"
-                            style="display: flex; width: auto; margin-top: 1rem; ms-5; text-align: right;">
-                            {{ $Kategori->kategori }} </a>
+                <div class="modal-body">
+                    <div class="d-flex flex-wrap justify-content-start align-items-start">
+                        @foreach ($kategori as $Kategori)
+                        <a href="{{ route('kategorifilter', ['kategori' => $Kategori->id]) }}" class="btn btn-warning" style="width: auto; margin: 0.5rem;">{{ $Kategori->kategori }}</a>
+                        @endforeach
                     </div>
-                @endforeach
-
+                </div>
                 <div class="modal-footer">
-
+                    <!-- Footer content here -->
                 </div>
             </div>
         </div>
@@ -574,8 +573,6 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="profileuser">Profile</a></li>
-                            <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                    Setting</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

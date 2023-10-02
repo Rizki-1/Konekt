@@ -301,8 +301,6 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="profileuser">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -337,10 +335,14 @@
                                             style="background-color:#ea68121e; margin-left:4%;">
                                             <div class="card-content">
                                                 <div class="content-container my-5">
-                                                    <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a
-                                                            style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
-                                                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
-                                                            Hubungi Kami : {{ $p->notlp }}</a></p>
+                                                <a>
+                                                    <i class="fa fa-map-marker text-danger" aria-hidden="true"></i>
+                                                    <a style="margin-left: 5px;">{{ $p->alamat_toko }}</a>
+                                                </a>
+                                                <p>
+                                                    <i class="fa fa-phone text-success"></i>
+                                                    <a style="margin-left: 2px;">{{ $p->notlp }}</a>
+                                                </p>
                                                     <a>Masakan Tradisional</a>
                                                     <h3>{{ $p->nama_toko }}</h3>
                                                     <tr>
@@ -360,16 +362,18 @@
                                                     <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
                                                         style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;"
                                                         class="img">
-                                                    <div><br><a class="btn btn-warning"
-                                                            style="bottom:15px; margin-top:-10px;"
-                                                            href="{{ route('detailtoko', ['id' => $p->id]) }}">Detail</a>
-                                                    </div>
-
-                                                    <div><br><a class="btn btn-warning"
-                                                        style="bottom:15px; margin-top:-10px;"
-                                                        href='{{ $url }}'>
-                                                        chat penjual</a>
-                                                </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <a class="btn btn-warning" href="{{ route('detailtoko', ['id' => $p->id]) }}">
+                                                                    <i class="fa fa-info-circle" aria-hidden="true"></i> Detail
+                                                                </a>
+                                                            </div>
+                                                            <div>
+                                                                <a class="btn btn-warning" href="{{ $url }}">
+                                                                    <i class="fa fa-comments" aria-hidden="true"></i> Chat Penjual
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -381,6 +385,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="container">
             @if ($penjuallogin->count() > 0)
                 {{ $penjuallogin->links('pagination::default') }}

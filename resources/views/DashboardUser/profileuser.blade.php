@@ -103,7 +103,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- <a class="nav-link" data-bs-toggle="collapse" href="menu"> disable --}}
+                        {{-- <a class="nav-link" data-bs-toggle="collapse" href="{{ asset('menu') }}"> disable --}}
                         <a class="nav-link" aria-current="page" href="menu">
                             <i class="icon">
                                 <svg width="23" height="30" viewBox="0 0 24 24" fill="none"
@@ -119,7 +119,7 @@
                             <span class="item-name">Dashboard</span>
                         </a>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="daftartoko">
+                        <a class="nav-link" aria-current="page" href="{{ asset('daftartoko') }}">
                             <i class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30"
                                     viewBox="0 0 27 23" fill="none">
@@ -132,7 +132,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="pesanan">
+                        <a class="nav-link " href="{{ asset('pesanan') }}">
                             <i class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30"
                                     viewBox="0 0 26 23" fill="none">
@@ -145,7 +145,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="riwayatuser">
+                        <a class="nav-link " href="{{ asset('riwayatuser') }}">
                             <i class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30"
                                     viewBox="0 0 33 30" fill="none">
@@ -219,8 +219,6 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="profileuser">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -296,20 +294,20 @@
                     </div>
                 </div>
                 <div class="col-lg-3">
-    <div class="card">
-        <div class="card-header">
-            <div class="header-title">
-                <h4 class="card-title">Intro</h4>
-            </div>
-        </div>
-        <div class="card-body">
-            <p>Ubah sesuai seleramu.</p>
-            <div class="mb-1">Email: <span id="email">{{ Auth::user()->email }}</span></div>
-            <div class="mb-1">Phone: <span id="phone">001 2351 256 12</span></div>
-            <div>Location: <span id="location" class="text-primary">USA</span></div>
-        </div>
-    </div>
-</div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <h4 class="card-title">Intro</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>Ubah sesuai seleramu.</p>
+                            <div class="mb-1">Email: <span id="email">{{ Auth::user()->email }}</span></div>
+                            <div class="mb-1">no tlp: <span id="phone">001 2351 256 12</span></div>
+                            <div>Location: <span id="location" class="text-primary">USA</span></div>
+                        </div>
+                    </div>
+                </div>
 
 <!-- Modal untuk mengedit profil -->
 <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -332,7 +330,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="profileLocation" class="form-label">Alamat</label>
-                        <input type="text" class="form-control" id="profileLocation" value="Jl Wendit">
+                        <input type="text" class="form-control" id="profileLocation" value="masukkan alamat">
                     </div>
                     <div class="mb-3">
                         <label for="profilePhone" class="form-label">Nomor Telepon</label>

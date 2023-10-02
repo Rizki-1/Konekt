@@ -42,7 +42,9 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::get('kategori', [adminpembeliancontroller::class, 'kategori'])->name('kategori');
     Route::post('kstore', [adminpembeliancontroller::class, 'kstore'])->name('kstore');
     Route::get('kedit/{id}/edit', [adminpembeliancontroller::class, 'kedit'])->name('kedit');
+    Route::get('aedit/{id}/edit', [adminpembeliancontroller::class, 'aedit'])->name('aedit');
     Route::put('kupdate/{id}', [adminpembeliancontroller::class, 'kupdate'])->name('kupdate');
+    Route::put('aupdate/{id}', [adminpembeliancontroller::class, 'aupdate'])->name('aupdate');
     Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
     Route::delete('adestroy/{adminmp}', [adminpembeliancontroller::class, 'adestroy'])->name('adestroy');
     Route::get('adedit/{id}/edit', [adminpembeliancontroller::class, 'adedit'])->name('adedit');

@@ -440,7 +440,6 @@
                                         <td>{{ $a->kategori }}</td>
                                         <td>
                                             {{ Str::limit($a->keterangan, 10) }}
-
                                         </td>
                                         <td>
                                             <button type="submit" class="btn btn-outline-warning edit-btn"

@@ -60,4 +60,10 @@ class userOrder extends Model
         return $this->belongsTo(penjuallogin::class, 'penjual_id');
     }
 
+    public function adminMetodePembayaran(): BelongsTo
+    {
+        return $this->belongsTo(adminmetodepembayaran::class, 'tujuanpembayaran');
+    }
+
+
 }

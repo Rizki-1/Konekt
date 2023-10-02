@@ -21,6 +21,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Models\adminmetodepembayaran;
 use App\Models\pengajuandanapenjual;
+use illuminate\Support\Facades\Storage;
 
 class adminpembeliancontroller extends Controller
 {
@@ -268,6 +269,55 @@ class adminpembeliancontroller extends Controller
         }
     }
 
+    public function aedit($id)
+    {
+        $metodePembayaran = adminmetodepembayaran::findOrFail($id);
+        return response()->json($metodePembayaran);
+    }
+
+    public function aupdate(Request $request, $id)
+    {
+        // Validasi input sesuai kebutuhan Anda
+        $request->validate(
+            [
+                'tujuan' => 'required',
+                // Tambahkan validasi untuk keterangan atau keteranganFile sesuai jenisnya
+                'keterangan' => $request->keteranganType === 'number' ? 'required' : 'required|image',
+            ],
+            [
+                'tujuan.required' => 'Tujuan pembayaran wajib diisi.',
+                'keterangan.required' => 'Keterangan wajib diisi.',
+                'keterangan.image' => 'Keterangan harus berupa image.',
+            ]
+        );
+
+        // Temukan metode pembayaran berdasarkan ID
+        $metodePembayaran = AdminMetodePembayaran::find($id);
+
+        if (!$metodePembayaran) {
+            return response()->json(['success' => false, 'message' => 'Metode pembayaran tidak ditemukan.'], 404);
+        }
+
+        // Perbarui data metode pembayaran sesuai input
+        $metodePembayaran->tujuan = $request->tujuan;
+
+        if ($request->keteranganType === 'file') {
+            $image = $request->file('keterangan');
+            $filename = $image->hashName(); // Dapatkan nama hash file
+            $image->storeAs('public/pembayaran', $filename);
+            $metodePembayaran->keterangan = $filename;
+        } else {
+            $metodePembayaran->keterangan = $request->keterangan;
+        }
+
+        try {
+            $metodePembayaran->save();
+            return response()->json(['success' => true, 'message' => 'Metode pembayaran berhasil diperbarui.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal memperbarui metode pembayaran.'], 500);
+        }
+    }
+
     public function kupdate(Request $request, $id)
     {
         // Validasi data yang dikirim dari formulir
@@ -330,8 +380,8 @@ class adminpembeliancontroller extends Controller
     {
         $penjual = penjuallogin::all();
         // $u = pengajuandanapenjual::where('status','1')->get();
-        $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual','barangpenjual')->get();
-        return view('admin.pengajuanpenjualad', compact('penjual','p'));
+        $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual', 'barangpenjual')->get();
+        return view('admin.pengajuanpenjualad', compact('penjual', 'p'));
     }
 
     public function terimapengajuan($id)
@@ -419,12 +469,12 @@ class adminpembeliancontroller extends Controller
     {
         try {
             $adminmp->delete();
-            return redirect()->route('metodpembayaran');
+            return redirect()->route('metodpembayaran')->with('success', 'Berhasil menghapus data');
         } catch (Exception $e) {
             return back()->with('error');
         }
     }
-    
+
     public function adedit(Request $request, $id)
     {
         $adminmp = adminmetodepembayaran::findOrFail($id);
@@ -437,7 +487,7 @@ class adminpembeliancontroller extends Controller
 
         return redirect()->route('admin.metodpembayaran')->with('success', 'Metode pembayaran berhasil diperbarui.');
     }
-    
+
     public function mpupdate(Request $request, $id)
     {
 

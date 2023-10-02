@@ -24,9 +24,5 @@ class DatabaseSeeder extends Seeder
             'password' => '12345678',
             'role' => 'user',
         ]);
-        // \App\Models\adminkategori::factory()->create([
-        //     'kategori' => 'gorengan',
-        //     'keterangan' => 'halotest'
-        // ]);
     }
 }

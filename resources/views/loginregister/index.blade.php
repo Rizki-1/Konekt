@@ -5,18 +5,8 @@
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/auth/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:54:54 GMT -->
 <head>
-    <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>login</title>
-
-      <!-- Favicon -->
-      <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/kuliner.png" />
-
-      <!-- Library / Plugin Css Build -->
-      <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
-      <!-- Custom Css -->
-      <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
+    @include('layout.link')
+    </head>
   <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
     @include('layout.logoloader')
     @if (session('warning'))
@@ -66,7 +56,7 @@
                            form.addEventListener('submit', function(event) {
                               if (!checkbox.checked) {
                                  event.preventDefault(); // Menghentikan pengiriman formulir
-                                 alert('Anda harus menyetujui kebijakan privasi untuk melanjutkan.');
+                                 Swal.fire('Peringatan','Anda harus menyetujui kebijakan privasi untuk melanjutkan.', 'warning');
                               }
                            });
                         </script>

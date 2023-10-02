@@ -89,7 +89,7 @@ class adminpembeliancontroller extends Controller
 
             if (isset($processedData[$yearMonth])) {
                 $processedData[$yearMonth]['statusselesai'] = $item->total;
-            }
+            }   
         }
 
         $chartData = array_values($processedData);
@@ -466,7 +466,7 @@ class adminpembeliancontroller extends Controller
             $adminmp->keterangan = $filename;
         }
         $adminmp->save();
-        return back();
+        return back()->with('success', 'Berhasil menambah kategori');
     }
 
 

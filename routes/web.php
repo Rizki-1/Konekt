@@ -91,7 +91,6 @@ Route::middleware(['userMiddleware'])->group(function ()
 
 
 
-
 Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::resource('/DashboardPenjual', penjualcontroller::class);
     Route::get('pesananpenjual', [penjualcontroller::class, 'pesananpenjual'])->name('pesananpenjual');

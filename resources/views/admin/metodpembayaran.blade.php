@@ -534,10 +534,6 @@
                         keterangan = $('#editKeterangan').val();
                     }
 
-                    console.log(metodeId);
-                    console.log(tujuan);
-                    console.log(keterangan);
-                    console.log(keteranganType);
 
                     // Buat objek FormData untuk mengirim data
                     var formData = new FormData();

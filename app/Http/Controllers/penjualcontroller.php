@@ -107,9 +107,14 @@ class penjualcontroller extends Controller
     public function riwayatpenjual()
     {
         $penjualId = Auth::id();
-        $user = userOrder::where('toko_id', $penjualId)->whereIn('pembelianstatus', ['selesai', 'pesanan di tolak', 'pesanan di batalkan'])->get();
+        $user = userOrder::where('toko_id', $penjualId)->whereIn('pembelianstatus', ['statusselesai', 'pesanan di tolak', 'pesanan di batalkan'])->get();
+        foreach ($user as $User)
+        {
+            $rating = ulasan::where('barangpenjual_id', $User->barangpenjual_id)->get();
+
+        }
         $adminkategori = adminkategori::all();
-        return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
+        return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori', 'rating'));
     }
 
 
@@ -237,7 +242,7 @@ class penjualcontroller extends Controller
         $dashboardusercontrollers->pembelianstatus = 'selesai';
         $dashboardusercontrollers->save();
 
-        $notifikasi = notifikasi::where('id', $id)->first();
+        $notifikasi = notifikasi::where('id', $id)->get();
         $notifikasi->keterangan = 'Pesanan Anda telah selesai.';
         $notifikasi->isi = 'Lihat halaman pesanan untuk informasi lebih lanjut';
         $notifikasi->is_read = false;
@@ -284,13 +289,12 @@ class penjualcontroller extends Controller
         // }
         $mengajukandana =
         [
-            'penjual_id' => $request->penjual_id,
+            'penjual_id' => $request->barangpenjual_id,
             'barangpenjual_id' => $request->barangpenjual_id,
             'metodepembayaran_id' => $request->metodepembayaran_id,
             'keterangan_pengajuan' => $request->input('keterangan_bank','keterangan_e_wallet'),
             'tujuan_pengajuan' => $request->input('tujuan_bank','tujuan_e_wallet'),
         ];
-        dd($mengajukandana);
         pengajuandanapenjual::create($mengajukandana);
         return redirect()->route('pengajuanpenjualad');
 

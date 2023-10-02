@@ -297,6 +297,7 @@
                                     <div class="d-flex justify-content-between">
                                         <h6>Catatan : </h6>
                                         <a>{{ $User->catatan }}</a>
+                                       
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <h6>Total:</h6>

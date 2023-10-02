@@ -461,9 +461,9 @@ class dashboardusercontroller extends Controller
         ];
 
         // Validasi dilakukan sebelum halaman di-refresh
-        if ($request->hasErrors()) {
-            return redirect()->back()->withErrors($request->errors());
-        }
+        // if ($request->hasErrors()) {
+        //     return redirect()->back()->withErrors($request->errors());
+        // }
 
         ulasan::create($ulasan);
         return redirect()->route('riwayatuser');
@@ -490,7 +490,7 @@ class dashboardusercontroller extends Controller
         $userOrder->keterangan_metode_pengembalian = $request->input("keterangan_metode_pengembalian-$id");
 
         $userOrder->save();
-        dd($request->all());
+        // dd($request->all());
         return redirect()->back()->with('success', 'Pengajuan pengembalian dana berhasil');
     }
 

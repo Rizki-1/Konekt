@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Kuliner Kita </title>
+      <title style="font-family:'Courier New', Courier, monospace;">Kuliner kita</title>
 
     <!-- Favicon -->
     <link href="../../asset/img/favicon.ico" rel="icon">
@@ -168,8 +168,7 @@
 
 /*** Hero Header ***/
 .hero-header {
-    /* Menggunakan gradient dengan warna putih transparan untuk latar belakang */
-    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(../img/bg-hero.jpg);
+    background: linear-gradient(rgba(255, 165, 0, 0.5), rgba(255, 165, 0, 0.5)), url(../img/bg-hero.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -338,7 +337,7 @@
 </head>
 
 <body>
-    <div class="container-xxl bg-white p-0">
+    <div id="beranda" class="container-xxl bg-white p-0">
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4 px-lg-5 py-3 py-lg-0">
@@ -351,10 +350,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="/" class="nav-item nav-link ">Beranda</a>
+                        <a href="#beranda" class="nav-item nav-link ">Beranda</a>
                         <a href="#about" class="nav-item nav-link">tentang kami</a>
                         <a href="#jelajah" class="nav-item nav-link">jelajahi makanan</a>
-                        <a href="#toko" class="nav-item nav-link">daftar toko</a>
                     </div>
                     <a href="{{route('user.index')}}" class="btn btn-warning py-2 px-4">Login</a>
                 </div>
@@ -365,8 +363,8 @@
                     <div class="row align-items-center g-5">
                         <div class="col-lg-6 text-center text-lg-start">
                             <h6 class="display-3 text-dark animated slideInLeft">Lezat<br>Menu Makananmu</h6>
-                            <p class="text-dark animated slideInLeft mb-4 pb-2">Di setiap hidangan, ada keajaiban yang menanti untuk ditemukan, dan kami mengundang Anda untuk menjelajahi keajaiban-keajaiban itu bersama kuliner kami.</p>
-                            <a href="{{route('user.index')}}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Pesan</a>
+                            <p class="text-white animated slideInLeft mb-4 pb-2">Di setiap hidangan, ada keajaiban yang menanti untuk ditemukan, dan kami mengundang Anda untuk menjelajahi keajaiban-keajaiban itu bersama kuliner kami.</p>
+                            <a href="{{route('user.index')}}" class="btn btn-dark py-sm-3 px-sm-5 me-3 animated slideInLeft">Pesan</a>
                         </div>
                         <div class="col-lg-6 text-center text-lg-end overflow-hidden">
                             <img class="img-fluid" src="./../asset/img/hero.png" alt="">
@@ -487,10 +485,10 @@
                                         <img class="flex-shrink-0 img-fluid rounded" src="./../asset/img/menu-1.jpg" alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                                <span>Chicken Burger</span>
+                                                <span>nama makanan</span>
                                                 <span class="text-primary">$115</span>
                                             </h5>
-                                            <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                            <small class="fst-italic">nama toko</small>
                                         </div>
                                     </div>
                                 </div>
@@ -502,7 +500,7 @@
                                                 <span>Chicken Burger</span>
                                                 <span class="text-primary">$115</span>
                                             </h5>
-                                            <small class="fst-italic">Ipsum ipsum clita erat amet dolor justo diam</small>
+                                            <small class="fst-italic">setidak e nek gaono daftar toko ono nama toko e lah</small>
                                         </div>
                                     </div>
                                 </div>
@@ -840,17 +838,15 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+                            &copy; <a class="border-bottom" href="{{route('user.index')}}">Kuliner Kita</a>, All Right Reserved.
 
 							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
 							Designed By <a class="border-bottom" href="https://htmlcodex.com">Konekt</a>
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
-                                <a href="">Home</a>
-                                <a href="">Cookies</a>
-                                <a href="#myModal">Help</a>
-                                <a data-toggle="modal" data-target="#myModal" >FQAs</a>
+                                <a href="#" data-toggle="modal" data-target="#myModal2">Kebijakan Privasi</a>
+                                <a href="#" data-toggle="modal" data-target="#myModal">FAQs</a>                            </div>
                             </div>
                         </div>
                     </div>
@@ -861,10 +857,10 @@
         <!-- Modal -->
         <div class="modal fade" id="myModal">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" style="max-height: 450px; overflow-y: scroll;">
                     <!-- Header Modal -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Judul Modal</h4>
+                        <h4 class="modal-title">FAQs</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <!-- Isi Modal -->
@@ -893,10 +889,75 @@
             </div>
         </div>
 
+        <div class="modal fade" id="myModal2">
+            <div class="modal-dialog">
+                <div class="modal-content" style="max-height: 450px; overflow-y: scroll;">
+
+                    <!-- Header Modal -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Kebijakan Privasi</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Isi Modal -->
+                    <div class="modal-body">
+                        <h6>Syarat dan Ketentuan</h6>
+                        <p>Selamat datang di Website Kuliner Kita.</p>
+                        <p>Ketentuan dan Syarat penggunaan ini menguraikan aturan dan peraturan untuk penggunaan situs web milik Company Name, yang terletak di website.com. Dengan mengakses situs web ini, kami menganggap Anda menerima ketentuan dan syarat ini. Jangan lanjutkan menggunakan Website Name jika Anda tidak setuju dengan semua ketentuan dan syarat yang tertera di halaman ini.</p>
+
+                        <h6>Terminologi</h6>
+                        <p>Terminologi berikut berlaku untuk Ketentuan dan Syarat, Pernyataan Privasi, dan Pemberitahuan Disclaimer ini, serta semua Perjanjian: "Klien", "Anda", dan "Pemilik" mengacu pada Anda, orang yang masuk ke situs web ini, dan mematuhi ketentuan dan syarat perusahaan. "Perusahaan", "Kami", "Kami", "Kami", dan "Kita" mengacu pada perusahaan kami. "Pihak", "Pihak-pihak", atau "Kita", mengacu pada Klien dan kami bersama-sama. Semua istilah mengacu pada penawaran, penerimaan, dan pertimbangan pembayaran yang diperlukan untuk melakukan proses bantuan kami kepada Klien dengan cara yang paling sesuai untuk tujuan ekspres memenuhi kebutuhan Klien dalam penyediaan layanan yang dinyatakan Perusahaan, sesuai dengan dan tunduk pada hukum yang berlaku di Belanda. Penggunaan istilah di atas atau sebagai serupa dan oleh karena itu mengacu pada hal yang sama, baik dalam bentuk tunggal, jamak, huruf kapital, dan/atau "dia" atau "mereka", dianggap sejalan dengan konteks dan interpretasi.
+
+                        <h6>Cookies</h6>
+                        <p>Kami menggunakan cookies. Dengan mengakses Website Name, Anda setuju untuk menggunakan cookies sesuai dengan kebijakan privasi Company Name. Sebagian besar situs web interaktif menggunakan cookies untuk memungkinkan kami mengambil detail fungsionalitas area tertentu agar lebih mudah bagi orang yang mengunjungi situs web kami. Beberapa mitra afiliasi/iklan kami juga dapat menggunakan cookies.</p>
+
+                        <h6>Lisensi</h6>
+                        <p>Kecuali dinyatakan lain, Company Name dan/atau pemilik hak kekayaan intelektual milik semua materi di website Kuliner Kita. Semua hak kekayaan intelektual dilindungi. Anda dapat mengaksesnya dari website dalam ketentuan dan syarat ini. Penggunaan dari website Kuliner Kita adalah untuk penggunaan pribadi Anda sendiri yang tunduk pada pembatasan yang ditetapkan. Anda tidak boleh:</p>
+                        <ol>
+                            <li>Memublikasikan ulang materi dari Website Kuliner Kita.</li>
+                            <li>Menjual, menyewakan, atau mensublisensikan materi dari Website Kuliner Kita.</li>
+                            <li>Menggandakan atau menyalin materi dari Website Kuliner Kita.</li>
+                            <li>Mendistribusikan konten dari Website Kuliner Kita.</li>
+                        </ol>
+
+                        <p>Perjanjian ini dimulai pada tanggal ini.</p>
+
+                        <h6>Opini dan Informasi</h6>
+                        <p>Bagian-bagian dari situs web ini memberikan kesempatan bagi pengguna untuk memposting dan bertukar opini dan informasi di area tertentu dari situs web. Company Name tidak menyaring, mengedit, memublikasikan, atau meninjau Komentar sebelum keberadaan mereka di situs web. Komentar tidak mencerminkan pandangan dan pendapat Company Name, agen-agennya, dan/atau afiliasinya. Komentar mencerminkan pandangan dan pendapat orang yang memposting pandangan dan pendapat mereka.</p>
+
+                        <p>Sejauh yang diizinkan oleh hukum yang berlaku, Company Name tidak akan bertanggung jawab atas Komentar atau atas setiap tanggung jawab, kerusakan, atau biaya yang ditimbulkan dan/atau diderita sebagai akibat dari penggunaan, penulisan, atau tampilan Komentar di situs web ini. Komentar mengandung unsur yang mengganggu, ofensif, atau menyebabkan pelanggaran terhadap Ketentuan dan Syarat, Company Name berhak memonitor semua Komentar dan menghapus Komentar yang dianggap tidak sesuai dengan syarat ini.</p>
+
+                        <p>Anda menjamin dan mewakili bahwa Anda berhak memposting Komentar di situs web kami dan memiliki semua lisensi dan persetujuan yang diperlukan untuk melakukannya. Komentar tidak melanggar hak kekayaan intelektual apa pun, termasuk tanpa batasan hak cipta, paten, atau merek dagang dari pihak ketiga. Komentar tidak mengandung materi yang fitnah, pencemaran nama baik, ofensif, cabul, atau materi ilegal lainnya yang merupakan pelanggaran privasi. Komentar tidak akan digunakan untuk menyulut atau mempromosikan bisnis, kegiatan komersial, atau kegiatan ilegal.</p>
+
+                        <p>Dengan ini Anda memberikan kepada Company Name lisensi non-eksklusif untuk menggunakan, memproduksi, mengedit, dan memberikan izin kepada pihak lain untuk menggunakan, mereproduksi, dan mengedit setiap komentar Anda dalam bentuk, format, atau media apa pun.</p>
+
+                        <h6>Hyperlink ke Konten Kami</h6>
+                        <p>Organisasi berikut dapat membuat tautan ke Website kami tanpa persetujuan tertulis sebelumnya:</p>
+                        <ul>
+                            <li>Badan pemerintah</li>
+                            <li>Mesin pencari</li>
+                            <li>Organisasi berita</li>
+                        </ul>
+
+                        <p>Distributor direktori online dapat membuat tautan ke Website kami dengan cara yang sama seperti mereka menghubungkan ke situs web bisnis terdaftar lainnya; dan Bisnis Terakreditasi dalam seluruh sistem kecuali organisasi nirlaba yang meminta sumbangan, mal pusat pembelanjaan amal, dan kelompok penggalangan dana amal yang mungkin tidak menghubungkan kesitus web kami. Organisasi-organisasi ini dapat menghubungkan ke halaman utama kami, publikasi, atau informasi lainnya di Website asalkan tautan: (a) tidak dalam cara apa pun yang menyesatkan; (b) tidak secara salah mengimplikasikan sponsor, dukungan, atau persetujuan dari pihak yang menghubungkan dan produk dan/atau layanannya; dan (c) sesuai dengan konteks situs pihak yang menghubungkan.</p>
+
+                        <p>Kami dapat mempertimbangkan dan menyetujui permintaan tautan lain dari jenis organisasi berikut:</p>
+                        <ul>
+                            <li>Sumber informasi konsumen dan/atau bisnis yang dikenal secara umum</li>
+                            <li>Situs komunitas dot.com</li>
+                            <li>Asosiasi</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-warning btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

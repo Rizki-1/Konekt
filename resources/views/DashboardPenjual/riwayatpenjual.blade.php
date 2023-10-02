@@ -267,55 +267,63 @@
                 </div>
             </nav>
         </div>
-
-
         <div class="content-inner mt-5 py-0">
-            <div class="col-md-12 col-lg-12 my-custom-card">
-                <div class="" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                    data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                    style="position: relative">
-                    <center>
-                        <h2 class="title" style="color:red;">Riwayat</h2>
-                    </center>
-                    <br>
-                    <div class="row d-flex justify-content-evenly">
-                        @foreach ($user as $User)
-                            <div class="card col-md-5">
-                                <div class="card-content p-3 ">
-                                    <h6>Pesanan no {{ $User->id }}</h6>
-                                    <div class="d-flex justify-content-between">
-                                        <a>{{ $User->pembelianstatus }}</a>
-                                        <h6>{{ $User->created_at }}</h6>
-                                    </div>
-                                    <hr>
-                                    <div class="">
-                                        <img src="{{ asset('css/img/baru.webp') }}"
-                                            style="width: 110px; margin-left:10px; border-radius: 10px;">
-                                        <a style="margin-left: 10px;">Jumlah : {{ $User->jumlah }}</a>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex justify-content-between">
-                                        <h6>Catatan : </h6>
-                                        <a>{{ $User->catatan }}</a>
-                                       
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <h6>Total:</h6>
-                                        <a>Rp.{{ number_format($User->totalharga, 0, ',', '.') }}</a>
-                                    </div>
-                                    <hr>
-                                    <div class="">
-                                        <center><button style="margin-top: 10px;" class="btn btn-primary">Lihat
-                                                Penilaian</button></center>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+  <div class="row row-cols-3 justify-content-center">
+    <div class="col-md-12 col-lg-12">
+      <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
+        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
+        style="position: relative">
+        <center>
+          <h2>Kuliner Kita <span style="color: #EA6A12"> | Riwayat</span></h2>
+        </center>
+        <br>
+        <div class="row d-flex justify-content">
+            <div class="row row-cols-3">
+          @foreach ($user as $User)
+            @if ($User->pembelianstatus === 'selesai')
+              <div class="card col-md-5 card-sm mx-5{{ $user->count() == 1 ? 'ml-auto' : '' }}">
+                <div class="card-header">
+                  <h6>Pesanan no {{ $User->id }}</h6>
                 </div>
-            </div>
+                <div class="card-content p-4 ">
+                  <div class="d-flex justify-content-between">
+                    <a class="card-text">
+                      <tr>{{ $User->pembelianstatus }}</tr>
+                    </a>
+                    <tr>{{ $User->created_at }}</tr>
+                  </div>
+                  <hr>
+                  <div class="">
+                    <img src="{{ asset('css/img/baru.webp') }}" style="width: 110px; margin-left:10px; border-radius: 10px;">
+                    <a style="margin-left: 10px;">Jumlah : {{ $User->jumlah }}</a>
+                  </div>
+                  <hr>
+                  <div class="d-flex justify-content-between">
+                    <h6>Nama Menu : </h6>
+                    <a>{{ $User->penjual->namamenu}}</a>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <h6>Catatan : </h6>
+                    <a>{{ $User->catatan }}</a>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <h6>Total:</h6>
+                    <a>Rp.{{ number_format($User->totalharga, 0, ',', '.') }}</a>
+                  </div>
+                </div>
+              </div>
+            @endif
+          @endforeach
         </div>
-        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
         {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')

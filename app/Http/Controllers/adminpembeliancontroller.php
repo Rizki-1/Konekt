@@ -372,31 +372,31 @@ class adminpembeliancontroller extends Controller
     //     'keterangan.mimes' => 'Keterangan harus berupa file dengan format jpeg, jpg, atau png.',
     //     'keterangan.max' => 'Ukuran maksimal Keterangan adalah 2MB.',
     // ]);
-    // $request->validate([
-    //     'metodepembayaran' => 'required',
-    //     'tujuan' => 'required',
-    //     'keterangan' => [
-    //         'required',
-    //         function ($attribute, $value, $fail) use ($request) {
-    //             if ($request->input('metodepembayaran') == 'bank') {
-    //                 if (!is_numeric($value)) {
-    //                     $fail('Keterangan untuk metode pembayaran bank harus berupa angka.');
-    //                 }
-    //             } elseif ($request->input('metodepembayaran') == 'ewallet') {
-    //                 if (!$request->file('keterangan')->isValid() ||
-    //                     !in_array($request->file('keterangan')->getClientOriginalExtension(), ['jpeg', 'jpg', 'png'])) {
-    //                     $fail('Keterangan untuk metode pembayaran e-wallet harus berupa file dengan format jpeg, jpg, atau png.');
-    //                 }
-    //                 if ($request->file('keterangan')->getSize() > 2048) {
-    //                     $fail('Ukuran maksimal Keterangan untuk metode pembayaran e-wallet adalah 2MB.');
-    //                 }
-    //             }
-    //         },
-    //     ],
-    // ], [
-    //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-    //     'tujuan.required' => 'Tujuan wajib diisi.',
-    // ]);
+    $request->validate([
+        'metodepembayaran' => 'required',
+        'tujuan' => 'required',
+        'keterangan' => [
+            'required',
+            function ($attribute, $value, $fail) use ($request) {
+                if ($request->input('metodepembayaran') == 'bank') {
+                    if (!is_numeric($value)) {
+                        $fail('Keterangan untuk metode pembayaran bank harus berupa angka.');
+                    }
+                } elseif ($request->input('metodepembayaran') == 'ewallet') {
+                    if (!$request->file('keterangan')->isValid() ||
+                        !in_array($request->file('keterangan')->getClientOriginalExtension(), ['jpeg', 'jpg', 'png'])) {
+                        $fail('Keterangan untuk metode pembayaran e-wallet harus berupa file dengan format jpeg, jpg, atau png.');
+                    }
+                    if ($request->file('keterangan')->getSize() > 2048) {
+                        $fail('Ukuran maksimal Keterangan untuk metode pembayaran e-wallet adalah 2MB.');
+                    }
+                }
+            },
+        ],
+    ], [
+        'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+        'tujuan.required' => 'Tujuan wajib diisi.',
+    ]);
 
 
         $adminmp = new adminmetodepembayaran;
@@ -422,6 +422,40 @@ class adminpembeliancontroller extends Controller
             return redirect()->route('metodpembayaran');
         } catch (Exception $e) {
             return back()->with('error');
+        }
+    }
+    
+    public function adedit(Request $request, $id)
+    {
+        $adminmp = adminmetodepembayaran::findOrFail($id);
+
+        $adminmp->adminmetodepembayaran = $request->input('adminmetodepembayaran');
+        $adminmp->tujuan = $request->input('tujuan');
+        $adminmp->keterangan = $request->input('keterangan');
+
+        $adminmp->save();
+
+        return redirect()->route('admin.metodpembayaran')->with('success', 'Metode pembayaran berhasil diperbarui.');
+    }
+    
+    public function mpupdate(Request $request, $id)
+    {
+
+        try {
+            // Temukan data yang akan diupdate
+            $adminmp = adminmetodepembayaran::findOrFail($id);
+
+            // Perbarui data dalam database
+            $adminmp->adminmetodepembayaran = $request->input('adminmetodepembayaran');
+            $adminmp->tujuan = $request->input('tujuan');
+            $adminmp->keterangan = $request->input('keterangan');
+            $adminmp->save();
+
+            // Jika berhasil diperbarui, kirim respons sukses
+            return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui.']);
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan, kirim respons gagal
+            return response()->json(['success' => false, 'message' => 'Gagal memperbarui data.']);
         }
     }
 

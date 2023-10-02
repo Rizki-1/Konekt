@@ -103,6 +103,8 @@
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.min.js"></script>
+
 </head>
 
 <body class="  "
@@ -110,34 +112,95 @@
     background-size: cover;">
     @include('layout.logoloader')
     @foreach ($userOrder as $Pengajuanuser)
-    <div class="modal" id="myModal-{{$Pengajuanuser->id}}" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Pengajuan Pengembalian Dana</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                                <div class="mb-3">
-                                    <label for="tujuan" class="form-label fw-bold">Metode Pengembalian</label>
-                                    <input type="text" class="form-control" id="metode_pengembalian" name="metode_pengembalian" value="{{$Pengajuanuser->metode_pengembalian}}" readonly>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label fw-bold">Tujuan</label>
-                                    <input type="" class="form-control" id="keterangan_metode_pemgembalian" name="keterangan_metode_pemgembalian" value="{{$Pengajuanuser->keterangan_metode_pengembalian}}" readonly>
-                                </div>
+
+    <div class="modal fade" id="myModal-{{$Pengajuanuser->id}}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pengajuan Pengembalian Dana</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="mb-3">
+                            <label for="tujuanpembayaran" class="form-label fw-bold">metode pembayaran</label>
+                            <input type="text" class="form-control" id="tujuanpembayaran" name="tujuanpembayaran" value="{{$Pengajuanuser->tujuanpembayaran}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="metode_pengembalian" class="form-label fw-bold">Tujuan pengembalian</label>
+                            <input type="text" class="form-control" id="metode_pengembalian" name="metode_pengembalian" value="{{$Pengajuanuser->metode_pengembalian}}" readonly>
+                        </div>
+
+                        <div class="mb-3" id="bankInput">
+                            <div class="mb-3">
+                            <label for="keterangan_metode_pengembalian" class="form-label fw-bold">Keterangan</label>
+                            </div>
+                            @foreach ($userOrder as $data)
+                                @php
+                                    $saya = strlen($data->keterangan_metode_pembayaran);
+                                @endphp
+                                @if ($saya >= 20)
+                                    {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
+                                @else
+                                    <input type="text" name="keterangan_metode_pengembalian" value="{{ $data->keterangan_metode_pengembalian }}"
+                                        id="{{ $data->keterangan }}" class="form-control" disabled>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Bayar</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Bayar</button>
             </div>
         </div>
     </div>
+</div>
+
 @endforeach
+<script>
+const inputElements = document.querySelectorAll('input[name="keterangan"]');
+const spElement = document.querySelector('#JenisEwallet');
+const pElements = document.querySelectorAll('p[name="keteranganqr"]');
+
+selectElement.addEventListener('change', function() {
+    const selectedValue = selectElement.value;
+
+    inputElements.forEach(function(input) {
+        if (input.id === selectedValue) {
+            input.style.display = 'block';
+            input.disabled = false;
+        } else {
+            input.style.display = 'none';
+            input.disabled = true;
+        }
+    });
+});
+</script>
+
+<!-- <script>
+
+    // Cek nilai input tujuanpembayaran
+        var tujuanpembayaran = $('#tujuanpembayaran').val();
+    
+        // Jika tujuan pembayaran adalah e-wallet
+        if (tujuanpembayaran === 'e-wallet') {
+            // Set nilai input metode_pengembalian menjadi e-wallet
+            $('#metode_pengembalian').val('e-wallet');
+    
+            // Set nilai input keterangan_metode_pengembalian menjadi e-wallet
+            $('#keterangan_metode_pemgembalian').val('e-wallet');
+        }
+        else (tujuanpembayaran === 'bank') {
+            // Set nilai input metode_pengembalian menjadi e-wallet
+            $('#metode_pengembalian').val('bank');
+    
+            // Set nilai input keterangan_metode_pengembalian menjadi e-wallet
+            $('#keterangan_metode_pemgembalian').val('bank');
+        }
+</script> -->
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -391,7 +454,7 @@
                                             <td>
                                             @csrf
                                                 @method('PATCH')
-                                                <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal-{{ $Pengajuanuser->id }}">detail</button>
+                                                <button type="submit" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#myModal-{{ $Pengajuanuser->id }}">detail</button>
                                             </form>
                                             </td>
                                         </tr>

@@ -45,15 +45,15 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::put('kupdate/{id}', [adminpembeliancontroller::class, 'kupdate'])->name('kupdate');
     Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
     Route::delete('adestroy/{adminmp}', [adminpembeliancontroller::class, 'adestroy'])->name('adestroy');
+    Route::get('adedit/{id}/edit', [adminpembeliancontroller::class, 'adedit'])->name('adedit');
+    Route::put('mpupdate/{id}', [adminpembeliancontroller::class, 'mpupdate'])->name('mpupdate');
     Route::get('DashboardAdmin',[adminpembeliancontroller::class, 'DashboardAdmin'])->name('DashboardAdmin');
     Route::get('calonpenjual', [adminpembeliancontroller::class, 'calonpenjual'])->name('calonpenjual');
     Route::get('pengajuanpembeliad', [adminpembeliancontroller::class, 'pengajuanpembeliad'])->name('pengajuanpembeliad');
     Route::get('pengajuanpenjualad', [adminpembeliancontroller::class, 'pengajuanpenjualad'])->name('pengajuanpenjualad');
-    // Route::patch('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
+    Route::patch('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
     Route::get('notifikasiadmin', [adminpembeliancontroller::class, 'notifikasiadmin'])->name('notifikasiadmin');
     Route::post('readnotifikasiadmin/{id}', [adminpembeliancontroller::class, 'readnotifikasiadmin'])->name('readnotifikasiadmin');
-    Route::post('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
-
 });
 
 
@@ -108,6 +108,9 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::get('notifikasipenjual', [penjualcontroller::class, 'notifikasipenjual'])->name('notifikasipenjual');
     Route::post('readnotifikasipenjual/{id}', [penjualcontroller::class, 'readnotifikasipenjual'])->name('readnotifikasipenjual');
     Route::post('mengajukandana', [penjualcontroller::class, 'mengajukandana'])->name('mengajukandana');
+    Route::get('pjedit/{id}/edit', [penjualcontroller::class,'pjedit'])->name ('pjedit');
+    Route::put('pjupdate/{id}', [penjualcontroller::class, 'pjupdate'])->name ('pjupdate');
+
 });
 
 
@@ -124,6 +127,5 @@ Route::resource('penjualrole', rolepenjualcontroller::class);
 Route::post('authenticate', [logincontroller::class, 'authenticate'])->name('authenticate');
 Route::resource('user', UserController::class);
 // Route::resource('/test_email', mailcontroller::class);
-
 
 

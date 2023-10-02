@@ -393,11 +393,14 @@
                                         <td>{{ $s->jumlah }}</td>
                                         <td>{{ $s->metodepembayaran }}</td>
                                         <td>
-                                            Rp. {{ number_format($s->totalharga, 0, ',', '.') }}
+                                            <div style="margin-left:40px;">
+                                               Rp{{ number_format($s->totalharga, 0, ',', '.') }}</div>
                                         </td>
                                         <td class="d-flex">
-                                            <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#myModal_{{ $s->id }}">detail</button>
+                                                <a class="btn btn-outline-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#myModal_{{ $s->id }}"><i
+                                                    class="bi bi-eye"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

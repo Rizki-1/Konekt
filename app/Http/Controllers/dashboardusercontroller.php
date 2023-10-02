@@ -469,30 +469,20 @@ class dashboardusercontroller extends Controller
         return redirect()->route('riwayatuser');
     }
 
-
     public function pengembaliandana(Request $request, $id)
     {
-        // Validasi data
-        if (empty($request->input("tujuanpembayaran-$id"))) {
-            return redirect()->back()->with('error', 'Tujuan pembayaran harus diisi');
-        }
-
-        if (!in_array($request->input("tujuanpembayaran-$id"), ["e-wallet", "bank"])) {
-            return redirect()->back()->with('error', 'Metode pembayaran tidak valid');
-        }
-
-        $userOrder = userOrder::findOrFail($id);
-
+        $userOrder = UserOrder::findOrFail($id);
+    
         $userOrder->pembelianstatus = 'mengajukan pengembalian dana';
-        $userOrder->tujuanpembayaran = $request->input("tujuanpembayaran-$id");
-
-        $userOrder->metode_pengembalian = $request->input("metode_pengembalian-$id");
-        $userOrder->keterangan_metode_pengembalian = $request->input("keterangan_metode_pengembalian-$id");
+        $userOrder->tujuanpembayaran = $request->input('tujuanpembayaran');
+        $userOrder->metode_pengembalian = $request->input('metode_pengembalian');
+        $userOrder->keterangan_metode_pengembalian = $request->input('keterangan_metode_pengembalian');
 
         $userOrder->save();
         // dd($request->all());
         return redirect()->back()->with('success', 'Pengajuan pengembalian dana berhasil');
     }
+    
 
     public function CheckKeranjang($id)
     {

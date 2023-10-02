@@ -103,6 +103,9 @@
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+    
+    {{-- bootstrap icon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 
 <body class="  "
@@ -405,8 +408,10 @@
                                                                 Selesai</button>
                                                         </form>
                                                     @else
-                                                        <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal_{{ $s->id }}">detail</button>
+                                                            <a class="btn btn-outline-primary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#myModal_{{ $s->id }}"><i
+                                                                class="bi bi-eye"></i></a>
                                                     @endif
 
                                                 </td>

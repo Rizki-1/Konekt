@@ -10,7 +10,7 @@
       <title>login</title>
 
       <!-- Favicon -->
-      <link rel="shortcut icon" href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/kuliner.png" />
+      <link rel="shortcut icon" href="../../assets/images/kuliner.png" />
 
       <!-- Library / Plugin Css Build -->
       <link rel="stylesheet" href="../../assets/css/core/libs.min.css">

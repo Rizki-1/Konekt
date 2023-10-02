@@ -297,141 +297,6 @@
        @endforeach
        @endforeach
 
-
-
-{{-- @php
-        $ewalletOptions = $wallet->where('tujuan', '<>', '');
-        $bankOptions = $bank->where('tujuan', '<>', '');
-        @endphp
-        @foreach ($userOrder as $UserOrder)
-        @foreach ($ewalletOptions as $p)
-        @foreach ($bankOptions as $b)
-        <form action="{{ route('mengajukandana') }}" method="post">
-            @csrf
-            <div class="modal" id="myModal-{{$UserOrder->id}}" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-8">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="metodepembayaran_id-{{$UserOrder->id}}" class="form-label fw-bold">Metode Pembayaran</label>
-                                    <input type="hidden" name="barangpenjual_id" value="{{ $UserOrder->barangpenjual_id }}">
-                                    <select id="metodepembayaran_id-{{$UserOrder->id}}" name="metodepembayaran_id" class="form-control payment-method">
-                                        <option value="" selected disabled>Pilih Metode Pembayaran</option>
-                                        <option value="{{ $p->id }}">{{ $p->metodepembayaran }}</option>
-                                        <option value="{{ $b->id }}">{{ $b->metodepembayaran }}</option>
-                                    </select>
-                                </div>
-                                <div id="tujuanDiv-{{ $p->id }}-{{$UserOrder->id}}" class="payment" style="display: none;">
-                                    <div class="mb-3">
-                                        <label for="tujuan-{{ $p->id }}-{{$UserOrder->id}}" class="form-label fw-bold">Tujuan</label>
-                                        <select id="tujuan-{{ $p->id }}-{{$UserOrder->id}}" name="tujuan" class="form-control tujuan-input">
-                                            <option value="" selected disabled>Pilih Tujuan</option>
-                                            @forelse ($ewalletOptions as $metode)
-                                            <option value="{{ $metode->id }}" data-keterangan="{{ $metode->keterangan }}">{{ $metode->tujuan }}</option>
-                                            @empty
-                                            <option value="" disabled>Tidak ada pilihan E-Wallet</option>
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                    <div id="keteranganDiv-{{ $p->id }}-{{$UserOrder->id}}" class="mb-3 keterangan-input" style="display: none;">
-                                        <label for="keterangan-{{ $p->id }}-{{$UserOrder->id}}" class="form-label fw-bold">Keterangan E-Wallet</label>
-                                        <div id="keterangan-img-{{ $p->id }}-{{$UserOrder->id}}">
-                                            <!-- Gambar akan ditampilkan di sini -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="tujuanDiv-{{ $b->id }}-{{$UserOrder->id}}" class="payment" style="display: none;">
-                                    <div class="mb-3">
-                                        <label for="tujuan-{{ $b->id }}-{{$UserOrder->id}}" class="form-label fw-bold">Tujuan</label>
-                                        <select id="tujuan-{{ $b->id }}-{{$UserOrder->id}}" name="tujuan" class="form-control tujuan-input">
-                                            <option value="" selected disabled>Pilih Tujuan</option>
-                                            @forelse ($bankOptions as $metode)
-                                            <option value="{{ $metode->id }}" data-keterangan="{{ $metode->keterangan }}">{{ $metode->tujuan }}</option>
-                                            @empty
-                                            <option value="" disabled>Tidak ada pilihan bank</option>
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                    <div id="keteranganDiv-{{ $b->id }}-{{$UserOrder->id}}" class="mb-3 keterangan-input" style="display: none;">
-                                        <label for="keterangan-{{ $p->id }}-{{$UserOrder->id}}" class="form-label fw-bold">Keterangan bank</label>
-                                        <div id="keterangan-text-{{ $b->id }}-{{$UserOrder->id}}" class="form-control fw-bold">
-                                            <!-- Keterangan {} akan ditampilkan di sini -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-
-    <script>
-        var metodePembayaranSelect = document.getElementById('metodepembayaran_id-{{$UserOrder->id}}');
-        var ewalletTujuanDiv = document.getElementById('tujuanDiv-{{ $p->id }}-{{$UserOrder->id}}');
-        var bankTujuanDiv = document.getElementById('tujuanDiv-{{ $b->id }}-{{$UserOrder->id}}');
-        var ewalletKeteranganDiv = document.getElementById('keteranganDiv-{{ $p->id }}-{{$UserOrder->id}}');
-        var bankKeteranganDiv = document.getElementById('keteranganDiv-{{ $b->id }}-{{$UserOrder->id}}');
-        var keteranganImgEwallet = document.getElementById('keterangan-img-{{ $p->id }}-{{$UserOrder->id}}');
-        var keteranganTextBank = document.getElementById('keterangan-text-{{ $b->id }}-{{$UserOrder->id}}');
-
-        metodePembayaranSelect.addEventListener('change', function () {
-            var selectedValue = this.value;
-
-            // Sembunyikan semua elemen terkait terlebih dahulu
-            ewalletTujuanDiv.style.display = 'none';
-            bankTujuanDiv.style.display = 'none';
-            ewalletKeteranganDiv.style.display = 'none';
-            bankKeteranganDiv.style.display = 'none';
-
-            if (selectedValue === '{{ $p->id }}') {
-                // Jika yang dipilih adalah '{}', tampilkan inputan untuk E-Wallet
-                ewalletTujuanDiv.style.display = 'block';
-                ewalletKeteranganDiv.style.display = 'block';
-            } else if (selectedValue === '{{ $b->id }}') {
-                // Jika yang dipilih adalah '{}', tampilkan inputan untuk bank
-                bankTujuanDiv.style.display = 'block';
-                bankKeteranganDiv.style.display = 'block';
-            }
-        });
-
-        // Tambahkan event listener untuk setiap pilihan "Tujuan" pada E-Wallet
-        var tujuanEwalletSelect = document.getElementById('tujuan-{{ $p->id }}-{{$UserOrder->id}}');
-        tujuanEwalletSelect.addEventListener('change', function () {
-            var selectedOption = this.options[this.selectedIndex];
-            var keterangan = selectedOption.getAttribute('data-keterangan');
-            keteranganImgEwallet.innerHTML =  '<img src="{{ asset('storage/pembayaran') }}/' + keterangan + '" alt="Keterangan E-Wallet" style="max-width:150px; height:100px;">';
-        });
-
-        // Tambahkan event listener untuk setiap pilihan "Tujuan" pada {}
-        var tujuanBankSelect = document.getElementById('tujuan-{{ $b->id }}-{{$UserOrder->id}}');
-        tujuanBankSelect.addEventListener('change', function () {
-            var selectedOption = this.options[this.selectedIndex];
-            var keterangan = selectedOption.getAttribute('data-keterangan');
-            keteranganTextBank.innerHTML = keterangan; // Tampilkan keterangan {} sebagai teks
-        });
-    </script>
-@endforeach
-@endforeach
-@endforeach --}}
-
-
-
-
-
 <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
     <div class="sidebar-header d-flex align-items-center justify-content-start">
         @include('layout.minilogo')
@@ -671,9 +536,10 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">nama pembeli</th>
+                                            <th scope="col">nama menu</th>
                                             <th scope="col">jumlah pesanan</th>
-                                            <!-- <th scope="col">total</th> -->
-                                            <th scope="col">metode pembayaran</th>
+                                             <th scope="col">total</th>
+
                                             <th scope="col">aksi</th>
                                         </tr>
                                     </thead>
@@ -685,9 +551,10 @@
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $UserOrder->User->name }}</td>
+                                                <td>{{ $UserOrder->penjual->namamenu }}</td>
                                                 <td>{{ $UserOrder->jumlah }}</td>
-                                                <!-- <td>{{ $UserOrder->totalharga }}</td> -->
-                                                <td>{{ $UserOrder->metodepembayaran }}</td>
+                                                 <td> Rp. {{ number_format  ( $UserOrder->totalharga) }}</td>
+
                                                 <td>
                                                     <button type="submit" class="btn btn-outline-primary"
                                                         data-bs-toggle="modal"

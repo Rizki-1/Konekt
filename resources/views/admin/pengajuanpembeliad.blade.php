@@ -112,7 +112,9 @@
     background-size: cover;">
     @include('layout.logoloader')
     @foreach ($userOrder as $Pengajuanuser)
-
+    <form action="{{ route('terimapengajuanuser', ['id' => $Pengajuanuser->id]) }}" method="POST">
+        @csrf
+        @method('post')
     <div class="modal fade" id="myModal-{{$Pengajuanuser->id}}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -158,7 +160,7 @@
         </div>
     </div>
 </div>
-
+</form>
 @endforeach
 <script>
 const inputElements = document.querySelectorAll('input[name="keterangan"]');

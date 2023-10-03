@@ -280,7 +280,7 @@
         <div class="row d-flex justify-content">
             <div class="row row-cols-3">
           @foreach ($user as $User)
-            @if ($User->pembelianstatus === 'selesai')
+            @if ($User->pembelianstatus === 'statusselesai')
               <div class="card col-md-5 card-sm mx-5{{ $user->count() == 1 ? 'ml-auto' : '' }}">
                 <div class="card-header">
                   <h6>Pesanan no {{ $User->id }}</h6>

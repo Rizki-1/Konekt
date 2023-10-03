@@ -41,8 +41,9 @@ class dashboardusercontroller extends Controller
         $adminnotifikasi = adminnotifikasi::all();
         $kategori = adminkategori::all();
         $ulasan = ulasan::avg('rating');
+        $totalUlasan = ulasan::all()->count();
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan'));
     }
 
     public function beli(Request $request)
@@ -135,14 +136,14 @@ class dashboardusercontroller extends Controller
 
             // dd($userOrdersIds);
 
-        //     return response()->json(['success' => true, 'message' => 'Pembelian berhasil.', 'orderIds' => $userOrdersIds]);
-        // } catch (\Exception $e) {
-        //     // Rollback transaksi jika terjadi kesalahan
-        //     DB::rollback();
+            //     return response()->json(['success' => true, 'message' => 'Pembelian berhasil.', 'orderIds' => $userOrdersIds]);
+            // } catch (\Exception $e) {
+            //     // Rollback transaksi jika terjadi kesalahan
+            //     DB::rollback();
 
-        //     return response()->json(['message' => 'Terjadi kesalahan dalam melakukan pembelian.'], 500);
-        //     // dd($e->getMessage());
-        // }
+            //     return response()->json(['message' => 'Terjadi kesalahan dalam melakukan pembelian.'], 500);
+            //     // dd($e->getMessage());
+            // }
         }
         $orderId = $userOrder->id;
 
@@ -351,8 +352,7 @@ class dashboardusercontroller extends Controller
     public function daftartoko()
     {
         $penjuallogin = penjuallogin::paginate(4);
-        foreach($penjuallogin as $p)
-        {
+        foreach ($penjuallogin as $p) {
             $url = url('/chatify/' . $p->user->id);
         }
         return view('DashboardUser.daftartoko', compact('penjuallogin', 'url'));
@@ -471,15 +471,51 @@ class dashboardusercontroller extends Controller
 
     public function pengembaliandana(Request $request, $id)
     {
+
+        // dd($request->all());
+        // Validasi input umum
+        $request->validate([
+            'tujuanpembayaran' => 'required',
+            'totalharga' => 'required', // Atur validasi sesuai dengan kebutuhan Anda
+            'keterangan_metode_pengembalian' => 'nullable|file', // Validasi file jika ada, boleh kosong jika teks
+        ]);
+
         $userOrder = UserOrder::findOrFail($id);
+
 
         $userOrder->pembelianstatus = 'mengajukan pengembalian dana';
         $userOrder->tujuanpembayaran = $request->input('tujuanpembayaran');
-        $userOrder->metode_pengembalian = $request->input('metode_pengembalian');
-        $userOrder->keterangan_metode_pengembalian = $request->input('keterangan_metode_pengembalian');
+
+        // Menentukan metode pengembalian berdasarkan metode pembayaran yang dipilih
+        $selectedPaymentMethod = $request->input('tujuanpembayaran');
+
+        if ($selectedPaymentMethod === 'bank') {
+            $request->validate([
+                'metode_pengembalian_bank' => 'required_if:tujuanpembayaran,bank',
+            ]);
+
+            $userOrder->metode_pengembalian = $request->input('metode_pengembalian_bank');
+        } elseif ($selectedPaymentMethod === 'e-wallet') {
+            // Hanya validasi metode pengembalian jika metode pembayaran adalah "e-wallet"
+            $request->validate([
+                'metode_pengembalian_ewallet' => 'required_if:tujuanpembayaran,ewallet',
+            ]);
+
+            $userOrder->metode_pengembalian = $request->input('metode_pengembalian_ewallet');
+        }
+
+        // Penanganan file yang diunggah jika ada
+        if ($request->hasFile('keterangan_metode_pengembalian')) {
+            $file = $request->file('keterangan_metode_pengembalian');
+            $fileName = $file->hashName(); // Mendapatkan nama file asli
+            $file->storeAs('public/pengajuanUser', $fileName); // Menyimpan file ke folder tujuan yang sesuai
+            $userOrder->keterangan_metode_pengembalian = $fileName; // Menyimpan nama file ke database
+        } else {
+            // Jika tidak ada file diunggah, ambil teks dari input
+            $userOrder->keterangan_metode_pengembalian = $request->input('keterangan_metode_pengembalian');
+        }
 
         $userOrder->save();
-        // dd($request->all());
         return redirect()->back()->with('success', 'Pengajuan pengembalian dana berhasil');
     }
 
@@ -684,15 +720,15 @@ class dashboardusercontroller extends Controller
     {
         $user_id = Auth::id();
         $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
-        ->where('is_read', false)
-        ->get();
+            ->where('is_read', false)
+            ->get();
         $kategori = adminkategori::all();
         $penjualpagination =  barangpenjual::paginate(8);
         $penjual = Barangpenjual::where('kategori_id', $Kategori)->get();
         $ulasan = ulasan::avg('rating');
 
         return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan'));
-   }
+    }
 
     public function notifikasiuser()
     {

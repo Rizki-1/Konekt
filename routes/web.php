@@ -56,6 +56,7 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::post('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
     Route::get('notifikasiadmin', [adminpembeliancontroller::class, 'notifikasiadmin'])->name('notifikasiadmin');
     Route::post('readnotifikasiadmin/{id}', [adminpembeliancontroller::class, 'readnotifikasiadmin'])->name('readnotifikasiadmin');
+    Route::post('terimapengajuanuser/{id}', [adminpembeliancontroller::class, 'terimapengajuanuser'])->name('terimapengajuanuser');
 });
 
 
@@ -87,6 +88,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('notifikasiuser', [dashboardusercontroller::class, 'notifikasiuser'])->name('notifikasiuser');
     Route::post('readnotifikasiuser/{id}', [dashboardusercontroller::class, 'readnotifikasiuser'])->name('readnotifikasiuser');
     Route::get('kategorifilter/{kategori}', [dashboardusercontroller::class, 'kategorifilter'])->name('kategorifilter');
+
 });
 
 

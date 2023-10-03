@@ -114,7 +114,7 @@ class penjualcontroller extends Controller
 
         }
         $adminkategori = adminkategori::all();
-        return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori', 'rating'));
+        return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
     }
 
 
@@ -225,11 +225,11 @@ class penjualcontroller extends Controller
         $dashboardusercontrollers->pembelianstatus = 'pesanan di tolak';
         $dashboardusercontrollers->save();
 
-        $notifikasi = notifikasi::where('id', $id)->first();
-        $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
-        $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
-        $notifikasi->is_read = false;
-        $notifikasi->save();
+        // $notifikasi = notifikasi::where('id', $id)->first();
+        // $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
+        // $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
+        // $notifikasi->is_read = false;
+        // $notifikasi->save();
         // dd($notifikasi);
 
         return redirect()->route('pesananpenjual');
@@ -262,6 +262,7 @@ class penjualcontroller extends Controller
             ->get();
 
         $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi', $penjualId)->get();
+        $url = '';
         foreach($dashboardusercontrollers as $user)
         {
             $url = url('/chatify/' . $user->user_id);

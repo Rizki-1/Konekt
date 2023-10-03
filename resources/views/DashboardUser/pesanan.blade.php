@@ -81,6 +81,8 @@
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
     <!-- Include the CSRF token as a meta tag -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
 </head>
 
@@ -92,114 +94,100 @@
 
     @include('layout.logoloader')
 
+
     @foreach ($user as $u)
-<form action="{{ route('pengembaliandana', ['id' => $u->id]) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PATCH')
-    <div class="modal" id="myModal-{{$u->id}}" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Pengajuan Dana Kembali</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                            <label for="kelas" class="form-label fw-bold">metode pengembalian</label>
-                            <select name="tujuanpembayaran" id="selectMetode" class="form-control">
-                                <option value="" class="dropdown-menu" disabled selected>Pilih Metode Pengembalian
-                                </option>
-                                <option value="e-wallet" data-target="ewalletInput">E-Wallet</option>
-                                <option value="bank" data-target="bankInput">Bank</option>
-                            </select>
-                        </div>
-                    <!-- Input E-Wallet -->
-                    <div class="" value="e-wallet" id="ewalletInput" style="display: none;">
-                           <div class="mb-3">
-                                <label for="totalharga" class="form-label fw-bold">Total Harga</label>
-                                <input type="text" name="totalharga" class="form-control" value="Rp{{number_format ($u->totalharga)}}" readonly>
+    <form action="{{ route('pengembaliandana', ['id' => $u->id]) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PATCH')
+        <div class="modal" id="myModal-{{$u->id}}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Pengajuan Dana Kembali</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                                <label for="kelas" class="form-label fw-bold">metode pengembalian</label>
+                                <select name="tujuanpembayaran" id="selectMetode" class="form-control">
+                                    <option value="" class="dropdown-menu" disabled selected>Pilih Metode Pengembalian</option>
+                                    <option value="e-wallet" data-target="ewalletInput">E-Wallet</option>
+                                    <option value="bank" data-target="bankInput">Bank</option>
+                                </select>
                             </div>
-                            <div class="mb-3">
-                                <label for="metode_pengembalian" class="form-label fw-bold">tujuan pengembalian</label>
-                                <input type="text" name="metode_pengembalian" class="form-control">
+                        <!-- Input E-Wallet -->
+                        <div class="" value="e-wallet" id="ewalletInput" style="display: none;">
+                               <div class="mb-3">
+                                    <label for="totalharga" class="form-label fw-bold">Total Harga</label>
+                                    <input type="text" name="totalharga" class="form-control" value="Rp{{number_format ($u->totalharga)}}" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="metode_pengembalian" class="form-label fw-bold">tujuan pengembalian</label>
+                                    <input type="text" name="metode_pengembalian_ewallet" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="keterangan_metode_pengembalian" class="form-label fw-bold">Keterangan</label>
+                                    <input type="file" name="keterangan_metode_pengembalian" id="keterangan_metode_pengembalian" class="form-control">
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="keterangan_metode_pengembalian" class="form-label fw-bold">Keterangan</label>
-                                <input type="file" name="keterangan_metode_pengembalian" id="keterangan_metode_pengembalian" class="form-control">
+                        <!-- Input Bank -->
+                        <div class="" value="bank" id="bankInput" style="display: none;">
+                               <div class="mb-3">
+                                    <label for="totalharga" class="form-label fw-bold">Total Harga</label>
+                                    <input type="text" name="totalharga" class="form-control" value="Rp{{number_format ($u->totalharga)}}" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="metode_pengembalian" class="form-label fw-bold">tujuan pengembalian</label>
+                                    <input type="text" name="metode_pengembalian_bank" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="keterangan_metode_pengembalian" class="form-label fw-bold">Keterangan</label>
+                                    <input type="text" name="keterangan_metode_pengembalian" id="keterangan_metode_pengembalian" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                    <!-- Input Bank -->
-                    <div class="" value="bank" id="bankInput" style="display: none;">
-                           <div class="mb-3">
-                                <label for="totalharga" class="form-label fw-bold">Total Harga</label>
-                                <input type="text" name="totalharga" class="form-control" value="Rp{{number_format ($u->totalharga)}}" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="metode_pengembalian" class="form-label fw-bold">tujuan pengembalian</label>
-                                <input type="text" name="metode_pengembalian" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="keterangan_metode_pengembalian" class="form-label fw-bold">Keterangan</label>
-                                <input type="text" name="keterangan_metode_pengembalian" id="keterangan_metode_pengembalian" class="form-control">
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Ajukan Pengembalian Dana</button>
+                    </div>
+                    <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Ajukan Pengembalian Dana</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
-@endforeach
-<script>
+    </form>
+    @endforeach
+    <script>
+        const selectElement = document.querySelector('#selectMetode');
+        const ewalletInput = document.querySelector('#ewalletInput');
+        const bankInput = document.querySelector('#bankInput');
+        const submitButton = document.querySelector('#submitButton');
 
-$(document).ready(function() {
-    // Sembunyikan input E-Wallet dan Bank
-    $('#ewalletInput').hide();
-    $('#bankInput').hide();
+        submitButton.addEventListener('click', function() {
+            const selectedValue = selectElement.value;
 
-    // Tampilkan input E-Wallet atau Bank berdasarkan metode pembayaran yang dipilih user
-    $('#selectMetode').change(function() {
-        if ($(this).val() === 'e-wallet') {
-            $('#ewalletInput').show();
-            $('#bankInput').hide();
-        } else if ($(this).val() === 'bank') {
-            $('#bankInput').show();
-            $('#ewalletInput').hide();
-        }
-    });
-});
+            if (selectedValue === '') {
+                // Menampilkan pesan swal jika metode pengembalian tidak dipilih
+                swal.fire({
+                    title: 'Peringatan',
+                    text: 'Pilih metode pengembalian terlebih dahulu',
+                    icon: 'warning',
+                });
+                return;
+            }
 
-</script>
-<script>
-const selectElement = document.querySelector('#selectMetode');
-const inputElements = document.querySelectorAll('input[name="keterangan"]');
+            // Lanjutkan dengan mengirimkan form jika metode pengembalian sudah dipilih
+            this.form.submit();
+        });
+        selectElement.addEventListener('change', function() {
+            const selectedValue = selectElement.value;
 
-selectElement.addEventListener('change', function() {
-    const selectedValue = selectElement.value;
-
-    inputElements.forEach(function(input) {
-        if (input.id === selectedValue) {
-            input.style.display = 'block';
-            input.disabled = false;
-        } else {
-            input.style.display = 'none';
-            input.disabled = true;
-        }
-    });
-
-    if (selectedValue === 'Bank') {
-        const inputMetode = document.querySelector('#metode_pengembalian');
-
-        if (inputMetode.value === '') {
-            alert('Metode pembayaran harus diisi');
-            inputMetode.focus();
-        }
-    }
-});
-</script>
-
+            if (selectedValue === 'e-wallet') {
+                ewalletInput.style.display = 'block';
+                bankInput.style.display = 'none';
+            } else if (selectedValue === 'bank') {
+                ewalletInput.style.display = 'none';
+                bankInput.style.display = 'block';
+            }
+        });
+    </script>
 
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -375,7 +363,7 @@ selectElement.addEventListener('change', function() {
             <!--Nav End-->
         </div>
         <div class="content-inner mt-5 py-0">
-          <div class="row row-cols-2 justify-content-center">
+            <div class="row row-cols-2 justify-content-center">
                 <div class="col-md-6 col-lg-12">
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
@@ -383,8 +371,8 @@ selectElement.addEventListener('change', function() {
                         <center>
                             <h2>Kuliner Kita <span style="color: #EA6A12"> | Pesanan</span></h2>
                         </center>
-                      <div class="row d-flex justify-content mt-4">
-                      <div class="row row-cols-2">
+                        <div class="row d-flex justify-content mt-4">
+                            <div class="row row-cols-2">
                                 @foreach ($user as $u)
                                     <div class="col mb-4">
                                         <div class="card md-4 card-sm mx-2">
@@ -406,24 +394,24 @@ selectElement.addEventListener('change', function() {
 
                                                 <hr style="border-top: 1px solid #d3d3d3; margin: 10px 0;">
                                                 <div class="d-flex justify-content-between">
-                                                    <h6>Jumlah :  </h6>
-                                                        <a>{{$u->jumlah}} Pesanan</a>
+                                                    <h6>Jumlah : </h6>
+                                                    <a>{{ $u->jumlah }} Pesanan</a>
                                                 </div>
                                                 <hr style="border-top: 1px solid #d3d3d3; margin: 4px 0;">
                                                 <div class="d-flex justify-content-between">
-                                                    <h6>Harga  :  </h6>
-                                                        <a>Rp. {{ number_format($u->totalharga) }}</a>
+                                                    <h6>Harga : </h6>
+                                                    <a>Rp. {{ number_format($u->totalharga) }}</a>
                                                 </div>
                                                 <hr style="border-top: 1px solid #d3d3d3; margin: 4px 0;">
                                                 <div class="d-flex justify-content-between">
-                                                    <h6>Pembayaran  :</h6>
+                                                    <h6>Pembayaran :</h6>
                                                     <a>{{ $u->metodepembayaran }}</a>
                                                 </div>
 
                                                 <hr style="border-top: 1px solid #d3d3d3; margin: 4px 0;">
 
                                                 <div class="d-flex justify-content-between">
-                                                    <h6> status  : </h6>
+                                                    <h6> status : </h6>
                                                     <span style="color: #EA6A12">{{ $u->pembelianstatus }}</span>
                                                     </h6>
                                                 </div>
@@ -436,10 +424,6 @@ selectElement.addEventListener('change', function() {
                                                             method="POST">
                                                             @csrf
                                                             @method('PATCH')
-                                                            @foreach ($metodePembayaran as $Metode )
-                                                            <input type="hidden" name="metodepembayaran_id" value="{{ $Metode->id }}">
-                                                            @endforeach
-                                                            {{-- <input type="hidden" name="penjual_id" value="{{ $user->toko_id }}"> --}}
                                                             <button class="btn btn-primary" type="submit">Tandakan
                                                                 telah selesai</button>
                                                         </form>
@@ -465,12 +449,12 @@ selectElement.addEventListener('change', function() {
                                         </div>
                                     </div>
                                 @endforeach
+                            </div>
+                            @if ($user->count() > 0)
+                                <div class="text-center mt-3">
+                                    {{ $user->links('pagination::default') }}
                                 </div>
-                                @if ($user->count() > 0)
-                                    <div class="text-center mt-3">
-                                        {{ $user->links('pagination::default') }}
-                                    </div>
-                                @endif
+                            @endif
                         </div>
                     </div>
              </div>

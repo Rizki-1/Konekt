@@ -412,6 +412,14 @@ class adminpembeliancontroller extends Controller
         return view('admin.metodpembayaran', compact('adminmp'));
     }
 
+    public function terimapengajuanuser($id)
+    {
+        $user = userOrder::findOrFail($id);
+        $user->pembelianstatus = 'pengajuan di terima';
+        $user->save();
+        return redirect()->back();
+    }
+
     /**
      * Store a newly created resource in storage.
      */

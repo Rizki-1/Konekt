@@ -41,7 +41,7 @@
                      <div class="d-flex justify-content-center mb-0">
                         <div class="card-body text-center">
                            <a href="../index-2.html">
-                              <img src="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/logo.svg" class="img-fluid logo-img mb-4" alt="img3">
+                              <img src="../../assets/images/kuliner.png" class="img-fluid logo-img mb-4" alt="img3">
                            </a>
                            @if ($errors->any())
                             <div class="alert alert-danger">

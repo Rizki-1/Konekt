@@ -461,7 +461,7 @@
                                     <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">{{ $p->namamenu }}
                                     </h6>
                                     <h6 class="text-center  fw-light mt-1">{{ $p->adminkategori->kategori }}</6>
-                                        <h6 class="heading-title fw-bolder mt-2 mb-0 text-center">{{ $p->toko_id }}
+                                     
                                         </h6>
                                         <div class="d-flex justify-content-evenly">
                                             <span class="text-primary fw-bolder mt-2">Rp.

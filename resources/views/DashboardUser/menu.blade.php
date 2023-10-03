@@ -662,10 +662,12 @@
                                                                     </svg>
                                                                 @endif
                                                             @endfor
+                                                            <p>({{ $totalUlasan }})</p>
                                                         </div>
                                                     @else
                                                         <p style="text-align: center">tidak ada ulasan</p>
                                                     @endif
+
 
                                                     <div class="d-flex justify-content-center gap-2 mt-3">
                                                         <button class="btn btn-primary" data-bs-toggle="modal"

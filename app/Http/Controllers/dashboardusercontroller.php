@@ -41,8 +41,9 @@ class dashboardusercontroller extends Controller
         $adminnotifikasi = adminnotifikasi::all();
         $kategori = adminkategori::all();
         $ulasan = ulasan::avg('rating');
+        $totalUlasan = ulasan::all()->count();
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan'));
     }
 
     public function beli(Request $request)
@@ -370,9 +371,10 @@ class dashboardusercontroller extends Controller
 
     public function detailtoko(Request $request, $id)
     {
+        // dd($id);
         $penjualId = Auth::id();
-        $penjual = barangpenjual::where('toko_id', $penjualId)->get();
-        $user = penjuallogin::where('id', $id)->get();
+        $penjual = barangpenjual::where('toko_id', $id)->get();
+        $user = penjuallogin::where('user_id', $id)->get();
 
         return view('DashboardUser.detailtoko', compact('penjual', 'user'));
     }

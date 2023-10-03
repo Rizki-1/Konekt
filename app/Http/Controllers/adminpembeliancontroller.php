@@ -89,7 +89,7 @@ class adminpembeliancontroller extends Controller
 
             if (isset($processedData[$yearMonth])) {
                 $processedData[$yearMonth]['statusselesai'] = $item->total;
-            }   
+            }
         }
 
         $chartData = array_values($processedData);

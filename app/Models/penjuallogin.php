@@ -28,7 +28,7 @@ class penjuallogin extends Model
 
     public function barangpenjual(): HasOne
     {
-        return $this->hasOne(barangpenjual::class);
+        return $this->hasOne(barangpenjual::class, '');
     }
 
     public function keranjang()

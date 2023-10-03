@@ -13,6 +13,9 @@
                 </nav>
             </nav>
             {{-- Search input --}}
+            @if (Auth::id() === 1)
+            <input type="text" class="messenger-search" placeholder="Search" />
+            @endif
             {{-- Tabs --}}
             {{-- <div class="messenger-listView-tabs">
                 <a href="#" class="active-tab" data-view="users">

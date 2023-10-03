@@ -96,7 +96,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon"
-        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+        href="../../assets/images/kuliner.png" />
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
@@ -184,19 +184,19 @@ selectElement.addEventListener('change', function() {
 
     // Cek nilai input tujuanpembayaran
         var tujuanpembayaran = $('#tujuanpembayaran').val();
-    
+
         // Jika tujuan pembayaran adalah e-wallet
         if (tujuanpembayaran === 'e-wallet') {
             // Set nilai input metode_pengembalian menjadi e-wallet
             $('#metode_pengembalian').val('e-wallet');
-    
+
             // Set nilai input keterangan_metode_pengembalian menjadi e-wallet
             $('#keterangan_metode_pemgembalian').val('e-wallet');
         }
         else (tujuanpembayaran === 'bank') {
             // Set nilai input metode_pengembalian menjadi e-wallet
             $('#metode_pengembalian').val('bank');
-    
+
             // Set nilai input keterangan_metode_pengembalian menjadi e-wallet
             $('#keterangan_metode_pemgembalian').val('bank');
         }

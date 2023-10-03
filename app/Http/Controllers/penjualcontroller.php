@@ -280,7 +280,7 @@ class penjualcontroller extends Controller
 
     protected function mengajukandana(Request $request)
     {
-        // $id = Auth::id();
+        $id = Auth::id();
         // dd($request->all());
         $penjuallogin = penjuallogin::all();
         // foreach ($penjuallogin as $p)
@@ -289,13 +289,15 @@ class penjualcontroller extends Controller
         // }
         $mengajukandana =
         [
-            'penjual_id' => $request->barangpenjual_id,
+            // 'penjual_id' => $request->barangpenjual_id,
+            'penjual_id' => $id,
             'barangpenjual_id' => $request->barangpenjual_id,
             'metodepembayaran_id' => $request->metodepembayaran_id,
             'keterangan_pengajuan' => $request->input('keterangan_bank','keterangan_e_wallet'),
             'tujuan_pengajuan' => $request->input('tujuan_bank','tujuan_e_wallet'),
         ];
         pengajuandanapenjual::create($mengajukandana);
+        dd($mengajukandana);
         return redirect()->route('pengajuanpenjualad');
 
     }

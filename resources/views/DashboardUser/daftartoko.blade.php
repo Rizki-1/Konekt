@@ -336,7 +336,7 @@
                                         <div class="card col-md-5"
                                             style="background-color:#ea68121e; margin-left:4%;">
                                             <div class="card-content">
-                                                <div class="content-container my-5">
+                                                <div class="content-container my-2">
                                                     <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a
                                                             style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
                                                     <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
@@ -360,6 +360,7 @@
                                                     <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
                                                         style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;"
                                                         class="img">
+                                                        <div class="d-flex justify-content-between mt-5">
                                                     <div><br><a class="btn btn-warning"
                                                             style="bottom:15px; margin-top:-10px;"
                                                             href="{{ route('detailtoko', ['id' => $p->id]) }}">Detail</a>
@@ -370,6 +371,7 @@
                                                         href='{{ $url }}'>
                                                         chat penjual</a>
                                                 </div>
+                                            </div>
                                                 </div>
                                             </div>
                                         </div>

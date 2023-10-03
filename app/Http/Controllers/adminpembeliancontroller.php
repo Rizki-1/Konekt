@@ -330,17 +330,19 @@ class adminpembeliancontroller extends Controller
     {
         $penjual = penjuallogin::all();
         // $u = pengajuandanapenjual::where('status','1')->get();
-        $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual','barangpenjual')->get();
+        $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual','barangpenjual')->where('status', 1)->get();
+        // dd($p);
         return view('admin.pengajuanpenjualad', compact('penjual','p'));
     }
 
     public function terimapengajuan($id)
     {
         $userOrder = userOrder::findOrFail($id);
-        // $user = pengajuandanapenjual::where('id',$id)->get();
+        $user = pengajuandanapenjual::where('id',$id)->first();
         $userOrder->pembelianstatus = 'pengembalian dana di terima';
-        // $user->status = '2';
+        $user->status = '2';
         $userOrder->save();
+        $user->save();
         return redirect()->back()->with('success', 'pengembalian dana telah di setujui');
     }
 
@@ -424,7 +426,7 @@ class adminpembeliancontroller extends Controller
             return back()->with('error');
         }
     }
-    
+
     public function adedit(Request $request, $id)
     {
         $adminmp = adminmetodepembayaran::findOrFail($id);
@@ -437,7 +439,7 @@ class adminpembeliancontroller extends Controller
 
         return redirect()->route('admin.metodpembayaran')->with('success', 'Metode pembayaran berhasil diperbarui.');
     }
-    
+
     public function mpupdate(Request $request, $id)
     {
 

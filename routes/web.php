@@ -51,7 +51,7 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::get('calonpenjual', [adminpembeliancontroller::class, 'calonpenjual'])->name('calonpenjual');
     Route::get('pengajuanpembeliad', [adminpembeliancontroller::class, 'pengajuanpembeliad'])->name('pengajuanpembeliad');
     Route::get('pengajuanpenjualad', [adminpembeliancontroller::class, 'pengajuanpenjualad'])->name('pengajuanpenjualad');
-    Route::patch('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
+    Route::post('terimapengajuan/{id}', [adminpembeliancontroller::class, 'terimapengajuan'])->name('terimapengajuan');
     Route::get('notifikasiadmin', [adminpembeliancontroller::class, 'notifikasiadmin'])->name('notifikasiadmin');
     Route::post('readnotifikasiadmin/{id}', [adminpembeliancontroller::class, 'readnotifikasiadmin'])->name('readnotifikasiadmin');
 });

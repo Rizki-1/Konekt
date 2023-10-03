@@ -59,7 +59,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon"
-        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+        href="../../assets/images/kuliner.png" />
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
@@ -91,7 +91,7 @@
     @include('layout.sweetalert')
 
     @include('layout.logoloader')
-   
+
     @foreach ($user as $u)
 <form action="{{ route('pengembaliandana', ['id' => $u->id]) }}" method="POST" enctype="multipart/form-data">
     @csrf
@@ -395,7 +395,7 @@ selectElement.addEventListener('change', function() {
                                                 <hr style="border-top: 2px solid #EA6A12; margin-top: 10px 0;">
                                                 <div class="d-flex justify-content-between">
                                                     <h6>No. Antrian : <span style="color: #EA6A12"> {{ $u->nomor_antrian }}</span> </h6>
-                                                     <small>{{ $u->created_at }}</small>  
+                                                     <small>{{ $u->created_at }}</small>
                                                 </div>
                                                 <hr style="border-top: 1px solid #d3d3d3; margin: 10px 0;">
                                                 <div class="d-flex justify-content-between">
@@ -470,7 +470,7 @@ selectElement.addEventListener('change', function() {
                                     </div>
                                 @endif
                         </div>
-                    </div> 
+                    </div>
              </div>
          </div>
     </div>
@@ -479,5 +479,4 @@ selectElement.addEventListener('change', function() {
 </body>
 @include('layout.js')
 </html>
-                   
-                        
+

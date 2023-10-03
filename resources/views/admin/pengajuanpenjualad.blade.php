@@ -104,8 +104,8 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
-@foreach ($p as $b )
-<form action="{{ route('terimapengajuan', ['id' => $b->penjual_id]) }}" method="post">
+@foreach ($data as $finish )
+<form action="{{ route('terimapengajuan', ['id' => $finish->id]) }}" method="post">
     @csrf
     <div class="modal" name="terimapengajuan" id="myModal" tabindex="-1">
         <div class="modal-dialog">
@@ -116,18 +116,18 @@
                 </div>
                 <div class="modal-body">
                     <label for="" class="form-label fw-bold">Tujuan</label>
-                    <a class="form-control" value="">{{ $b->tujuan_pengajuan }}</a>
+                    <a class="form-control" value="">{{ $finish->tujuan_pengajuan }}</a>
                 </div>
             <div class="modal-body ">
               <label for="" class="form-label fw-bold">Keterangan</label>
               @php
-              $saya = strlen($b->pembayaranpenjual->keterangan)
+              $saya = strlen($finish->pembayaranpenjual->keterangan)
               @endphp
               @if ($saya >= 20)
                   {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
-                  <p><img value="" src="{{ asset('storage/pembayaran/'.$b->pembayaranpenjual->keterangan) }}" alt="" style="max-width:150px; height:100px;"></p>
+                  <p><img value="" src="{{ asset('storage/pembayaran/'.$finish->pembayaranpenjual->keterangan) }}" alt="" style="max-width:150px; height:100px;"></p>
                   @else
-                  <p class="form-control">{{ $b->pembayaranpenjual->keterangan }}</p>
+                  <p class="form-control">{{ $finish->pembayaranpenjual->keterangan }}</p>
               @endif
             </div>
             <div class="modal-footer mx-3">
@@ -387,13 +387,13 @@
                                         @php
                                             $no = 1;
                                         @endphp
-                                        @foreach ($p as $b )
+                                        @foreach ($data as $finish )
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $b->penjuallogin->nama_toko }}</td>
-                                            <td>{{ $b->barangpenjual->namamenu }}</td>
-                                            <td>{{ $b->barangpenjual->harga }}</td>
-                                            <td>{{ $b->pembayaranpenjual->metodepembayaran }}</td>
+                                            <td>{{ $finish->penjuallogin->nama_toko }}</td>
+                                            <td>{{ $finish->barangpenjual->namamenu }}</td>
+                                            <td>{{ $finish->barangpenjual->harga }}</td>
+                                            <td>{{ $finish->pembayaranpenjual->metodepembayaran }}</td>
                                             <td>
                                                 <div class="btn btn-warning" type="submit"
                                                 data-bs-toggle="modal" data-bs-target="#myModal"

@@ -436,6 +436,10 @@ selectElement.addEventListener('change', function() {
                                                             method="POST">
                                                             @csrf
                                                             @method('PATCH')
+                                                            @foreach ($metodePembayaran as $Metode )
+                                                            <input type="hidden" name="metodepembayaran_id" value="{{ $Metode->id }}">
+                                                            @endforeach
+                                                            {{-- <input type="hidden" name="penjual_id" value="{{ $user->toko_id }}"> --}}
                                                             <button class="btn btn-primary" type="submit">Tandakan
                                                                 telah selesai</button>
                                                         </form>

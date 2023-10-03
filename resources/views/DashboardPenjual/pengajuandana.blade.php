@@ -136,9 +136,9 @@
                                 <div class="col-8">
                                 </div>
                                 <div class="mb-3">
-                                    <input type="hidden" name="penjual_id"
-                                        value="{{ $UserOrder->user_id }}">
-                                        <input type="hidden" name="penjual_id" value="{{ $U->user->id }}">
+                                    {{-- <input type="hidden" name="penjual_id"
+                                        value="{{ $UserOrder->user_id }}"> --}}
+                                        <input type="hidden" name="penjual_id" value="{{ $U->id }}">
                                     <label for="metodepembayaran_id" class="form-label fw-bold">Metode
                                         Pembayaran</label>
                                     <input type="hidden" name="barangpenjual_id"
@@ -211,7 +211,9 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="modal-footer">
+                        
                         <button type="button" class="btn btn-outline-secondary rounded-pill"
                             data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>

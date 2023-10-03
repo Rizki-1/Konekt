@@ -142,6 +142,7 @@
     @include('layout.link')
 
 </head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
@@ -332,15 +333,15 @@
                                 <div class="row gap-5">
                                     @foreach ($penjuallogin as $p)
                                         <div class="card col-md-5"
-                                            style="background-color:#ea68121e; margin-left:4%;">
-                                            <div class="card-content">
-                                                <div class="content-container my-2">
-                                                    <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a
-                                                            style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
-                                                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
-                                                            Hubungi Kami : {{ $p->notlp }}</a></p>
-                                                    <a>Masakan Tradisional</a>
+                                        style="background-color:#ea68121e; margin-left:4%;">
+                                        <div class="card-content">
+                                            <div class="content-container my-4">
                                                     <h3>{{ $p->nama_toko }}</h3>
+                                                    <a>Masakan Tradisional</a><br><p></p>
+                                                    <a><i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                        <a style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
+                                                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
+                                                    {{ $p->notlp }}</a></p>
                                                     <tr>
                                                         <i class="fa fa-star" style="color:gold"
                                                             aria-hidden="true"></i>
@@ -358,7 +359,7 @@
                                                     <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
                                                         style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;"
                                                         class="img">
-                                                        <div class="d-flex justify-content-between">
+                                                        <div class="d-flex justify-content-between my-3">
                                                             <div>
                                                                 <a class="btn btn-warning" href="{{ route('detailtoko', ['id' => $p->user->id]) }}">
                                                                     <i class="fa fa-info-circle" aria-hidden="true"></i> Detail

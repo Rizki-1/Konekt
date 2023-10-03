@@ -41,9 +41,8 @@ class dashboardusercontroller extends Controller
         $adminnotifikasi = adminnotifikasi::all();
         $kategori = adminkategori::all();
         $ulasan = ulasan::avg('rating');
-        $totalUlasan = ulasan::all()->count();
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination'));
     }
 
     public function beli(Request $request)
@@ -219,17 +218,7 @@ class dashboardusercontroller extends Controller
             ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima', 'dibatalkan'])
             ->paginate(4);
 
-            $url = '';
-
-            foreach ($user as $User)
-            {
-                $url = url('/chatify/' . $User->toko_id);
-
-                // Simpan nilai id toko ke session
-                session(['toko_id' => $User->toko_id]);
-            }
-
-        return view('DashboardUser.pesanan', compact('user', 'userId', 'url'));
+        return view('DashboardUser.pesanan', compact('user', 'userId'));
     }
 
     public function batalkanpesanan($id)
@@ -371,10 +360,9 @@ class dashboardusercontroller extends Controller
 
     public function detailtoko(Request $request, $id)
     {
-        // dd($id);
         $penjualId = Auth::id();
-        $penjual = barangpenjual::where('toko_id', $id)->get();
-        $user = penjuallogin::where('user_id', $id)->get();
+        $penjual = barangpenjual::where('toko_id', $penjualId)->get();
+        $user = penjuallogin::where('id', $id)->get();
 
         return view('DashboardUser.detailtoko', compact('penjual', 'user'));
     }
@@ -449,10 +437,6 @@ class dashboardusercontroller extends Controller
 
         //dd($request->all());
         $username = Auth::user()->name;
-        $telahDiulas = ulasan::where('barangpenjual_id', $id)->where('username', $username)->exists();
-        if ($telahDiulas) {
-            return redirect()->route('riwayatuser')->with('peringatan', 'Anda sudah pernah membuat ulasan untuk produk ini.');
-        }
         $penjual = BarangPenjual::findOrFail($id);
         $ulasan = ulasan::where('barangpenjual_id', $penjual->id)->get();
 

@@ -294,14 +294,15 @@ class penjualcontroller extends Controller
         $mengajukandana =
         [
             // 'penjual_id' => $request->barangpenjual_id,
-            'penjual_id' => $id,
+            'penjual_id' => $request->penjual_id,
             'barangpenjual_id' => $request->barangpenjual_id,
+            'status' => 'mengajukan',
             'metodepembayaran_id' => $request->metodepembayaran_id,
             'keterangan_pengajuan' => $request->input('keterangan_bank','keterangan_e_wallet'),
             'tujuan_pengajuan' => $request->input('tujuan_bank','tujuan_e_wallet'),
         ];
         pengajuandanapenjual::create($mengajukandana);
-        dd($mengajukandana);
+        // dd($mengajukandana);
         return redirect()->route('pengajuanpenjualad');
 
     }

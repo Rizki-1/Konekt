@@ -390,10 +390,11 @@ class adminpembeliancontroller extends Controller
     public function terimapengajuan($id)
     {
         $userOrder = userOrder::findOrFail($id);
-        // $user = pengajuandanapenjual::where('id',$id)->get();
+        $user = pengajuandanapenjual::where('id',$id)->first();
         $userOrder->pembelianstatus = 'pengembalian dana di terima';
-        // $user->status = '2';
+        $user->status = '2';
         $userOrder->save();
+        $user->save();
         return redirect()->back()->with('success', 'pengembalian dana telah di setujui');
     }
 

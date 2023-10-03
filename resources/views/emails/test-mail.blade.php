@@ -9,11 +9,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 </body>
 </html> -->
-
-
 <!doctype html>
 <html lang="en" dir="ltr">
-
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/auth/recoverpw.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:55:03 GMT -->
 <head>
     <meta charset="utf-8">
@@ -30,9 +27,7 @@
 
       <!-- Library / Plugin Css Build -->
       <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
 </head>
-
       <!-- Custom Css -->
       <!-- <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head> -->
     <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
@@ -123,8 +118,8 @@
     <script src="../../assets/js/app.js"></script>
 
     <!-- moment JavaScript -->
-    <script src="../../assets/vendor/moment.min.js"></script>  
-   
+    <script src="../../assets/vendor/moment.min.js"></script>
+
    </body>
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/auth/recoverpw.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:55:03 GMT -->

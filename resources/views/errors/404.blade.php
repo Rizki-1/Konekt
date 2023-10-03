@@ -19,7 +19,7 @@
       <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">  </head>
   <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
     <!-- loader Start -->
-    <div id="loading">
+    {{-- <div id="loading">
       <div class="loader simple-loader">
           <svg width="257" height="76" viewBox="0 0 257 76" fill="none" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="128.307" cy="41.9999" rx="54.3134" ry="25.4594" fill="white"/>
@@ -484,7 +484,8 @@
       </defs>
       </svg>
       </div>    </div>
-    <!-- loader END -->
+    <!-- loader END --> --}}
+    @include('layout.logoloader')
 
       <div class="wrapper">
 <script src="../../../../../../../cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>

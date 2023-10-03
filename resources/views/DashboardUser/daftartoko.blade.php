@@ -334,15 +334,11 @@
                                         <div class="card col-md-5"
                                             style="background-color:#ea68121e; margin-left:4%;">
                                             <div class="card-content">
-                                                <div class="content-container my-5">
-                                                <a>
-                                                    <i class="fa fa-map-marker text-danger" aria-hidden="true"></i>
-                                                    <a style="margin-left: 5px;">{{ $p->alamat_toko }}</a>
-                                                </a>
-                                                <p>
-                                                    <i class="fa fa-phone text-success"></i>
-                                                    <a style="margin-left: 2px;">{{ $p->notlp }}</a>
-                                                </p>
+                                                <div class="content-container my-2">
+                                                    <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a
+                                                            style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
+                                                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
+                                                            Hubungi Kami : {{ $p->notlp }}</a></p>
                                                     <a>Masakan Tradisional</a>
                                                     <h3>{{ $p->nama_toko }}</h3>
                                                     <tr>

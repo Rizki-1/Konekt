@@ -120,7 +120,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon"
-        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+        href="../../assets/images/kuliner.png" />
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">

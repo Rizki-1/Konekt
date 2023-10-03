@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\pembayaranpenjual;
 use App\Models\User;
 use App\Models\admink;
@@ -92,11 +93,14 @@ class penjualcontroller extends Controller
             }
         }
 
-        $produk = barangpenjual::all();
+        $produk = barangpenjual::all()->filter(function ($item) {
+            $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
+                ->where('pembelianstatus', 'statusselesai')
+                ->count();
 
-        foreach ($produk as $item) {
-            $item->terjual = UserOrder::where('barangpenjual_id', $item->id)->where('pembelianstatus', 'statusselesai')->count();
-        }
+            // Hanya mengembalikan item jika terjual lebih besar dari 0
+            return $item->terjual > 0;
+        });
 
         $produk = $produk->sortByDesc('terjual')->take(5);
 
@@ -108,10 +112,8 @@ class penjualcontroller extends Controller
     {
         $penjualId = Auth::id();
         $user = userOrder::where('toko_id', $penjualId)->whereIn('pembelianstatus', ['statusselesai', 'pesanan di tolak', 'pesanan di batalkan'])->get();
-        foreach ($user as $User)
-        {
+        foreach ($user as $User) {
             $rating = ulasan::where('barangpenjual_id', $User->barangpenjual_id)->get();
-
         }
         $adminkategori = adminkategori::all();
         return view('DashboardPenjual.riwayatpenjual', compact('user', 'adminkategori'));
@@ -132,33 +134,33 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_store(Request $request)
     {
-    // $request->validate([
-    //     'metodepembayaran' => 'required',
-    //     'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
-    //     'keterangan' => 'required',
-    //     'tujuan_bank' => 'required_if:metodepembayaran,bank',
-    //     'keterangan_bank' => 'required_if:metodepembayaran,bank',
-    //     'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
-    // ], [
-    //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-    //     'tujuan_e_wallet.required_if' => 'Tujuan E-Wallet wajib diisi.',
-    //     'keterangan.required' => 'Keterangan wajib diisi.',
-    //     'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
-    //     'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
-    //     'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
-    //     'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
-    //     'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
-    //     'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
-    // ]);
+        // $request->validate([
+        //     'metodepembayaran' => 'required',
+        //     'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
+        //     'keterangan' => 'required',
+        //     'tujuan_bank' => 'required_if:metodepembayaran,bank',
+        //     'keterangan_bank' => 'required_if:metodepembayaran,bank',
+        //     'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
+        // ], [
+        //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+        //     'tujuan_e_wallet.required_if' => 'Tujuan E-Wallet wajib diisi.',
+        //     'keterangan.required' => 'Keterangan wajib diisi.',
+        //     'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
+        //     'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
+        //     'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
+        //     'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
+        //     'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
+        //     'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
+        // ]);
 
         $metodePembayaran = $request->input('metodepembayaran');
         $data = [
             'metodepembayaran' => $metodePembayaran,
         ];
 
-    if ($metodePembayaran === 'e-wallet') {
-        $data['tujuan'] = $request->input('tujuan_e_wallet');
-        $data['keterangan'] = $request->input('keterangan_e_wallet');
+        if ($metodePembayaran === 'e-wallet') {
+            $data['tujuan'] = $request->input('tujuan_e_wallet');
+            $data['keterangan'] = $request->input('keterangan_e_wallet');
 
             if ($request->hasFile('keterangan_e_wallet')) {
                 $image = $request->file('keterangan_e_wallet');
@@ -200,7 +202,7 @@ class penjualcontroller extends Controller
         try {
             $request->validate([
                 'nomor_antrian' => 'required',
-            ],[
+            ], [
                 'nomor_antrian.required' => 'Nomor Antrian wajib di isi'
             ]);
 
@@ -263,8 +265,7 @@ class penjualcontroller extends Controller
 
         $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi', $penjualId)->get();
         $url = '';
-        foreach($dashboardusercontrollers as $user)
-        {
+        foreach ($dashboardusercontrollers as $user) {
             $url = url('/chatify/' . $user->user_id);
         }
 
@@ -278,9 +279,9 @@ class penjualcontroller extends Controller
 
         $userOrder = userOrder::where('pembelianstatus', 'statusselesai')->get();
         $pengajuandanapenjual = penjuallogin::all();
-        $bank = pembayaranpenjual::where('metodepembayaran','bank')->get();
-        $wallet = pembayaranpenjual::where('metodepembayaran','e-wallet')->get();
-        return view('DashboardPenjual.pengajuandana', compact('userOrder','pengajuandanapenjual','bank','wallet'));
+        $bank = pembayaranpenjual::where('metodepembayaran', 'bank')->get();
+        $wallet = pembayaranpenjual::where('metodepembayaran', 'e-wallet')->get();
+        return view('DashboardPenjual.pengajuandana', compact('userOrder', 'pengajuandanapenjual', 'bank', 'wallet'));
     }
 
     protected function mengajukandana(Request $request)
@@ -293,19 +294,18 @@ class penjualcontroller extends Controller
         //     $id = $p->user->id;
         // }
         $mengajukandana =
-        [
-            // 'penjual_id' => $request->barangpenjual_id,
-            'penjual_id' => $request->penjual_id,
-            'barangpenjual_id' => $request->barangpenjual_id,
-            'status' => 'mengajukan',
-            'metodepembayaran_id' => $request->metodepembayaran_id,
-            'keterangan_pengajuan' => $request->input('keterangan_bank','keterangan_e_wallet'),
-            'tujuan_pengajuan' => $request->input('tujuan_bank','tujuan_e_wallet'),
-        ];
+            [
+                // 'penjual_id' => $request->barangpenjual_id,
+                'penjual_id' => $request->penjual_id,
+                'barangpenjual_id' => $request->barangpenjual_id,
+                'status' => 'mengajukan',
+                'metodepembayaran_id' => $request->metodepembayaran_id,
+                'keterangan_pengajuan' => $request->input('keterangan_bank', 'keterangan_e_wallet'),
+                'tujuan_pengajuan' => $request->input('tujuan_bank', 'tujuan_e_wallet'),
+            ];
         pengajuandanapenjual::create($mengajukandana);
         // dd($mengajukandana);
         return redirect()->route('pengajuanpenjualad');
-
     }
 
 
@@ -523,7 +523,8 @@ class penjualcontroller extends Controller
         if ($notification) {
             $notification->update(['is_read' => true]);
             return response()->json(['message' => 'Notifikasi telah dibaca']);
-        }else{
-        return response()->json(['message' => 'Notifikasi tidak ditemukan'], 404);
+        } else {
+            return response()->json(['message' => 'Notifikasi tidak ditemukan'], 404);
         }
-    }}
+    }
+}

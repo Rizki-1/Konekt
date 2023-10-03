@@ -90,7 +90,19 @@
             /* Ubah elemen menjadi inline-block */
         }
     </style>
-    @include('layout.link')
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kuliner kita</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon"
+        href="../../assets/images/kuliner.png" />
+
+    <!-- Library / Plugin Css Build -->
+    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 
 <body class=""

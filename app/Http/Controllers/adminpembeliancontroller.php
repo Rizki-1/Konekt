@@ -383,8 +383,8 @@ class adminpembeliancontroller extends Controller
     {
         $penjual = penjuallogin::all();
         // $u = pengajuandanapenjual::where('status','1')->get();
-        $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual','barangpenjual')->get();
-        return view('admin.pengajuanpenjualad', compact('penjual','p'));
+        $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual', 'barangpenjual')->get();
+        return view('admin.pengajuanpenjualad', compact('penjual', 'p'));
     }
 
     public function terimapengajuan($id)

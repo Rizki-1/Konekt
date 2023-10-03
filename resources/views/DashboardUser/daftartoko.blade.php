@@ -370,7 +370,7 @@
                                                                     <i class="fa fa-comments" aria-hidden="true"></i> Chat Penjual
                                                                 </a>
                                                             </div>
-                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

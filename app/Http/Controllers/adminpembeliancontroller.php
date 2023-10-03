@@ -136,6 +136,16 @@ class adminpembeliancontroller extends Controller
     public function tolak($id)
     {
         $dashboardusercontrollers = userOrder::findOrFail($id);
+
+        // Ambil jumlah yang dibeli dalam pesanan
+        $jumlahDibeli = $dashboardusercontrollers->jumlah;
+
+        // Mengembalikan jumlah yang dibeli ke stok barangpenjual
+        $barangPenjual = BarangPenjual::find($dashboardusercontrollers->barangpenjual_id);
+        $barangPenjual->stok += $jumlahDibeli;
+        $barangPenjual->save();
+
+        // Menandai pesanan sebagai ditolak
         $dashboardusercontrollers->adminstatus = 'notapproveadmin';
         $dashboardusercontrollers->save();
 

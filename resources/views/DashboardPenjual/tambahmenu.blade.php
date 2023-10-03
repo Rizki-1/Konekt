@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kuliner kita</title>
     <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="../../assets/images/kuliner.png" />
+    <link rel="shortcut icon" href="../../assets/images/kuliner.png" />
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
     <!-- Custom Css -->
@@ -76,7 +75,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="harga" class="form-label fw-bold">Harga</label>
-                                    <input type="text" name="harga"
+                                    <input type="number" name="harga"
                                         class="form-control @error('harga') is-invalid @enderror"
                                         value="{{ old('harga') }}">
                                     @error('harga')
@@ -93,7 +92,16 @@
                                     @enderror
                                 </div>
                             </div> {{-- Akhir kolom kiri --}}
-                            <div class="col-md-6"> {{-- Kolom kanan --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="stok" class="form-label fw-bold">Stok</label>
+                                    <input type="number" name="stok"
+                                        class="form-control @error('stok') is-invalid @enderror"
+                                        value="{{ old('stok') }}">
+                                    @error('stok')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                 <div class="mb-3">
                                     <label for="fotomakanan" class="form-label fw-bold">Foto Makanan</label>
                                     <input type="file" name="fotomakanan"
@@ -103,7 +111,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div id="imagePreview" class="mb-3" style="width: 300px"></div>
+                                <div id="imagePreview" class="mb-3" style="width: 200px"></div>
                             </div> {{-- Akhir kolom kanan --}}
                         </div> {{-- Akhir baris grid --}}
                     </div>
@@ -461,38 +469,37 @@
                                     <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">{{ $p->namamenu }}
                                     </h6>
                                     <h6 class="text-center  fw-light mt-1">{{ $p->adminkategori->kategori }}</6>
-                                     
-                                        </h6>
-                                        <div class="d-flex justify-content-evenly">
-                                            <span class="text-primary fw-bolder mt-2">Rp.
-                                                {{ number_format($p->harga) }}</span>
-                                        </div>
-                                        @if ($p->ulasan->count() > 0)
+                                    </h6>
+                                    <div class="d-flex justify-content-evenly">
+                                        <span class="text-primary fw-bolder mt-2">Rp.
+                                            {{ number_format($p->harga) }}</span>
+                                    </div>
+                                    @if ($p->ulasan->count() > 0)
                                         <div class="card-rating stars-ratings text-center">
-                                             @for ($i = 0; $i < 5; $i++)
-                                            @if ($i < $p->ulasan->avg('rating'))
-                                            <svg width="18" viewBox="0 0 30 30" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
-                                                fill="currentColor" />
-                                        </svg>
-                                             @endif
-                                              @endfor
-                                                </div>
-                                             @else
-                                             <p style="text-align: center">tidak ada ulasan</p>
-                                            @endif
-                                        <div class="d-flex justify-content-evenly mt-3">
-                                            <a class="btn btn-outline-info"
-                                                href="{{ route('detailmenupen', ['id' => $p->id]) }}"><i
-                                                    class="bi bi-eye"></i></a>
-                                            <button type="submit" class="btn btn-outline-warning edit-btn"
-                                                data-id="{{ $p->id }}"><i
-                                                    class="bi bi-pencil-square"></i></button>
-                                            <button type="submit" class="btn btn-outline-danger delete-btn"
-                                                data-id="{{ $p->id }}"><i class="bi bi-trash"></i></button>
+                                            @for ($i = 0; $i < 5; $i++)
+                                                @if ($i < $p->ulasan->avg('rating'))
+                                                    <svg width="18" viewBox="0 0 30 30" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
+                                                            fill="currentColor" />
+                                                    </svg>
+                                                @endif
+                                            @endfor
                                         </div>
+                                    @else
+                                        <p style="text-align: center">tidak ada ulasan</p>
+                                    @endif
+                                    <div class="d-flex justify-content-evenly mt-3">
+                                        <a class="btn btn-outline-info"
+                                            href="{{ route('detailmenupen', ['id' => $p->id]) }}"><i
+                                                class="bi bi-eye"></i></a>
+                                        <button type="submit" class="btn btn-outline-warning edit-btn"
+                                            data-id="{{ $p->id }}"><i
+                                                class="bi bi-pencil-square"></i></button>
+                                        <button type="submit" class="btn btn-outline-danger delete-btn"
+                                            data-id="{{ $p->id }}"><i class="bi bi-trash"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -544,9 +551,9 @@
                                             }
                                         },
                                         error: function() {
-                                            Swal.fire('Gagal',
-                                                'Terjadi kesalahan saat menghapus item.',
-                                                'error');
+                                            Swal.fire('Peringatan',
+                                                'Ada pembeli yang sedang membeli menu ini.',
+                                                'warning');
                                         }
                                     });
                                 }
@@ -595,23 +602,29 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="harga" class="form-label fw-bold">Harga</label>
-                                                    <input type="text" name="harga" id="editHarga"
+                                                    <input type="number" name="harga" id="editHarga"
                                                         class="form-control">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="keterangan_makanan"
-                                                        class="form-label fw-bold">keterangan makanan</label>
-                                                    <input type="text" name="keterangan_makanan"
+                                                        class="form-label fw-bold">Keterangan Makanan</label>
+                                                    <textarea type="text" name="keterangan_makanan"
                                                         id="editketerangan_makanan" class="form-control">
+                                                    </textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="stok" class="form-label fw-bold">Stok</label>
+                                                    <input type="number" name="stok" id="editStok"
+                                                        class="form-control">
+                                                </div>
                                                 <div class="mb-3">
                                                     <label for="fotomakanan" class="form-label fw-bold">Foto
                                                         Makanan</label>
                                                     <input type="file" name="fotomakanan" class="form-control"
                                                         id="editPreviewImage">
-                                                    <div id="editImagePreview" class="mt-2"></div>
+                                                    <div id="editImagePreview" class="mt-2" style="width: 200px"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -649,6 +662,7 @@
                                         $("#editNamamenu").val(response.data.namamenu);
                                         $("#editKategoriID").val(response.data.kategori_id);
                                         $("#editHarga").val(response.data.harga);
+                                        $("#editStok").val(response.data.stok);
                                         $("#editketerangan_makanan").val(response.data.keterangan_makanan);
 
                                         // Tampilkan gambar saat ini di modal
@@ -680,7 +694,7 @@
                                                     $("#editImagePreview").html('<img src="' + e.target
                                                         .result +
                                                         '" class="img-fluid" alt="Preview Gambar" />'
-                                                        );
+                                                    );
                                                 };
 
                                                 reader.readAsDataURL(input.files[0]);

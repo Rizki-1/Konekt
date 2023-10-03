@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('kategori_id')->constrained('adminkategoris')->cascadeOnDelete();
             $table->string('harga');
             $table->string('fotomakanan');
+            $table->integer('stok');
             $table->timestamps();
         });
     }

@@ -224,8 +224,14 @@ class penjualcontroller extends Controller
     public function tolakpesanan($id)
     {
         $dashboardusercontrollers = userOrder::findOrFail($id);
-        $dashboardusercontrollers->pembelianstatus = 'pesanan di tolak';
-        $dashboardusercontrollers->save();
+
+        // Ambil jumlah yang dibeli dalam pesanan
+        $jumlahDibeli = $dashboardusercontrollers->jumlah;
+
+        // Mengembalikan jumlah yang dibeli ke stok barangpenjual
+        $barangPenjual = BarangPenjual::find($dashboardusercontrollers->barangpenjual_id);
+        $barangPenjual->stok += $jumlahDibeli;
+        $barangPenjual->save();
 
         // $notifikasi = notifikasi::where('id', $id)->first();
         // $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
@@ -244,11 +250,11 @@ class penjualcontroller extends Controller
         $dashboardusercontrollers->pembelianstatus = 'selesai';
         $dashboardusercontrollers->update();
 
-        $notifikasi = notifikasi::where('id', $id)->get();
-        $notifikasi->keterangan = 'Pesanan Anda telah selesai.';
-        $notifikasi->isi = 'Lihat halaman pesanan untuk informasi lebih lanjut';
-        $notifikasi->is_read = false;
-        $notifikasi->save();
+        // $notifikasi = notifikasi::where('id', $id)->get();
+        // $notifikasi->keterangan = 'Pesanan Anda telah selesai.';
+        // $notifikasi->isi = 'Lihat halaman pesanan untuk informasi lebih lanjut';
+        // $notifikasi->is_read = false;
+        // $notifikasi->save();
 
         return redirect()->route('pesananpenjual');
     }
@@ -338,6 +344,7 @@ class penjualcontroller extends Controller
             'kategori_id' => 'required|exists:adminkategoris,id',
             'harga' => 'required|numeric|min:0',
             'fotomakanan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'stok' => 'required|numeric|min:0',
             'keterangan_makanan' => 'required|max:255',
         ], [
             'namamenu.required' => 'Nama makanan wajib diisi.',
@@ -349,6 +356,9 @@ class penjualcontroller extends Controller
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
             'harga.min' => 'Harga tidak boleh minus.',
+            'stok.required' => 'Stok wajib diisi.',
+            'stok.numeric' => 'Stok harus berupa angka.',
+            'stok.min' => 'Stok tidak boleh minus.',
             'fotomakanan.required' => 'Foto makanan wajib diunggah.',
             'fotomakanan.image' => 'Foto makanan harus berupa file gambar.',
             'fotomakanan.mimes' => 'Foto makanan harus berformat jpeg, png, jpg, atau gif.',
@@ -372,6 +382,7 @@ class penjualcontroller extends Controller
                 'keterangan_makanan' => $request->keterangan_makanan,
                 'kategori_id' => $request->kategori_id,
                 'harga' => $request->harga,
+                'stok' => $request->stok,
                 'fotomakanan' => $filePath,
                 'toko_id' => $penjualId,
             ];
@@ -426,6 +437,7 @@ class penjualcontroller extends Controller
             'namamenu' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
             'kategori_id' => 'required|exists:adminkategoris,id',
             'harga' => 'required|numeric|min:0',
+            'stok' => 'required|numeric|min:0',
             'fotomakanan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480',
             'keterangan_makanan' => 'required',
         ], [
@@ -438,6 +450,9 @@ class penjualcontroller extends Controller
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
             'harga.min' => 'Harga harus minimal :min.',
+            'stok.required' => 'Stok wajib diisi.',
+            'stok.numeric' => 'Stok harus berupa angka.',
+            'stok.min' => 'Stok harus minimal :min.',
             'fotomakanan.image' => 'Foto makanan harus berupa file gambar.',
             'fotomakanan.mimes' => 'Foto makanan harus berformat jpeg, png, jpg, atau gif.',
             'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
@@ -456,6 +471,7 @@ class penjualcontroller extends Controller
             $item->namamenu = $request->namamenu;
             $item->kategori_id = $request->kategori_id;
             $item->harga = $request->harga;
+            $item->stok = $request->stok;
             $item->keterangan_makanan = $request->keterangan_makanan;
 
             // Jika ada file gambar yang diunggah, simpan gambar baru

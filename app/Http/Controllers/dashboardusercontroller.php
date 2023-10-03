@@ -647,6 +647,16 @@ class dashboardusercontroller extends Controller
                 }
             }
 
+            // Iterasi melalui item pembelian
+            foreach ($itemIds as $orderId) {
+                $jumlah = $request->input('jumlah_' . $orderId);
+
+                // Mengurangkan stok di barangpenjual
+                $barangPenjual = BarangPenjual::find($request->input('barangpenjual_id_' . $orderId));
+                $barangPenjual->stok -= $jumlah;
+                $barangPenjual->save();
+            }
+
             $adminNotification = new adminnotifikasi();
             $adminNotification->keterangan_admin = 'Ada pesanan masuk!';
             $adminNotification->isi_admin = 'Cek halaman pembelian untuk konfirmasi';

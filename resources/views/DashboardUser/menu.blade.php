@@ -112,6 +112,10 @@
                                             <input type="hidden" id="totalHarga-{{ $p->id }}" name="totalHarga"
                                                 value="">
                                         </p>
+                                        <p class="fs-6 text-black">
+                                            Stok :
+                                            {{ $p->stok }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +146,9 @@
                 <div class="modal-body">
                     <div class="d-flex flex-wrap justify-content-start align-items-start">
                         @foreach ($kategori as $Kategori)
-                        <a href="{{ route('kategorifilter', ['kategori' => $Kategori->id]) }}" class="btn btn-warning" style="width: auto; margin: 0.5rem;">{{ $Kategori->kategori }}</a>
+                            <a href="{{ route('kategorifilter', ['kategori' => $Kategori->id]) }}"
+                                class="btn btn-warning"
+                                style="width: auto; margin: 0.5rem;">{{ $Kategori->kategori }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -163,11 +169,17 @@
 
                     var jumlah = $("#jumlah-{{ $p->id }}").val();
                     var harga = {{ $p->harga }};
+                    var stok = {{ $p->stok }};
                     var pajak = 0.05; // 5% pajak
 
                     // Periksa jika input jumlah kosong
                     if (!jumlah || jumlah <= 0) {
                         Swal.fire('Peringatan', 'Masukkan jumlah yang valid sebelum memesan!', 'warning');
+                        return;
+                    }
+
+                    if (jumlah > stok) {
+                        Swal.fire('Peringatan', 'Jumlah melebihi stok yang tersedia!', 'warning');
                         return;
                     }
 
@@ -226,12 +238,18 @@
 
                     var jumlah = $("#jumlah-{{ $p->id }}").val();
                     var harga = {{ $p->harga }};
+                    var stok = {{ $p->stok }};
                     var pajak = 0.05; // 5% pajak
 
                     // Periksa jika input jumlah kosong
                     if (!jumlah || jumlah <= 0) {
                         Swal.fire('Peringatan', 'Masukkan jumlah yang valid sebelum menambah keranjang!',
                             'warning');
+                        return;
+                    }
+
+                    if (jumlah > stok) {
+                        Swal.fire('Peringatan', 'Jumlah melebihi stok yang tersedia!', 'warning');
                         return;
                     }
 

@@ -262,9 +262,13 @@ class penjualcontroller extends Controller
             ->get();
 
         $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi', $penjualId)->get();
+        foreach($dashboardusercontrollers as $user)
+        {
+            $url = url('/chatify/' . $user->user_id);
+        }
 
 
-        return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers', 'notifikasi_penjual'));
+        return view('DashboardPenjual.pesananpenjual', compact('dashboardusercontrollers', 'notifikasi_penjual', 'url'));
     }
 
 

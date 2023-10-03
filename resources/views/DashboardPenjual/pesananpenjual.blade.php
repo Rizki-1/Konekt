@@ -381,6 +381,8 @@
                                             <th scope="col">No</th>
                                             <th scope="col">nama pembeli</th>
                                             <th scope="col">menu</th>
+                                            <th scope="col">jumlah pesanan</th>
+                                            <th scope="col">total harga</th>
                                             <th scope="col">status</th>
                                             <th scope="col">aksi</th>
                                         </tr>
@@ -394,6 +396,8 @@
                                                 <th scope="row">{{ $no++ }}</th>
                                                 <td>{{ $s->user->name }}</td>
                                                 <td>{{ $s->barangpenjual->namamenu }}</td>
+                                                <td>{{ $s->jumlah }}</td>
+                                                <td>{{ $s->totalharga }}</td>
                                                 <td>{{ $s->pembelianstatus }}</td>
                                                 <td>
                                                     @if ($s->pembelianstatus === 'sedang di proses')
@@ -413,7 +417,7 @@
                                                             data-bs-target="#myModal_{{ $s->id }}"><i
                                                                 class="bi bi-eye"></i></a>
                                                     @endif
-
+                                                    <a href="{{ $url }}">chat pembeli</a>
                                                 </td>
                                             </tr>
                                         @endforeach

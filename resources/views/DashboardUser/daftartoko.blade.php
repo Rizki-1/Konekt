@@ -360,7 +360,7 @@
                                                         class="img">
                                                         <div class="d-flex justify-content-between">
                                                             <div>
-                                                                <a class="btn btn-warning" href="{{ route('detailtoko', ['id' => $p->id]) }}">
+                                                                <a class="btn btn-warning" href="{{ route('detailtoko', ['id' => $p->user->id]) }}">
                                                                     <i class="fa fa-info-circle" aria-hidden="true"></i> Detail
                                                                 </a>
                                                             </div>

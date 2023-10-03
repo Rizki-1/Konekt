@@ -89,7 +89,7 @@ class adminpembeliancontroller extends Controller
 
             if (isset($processedData[$yearMonth])) {
                 $processedData[$yearMonth]['statusselesai'] = $item->total;
-            }   
+            }
         }
 
         $chartData = array_values($processedData);
@@ -383,17 +383,18 @@ class adminpembeliancontroller extends Controller
     {
         $penjual = penjuallogin::all();
         // $u = pengajuandanapenjual::where('status','1')->get();
-        $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual', 'barangpenjual')->get();
-        return view('admin.pengajuanpenjualad', compact('penjual', 'p'));
+        $p = pengajuandanapenjual::with('penjuallogin', 'pembayaranpenjual','barangpenjual')->get();
+        return view('admin.pengajuanpenjualad', compact('penjual','p'));
     }
 
     public function terimapengajuan($id)
     {
         $userOrder = userOrder::findOrFail($id);
-        // $user = pengajuandanapenjual::where('id',$id)->get();
+        $user = pengajuandanapenjual::where('id',$id)->first();
         $userOrder->pembelianstatus = 'pengembalian dana di terima';
-        // $user->status = '2';
+        $user->status = '2';
         $userOrder->save();
+        $user->save();
         return redirect()->back()->with('success', 'pengembalian dana telah di setujui');
     }
 

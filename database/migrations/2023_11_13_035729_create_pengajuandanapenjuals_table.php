@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('metodepembayaran_id')->constrained('pembayaranpenjuals')->onUpdate('cascade');
             $table->string('keterangan_pengajuan');
             $table->string('tujuan_pengajuan');
-            $table->enum('status',['1','2']);
+            $table->enum('status',['1','2'])->default('1');
             $table->timestamps();
         });
     }

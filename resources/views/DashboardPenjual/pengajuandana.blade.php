@@ -96,7 +96,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon"
-        href="https://templates.iqonic.design/aprycot/html/dashboard/dist/assets/images/favicon.ico" />
+        href="../../assets/images/kuliner.png" />
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
@@ -144,7 +144,6 @@
                                     <input type="hidden" name="barangpenjual_id"
                                         value="{{ $UserOrder->barangpenjual_id }}">
                                     <select class="form-select form-select-lg mb-3" name="metodepembayaran_id"
-                                        style="width: 300px; height: 50px; font-size: 18px;"
                                         aria-label=".form-select-lg example" id="selectMetode">
                                         <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
                                         <option value="{{ $w->id }}" data-target="ewalletInput-{{ $w->id }}">E-Wallet</option>
@@ -153,9 +152,9 @@
                                 </div>
                                 <div class="mb-3" id="ewalletInput-{{ $w->id }}" style="display: none;">
                                     <div>
-                                        <p class="text-bold">Jenis QR</p>
+                                        <p class="form-label fw-bold">Jenis QR</p>
                                     </div>
-                                    <select name="tujuan_e_wallet" id="JenisEwallet" class="form-control">
+                                    <select name="tujuan_e_wallet" id="JenisEwallet" class="form-select form-select-lg mb-3">
                                         <option value="" disabled selected>Pilih</option>
                                         @forelse ($wallet as $data)
                                             <option value="{{ $w->tujuan }}">{{ $w->tujuan }}</option>
@@ -164,7 +163,7 @@
                                         @endforelse
                                     </select>
                                     <div><br>
-                                        <p class="text-bold">Kode QR</p>
+                                        <p class="form-label fw-bold">Kode QR</p>
                                     </div>
                                     @foreach ($wallet as $data)
                                         @php
@@ -183,9 +182,9 @@
                                 </div>
                                 <div class="mb-3" id="bankInput-{{ $b->id }}" style="display: none;">
                                     <div>
-                                        <p class="text-bold">Jenis Bank</p>
+                                        <p class="form-label fw-bold">Jenis Bank</p>
                                     </div>
-                                    <select name="tujuan_bank" id="JenisBank" class="form-control">
+                                    <select name="tujuan_bank" id="JenisBank" class="form-select form-select-lg mb-3">
                                         <option value="" disabled selected>Pilih</option>
                                         @forelse ($bank as $data)
                                             <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
@@ -194,7 +193,7 @@
                                         @endforelse
                                     </select>
                                     <div>
-                                        <p class="text-bold">No Rekening</p>
+                                        <p class="form-label fw-bold">No Rekening</p>
                                     </div>
                                     @foreach ($bank as $data)
                                         @php
@@ -204,7 +203,7 @@
                                             {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
                                          @else
                                             <input type="text" name="keterangan_bank" value="{{ $data->keterangan }}"
-                                                id="{{ $data->tujuan }}" class="form-control" disabled>
+                                                id="{{ $data->tujuan }}" class="form-control form-control-lg mb-3" disabled>
                                         @endif
                                     @endforeach
                                 </div>

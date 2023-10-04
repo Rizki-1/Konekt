@@ -63,15 +63,16 @@ class penjualcontroller extends Controller
             DB::raw('SUM(totalharga) as total')
         )
             ->whereIn('pembelianstatus', ['statusselesai'])
+            ->whereYear('created_at', Carbon::now()->year)
             ->groupBy('year', 'month', 'totalharga')->get();
 
         $processedData = [];
 
-        $currentYear = carbon::now()->year;
+        $currentYear = Carbon::now()->year;
         $currentMonth = Carbon::now()->month;
 
         for ($month = 1; $month <= 12; $month++) {
-            $date = carbon::createFromDate($currentYear, $month, 1);
+            $date = Carbon::createFromDate($currentYear, $month, 1);
             $yearMonth = $date->isoFormat('MMMM');
 
             $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green';
@@ -84,7 +85,7 @@ class penjualcontroller extends Controller
         }
         foreach ($data as $item) {
 
-            $yearMonth = carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
+            $yearMonth = Carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
 
             if (isset($processedData[$yearMonth])) {
                 $ini = $pemasukkan;
@@ -295,10 +296,7 @@ class penjualcontroller extends Controller
         $id = Auth::id();
         // dd($request->all());
         $penjuallogin = penjuallogin::all();
-        // foreach ($penjuallogin as $p)
-        // {
-        //     $id = $p->user->id;
-        // }
+
         $mengajukandana =
             [
                 // 'penjual_id' => $request->barangpenjual_id,

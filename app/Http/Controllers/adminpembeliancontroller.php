@@ -63,11 +63,11 @@ class adminpembeliancontroller extends Controller
             DB::raw('count(*) as total')
         )
             ->whereIn('pembelianstatus', ['statusselesai'])
+            ->whereYear('created_at', Carbon::now()->year) // Hanya ambil data untuk tahun saat ini
             ->groupBy('year', 'month', 'pembelianstatus')
             ->get();
 
         $processedData = [];
-
         $currentYear = Carbon::now()->year; // Tahun saat ini
         $currentMonth = Carbon::now()->month; // Bulan saat ini
 
@@ -75,7 +75,7 @@ class adminpembeliancontroller extends Controller
             $date = Carbon::createFromDate($currentYear, $month, 1); // Membuat objek Carbon dari tahun dan bulan
             $yearMonth = $date->isoFormat('MMMM'); // Format bulan menjadi nama bulan dalam bahasa Inggris
 
-            $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green'; // Beri warna biru untuk bulan saat ini, jika bukan bulan saat ini, beri warna hijau
+            $color = ($month == $currentMonth) ? 'blue' : 'green'; // Beri warna biru untuk bulan saat ini, jika bukan bulan saat ini, beri warna hijau
 
             $processedData[$yearMonth] = [
                 'month' => $yearMonth,

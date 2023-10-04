@@ -142,7 +142,6 @@
     @include('layout.link')
 
 </head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
@@ -302,6 +301,8 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="profileuser">Profile</a></li>
+                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
+                                            Setting</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -339,7 +340,7 @@
                                                     <h3>{{ $p->nama_toko }}</h3>
                                                     <a>Masakan Tradisional</a><br><p></p>
                                                     <a><i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                        <a style="margin-left: 5px;">{{ $p->alamat_toko }}</a></a>
+                                                        <a style="margin-left: 5px; ">{{ $p->alamat_toko }}</a></a>
                                                     <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
                                                     {{ $p->notlp }}</a></p>
                                                     <tr>
@@ -357,7 +358,7 @@
                                                     </tr>
                                                     <div class="btn-custom"><span>12 menu</span></div>
                                                     <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
-                                                        style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;"
+                                                        style="position: absolute; top: 10px; right: 10px; width: 190px; height:85px;"
                                                         class="img">
                                                         <div class="d-flex justify-content-between my-3">
                                                             <div>
@@ -370,6 +371,7 @@
                                                                     <i class="fa fa-comments" aria-hidden="true"></i> Chat Penjual
                                                                 </a>
                                                             </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

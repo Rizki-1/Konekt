@@ -108,10 +108,10 @@
                             <div class="mb-3">
                                 {{ $u->rating }}
                                 @for ($i = 1; $i <= 5; $i++)
-                                    <label style="color: gray; cursor: pointer;"
+                                    <label style="color: gray;"
                                         class="star   @error('komentar') is-invalid @enderror"
                                         value="{{ $u->komentar }}">
-                                        <input type="radio" name="rating" value="{{ $i }}"
+                                        <input type="radio" name="rating" value="{{ $i }}" style="cursor: pointer;"
                                             class="form-control rating-input  " min="1" max="5">
                                         <i class="fas fa-star"></i>
                                     </label>

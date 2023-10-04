@@ -320,7 +320,15 @@
                                             <hr>
                                             <div class="d-flex justify-content-between ">
                                                 <a>No Antrian : {{ $u->nomor_antrian }}</a>
-                                                <a style="color: grey;">{{ $u->pembelianstatus }}</a>
+                                                <a class="text-primary">
+                                                    @if ($u->pembelianstatus === 'statusselesai')
+                                                        Pesanan Selesai
+                                                    @elseif ($u->pembelianstatus === 'pesanan di tolak')
+                                                        Pesanan Ditolak
+                                                    @elseif ($u->pembelianstatus === 'dibatalkan')
+                                                        Pesanan Dibatalkan
+                                                    @endif
+                                                </a>
                                             </div>
                                             <p>{{ $u->created_at }}</p>
                                             <div class="img-content">

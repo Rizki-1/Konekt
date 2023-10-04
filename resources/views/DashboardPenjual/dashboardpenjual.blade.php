@@ -625,7 +625,7 @@
                                                 <td>
                                                     {{$item->namamenu}}
                                                 </td>
-                                                <td>Rp.{{number_format($item->harga)}}</td>
+                                                <td>Rp. {{number_format($item->harga)}}</td>
                                                 <td>
                                                     {{$item->terjual}}
                                                 </td>
@@ -647,14 +647,14 @@
                         <div class="card-body">
                             <!-- Tambahkan riwayat pesanan di sini -->
                             @forelse ($user as $User)
-                            <div class="media">
+                            <div class="media d-flex">
                                 <img class="bg-soft-primary rounded img-fluid avatar-80 me-3"
-                                 src="{{Storage::url($User->fotomakanan)}}" alt="profile">
+                                 src="{{Storage::url($User->penjual->fotomakanan)}}" alt="profile">
                                 <div class="media-body">
                                     <h6 class="mb-0">{{ $User->barangpenjual->namamenu }}</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p>nama pembeli:{{ $User->user->name }}</p>
-                                        <p>{{ $User->totalharga }}</p>
+                                    <div class="text-capitalize">
+                                        <p class="">nama pembeli : {{ $User->user->name }}</p>
+                                        <p class="mb-0">Harga : Rp. {{ number_format($User->totalharga) }}</p>
                                     </div>
                                 </div>
                             </div>

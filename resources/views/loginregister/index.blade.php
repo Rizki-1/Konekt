@@ -57,7 +57,7 @@
                                         form.addEventListener('submit', function (event) {
                                             if (!checkbox.checked) {
                                                 event.preventDefault(); // Menghentikan pengiriman formulir
-                                                alert('Anda harus menyetujui kebijakan privasi untuk melanjutkan.');
+                                                swal.fire('Peringatan','Anda harus menyetujui kebijakan privasi untuk melanjutkan.', 'warning');
                                             }
                                         });
                                     </script>

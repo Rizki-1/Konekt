@@ -490,7 +490,10 @@
                                     @else
                                         <p style="text-align: center">tidak ada ulasan</p>
                                     @endif
-                                    <div class="d-flex justify-content-evenly mt-3">
+                                    <div class="d-flex justify-content-evenly text-black">
+                                        <p>Sisa Stok : {{$p->stok}}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-evenly">
                                         <a class="btn btn-outline-info"
                                             href="{{ route('detailmenupen', ['id' => $p->id]) }}"><i
                                                 class="bi bi-eye"></i></a>

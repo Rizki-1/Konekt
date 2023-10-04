@@ -453,7 +453,7 @@ class dashboardusercontroller extends Controller
             'rating.required' => 'rating tidak boleh kosong ',
             'rating.min' => 'rating minimal 1',
             'komentar.required' => 'komentar tidak boleh kosong',
-            'komentar.max' => 'komentar maximal hanya 255 karakter'
+            'komentar.max' => 'komentar maaksimal hanya 255 karakter'
         ]);
 
         $ulasan = [
@@ -463,11 +463,6 @@ class dashboardusercontroller extends Controller
             'komentar' => $request->komentar
 
         ];
-
-        // Validasi dilakukan sebelum halaman di-refresh
-        // if ($request->hasErrors()) {
-        //     return redirect()->back()->withErrors($request->errors());
-        // }
 
         ulasan::create($ulasan);
         return redirect()->route('riwayatuser');

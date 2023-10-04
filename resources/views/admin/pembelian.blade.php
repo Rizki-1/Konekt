@@ -393,8 +393,8 @@
                                         <td>{{ $s->jumlah }}</td>
                                         <td>{{ $s->metodepembayaran }}</td>
                                         <td>
-                                            <div style="margin-left:40px;">
-                                               Rp{{ number_format($s->totalharga, 0, ',', '.') }}</div>
+                                            <div>
+                                               Rp. {{ number_format($s->totalharga, 0, ',', '.') }}</div>
                                         </td>
                                         <td class="d-flex">
                                                 <a class="btn btn-outline-primary"

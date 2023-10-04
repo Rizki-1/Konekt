@@ -108,22 +108,24 @@
                             <div class="mb-3">
                                 {{ $u->rating }}
                                 @for ($i = 1; $i <= 5; $i++)
-                                    <label style="color: gray; cursor: pointer;" class="star   @error('komentar') is-invalid @enderror" value="{{ $u->komentar }}">
+                                    <label style="color: gray; cursor: pointer;"
+                                        class="star   @error('komentar') is-invalid @enderror"
+                                        value="{{ $u->komentar }}">
                                         <input type="radio" name="rating" value="{{ $i }}"
                                             class="form-control rating-input  " min="1" max="5">
                                         <i class="fas fa-star"></i>
                                     </label>
-                                    @endfor
-                                    @error('rating')
+                                @endfor
+                                @error('rating')
                                     <p class="" style="color: red">{{ $message }}</p>
-                                    @enderror
+                                @enderror
                             </div>
                             <div class="my-3">
                                 {{ $u->komentar }}
                                 <label for="ulasan">Komentar</label>
                                 <textarea name="komentar" class="form-control   @error('komentar') is-invalid @enderror" value="{{ $u->komentar }}"></textarea>
                                 @error('komentar')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -327,7 +329,7 @@
                                                     alt="">
                                                 <a>{{ $u->penjual->namamenu }}</a><br>
                                                 <div class="mx-1">
-                                                    <a>jumlah pembelian :{{ $u->jumlah }} </a>
+                                                    <a>jumlah pembelian : {{ $u->jumlah }} </a>
                                                 </div>
                                                 <hr>
                                                 <div class="d-flex justify-content-between">
@@ -343,14 +345,22 @@
                                                 </div>
                                                 <div class="d-flex justify-content-between">
                                                     @if ($u->pembelianstatus === 'statusselesai')
-                                                        <div class="btn btn-warning" type="submit"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#myModal-{{ $u->barangpenjual_id }}"
-                                                            style="">beri ulasan</div>
+                                                        @php
+                                                            $ulasan = \App\Models\Ulasan::where('barangpenjual_id', $u->barangpenjual_id)
+                                                                ->where('username', Auth::user()->name)
+                                                                ->where('id', $u->id)
+                                                                ->first();
+                                                        @endphp
+
+                                                        @if (!$ulasan)
+                                                            <div class="btn btn-warning text-capitalize" type="submit"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#myModal-{{ $u->barangpenjual_id }}"
+                                                                style="">beri ulasan</div>
+                                                        @endif
                                                     @endif
                                                     <a href="{{ route('menu.store') }}" class="btn btn-warning"
                                                         method="POST">Pesan Lagi</a>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -383,7 +393,7 @@
         </div>
         </div>
         </div>
-            {{-- @include('layout.footer') --}}
+        {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
 

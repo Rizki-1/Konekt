@@ -113,6 +113,19 @@ class dashboardusercontroller extends Controller
 
             $totalharga = ($keranjang->totalHarga);
 
+            // Cek jika jumlah pembelian melebihi stok
+            $barangPenjual = BarangPenjual::find($keranjang->barangpenjual_id);
+            $stokTersedia = $barangPenjual->stok;
+
+            if ($jumlah > $stokTersedia) {
+                $jumlah = $stokTersedia; // Atur jumlah menjadi stok yang tersedia
+                $totalharga = $jumlah * $barangPenjual->harga; // Hitung ulang total harga
+                // Informasikan pengguna tentang perubahan jumlah
+                return response()->json([
+                    'message' => 'Jumlah pembelian melebihi stok yang tersedia. Jumlah telah diatur ke ' . $stokTersedia . '.',
+                ], 400);
+            }
+
             $userOrderData = [
                 'id_keranjang' => $itemId,
                 'jumlah' => $jumlah,
@@ -134,21 +147,11 @@ class dashboardusercontroller extends Controller
 
             $userOrdersIds[] = $userOrder->id;
 
-            // dd($userOrdersIds);
-
-            //     return response()->json(['success' => true, 'message' => 'Pembelian berhasil.', 'orderIds' => $userOrdersIds]);
-            // } catch (\Exception $e) {
-            //     // Rollback transaksi jika terjadi kesalahan
-            //     DB::rollback();
-
-            //     return response()->json(['message' => 'Terjadi kesalahan dalam melakukan pembelian.'], 500);
-            //     // dd($e->getMessage());
-            // }
         }
         $orderId = $userOrder->id;
 
         DB::commit();
-        return response()->json(['message' => 'berhasil', 'id' => $userOrdersIds]);
+        return response()->json(['message' => 'Pesanan berhasil diproses.', 'id' => $userOrdersIds]);
     }
 
     public function updateKeranjang(Request $request)

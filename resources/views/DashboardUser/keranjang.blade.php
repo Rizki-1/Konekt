@@ -119,8 +119,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
     <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="../../assets/images/kuliner.png" />
+    <link rel="shortcut icon" href="../../assets/images/kuliner.png" />
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
@@ -547,7 +546,7 @@
         // Fungsi untuk memeriksa apakah ada <tr> dalam tabel
         function cekTrAda() {
             var tabel = document.getElementById(
-            'tabelKeranjang'); // Ganti 'tabelKeranjang' dengan ID tabel Anda
+                'tabelKeranjang'); // Ganti 'tabelKeranjang' dengan ID tabel Anda
             var trItems = tabel.getElementsByTagName('tr');
             return trItems.length > 0;
         }
@@ -596,12 +595,9 @@
             });
 
             if (itemIds.length === 0) {
-                Swal.fire('Gagal', 'Pilih salah satu item terlebih dahulu.', 'error');
+                Swal.fire('Peringatan', 'Pilih salah satu item terlebih dahulu.', 'warning');
                 return;
             }
-
-            // Tampilkan SweetAlert di sini
-            Swal.fire('Sukses', 'Transaksi berhasil dilakukan.', 'success');
 
             var response;
             $.ajax({
@@ -612,14 +608,18 @@
                     "items": itemIds,
                 },
                 success: function(data) {
-                    response = data;
-
-                    window.location = `/konfimasipembelian/${data.id}`;
-
+                    // Cek jika pesanan berhasil diproses
+                    if (data.message === 'Pesanan berhasil diproses.') {
+                        Swal.fire('Sukses', data.message, 'success');
+                        // Redirect ke halaman konfirmasi pembelian
+                        window.location = `/konfimasipembelian/${data.id}`;
+                    }
                 },
                 error: function(response) {
                     console.log(response);
-                    Swal.fire('Gagal', 'Pilih salah satu item terlebih dahulu.', 'error');
+                    Swal.fire('Peringatan',
+                        'Jumlah pembelian melebihi jumlah stok yang tersedia.',
+                        'warning');
                 }
             });
         });

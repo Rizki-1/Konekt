@@ -63,16 +63,15 @@ class penjualcontroller extends Controller
             DB::raw('SUM(totalharga) as total')
         )
             ->whereIn('pembelianstatus', ['statusselesai'])
-            ->whereYear('created_at', Carbon::now()->year)
             ->groupBy('year', 'month', 'totalharga')->get();
 
         $processedData = [];
 
-        $currentYear = Carbon::now()->year;
+        $currentYear = carbon::now()->year;
         $currentMonth = Carbon::now()->month;
 
         for ($month = 1; $month <= 12; $month++) {
-            $date = Carbon::createFromDate($currentYear, $month, 1);
+            $date = carbon::createFromDate($currentYear, $month, 1);
             $yearMonth = $date->isoFormat('MMMM');
 
             $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green';
@@ -85,7 +84,7 @@ class penjualcontroller extends Controller
         }
         foreach ($data as $item) {
 
-            $yearMonth = Carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
+            $yearMonth = carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
 
             if (isset($processedData[$yearMonth])) {
                 $ini = $pemasukkan;
@@ -94,19 +93,27 @@ class penjualcontroller extends Controller
             }
         }
 
-        $produk = barangpenjual::all()->filter(function ($item) {
+        $produk = barangpenjual::where('toko_id', $penjualId)->get()->filter(function ($item) {
+
             $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
                 ->where('pembelianstatus', 'statusselesai')
                 ->count();
-
-            // Hanya mengembalikan item jika terjual lebih besar dari 0
             return $item->terjual > 0;
         });
-
         $produk = $produk->sortByDesc('terjual')->take(5);
+        $produkRating = barangpenjual::with('ulasan')->where('toko_id', $penjualId)->get();
+        $produkRating->each(function ($item) {
+            $item->jumlahUlasan = $item->ulasan->avg('rating');
+        });
+
+
+        $produkRating = $produkRating->sortByDesc('jumlahUlasan');
+
+        $produkRating = $produkRating->take(5);
+
 
         $chartData = array_values($processedData);
-        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'chartData', 'notifikasipenjual', 'produk', 'user'));
+        return view('DashboardPenjual.dashboardpenjual', compact('menu', 'totalpenjualan', 'pemasukkan', 'tertunda', 'chartData', 'notifikasipenjual', 'produk', 'user', 'produkRating'));
     }
 
     public function riwayatpenjual()

@@ -680,7 +680,9 @@
                                                                     </svg>
                                                                 @endif
                                                             @endfor
-                                                            <p>({{ $totalUlasan }})</p>
+
+                                                            <p>( {{ number_format($p->ulasan->avg('rating'), 1,',','.') }} /  {{ $p->ulasan->count() }})</p>
+                                                            {{-- <p>( {{ $ulasan }} /  {{ $totalUlasan }})</p> --}}
                                                         </div>
                                                     @else
                                                         <p style="text-align: center">tidak ada ulasan</p>

@@ -325,7 +325,7 @@
                                                 <img src="{{ asset('Storage/' . $u->penjual->fotomakanan) }}"
                                                     style="border-radius: 10px; width: 125px; height: 110px; margin-top:-5px; padding: 5px;"
                                                     alt="">
-                                                <a>{{ $u->namamenu }}</a><br>
+                                                <a>{{ $u->penjual->namamenu }}</a><br>
                                                 <div class="mx-1">
                                                     <a>jumlah pembelian :{{ $u->jumlah }} </a>
                                                 </div>

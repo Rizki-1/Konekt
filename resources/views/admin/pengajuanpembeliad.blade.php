@@ -95,8 +95,7 @@
     <title>Kuliner kita</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="../../assets/images/kuliner.png" />
+    <link rel="shortcut icon" href="../../assets/images/kuliner.png" />
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
@@ -112,79 +111,86 @@
     background-size: cover;">
     @include('layout.logoloader')
     @foreach ($userOrder as $Pengajuanuser)
-    <form action="{{ route('terimapengajuanuser', ['id' => $Pengajuanuser->id]) }}" method="POST">
-        @csrf
-        @method('post')
-    <div class="modal fade" id="myModal-{{$Pengajuanuser->id}}" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Pengajuan Pengembalian Dana</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="mb-3">
-                            <label for="tujuanpembayaran" class="form-label fw-bold">metode pembayaran</label>
-                            <input type="text" class="form-control" id="tujuanpembayaran" name="tujuanpembayaran" value="{{$Pengajuanuser->tujuanpembayaran}}" readonly>
+        <form action="{{ route('terimapengajuanuser', ['id' => $Pengajuanuser->id]) }}" method="POST">
+            @csrf
+            @method('patch')
+            <div class="modal fade" id="myModal-{{ $Pengajuanuser->id }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Pengajuan Pengembalian Dana</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
-                        <div class="mb-3">
-                            <label for="metode_pengembalian" class="form-label fw-bold">Tujuan pengembalian</label>
-                            <input type="text" class="form-control" id="metode_pengembalian" name="metode_pengembalian" value="{{$Pengajuanuser->metode_pengembalian}}" readonly>
-                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
 
-                        <div class="mb-3" id="bankInput">
-                            <div class="mb-3">
-                            <label for="keterangan_metode_pengembalian" class="form-label fw-bold">Keterangan</label>
+                                    <div class="mb-3">
+                                        <label for="tujuanpembayaran" class="form-label fw-bold">metode
+                                            pembayaran</label>
+                                        <input type="text" class="form-control" id="tujuanpembayaran"
+                                            name="tujuanpembayaran" value="{{ $Pengajuanuser->tujuanpembayaran }}"
+                                            readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="metode_pengembalian" class="form-label fw-bold">Tujuan
+                                            pengembalian</label>
+                                        <input type="text" class="form-control" id="metode_pengembalian"
+                                            name="metode_pengembalian" value="{{ $Pengajuanuser->metode_pengembalian }}"
+                                            readonly>
+                                    </div>
+
+                                    <div class="mb-3" id="bankInput">
+                                        <div class="mb-3">
+                                            <label for="keterangan_metode_pengembalian"
+                                                class="form-label fw-bold">Keterangan</label>
+                                        </div>
+
+                                        @php
+                                            $data_foto_keterangan = strlen($Pengajuanuser->keterangan_metode_pembayaran);
+                                        @endphp
+                                        @if ($data_foto_keterangan < 20)
+                                            <img src="{{asset('storage/pengajuanUser/' . $Pengajuanuser->keterangan_metode_pengembalian)}}" alt="" srcset="" style="width: 100%">
+                                        @else
+                                            <input type="number" name="keterangan_metode_pengembalian"
+                                                value="{{ $Pengajuanuser->keterangan_metode_pengembalian }}"
+                                                id="{{ $Pengajuanuser->keterangan }}" class="form-control" disabled>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
-                            @foreach ($userOrder as $data)
-                                @php
-                                    $saya = strlen($data->keterangan_metode_pembayaran);
-                                @endphp
-                                @if ($saya >= 20)
-                                    {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
-                                @else
-                                    <input type="text" name="keterangan_metode_pengembalian" value="{{ $data->keterangan_metode_pengembalian }}"
-                                        id="{{ $data->keterangan }}" class="form-control" disabled>
-                                @endif
-                            @endforeach
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Bayar</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Bayar</button>
-            </div>
-        </div>
-    </div>
-</div>
-</form>
-@endforeach
-<script>
-const inputElements = document.querySelectorAll('input[name="keterangan"]');
-const spElement = document.querySelector('#JenisEwallet');
-const pElements = document.querySelectorAll('p[name="keteranganqr"]');
+        </form>
+    @endforeach
+    <script>
+        const inputElements = document.querySelectorAll('input[name="keterangan"]');
+        const spElement = document.querySelector('#JenisEwallet');
+        const pElements = document.querySelectorAll('p[name="keteranganqr"]');
 
-selectElement.addEventListener('change', function() {
-    const selectedValue = selectElement.value;
+        selectElement.addEventListener('change', function() {
+            const selectedValue = selectElement.value;
 
-    inputElements.forEach(function(input) {
-        if (input.id === selectedValue) {
-            input.style.display = 'block';
-            input.disabled = false;
-        } else {
-            input.style.display = 'none';
-            input.disabled = true;
-        }
-    });
-});
-</script>
+            inputElements.forEach(function(input) {
+                if (input.id === selectedValue) {
+                    input.style.display = 'block';
+                    input.disabled = false;
+                } else {
+                    input.style.display = 'none';
+                    input.disabled = true;
+                }
+            });
+        });
+    </script>
 
-<!-- <script>
-
-    // Cek nilai input tujuanpembayaran
+    <!-- <script>
+        // Cek nilai input tujuanpembayaran
         var tujuanpembayaran = $('#tujuanpembayaran').val();
 
         // Jika tujuan pembayaran adalah e-wallet
@@ -194,15 +200,14 @@ selectElement.addEventListener('change', function() {
 
             // Set nilai input keterangan_metode_pengembalian menjadi e-wallet
             $('#keterangan_metode_pemgembalian').val('e-wallet');
-        }
-        else (tujuanpembayaran === 'bank') {
+        } else(tujuanpembayaran === 'bank') {
             // Set nilai input metode_pengembalian menjadi e-wallet
             $('#metode_pengembalian').val('bank');
 
             // Set nilai input keterangan_metode_pengembalian menjadi e-wallet
             $('#keterangan_metode_pemgembalian').val('bank');
         }
-</script> -->
+    </script> -->
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -443,24 +448,25 @@ selectElement.addEventListener('change', function() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @php
-                                        $no = 1;
-                                    @endphp
-                                    @foreach ($userOrder as $Pengajuanuser)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $Pengajuanuser->user->name }}</td>
-                                            <td>{{ $Pengajuanuser->jumlah }}</td>
-                                            <td>{{ $Pengajuanuser->totalharga }}</td>
-                                            <td>{{ $Pengajuanuser->metodepembayaran}}</td>
-                                            <td>
-                                            @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#myModal-{{ $Pengajuanuser->id }}">detail</button>
-                                            </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                        @php
+                                            $no = 1;
+                                        @endphp
+                                        @foreach ($userOrder as $Pengajuanuser)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $Pengajuanuser->user->name }}</td>
+                                                <td>{{ $Pengajuanuser->jumlah }}</td>
+                                                <td>Rp. {{ number_format($Pengajuanuser->totalharga) }}</td>
+                                                <td>{{ $Pengajuanuser->metodepembayaran }}</td>
+                                                <td>
+
+                                                    <button type="submit" class="btn btn-outline-primary "
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#myModal-{{ $Pengajuanuser->id }}">detail</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

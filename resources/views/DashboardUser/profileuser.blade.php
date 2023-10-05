@@ -56,7 +56,7 @@
             display: inline-block;
             cursor: pointer;
         }
-
+  
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -258,6 +258,8 @@
                                     <div class="d-flex align-items-center mb-3 mb-sm-0 ms-sm-4">
                                         <div>
                                             <h6 class="me-2 text-primary" id="profileNameDisplay">{{ Auth::user()->name }}</h6>
+                                            <div class="mb-1"><span id="email">{{ Auth::user()->email }}</span></div>
+                                            <div class="mb-1"><span id="">{{Auth::user()->bio}}</span></div>
                                             <!-- <span>
                                                 <svg width="19" height="19" class="me-2" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -276,15 +278,15 @@
                                         </div> -->
                                     </div>
                                 </div>
-                                <ul class="d-flex mb-0 text-center ">
-                                    <li class="badge bg-primary py-2 me-2">
-                                    <button class="btn btn-primary" id="edit-profile-button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profil</button>                                    </li>
-                                </ul>
+    
                             </div>
                         </div>
                         <div class="iq-header-img">
                             <img src="../../assets/images/User-profile/01.png" alt="header"
                                 class="img-fluid w-100 rounded" style="object-fit: contain;">
+                            
+  
+
                             <svg class="upload-button" width="14" height="14" viewBox="0 0 24 24">
                                 <path fill="#ffffff"
                                     d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
@@ -293,127 +295,123 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="header-title">
-                                <h4 class="card-title">Intro</h4>
+    </div>
+ 
+    <div class="row">
+    <div class="card ">
+        <div class="col-lg-12">
+           <div class="card-header"> 
+              <div class="card-body">
+                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ $message}}
+                        </div>
+                        @endif
+                        <form action="{{route('profileUpdate', auth()->id())}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" name="name" class="form-control" value="{{ Auth()->user()->name }}">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control" value="{{Auth()->user()->email}}" readonly>
+                                  
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tanggal Lahir</label>
+                                    <input type="date" name="tanggal_lahir" class="form-control" value="{{Auth()->user()->tanggal_lahir}}" required>
+                                  
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Bio</label>
+                                    <textarea name="bio" class="form-control">{{ Auth()->user()->bio }}</textarea>
+                                   
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <p>Ubah sesuai seleramu.</p>
-                            <div class="mb-1">Email: <span id="email">{{ Auth::user()->email }}</span></div>
-                            <div class="mb-1">no tlp: <span id="phone">001 2351 256 12</span></div>
-                            <div>Location: <span id="location" class="text-primary">USA</span></div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary">simpan perubahan</button>
                         </div>
+                        </form>
                     </div>
                 </div>
-
-<!-- Modal untuk mengedit profil -->
-<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Profil</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulir pengeditan profil -->
-                <form id="profileForm">
-                    <div class="mb-3">
-                        <label for="profileName" class="form-label">Nama</label>
-                        <input type="text" class="form-control" id="profileName" value="{{ Auth::user()->name }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="profileEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="profileEmail" value="{{ Auth::user()->email }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="profileLocation" class="form-label">Alamat</label>
-                        <input type="text" class="form-control" id="profileLocation" value="masukkan alamat">
-                    </div>
-                    <div class="mb-3">
-                        <label for="profilePhone" class="form-label">Nomor Telepon</label>
-                        <input type="text" class="form-control" id="profilePhone" value="">
-                    </div>
-                    <div class="mb-3">
-                        <label for="profilePicture" class="form-label">Foto Profil</label>
-                        <input type="file" class="form-control" id="profilePicture" accept="image/*">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" id="saveProfileChanges">Simpan Perubahan</button>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Tambahkan JavaScript di bawah modal content -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Temukan elemen-elemen dalam modal
-        const profileForm = document.getElementById("profileForm");
-        const saveProfileChanges = document.getElementById("saveProfileChanges");
+const form = document.querySelector('form'); // Menggunakan 'form' untuk menemukan elemen form.
+const submitButton = document.querySelector('button[type="submit"]'); // Menggunakan selektor untuk menemukan tombol submit.
 
-        // Fungsi untuk menyimpan data ke local storage
-        function saveDataToLocalStorage() {
-            const newEmail = document.getElementById("profileEmail").value;
-            const newLocation = document.getElementById("profileLocation").value;
-            const newPhone = document.getElementById("profilePhone").value;
+submitButton.disabled = true;
 
-            // Simpan data di local storage
-            localStorage.setItem("profileEmail", newEmail);
-            localStorage.setItem("profileLocation", newLocation);
-            localStorage.setItem("profilePhone", newPhone);
+form.addEventListener('submit', (event) => {
+  const inputs = form.querySelectorAll('input');
 
-            // Perbarui data di bagian intro jika email diubah
-            document.getElementById("email").textContent = newEmail;
-            document.getElementById("location").textContent = newLocation;
-            document.getElementById("phone").textContent = newPhone;
-        }
+  submitButton.disabled = inputs.some(input => input.value === '');
 
-        // Fungsi untuk mengisi kembali data dari local storage
-        function loadProfileDataFromLocalStorage() {
-            const newEmail = localStorage.getItem("profileEmail");
-            const newLocation = localStorage.getItem("profileLocation");
-            const newPhone = localStorage.getItem("profilePhone");
+  // Cek apakah bio kosong
+  const bioInput = document.querySelector('textarea[name="bio"]');
+  const tanggal_lahirInput = document.querySelector('input[name="tanggal_lahir"]');
 
-            // Perbarui elemen-elemen tampilan profil dari local storage
-            document.getElementById("profileEmail").value = newEmail || "{{ Auth::user()->email }}";
-            document.getElementById("profileLocation").value = newLocation || "Jl Wendit";
-            document.getElementById("profilePhone").value = newPhone || "08154154402432";
+  // Jika bio kosong, set bio menjadi null
+  if (bioInput.value === '') {
+    bioInput.value = null;
+    alert('Bio telah dihapus.');
+  }
 
-            // Perbarui data di bagian intro
-            document.getElementById("email").textContent = newEmail || "{{ Auth::user()->email }}";
-            document.getElementById("location").textContent = newLocation || "Jl Wendit";
-            document.getElementById("phone").textContent = newPhone || "08154154402432";
-        }
+  // Jika tanggal lahir kosong, set tanggal lahir menjadi null
+  if (tanggal_lahirInput.value === '') {
+    tanggal_lahirInput.value = null;
+    alert('Tanggal lahir telah dihapus.');
+  }
+});
 
-        // Panggil fungsi untuk mengisi data dari local storage saat halaman dimuat
-        loadProfileDataFromLocalStorage();
+form.addEventListener('submit', (event) => {
+  const inputs = form.querySelectorAll('input');
+  const bio = document.querySelector('textarea[name="bio"]').value;
+  const tanggal_lahir = document.querySelector('input[name="tanggal_lahir"]').value;
 
-        // Tambahkan event listener untuk tombol "Simpan Perubahan"
-        saveProfileChanges.addEventListener("click", function () {
-            // Ambil nilai dari input form
-            const newEmail = document.getElementById("profileEmail").value;
-            const newLocation = document.getElementById("profileLocation").value;
-            const newPhone = document.getElementById("profilePhone").value;
-
-            // Perbarui elemen-elemen tampilan profil
-            document.getElementById("email").textContent = newEmail;
-            document.getElementById("location").textContent = newLocation;
-            document.getElementById("phone").textContent = newPhone;
-
-            // Simpan data ke local storage
-            saveDataToLocalStorage();
-
-            // Sembunyikan modal
-            $('#editProfileModal').modal('hide');
-        });
-    });
+  // Validasi bio dan tanggal lahir
+  if (bio.length > 255 || !/^\d{4}-\d{2}-\d{2}$/.test(tanggal_lahir)) {
+    event.preventDefault();
+    alert('Harap isi semua inputan dengan benar.');
+  }
+});
 </script>
+<script>
+const form = document.querySelector('form'); // Menggunakan 'form' untuk menemukan elemen form.
+const submitButton = document.querySelector('button[type="submit"]'); // Menggunakan selektor untuk menemukan tombol submit.
+
+submitButton.disabled = true;
+
+form.addEventListener('submit', (event) => {
+  const inputs = form.querySelectorAll('input');
+  const bio = document.querySelector('textarea[name="bio"]').value;
+  const tanggal_lahir = document.querySelector('input[name="tanggal_lahir"]').value;
+
+  // Validasi bio dan tanggal lahir
+  if (bio.length > 255 || !/^\d{4}-\d{2}-\d{2}$/.test(tanggal_lahir)) {
+    event.preventDefault();
+    alert('Harap isi semua inputan dengan benar.');
+  }
+});
+</script>
+
+ 
+
+
                 <div class="row">
                     <!-- Footer Section Start -->
                     <footer class="footer">
@@ -440,6 +438,7 @@
                             </div>
                         </div>
                     </footer>
+</div>
                     <!-- Footer Section End -->
     </main>
 
@@ -463,6 +462,18 @@
         fieldValue.innerHTML = newValue + ` <a href="profileuser" onclick="editField('${field}')">Edit</a>`;
     });
 }
+</script>
+<script>
+    const form = document.getElementById('myForm');
+const submitButton = document.getElementById('submitButton');
+
+submitButton.disabled = true;
+
+form.addEventListener('input', () => {
+  const inputs = form.querySelectorAll('input');
+
+  submitButton.disabled = inputs.some(input => input.value === '');
+});
 </script>
     <!-- Wrapper End-->
     <!-- offcanvas start -->

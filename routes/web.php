@@ -47,8 +47,6 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::put('aupdate/{id}', [adminpembeliancontroller::class, 'aupdate'])->name('aupdate');
     Route::delete('kdestroy/{admink}', [adminpembeliancontroller::class, 'kdestroy'])->name('kdestroy');
     Route::delete('adestroy/{adminmp}', [adminpembeliancontroller::class, 'adestroy'])->name('adestroy');
-    Route::get('adedit/{id}/edit', [adminpembeliancontroller::class, 'adedit'])->name('adedit');
-    Route::put('mpupdate/{id}', [adminpembeliancontroller::class, 'mpupdate'])->name('mpupdate');
     Route::get('DashboardAdmin',[adminpembeliancontroller::class, 'DashboardAdmin'])->name('DashboardAdmin');
     Route::get('calonpenjual', [adminpembeliancontroller::class, 'calonpenjual'])->name('calonpenjual');
     Route::get('pengajuanpembeliad', [adminpembeliancontroller::class, 'pengajuanpembeliad'])->name('pengajuanpembeliad');
@@ -69,6 +67,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
     Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
     Route::get('profileuser', [dashboardusercontroller::class, 'profileuser'])->name('profileuser');
+    Route::post('profileUpdate/{id}', [dashboardusercontroller::class, 'profileUpdate'])->name('profileUpdate');
     Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
     Route::get('searching', [dashboardusercontroller::class, 'search'])->name('searching');
     Route::get('caritoko', [dashboardusercontroller::class, 'caritoko'])->name('caritoko');

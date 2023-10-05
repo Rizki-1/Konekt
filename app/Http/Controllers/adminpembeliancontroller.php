@@ -21,7 +21,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Models\adminmetodepembayaran;
 use App\Models\pengajuandanapenjual;
-use illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage;
 
 class adminpembeliancontroller extends Controller
 {
@@ -311,13 +311,23 @@ class adminpembeliancontroller extends Controller
             return response()->json(['success' => false, 'message' => 'Metode pembayaran tidak ditemukan.'], 404);
         }
 
+        // Simpan nama file lama untuk penghapusan
+        $oldFileName = $metodePembayaran->keterangan;
+
         // Perbarui data metode pembayaran sesuai input
         $metodePembayaran->tujuan = $request->tujuan;
 
         if ($request->keteranganType === 'file') {
             $image = $request->file('keterangan');
             $filename = $image->hashName(); // Dapatkan nama hash file
+
             $image->storeAs('public/pembayaran', $filename);
+
+            // Hapus file lama jika ada
+            if ($oldFileName) {
+                Storage::delete('public/pembayaran/' . $oldFileName);
+            }
+
             $metodePembayaran->keterangan = $filename;
         } else {
             $metodePembayaran->keterangan = $request->keterangan;
@@ -431,19 +441,6 @@ class adminpembeliancontroller extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'metodepembayaran' => 'required',
-        //     'tujuan' => 'required',
-        //     'keterangan' => 'required|file|mimes:jpeg,jpg,png|max:2048',
-        // ], [
-        //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-        //     'tujuan.required' => 'Tujuan wajib diisi.',
-        //     'keterangan.required' => 'Keterangan wajib diisi.',
-        //     'keterangan.numeric'=>'keterangan harus angka',
-        //     'keterangan.file' => 'Keterangan harus berupa file.',
-        //     'keterangan.mimes' => 'Keterangan harus berupa file dengan format jpeg, jpg, atau png.',
-        //     'keterangan.max' => 'Ukuran maksimal Keterangan adalah 2MB.',
-        // ]);
         $request->validate([
             'metodepembayaran' => 'required',
             'tujuan' => 'required',
@@ -495,13 +492,17 @@ class adminpembeliancontroller extends Controller
     public function adestroy(adminmetodepembayaran $adminmp)
     {
         try {
+            // Hapus file terkait jika ada
+            if ($adminmp->keterangan) {
+                Storage::delete('public/pembayaran/' . $adminmp->keterangan);
+            }
+
             $adminmp->delete();
             return redirect()->route('metodpembayaran')->with('success', 'Berhasil menghapus data');
         } catch (Exception $e) {
             return back()->with('error');
         }
     }
-
     public function adedit(Request $request, $id)
     {
         $adminmp = adminmetodepembayaran::findOrFail($id);

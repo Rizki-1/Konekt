@@ -15,7 +15,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
-      
+
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
         'AdminMiddleware' => \App\Http\Middleware\AdminMiddleware::class,
         'PenjualMiddleware' => \App\Http\Middleware\PenjualMiddleware::class,
         'userMiddleware' => \App\Http\Middleware\userMiddleware::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
 
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

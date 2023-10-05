@@ -119,16 +119,20 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
 
 Route::post('logout', [logincontroller::class, 'logout'])->name('logout');
 });
-Route::get('/', [Usercontroller::class, 'dashboard'])->name('dashboard');
-Route::get('/forgot-password',[logincontroller::class, 'forgotpassword'])->middleware('guest')->name('password.request');
-Route::post('/forgot-password', [logincontroller::class, 'forgotpassword_store'] )->middleware('guest')->name('password.email');
-Route::get('/reset-password/{token}', [logincontroller::class, 'resetpassword_token'])->middleware('guest')->name('password.reset');
-Route::post('/reset-password', [logincontroller::class, 'resetpassword'])->middleware('guest')->name('password.update');
-Route::post('calonpenjual_store', [adminpembeliancontroller::class, 'calonpenjual_store'])->name('calonpenjual_store');
-Route::get('register', [UserController::class, 'register'])->name('register');
-Route::resource('penjualrole', rolepenjualcontroller::class);
-Route::post('authenticate', [logincontroller::class, 'authenticate'])->name('authenticate');
-Route::resource('user', UserController::class);
+
+Route::middleware(['guest'])->group(function () {
+
+    Route::get('/', [Usercontroller::class, 'dashboard'])->name('dashboard');
+    Route::get('/forgot-password',[logincontroller::class, 'forgotpassword'])->middleware('guest')->name('password.request');
+    Route::post('/forgot-password', [logincontroller::class, 'forgotpassword_store'] )->middleware('guest')->name('password.email');
+    Route::get('/reset-password/{token}', [logincontroller::class, 'resetpassword_token'])->middleware('guest')->name('password.reset');
+    Route::post('/reset-password', [logincontroller::class, 'resetpassword'])->middleware('guest')->name('password.update');
+    Route::post('calonpenjual_store', [adminpembeliancontroller::class, 'calonpenjual_store'])->name('calonpenjual_store');
+    Route::get('register', [UserController::class, 'register'])->name('register');
+    Route::resource('penjualrole', rolepenjualcontroller::class);
+    Route::post('authenticate', [logincontroller::class, 'authenticate'])->name('authenticate');
+    Route::resource('user', UserController::class);
+});
 // Route::resource('/test_email', mailcontroller::class);
 
 

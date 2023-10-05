@@ -136,8 +136,6 @@
                                 <div class="col-8">
                                 </div>
                                 <div class="mb-3">
-                                    {{-- <input type="hidden" name="penjual_id"
-                                        value="{{ $UserOrder->user_id }}"> --}}
                                         <input type="hidden" name="penjual_id" value="{{ $U->id }}">
                                     <label for="metodepembayaran_id" class="form-label fw-bold">Metode
                                         Pembayaran</label>
@@ -157,7 +155,7 @@
                                     <select name="tujuan_e_wallet" id="JenisEwallet" class="form-select form-select-lg mb-3">
                                         <option value="" disabled selected>Pilih</option>
                                         @forelse ($wallet as $data)
-                                            <option value="{{ $w->tujuan }}">{{ $w->tujuan }}</option>
+                                            <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
                                         @empty
                                             <option value="" disabled selected>Data E-wallet Kosong</option>
                                         @endforelse
@@ -169,14 +167,13 @@
                                         @php
                                             $jefri = strlen($data->keterangan);
                                         @endphp
-                                        @if ($jefri >= 20)
-                                            <p class="" name="keterangan_e_wallet" value="{{ $w->keterangan }}"
-                                                id="{{ $w->tujuan }}">
-                                                <img src="{{ asset('storage/pembayaran/' . $w->keterangan) }}"
-                                                    style="width: 150px; height=80px;" disabled>
-                                            </p>
+                                        @if ($jefri >= 24)
+                                        <p class="" name="keterangan_e_wallet" value="{{ $data->keterangan }}"
+                                            id="{{ $data->tujuan }}">
+                                            <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}"
+                                                style="width: 150px; height=80px;" disabled>
+                                        </p>
                                         @else
-                                            <a></a>
                                         @endif
                                     @endforeach
                                 </div>
@@ -199,7 +196,7 @@
                                         @php
                                             $saya = strlen($data->keterangan);
                                         @endphp
-                                        @if ($saya >= 20)
+                                        @if ($saya >= 24)
                                             {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
                                          @else
                                             <input type="text" name="keterangan_bank" value="{{ $data->keterangan }}"
@@ -213,7 +210,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        
+
                         <button type="button" class="btn btn-outline-secondary rounded-pill"
                             data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
@@ -223,7 +220,66 @@
         </div>
     </form>
 
+
+     <script>
+        let selectElement = document.querySelector('#JenisBank');
+        let inputElements = document.querySelectorAll('input[name="keterangan_bank"]');
+        let spElement = document.querySelector('#JenisEwallet');
+        let pElements = document.querySelectorAll('p[name="keterangan_e_wallet"]');
+
+        selectElement.addEventListener('change', function() {
+            let selectedValue = selectElement.value;
+
+            inputElements.forEach(function(input) {
+                if (input.id === selectedValue) {
+                    input.style.display = 'block';
+                    input.disabled = false;
+                } else {
+                    input.style.display = 'none';
+                    input.disabled = true;
+                }
+            });
+        });
+
+        spElement.addEventListener('change', function() {
+            let selectedValue = spElement.value;
+
+            pElements.forEach(function(p) {
+                if (p.id === selectedValue) {
+                    p.style.display = 'block';
+                    p.disabled = false;
+                } else {
+                    p.style.display = 'none';
+                    p.disabled = true;
+                }
+            });
+        });
+
+        // Menjalankan pengecekan saat halaman pertama kali dimuat
+        selectElement.dispatchEvent(new Event('change'));
+        spElement.dispatchEvent(new Event('change'));
+    </script>
+
+
     <script>
+     $("#selectMetode").change(function() {
+      var selectedOption = $(this).val();
+
+    // Sembunyikan semua elemen
+    $("#ewalletInput-{{ $w->id }}").hide();
+    $("#bankInput-{{ $b->id }}").hide();
+
+    // Periksa opsi yang dipilih
+    if (selectedOption === "{{ $w->id }}" && "{{ $w->id }}" !== "") {
+        $("#ewalletInput-{{ $w->id }}").show();
+        $("#tujuan_e_wallet").val(selectedOption);
+    } else if (selectedOption === "{{ $b->id }}" && "{{ $b->id }}" !== "") {
+        $("#bankInput-{{ $b->id }}").show();
+        $("#tujuan_bank").val(selectedOption);
+    }
+});
+   </script>
+    {{-- <script>
         let selectElement = document.querySelector('#JenisBank');
         let inputElements = document.querySelectorAll('input[name="keterangan_bank"]');
         let spElement = document.querySelector('#JenisEwallet');
@@ -263,19 +319,6 @@
     </script>
 
     <script>
-        // $("#selectMetode").change(function() {
-        //     var selectedOption = $(this).val();
-        //     if (selectedOption === "{{ $w->id }}" && "{{ $w->id }}" !== "") {
-        //     $("#ewalletInput-{{ $w->id }}").show();
-        //     $("#bankInput").hide();
-        //     } else if (selectedOption === "{{ $b->id }}" && "{{ $b->id }}" !== "") {
-        //         $("#ewalletInput").hide();
-        //         $("#bankInput-{{ $b->id }}").show();
-        //      } else {
-        //         $("#ewalletInput").hide();
-        //         $("#bankInput").hide();
-        //     }
-        // });
      $("#selectMetode").change(function() {
       var selectedOption = $(this).val();
 
@@ -292,7 +335,7 @@
         $("#tujuan_bank").val(selectedOption);
     }
 });
-   </script>
+   </script> --}}
        @endforeach
        @endforeach
        @endforeach

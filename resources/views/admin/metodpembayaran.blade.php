@@ -90,21 +90,7 @@
             /* Ubah elemen menjadi inline-block */
         }
     </style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Kuliner kita</title>
-
-    <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="../../assets/images/kuliner.png" />
-
-    <!-- Library / Plugin Css Build -->
-    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    @include('layout.link')
 </head>
 
 <body class=""
@@ -157,7 +143,7 @@
                                 @endif
                             </div>
                             <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">keterangan</label>
+                                <label for="kelas" class="form-label fw-bold">Nomor Rekening</label>
                                 <input type="number" name="keterangan" class="form-control"
                                     value="{{ old('keterangan') }}">
                                 @if ($errors->has('keterangan'))
@@ -427,12 +413,17 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <button style="margin-right: 10px;" class="btn btn-outline-warning edit-button" data-id="{{$a->id}}" data-metode="{{$a->metodepembayaran}}"><i class="bi bi-pencil-square"></i>
+                                                <button style="margin-right: 10px;"
+                                                    class="btn btn-outline-warning edit-button"
+                                                    data-id="{{ $a->id }}"
+                                                    data-metode="{{ $a->metodepembayaran }}"><i
+                                                        class="bi bi-pencil-square"></i>
                                                 </button>
                                                 <form action="{{ route('adestroy', $a->id) }}" method="post">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i></button>
+                                                    <button type="button" class="btn btn-outline-danger" onclick="showConfirmation()"><i
+                                                            class="bi bi-trash-fill"></i></button>
                                                 </form>
                                         </td>
                     </div>
@@ -447,145 +438,165 @@
         {{-- @include('layout.footer') --}}
     </main>
 
-            <!-- Modal Edit Metode Pembayaran -->
-            <div class="modal fade" id="editMetodePembayaranModal" tabindex="-1" role="dialog"
-            aria-labelledby="editMetodePembayaranModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editMetodePembayaranModalLabel">Edit Metode Pembayaran</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <form id="editMetodePembayaranForm" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body">
-                            <input type="hidden" name="metode_id" id="editMetodeId">
-                            <div class="form-group">
-                                <label for="editMetodepembayaran">Metode Pembayaran</label>
-                                <input type="text" class="form-control" id="editMetodepembayaran"
-                                    name="editMetodepembayaran" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="editTujuan">Tujuan</label>
-                                <input type="text" class="form-control" id="editTujuan" name="editTujuan">
-                            </div>
-                            <div class="form-group">
-                                <label for="editKeterangan">Keterangan</label>
-                                <input type="hidden" id="keteranganType" value="text">
-                                <input type="number" class="form-control" id="editKeterangan"
-                                    name="editKeterangan">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                        </div>
-                    </form>
+    <!-- Modal Edit Metode Pembayaran -->
+    <div class="modal fade" id="editMetodePembayaranModal" tabindex="-1" role="dialog"
+        aria-labelledby="editMetodePembayaranModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMetodePembayaranModalLabel">Edit Metode Pembayaran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form id="editMetodePembayaranForm" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <input type="hidden" name="metode_id" id="editMetodeId">
+                        <div class="form-group">
+                            <label for="editMetodepembayaran">Metode Pembayaran</label>
+                            <input type="text" class="form-control" id="editMetodepembayaran"
+                                name="editMetodepembayaran" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="editTujuan">Tujuan</label>
+                            <input type="text" class="form-control" id="editTujuan" name="editTujuan">
+                        </div>
+                        <div class="form-group">
+                            <label for="editKeterangan">Keterangan</label>
+                            <input type="hidden" id="keteranganType" value="text">
+                            <input type="number" class="form-control" id="editKeterangan" name="editKeterangan">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
-        <script>
-            $(document).ready(function() {
-                $('.edit-button').click(function() {
-                    var metodeId = $(this).data('id');
-                    var metodePembayaran = $(this).data('metode');
+    {{-- return confirm delete --}}
+    <script>
+        function showConfirmation() {
+          Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: 'Anda tidak akan dapat mengembalikan ini!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Di sini Anda bisa menambahkan kode untuk menghapus elemen atau melakukan tindakan lain
+              Swal.fire('Terhapus!', 'Data Anda telah dihapus.', 'success');
+            }
+          });
+        }
+        </script>
+    {{-- return confirm delete --}}
 
-                    // Menggunakan Ajax untuk mengambil data metode pembayaran berdasarkan ID
-                    $.ajax({
-                        url: '/aedit/' + metodeId +
-                            '/edit', // Gantilah dengan rute yang sesuai di Laravel
-                        type: 'GET',
-                        success: function(data) {
-                            $('#editMetodeId').val(data.id);
-                            $('#editMetodepembayaran').val(data.metodepembayaran);
-                            $('#editTujuan').val(data.tujuan);
+    <script>
+        $(document).ready(function() {
+            $('.edit-button').click(function() {
+                var metodeId = $(this).data('id');
+                var metodePembayaran = $(this).data('metode');
+
+                // Menggunakan Ajax untuk mengambil data metode pembayaran berdasarkan ID
+                $.ajax({
+                    url: '/aedit/' + metodeId +
+                        '/edit', // Gantilah dengan rute yang sesuai di Laravel
+                    type: 'GET',
+                    success: function(data) {
+                        $('#editMetodeId').val(data.id);
+                        $('#editMetodepembayaran').val(data.metodepembayaran);
+                        $('#editTujuan').val(data.tujuan);
+
+                        // Mengganti tipe input berdasarkan metode pembayaran
+                        if (metodePembayaran === 'e-wallet') {
+                            $('#editKeterangan').attr('type',
+                                'file'); // Mengubah tipe input menjadi file
+                            $('#keteranganType').val('file');
+                        } else if (metodePembayaran === 'bank') {
+                            $('#editKeterangan').attr('type',
+                                'number'); // Mengubah tipe input menjadi teks
+                            $('#keteranganType').val('number');
                             $('#editKeterangan').val(data.keterangan);
 
-                            // Mengganti tipe input berdasarkan metode pembayaran
-                            if (metodePembayaran === 'e-wallet') {
-                                $('#editKeterangan').attr('type',
-                                    'file'); // Mengubah tipe input menjadi file
-                                $('#keteranganType').val('file');
-                            } else if (metodePembayaran === 'bank') {
-                                $('#editKeterangan').attr('type',
-                                    'number'); // Mengubah tipe input menjadi teks
-                                $('#keteranganType').val('number');
-                            }
-
-                            $('#editMetodePembayaranModal').modal('show');
-                        },
-                        error: function() {
-                            alert('Gagal mengambil data metode pembayaran.');
                         }
-                    });
-                });
-            });
-        </script>
 
-        <script>
-            $(document).ready(function() {
-                // Event listener untuk submit form edit
-                $('#editMetodePembayaranForm').submit(function(event) {
-                    event.preventDefault();
-
-                    var metodeId = $('#editMetodeId').val();
-                    var tujuan = $('#editTujuan').val();
-                    var keteranganType = $('#keteranganType').val(); // Tipe input (text atau file)
-                    var metodepembayaran = $('#editMetodepembayaran').val();
-
-                    // Inisialisasi variabel keterangan dengan null
-                    var keterangan = null;
-
-                    // Periksa apakah metodepembayaran adalah "e-wallet"
-                    if (metodepembayaran === 'e-wallet') {
-                        // Jika metodepembayaran adalah "e-wallet," gunakan input file untuk keterangan
-                        keterangan = $('#editKeterangan')[0].files[0];
-                    } else {
-                        // Jika metodepembayaran bukan "e-wallet," gunakan nilai dari input teks
-                        keterangan = $('#editKeterangan').val();
+                        $('#editMetodePembayaranModal').modal('show');
+                    },
+                    error: function() {
+                        alert('Gagal mengambil data metode pembayaran.');
                     }
-
-
-                    // Buat objek FormData untuk mengirim data
-                    var formData = new FormData();
-                    formData.append('tujuan', tujuan);
-                    formData.append('keterangan', keterangan);
-                    formData.append('keteranganType', keteranganType); // Sertakan tipe input
-                    formData.append('_token', '{{ csrf_token() }}'); // Tambahkan token CSRF
-                    formData.append('_method', 'PUT'); // Tambahkan metode PUT
-
-                    // Kirim permintaan AJAX untuk update
-                    $.ajax({
-                        url: '/aupdate/' + metodeId, // Gantilah dengan rute yang sesuai di Laravel
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            // Tutup modal setelah berhasil
-                            $('#editMetodePembayaranModal').modal('hide');
-
-                            // Tampilkan pesan sukses (Anda bisa menggantinya dengan cara yang sesuai)
-                            swal.fire('Berhasil', 'Metode pembayaran berhasil diperbarui.',
-                                'success');
-
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
-                        },
-                        error: function(xhr, textStatus, errorThrown) {
-                            // Tampilkan pesan kesalahan jika ada
-                            swal.fire('Gagal', 'Gagal memperbarui metode pembayaran. Error: ' +
-                                errorThrown,
-                                'error');
-                        }
-                    });
                 });
             });
-        </script>
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Event listener untuk submit form edit
+            $('#editMetodePembayaranForm').submit(function(event) {
+                event.preventDefault();
+
+                var metodeId = $('#editMetodeId').val();
+                var tujuan = $('#editTujuan').val();
+                var keteranganType = $('#keteranganType').val(); // Tipe input (text atau file)
+                var metodepembayaran = $('#editMetodepembayaran').val();
+
+                // Inisialisasi variabel keterangan dengan null
+                var keterangan = null;
+
+                // Periksa apakah metodepembayaran adalah "e-wallet"
+                if (metodepembayaran === 'e-wallet') {
+                    // Jika metodepembayaran adalah "e-wallet," gunakan input file untuk keterangan
+                    keterangan = $('#editKeterangan')[0].files[0];
+                } else {
+                    // Jika metodepembayaran bukan "e-wallet," gunakan nilai dari input teks
+                    keterangan = $('#editKeterangan').val();
+                }
+
+
+                // Buat objek FormData untuk mengirim data
+                var formData = new FormData();
+                formData.append('tujuan', tujuan);
+                formData.append('keterangan', keterangan);
+                formData.append('keteranganType', keteranganType); // Sertakan tipe input
+                formData.append('_token', '{{ csrf_token() }}'); // Tambahkan token CSRF
+                formData.append('_method', 'PUT'); // Tambahkan metode PUT
+
+                // Kirim permintaan AJAX untuk update
+                $.ajax({
+                    url: '/aupdate/' + metodeId, // Gantilah dengan rute yang sesuai di Laravel
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Tutup modal setelah berhasil
+                        $('#editMetodePembayaranModal').modal('hide');
+
+                        // Tampilkan pesan sukses (Anda bisa menggantinya dengan cara yang sesuai)
+                        swal.fire('Berhasil', 'Metode pembayaran berhasil diperbarui.',
+                            'success');
+
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        // Tampilkan pesan kesalahan jika ada
+                        swal.fire('Gagal', 'Gagal memperbarui metode pembayaran. Error: ' +
+                            errorThrown,
+                            'error');
+                    }
+                });
+            });
+        });
+    </script>
 
     @include('layout.js')
 </body>

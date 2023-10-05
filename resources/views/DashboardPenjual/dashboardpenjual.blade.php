@@ -684,13 +684,13 @@
                                             <th>Gambar</th>
                                             <th>Nama Produk</th>
                                             <th>Harga</th>
-
                                             <th>Rata Rata rating</th>
                                             <th>jumlah rating</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($produkRating as $item)
+                                        @if ($item->ulasan->count() > 0)
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
@@ -727,8 +727,10 @@
                                                     {{ $item->ulasan->count() }}
                                                 </td>
                                             </tr>
+                                            @endif
                                         @empty
                                             <p>Tidak ada menu rating tertinggi</p>
+
                                         @endforelse
                                     </tbody>
                                 </table>

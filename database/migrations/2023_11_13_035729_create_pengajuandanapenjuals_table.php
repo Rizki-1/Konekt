@@ -31,4 +31,4 @@ return new class extends Migration
         Schema::dropIfExists('pengajuandanapenjuals');
     }
 };
-// $table->foreignId('penjual_id')->references('id')->on('penjuallogins')->cascadeOnUpdate();
+

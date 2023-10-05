@@ -108,6 +108,8 @@ class penjualcontroller extends Controller
         $produkRating = barangpenjual::with('ulasan')->where('toko_id', $penjualId)->get();
         $produkRating->each(function ($item) {
             $item->jumlahUlasan = $item->ulasan->avg('rating');
+            
+            return $item->jumlahUlasan > 0;
         });
 
 

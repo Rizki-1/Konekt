@@ -73,6 +73,9 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                @foreach($penjualTokoId as $idToko)
+                                <input type="hidden" name = "nama_toko" value = "{{ $idToko->id }}">
+                                @endforeach
                                 <div class="mb-3">
                                     <label for="harga" class="form-label fw-bold">Harga</label>
                                     <input type="number" name="harga"

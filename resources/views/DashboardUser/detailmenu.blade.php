@@ -234,25 +234,21 @@
                             <div class="card-header border-bottom-0 pb-0">
                                 <h2 class="card-title">Detail Menu</h2>
                             </div>
+                            <hr>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12 col-xl-5 mb-4 mt-xl-0 text-center">
                                         <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
                                             class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
                                             alt="profile-image">
-                                        <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
-                                            class="img-fluid rounded-pill avatar-170 hover-image" alt="profile-image"
-                                            data-iq-gsap="onStart" data-iq-opacity="0" data-iq-scale=".6"
-                                            data-iq-rotate="180" data-iq-duration="1" data-iq-delay=".6"
-                                            data-iq-trigger="scroll" data-iq-ease="none">
-                                        <h5 class="mt-3 mb-2">Nama Menu: {{ $p->namamenu }}</h5>
-                                        <h5 class="mb-2">Harga : Rp. {{ number_format($p->harga, 0, ',', '.') }}
-                                        </h5>
-                                        <h5 class="mb-2">Kategori : {{ $p->adminkategori->kategori }}</h5>
+                                            <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
+                                            style="width: 200px; height: 200px; object-fit: cover;">
                                     </div>
                                     <div class="col-lg-12 col-xl-7">
                                         <h4 class="mb-3">{{ $p->namamenu }}</h4>
                                         <p class="mb-4">{{ $p->keterangan_makanan }}</p>
+                                        <p class="mb-2">Harga : Rp. {{ number_format($p->harga, 0, ',', '.') }}</p>
+                                        <p class="mb-2">Kategori : {{ $p->adminkategori->kategori }}</p>
                                     </div>
                                 </div>
                             </div>

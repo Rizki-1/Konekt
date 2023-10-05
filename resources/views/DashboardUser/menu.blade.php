@@ -940,6 +940,8 @@
                                                 <!-- Menu muter muter Start -->
                                                 <div class="card-body menu-image">
                                                     <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
+                                                        {{ $p->penjuallogin->nama_toko }}</h6>
+                                                        <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
                                                         {{ $p->namamenu }}</h6>
                                                     <div class="d-flex justify-content-evenly">
                                                         <p class="text-primary fw-bolder my-2">Rp.

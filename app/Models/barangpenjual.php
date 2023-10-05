@@ -16,6 +16,7 @@ class barangpenjual extends Model
         'namamenu',
         'keterangan_makanan',
         'kategori_id',
+        'nama_toko',
         'toko_id',
         'harga',
         'fotomakanan',
@@ -33,9 +34,9 @@ class barangpenjual extends Model
         return $this->hasMany(userOrder::class);
     }
 
-    public function penjuallogin(): HasOne
+    public function penjuallogin(): BelongsTo
     {
-        return $this->hasOne(penjuallogin::class);
+        return $this->belongsTo(penjuallogin::class, 'nama_toko');
     }
 
     public function ulasan(): HasMany

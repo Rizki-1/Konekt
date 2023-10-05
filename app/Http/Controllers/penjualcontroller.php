@@ -35,7 +35,8 @@ class penjualcontroller extends Controller
         $user = userOrder::where('pembelianstatus', 'menunggu konfirmasi')->get();
         $notifikasi_penjual = notifikasipenjual::where('toko_id_notifikasi', $penjualId)->get();
         $adminkategori = adminkategori::all();
-        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual', 'penjualId'));
+        $penjualTokoId = penjuallogin::where('user_id', $penjualId)->get();
+        return view('DashboardPenjual.tambahmenu', compact('penjual', 'user', 'adminkategori', 'notifikasi', 'notifikasi_penjual', 'penjualId', 'penjualTokoId'));
     }
 
     public function DashboardPenjual()
@@ -383,6 +384,7 @@ class penjualcontroller extends Controller
                 'namamenu' => $request->namamenu,
                 'keterangan_makanan' => $request->keterangan_makanan,
                 'kategori_id' => $request->kategori_id,
+                'nama_toko' => $request-> nama_toko,
                 'harga' => $request->harga,
                 'stok' => $request->stok,
                 'fotomakanan' => $filePath,

@@ -422,20 +422,19 @@
                                                 <form action="{{ route('adestroy', $a->id) }}" method="post">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button type="button" class="btn btn-outline-danger" onclick="showConfirmation()"><i
+                                                    <button type="submit" class="btn btn-outline-danger"><i
                                                             class="bi bi-trash-fill"></i></button>
                                                 </form>
+                                            </div>
                                         </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                    </table>
                 </div>
             </div>
         </div>
-        </div>
-        {{-- @include('layout.footer') --}}
     </main>
 
     <!-- Modal Edit Metode Pembayaran -->
@@ -475,27 +474,6 @@
             </div>
         </div>
     </div>
-
-    {{-- return confirm delete --}}
-    <script>
-        function showConfirmation() {
-          Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: 'Anda tidak akan dapat mengembalikan ini!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Ya, hapus!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // Di sini Anda bisa menambahkan kode untuk menghapus elemen atau melakukan tindakan lain
-              Swal.fire('Terhapus!', 'Data Anda telah dihapus.', 'success');
-            }
-          });
-        }
-        </script>
-    {{-- return confirm delete --}}
 
     <script>
         $(document).ready(function() {

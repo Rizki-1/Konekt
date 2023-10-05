@@ -640,13 +640,13 @@
                 </div>
             </div>
 
-            {{-- <div class="pesan-shopee">
-                <a href="{{ route('message') }}">
+            <div class="pesan-shopee">
+                <a href="">
                     <button class="btn-pesan-shopee" id="btn-pesan-shopee">
                         <i class="fa fa-comments"></i>
                     </button>
                 </a>
-            </div> --}}
+            </div>
 
 
         </div>

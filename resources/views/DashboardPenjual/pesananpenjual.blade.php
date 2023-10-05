@@ -106,6 +106,9 @@
 
     {{-- bootstrap icon --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 
 <body class="  "
@@ -417,7 +420,9 @@
                                                             data-bs-target="#myModal_{{ $s->id }}"><i
                                                                 class="bi bi-eye"></i></a>
                                                     @endif
-                                                    <a href="{{ $url }}">chat pembeli</a>
+                                                    <a href="{{ $url }}" class="btn btn-outline-primary">
+                                                        <i class="fas fa-comments"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -434,28 +439,3 @@
 </body>
 
 </html>
-<!-- <script>
-    function changeStatus(orderId) {
-        // Gantilah URL ini dengan URL endpoint yang sesuai di backend Anda
-        const apiUrl = `/api/change-order-status/${orderId}`;
-
-        // Lakukan permintaan HTTP ke backend untuk mengubah status pesanan
-        fetch(apiUrl, {
-                method: 'PUT', // Atau metode HTTP yang sesuai di backend Anda
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    newStatus: 'new_status_value', // Gantilah ini dengan status baru yang diinginkan
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Di sini Anda dapat menangani respons dari backend jika perlu
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-</script> -->

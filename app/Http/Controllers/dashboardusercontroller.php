@@ -220,7 +220,7 @@ class dashboardusercontroller extends Controller
         $userId = Auth::id();
         $user = userOrder::where('user_id', $userId)
             ->whereNotNull('pembelianstatus')
-            ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima', 'dibatalkan'])
+            ->whereNotIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima'])
             ->latest('created_at')
             ->paginate(4);
 

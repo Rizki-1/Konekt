@@ -231,13 +231,15 @@ class penjualcontroller extends Controller
 
     public function tolakpesanan($id)
     {
-        $dashboardusercontrollers = userOrder::findOrFail($id);
+        $userOrder = userOrder::findOrFail($id);
+        $userOrder->pembelianstatus = 'pesanan di tolak';
+        $userOrder->save();
 
         // Ambil jumlah yang dibeli dalam pesanan
-        $jumlahDibeli = $dashboardusercontrollers->jumlah;
+        $jumlahDibeli = $userOrder->jumlah;
 
         // Mengembalikan jumlah yang dibeli ke stok barangpenjual
-        $barangPenjual = BarangPenjual::find($dashboardusercontrollers->barangpenjual_id);
+        $barangPenjual = BarangPenjual::find($userOrder->barangpenjual_id);
         $barangPenjual->stok += $jumlahDibeli;
         $barangPenjual->save();
 

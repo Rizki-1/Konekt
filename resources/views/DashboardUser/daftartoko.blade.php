@@ -334,15 +334,16 @@
                                 <div class="row gap-5">
                                     @foreach ($penjuallogin as $p)
                                         <div class="card col-md-5"
-                                        style="background-color:#ea68121e; margin-left:4%;">
-                                        <div class="card-content">
-                                            <div class="content-container my-4">
+                                            style="background-color:#ea68121e; margin-left:4%;">
+                                            <div class="card-content">
+                                                <div class="content-container my-4">
                                                     <h3>{{ $p->nama_toko }}</h3>
-                                                    <a>Masakan Tradisional</a><br><p></p>
+                                                    <a>Masakan Tradisional</a><br>
+                                                    <p></p>
                                                     <a><i class="fa fa-map-marker" aria-hidden="true"></i>
                                                         <a style="margin-left: 5px; ">{{ $p->alamat_toko }}</a></a>
                                                     <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
-                                                    {{ $p->notlp }}</a></p>
+                                                            {{ $p->notlp }}</a></p>
                                                     <tr>
                                                         <i class="fa fa-star" style="color:gold"
                                                             aria-hidden="true"></i>
@@ -360,29 +361,32 @@
                                                     <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
                                                         style="position: absolute; top: 10px; right: 10px; width: 190px; height:85px;"
                                                         class="img">
-                                                        <div class="d-flex justify-content-between my-3">
-                                                            <div>
-                                                                <a class="btn btn-warning" href="{{ route('detailtoko', ['id' => $p->user->id]) }}">
-                                                                    <i class="fa fa-info-circle" aria-hidden="true"></i> Detail
-                                                                </a>
-                                                            </div>
-                                                            <div>
-                                                                <a class="btn btn-warning" href="{{ $url }}">
-                                                                    <i class="fa fa-comments" aria-hidden="true"></i> Chat Penjual
-                                                                </a>
-                                                            </div>
+                                                    <div class="d-flex justify-content-between my-3">
+                                                        <div>
+                                                            <a class="btn btn-warning"
+                                                                href="{{ route('detailtoko', ['id' => $p->user->id]) }}">
+                                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                                Detail
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            <a class="btn btn-warning" href="{{ $url }}">
+                                                                <i class="fa fa-comments" aria-hidden="true"></i> Chat
+                                                                Penjual
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
         <div class="container">
@@ -422,16 +426,16 @@
                                 if (typeof(data) == typeof([]) && data.length > 0) {
                                     data.forEach(function(menu) {
                                         var menuItem = `
-                                            <div class="card col-md-5"
-                                            style="background-color:#ea68121e; margin-left:4%;">
-                                            <div class="card-content">
-                                                <div class="content-container my-5">
-                                                    <a><i class="fa fa-map-marker" aria-hidden="true"></i> <a
-                                                            style="margin-left: 5px;">${menu.alamat_toko}</a></a>
-                                                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
-                                                            Hubungi Kami : ${menu.notlp}</a></p>
-                                                    <a>Masakan Tradisional</a>
+                                        <div class="card col-md-5"
+                                        style="background-color:#ea68121e; margin-left:4%;">
+                                        <div class="card-content">
+                                            <div class="content-container my-4">
                                                     <h3>${menu.nama_toko}</h3>
+                                                    <a>Masakan Tradisional</a><br><p></p>
+                                                    <a><i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                        <a style="margin-left: 5px; ">${menu.alamat_toko}</a></a>
+                                                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
+                                                    ${menu.notlp}</a></p>
                                                     <tr>
                                                         <i class="fa fa-star" style="color:gold"
                                                             aria-hidden="true"></i>
@@ -446,12 +450,21 @@
                                                         <a>(26)</a>
                                                     </tr>
                                                     <div class="btn-custom"><span>12 menu</span></div>
-                                                    <img src="{{ asset('Storage/') }}/${menu.foto_toko}" alt="Foto Toko"
-                                                        style="position: absolute; top: 10px; right: 10px; width: 190px; height:100px;"
+                                                    <img src="{{ asset('Storage/')}}/${menu.foto_toko}" alt="Foto Toko"
+                                                        style="position: absolute; top: 10px; right: 10px; width: 190px; height:85px;"
                                                         class="img">
-                                                    <div><br><a class="btn btn-warning"
-                                                            style="bottom:15px; margin-top:-10px;"
-                                                            href="{{ route('detailtoko', ['id' => '/']) }}/${menu.id}">Detail</a>
+                                                        <div class="d-flex justify-content-between my-3">
+                                                            <div>
+                                                                <a class="btn btn-warning" href="{{ route('detailtoko', ['id' => '/']) }}/ ${menu.id}">
+                                                                    <i class="fa fa-info-circle" aria-hidden="true"></i> Detail
+                                                                </a>
+                                                            </div>
+                                                            <div>
+                                                                <a class="btn btn-warning" href="/chatify/${menu.user_id}">
+                                                                    <i class="fa fa-comments" aria-hidden="true"></i> Chat Penjual
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -147,46 +147,59 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Ajukan Pengembalian Dana</button>
+                            <button type="button" id="submitButton" class="btn btn-primary">Ajukan Pengembalian Dana</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
     @endforeach
+
     <script>
-        const selectElement = document.querySelector('#selectMetode');
-        const ewalletInput = document.querySelector('#ewalletInput');
-        const bankInput = document.querySelector('#bankInput');
-        const submitButton = document.querySelector('#submitButton');
+        function initializeModals() {
+            const modals = document.querySelectorAll('[id^="myModal-"]'); // Memilih semua modal dengan ID yang dimulai dengan "myModal-"
 
-        submitButton.addEventListener('click', function() {
-            const selectedValue = selectElement.value;
+            modals.forEach((modal) => {
+                const modalId = modal.id; // Mendapatkan ID modal
+                const selectElement = modal.querySelector('#selectMetode');
+                const ewalletInput = modal.querySelector('#ewalletInput');
+                const bankInput = modal.querySelector('#bankInput');
+                const submitButton = modal.querySelector('#submitButton');
 
-            if (selectedValue === '') {
-                // Menampilkan pesan swal jika metode pengembalian tidak dipilih
-                swal.fire({
-                    title: 'Peringatan',
-                    text: 'Pilih metode pengembalian terlebih dahulu',
-                    icon: 'warning',
+                // Event listener untuk elemen-elemen dalam modal
+                submitButton.addEventListener('click', function() {
+                    const selectedValue = selectElement.value;
+
+                    if (selectedValue === '') {
+                        // Menampilkan pesan swal jika metode pengembalian tidak dipilih
+                        swal.fire({
+                            title: 'Peringatan',
+                            text: 'Pilih metode pengembalian terlebih dahulu',
+                            icon: 'warning',
+                        });
+                        return;
+                    }
+
+                    // Lanjutkan dengan mengirimkan form jika metode pengembalian sudah dipilih
+                    this.form.submit();
                 });
-                return;
-            }
 
-            // Lanjutkan dengan mengirimkan form jika metode pengembalian sudah dipilih
-            this.form.submit();
-        });
-        selectElement.addEventListener('change', function() {
-            const selectedValue = selectElement.value;
+                selectElement.addEventListener('change', function() {
+                    const selectedValue = selectElement.value;
 
-            if (selectedValue === 'e-wallet') {
-                ewalletInput.style.display = 'block';
-                bankInput.style.display = 'none';
-            } else if (selectedValue === 'bank') {
-                ewalletInput.style.display = 'none';
-                bankInput.style.display = 'block';
-            }
-        });
+                    if (selectedValue === 'e-wallet') {
+                        ewalletInput.style.display = 'block';
+                        bankInput.style.display = 'none';
+                    } else if (selectedValue === 'bank') {
+                        ewalletInput.style.display = 'none';
+                        bankInput.style.display = 'block';
+                    }
+                });
+            });
+        }
+
+        // Panggil fungsi initializeModals untuk menginisialisasi semua modal
+        initializeModals();
     </script>
 
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -440,7 +453,11 @@
                                                             <button type="submit" class="btn btn-danger">
                                                                 batalkan pesanan </button>
                                                         </form>
-                                                    @elseif ($u->pembelianstatus === 'sedang di proses')
+                                                    @elseif ($u->pembelianstatus === 'mengajukan pengembalian dana')
+                                                    @elseif ($u->pembelianstatus === 'dibatalkan')
+                                                    <button class="btn btn-outline-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#myModal-{{ $u->id }}"
+                                                            type="submit">Ajukan pengembalian dana</button>
                                                     @endif
 
                                                 </div>

@@ -305,7 +305,7 @@ class adminpembeliancontroller extends Controller
         );
 
         // Temukan metode pembayaran berdasarkan ID
-        $metodePembayaran = AdminMetodePembayaran::find($id);
+        $metodePembayaran = adminmetodepembayaran::find($id);
 
         if (!$metodePembayaran) {
             return response()->json(['success' => false, 'message' => 'Metode pembayaran tidak ditemukan.'], 404);
@@ -392,23 +392,19 @@ class adminpembeliancontroller extends Controller
     protected function pengajuanpenjualad(Request $request)
     {
         $penjual = penjuallogin::all();
-        // $u = pengajuandanapenjual::where('status','1')->get();
         $data = pengajuandanapenjual::where('status', 'mengajukan')->get();
         return view('admin.pengajuanpenjualad', compact('penjual', 'data'));
     }
 
     public function terimapengajuan($id)
     {
-        // dd($id);
-        // $userOrder = userOrder::findOrFail($id);
-        // $user = pengajuandanapenjual::where('id',$id)->first();
-        // $userOrder->pembelianstatus = 'pengembalian dana di terima';
-        // $user->status = '2';
-        // $userOrder->save();
-        // $user->save();
         $pengajuanPenjual = pengajuandanapenjual::findOrFail($id);
-        $pengajuanPenjual->status = '2';
+        $pengajuanPenjual->status = 'terkirim';
         $pengajuanPenjual->save();
+
+        $user = userOrder::findOrFail($id);
+        $user->adminstatus = 'done';
+        $user->save();
         return redirect()->back()->with('success', 'pengembalian dana telah di setujui');
     }
 
@@ -474,6 +470,7 @@ class adminpembeliancontroller extends Controller
         ], [
             'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
             'tujuan.required' => 'Tujuan wajib diisi.',
+            'keterangan-required' => 'keterangan harus di isi',
         ]);
 
 
@@ -491,6 +488,8 @@ class adminpembeliancontroller extends Controller
         $adminmp->save();
         return back()->with('success', 'Berhasil menambah kategori');
     }
+
+
 
 
     public function adestroy(adminmetodepembayaran $adminmp)

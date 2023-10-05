@@ -386,6 +386,7 @@ class dashboardusercontroller extends Controller
     {
         $user = userOrder::findOrFail($id);
         $user->pembelianstatus = 'statusselesai';
+        $user->adminstatus = 'waiting';
         $user->save();
 
         return redirect()->back()->with('success', 'pesanan telah selesai cek riwayat anda');
@@ -515,6 +516,7 @@ class dashboardusercontroller extends Controller
         }
 
         $userOrder->save();
+        // dd($request->all());
         return redirect()->back()->with('success', 'Pengajuan pengembalian dana berhasil');
     }
 

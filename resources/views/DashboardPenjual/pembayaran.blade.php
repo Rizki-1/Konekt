@@ -143,7 +143,6 @@
                                 <label for="metode" class="form-label fw-bold"
                                     style="align-self: center; font-size: 16px;"> PIlih Metode Pembayaran</label>
                                 <select class="form-select form-select-lg mb-3" name="metodepembayaran"
-                                    style="width: 200px; height: 40px; font-size: 16px;"
                                     aria-label=".form-select-lg example" id="selectMetode">
                                     <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
                                     <option value="e-wallet" data-target="#myModal2">E-Wallet</option>
@@ -167,10 +166,6 @@
                     </div>
                     <div class="modal-body">
                         <div class="container">
-                            <!-- <div class="mb-3">
-            <label for="fotoqris" class="form-label fw-bold">upload</label>
-            <input type="file" class="form-control" id="fotoqris" name="fotoqris">
-          </div> -->
                             <div class="mb-3">
                                 <label for="tujuan_e_wallet" class="form-label fw-bold">Tujuan</label>
                                 <input type="text" class="form-control" id="tujuan_e_wallet" name="tujuan_e_wallet">

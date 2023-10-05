@@ -20,6 +20,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\pengajuandanapenjual;
 use App\Models\penjuallogin;
+use Ramsey\Uuid\Uuid;
 
 class penjualcontroller extends Controller
 {
@@ -188,13 +189,11 @@ class penjualcontroller extends Controller
         return redirect()->route('pembayaranpenjual');
     }
 
-
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {
         $pembayaranpenjual->delete();
         return redirect()->route('pembayaranpenjual');
     }
-
     public function detailmenupen(Request $request, $id)
     {
         $user = BarangPenjual::findOrFail($id);
@@ -291,22 +290,18 @@ class penjualcontroller extends Controller
     protected function pengajuandana(Request $request)
     {
 
-        $userOrder = userOrder::where('pembelianstatus', 'statusselesai')->get();
+        $userOrder = userOrder::where('adminstatus', 'waiting')->get();
         $pengajuandanapenjual = penjuallogin::all();
         $bank = pembayaranpenjual::where('metodepembayaran', 'bank')->get();
         $wallet = pembayaranpenjual::where('metodepembayaran', 'e-wallet')->get();
+        // dd($userOrder);
         return view('DashboardPenjual.pengajuandana', compact('userOrder', 'pengajuandanapenjual', 'bank', 'wallet'));
     }
 
     protected function mengajukandana(Request $request)
     {
-        $id = Auth::id();
-        // dd($request->all());
-        $penjuallogin = penjuallogin::all();
-
         $mengajukandana =
             [
-                // 'penjual_id' => $request->barangpenjual_id,
                 'penjual_id' => $request->penjual_id,
                 'barangpenjual_id' => $request->barangpenjual_id,
                 'status' => 'mengajukan',
@@ -315,9 +310,10 @@ class penjualcontroller extends Controller
                 'tujuan_pengajuan' => $request->input('tujuan_bank', 'tujuan_e_wallet'),
             ];
         pengajuandanapenjual::create($mengajukandana);
-        // dd($mengajukandana);
         return redirect()->route('pengajuanpenjualad');
-    }
+     }
+
+
 
 
     protected function profilepenjual(Request $request)

@@ -20,6 +20,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\pengajuandanapenjual;
 use App\Models\penjuallogin;
+use Exception;
 use Ramsey\Uuid\Uuid;
 
 class penjualcontroller extends Controller
@@ -65,15 +66,16 @@ class penjualcontroller extends Controller
             DB::raw('SUM(totalharga) as total')
         )
             ->whereIn('pembelianstatus', ['statusselesai'])
+            ->whereYear('created_at', Carbon::now()->year)
             ->groupBy('year', 'month', 'totalharga')->get();
 
         $processedData = [];
 
-        $currentYear = carbon::now()->year;
+        $currentYear = Carbon::now()->year;
         $currentMonth = Carbon::now()->month;
 
         for ($month = 1; $month <= 12; $month++) {
-            $date = carbon::createFromDate($currentYear, $month, 1);
+            $date = Carbon::createFromDate($currentYear, $month, 1);
             $yearMonth = $date->isoFormat('MMMM');
 
             $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green';
@@ -86,7 +88,7 @@ class penjualcontroller extends Controller
         }
         foreach ($data as $item) {
 
-            $yearMonth = carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
+            $yearMonth = Carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
 
             if (isset($processedData[$yearMonth])) {
                 $ini = $pemasukkan;
@@ -131,12 +133,6 @@ class penjualcontroller extends Controller
 
 
     public function pembayaranpenjual()
-    {
-        $pembayaranpenjual = pembayaranpenjual::all();
-        return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual'));
-    }
-
-    public function pembayaranpenjual_create()
     {
         $pembayaranpenjual = pembayaranpenjual::all();
         return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual'));
@@ -190,11 +186,31 @@ class penjualcontroller extends Controller
         return redirect()->route('pembayaranpenjual');
     }
 
-    public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
-    {
-        $pembayaranpenjual->delete();
-        return redirect()->route('pembayaranpenjual');
+    public function pembayaranedit(){
+        $pembayaranpenjual = pembayaranpenjual::all();
+        return view('DashboardPenjual.pembayaran',compact('pembayaranpenjual'));
     }
+
+    public function pembayaranupdate(Request $request, $id){
+        $data = pembayaranpenjual::findOrFail($id);
+        $data->tujuan = $request->tujuan;
+        $data->keterangan = $request->keterangan;
+        $data->save();
+        return redirect()->back()->with('succes','berhasil mengubah');
+    }
+
+    public function pembayaranpenjual_destroy(Pembayaranpenjual $pembayaranpenjual)
+    {
+        // $pembayaranpenjual->delete();
+        // return redirect()->route('pembayaranpenjual');
+        try{
+            $pembayaranpenjual->delete();
+            return redirect()->route('pembayaranpenjual')->with('success','berhasil dihapus');
+        } catch (Exception $e){
+            return back()->with('error','data masih digunakan');
+        }
+    }
+
     public function detailmenupen(Request $request, $id)
     {
         $user = BarangPenjual::findOrFail($id);
@@ -242,13 +258,6 @@ class penjualcontroller extends Controller
         $barangPenjual = BarangPenjual::find($userOrder->barangpenjual_id);
         $barangPenjual->stok += $jumlahDibeli;
         $barangPenjual->save();
-
-        // $notifikasi = notifikasi::where('id', $id)->first();
-        // $notifikasi->keterangan = 'pesanan anda di tolak oleh oleh penjual';
-        // $notifikasi->isi = 'lihat tabel riwayat untuk informasi lebih lanjut';
-        // $notifikasi->is_read = false;
-        // $notifikasi->save();
-        // dd($notifikasi);
 
         return redirect()->route('pesananpenjual');
     }

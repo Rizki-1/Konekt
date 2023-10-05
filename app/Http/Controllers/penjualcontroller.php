@@ -289,27 +289,28 @@ class penjualcontroller extends Controller
 
     protected function pengajuandana(Request $request)
     {
+        $penjualId = Auth::id();
+        $pengajuan = pengajuandanapenjual::whereIn('status', ['siapMengajukan', 'sedangMengajukan'])->get();
+        // $pengajuan = pengajuandanapenjual::where('status', 'siapMengajukan')->get();
+        // $pengajuandanapenjual = penjuallogin::all();
+        $pengajuandanapenjual = penjuallogin::where('user_id', $penjualId)->get();
 
-        $userOrder = userOrder::where('adminstatus', 'waiting')->get();
-        $pengajuandanapenjual = penjuallogin::all();
         $bank = pembayaranpenjual::where('metodepembayaran', 'bank')->get();
         $wallet = pembayaranpenjual::where('metodepembayaran', 'e-wallet')->get();
         // dd($userOrder);
-        return view('DashboardPenjual.pengajuandana', compact('userOrder', 'pengajuandanapenjual', 'bank', 'wallet'));
+        return view('DashboardPenjual.pengajuandana', compact( 'pengajuandanapenjual', 'bank', 'wallet', 'pengajuan', 'penjualId'));
     }
 
-    protected function mengajukandana(Request $request)
+    protected function mengajukandana(Request $request, $id)
     {
-        $mengajukandana =
-            [
-                'penjual_id' => $request->penjual_id,
-                'barangpenjual_id' => $request->barangpenjual_id,
-                'status' => 'mengajukan',
-                'metodepembayaran_id' => $request->metodepembayaran_id,
-                'keterangan_pengajuan' => $request->input('keterangan_bank', 'keterangan_e_wallet'),
-                'tujuan_pengajuan' => $request->input('tujuan_bank', 'tujuan_e_wallet'),
-            ];
-        pengajuandanapenjual::create($mengajukandana);
+        $mengajukan = pengajuandanapenjual::findOrFail($id);
+        $mengajukan->penjual_id = $request->penjual_id;
+        $mengajukan->status = 'sedangMengajukan';
+        $mengajukan->metodepembayaran_id = $request->metodepembayaran_id;
+        $mengajukan->keterangan_pengajuan = $request->input('keterangan_bank', 'keterangan_e_wallet');
+        $mengajukan->tujuan_pengajuan = $request->input('tujuan_bank', 'tujuan_e_wallet');
+        $mengajukan->save();
+        // dd($mengajukan);
         return redirect()->route('pengajuanpenjualad');
      }
 

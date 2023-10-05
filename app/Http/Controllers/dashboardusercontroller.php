@@ -18,6 +18,7 @@ use App\Models\notifikasipenjual;
 use App\Models\pengemmbaliandana;
 use Exception; // Import Exception
 use Illuminate\Support\Facades\DB;
+use App\Models\pengajuandanapenjual;
 use Illuminate\Support\Facades\Auth;
 use App\Models\adminmetodepembayaran;
 use Illuminate\Support\Facades\Storage;
@@ -388,6 +389,11 @@ class dashboardusercontroller extends Controller
         $user->pembelianstatus = 'statusselesai';
         $user->adminstatus = 'waiting';
         $user->save();
+        $pengajuanPenjual = [
+            'userOrder_id' => $user->id,
+            'status' => 'siapMengajukan',
+        ];
+        pengajuandanapenjual::create($pengajuanPenjual);
 
         return redirect()->back()->with('success', 'pesanan telah selesai cek riwayat anda');
     }

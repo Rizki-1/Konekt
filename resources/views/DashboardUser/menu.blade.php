@@ -152,7 +152,7 @@
 #men .owl-dots {
   display: none;
 }
-    
+
 #men .owl-nav .owl-prev{
   position: absolute;
   left: -80px;
@@ -223,7 +223,7 @@
     @include('layout.link')
     {{-- include links --}}
 
-    
+
     <link rel="stylesheet" href="assett/css/owl-carousel.css">
     <link rel="stylesheet" type="text/css" href="assett/css/font-awesome.css">
 
@@ -949,7 +949,7 @@
                                                     @if ($p->ulasan->count() > 0)
                                                         <div class="card-rating stars-ratings text-center">
                                                             @for ($i = 0; $i < 5; $i++)
-                                                                @if ($i < $p->ulasan->avg('rating'))
+                                                            @if ($i < floor($p->ulasan->avg('rating')))
                                                                     <svg width="18" viewBox="0 0 30 30"
                                                                         fill="none"
                                                                         xmlns="http://www.w3.org/2000/svg">
@@ -1205,10 +1205,10 @@
 <script src="assett/js/scrollreveal.min.js"></script>
 <script src="assett/js/waypoints.min.js"></script>
 <script src="assett/js/jquery.counterup.min.js"></script>
-<script src="assett/js/imgfix.min.js"></script> 
-<script src="assett/js/slick.js"></script> 
-<script src="assett/js/lightbox.js"></script> 
-<script src="assett/js/isotope.js"></script> 
+<script src="assett/js/imgfix.min.js"></script>
+<script src="assett/js/slick.js"></script>
+<script src="assett/js/lightbox.js"></script>
+<script src="assett/js/isotope.js"></script>
 
 <!-- Global Init -->
 <script src="assett/js/custom.js"></script>

@@ -391,8 +391,8 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $finish->penjuallogin->nama_toko }}</td>
-                                            <td>{{ $finish->barangpenjual->namamenu }}</td>
-                                            <td>{{ $finish->barangpenjual->harga }}</td>
+                                            <td>{{ $finish->userOrder->penjual->namamenu }}</td>
+                                            <td>{{ $finish->userOrder->totalharga }}</td>
                                             <td>{{ $finish->pembayaranpenjual->metodepembayaran }}</td>
                                             <td>
                                                 <div class="btn btn-warning" type="submit"

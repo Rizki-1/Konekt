@@ -116,14 +116,15 @@
 </head>
 
 
-
-@foreach ($userOrder as $UserOrder)
+@foreach ($pengajuan as $index => $Pengajuan)
 @foreach ( $pengajuandanapenjual as $U)
 @foreach ($wallet as $w)
 @foreach ($bank as $b)
-<form action="{{ route('mengajukandana') }}" method="post">
+<form action="{{ route('mengajukandana', ['id' => $Pengajuan->id]) }}" method="post">
+    @csrf
         @csrf
-        <div class="modal" id="myModal-{{ $UserOrder->id }}" tabindex="-1">
+        @method('patch')
+        <div class="modal" id="myModal-{{$Pengajuan->id}}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -139,8 +140,7 @@
                                         <input type="hidden" name="penjual_id" value="{{ $U->id }}">
                                     <label for="metodepembayaran_id" class="form-label fw-bold">Metode
                                         Pembayaran</label>
-                                    <input type="hidden" name="barangpenjual_id"
-                                        value="{{ $UserOrder->barangpenjual_id }}">
+
                                     <select class="form-select form-select-lg mb-3" name="metodepembayaran_id"
                                         aria-label=".form-select-lg example" id="selectMetode">
                                         <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
@@ -279,67 +279,11 @@
     }
 });
    </script>
-    {{-- <script>
-        let selectElement = document.querySelector('#JenisBank');
-        let inputElements = document.querySelectorAll('input[name="keterangan_bank"]');
-        let spElement = document.querySelector('#JenisEwallet');
-        let pElements = document.querySelectorAll('p[name="keterangan_e_wallet"]');
-
-        selectElement.addEventListener('change', function() {
-            let selectedValue = selectElement.value;
-
-            inputElements.forEach(function(input) {
-                if (input.id === selectedValue) {
-                    input.style.display = 'block';
-                    input.disabled = false;
-                } else {
-                    input.style.display = 'none';
-                    input.disabled = true;
-                }
-            });
-        });
-
-        spElement.addEventListener('change', function() {
-            let selectedValue = spElement.value;
-
-            pElements.forEach(function(p) {
-                if (p.id === selectedValue) {
-                    p.style.display = 'block';
-                    p.disabled = false;
-                } else {
-                    p.style.display = 'none';
-                    p.disabled = true;
-                }
-            });
-        });
-
-        // Menjalankan pengecekan saat halaman pertama kali dimuat
-        selectElement.dispatchEvent(new Event('change'));
-        spElement.dispatchEvent(new Event('change'));
-    </script>
-
-    <script>
-     $("#selectMetode").change(function() {
-      var selectedOption = $(this).val();
-
-    // Sembunyikan semua elemen
-    $("#ewalletInput-{{ $w->id }}").hide();
-    $("#bankInput-{{ $b->id }}").hide();
-
-    // Periksa opsi yang dipilih
-    if (selectedOption === "{{ $w->id }}" && "{{ $w->id }}" !== "") {
-        $("#ewalletInput-{{ $w->id }}").show();
-        $("#tujuan_e_wallet").val(selectedOption);
-    } else if (selectedOption === "{{ $b->id }}" && "{{ $b->id }}" !== "") {
-        $("#bankInput-{{ $b->id }}").show();
-        $("#tujuan_bank").val(selectedOption);
-    }
-});
-   </script> --}}
        @endforeach
        @endforeach
        @endforeach
        @endforeach
+
 
 <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
     <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -556,20 +500,25 @@
                                         @php
                                             $no = 1;
                                         @endphp
-                                        @foreach ($userOrder as $UserOrder)
+                                        @foreach ($pengajuan as $Pengajuan)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $UserOrder->User->name }}</td>
-                                                <td>{{ $UserOrder->penjual->namamenu }}</td>
-                                                <td>{{ $UserOrder->jumlah }}</td>
-                                                 <td> Rp. {{ number_format  ( $UserOrder->totalharga) }}</td>
+                                                <td>{{ $Pengajuan->userOrder->User->name }}</td>
+                                                <td>{{ $Pengajuan->userOrder->penjual->namamenu }}</td>
+                                                <td>{{ $Pengajuan->userOrder->jumlah }}</td>
+                                                 <td> Rp. {{ number_format  ( $Pengajuan->userOrder->totalharga) }}</td>
 
                                                 <td>
+                                                    @if ($Pengajuan->status === 'sedangMengajukan')
+                                                    <button class="btn btn-outline-primary">{{ $Pengajuan->status }}</button>
+                                                    @else
                                                     <button type="submit" class="btn btn-outline-primary"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#myModal-{{ $UserOrder->id }}">
+                                                        data-bs-target="#myModal-{{$Pengajuan->id}}">
+                                                        {{-- @dump($Pengajuan->id) --}}
                                                         ajukan pengambilan dana
                                                     </button>
+                                                    @endif
                                                 </td>
                                                 {{-- @dump($userOrder) --}}
                                             </tr>

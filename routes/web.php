@@ -110,7 +110,7 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::get('detailmenupen/{id}', [penjualcontroller::class, 'detailmenupen'])->name('detailmenupen');
     Route::get('notifikasipenjual', [penjualcontroller::class, 'notifikasipenjual'])->name('notifikasipenjual');
     Route::post('readnotifikasipenjual/{id}', [penjualcontroller::class, 'readnotifikasipenjual'])->name('readnotifikasipenjual');
-    Route::post('mengajukandana', [penjualcontroller::class, 'mengajukandana'])->name('mengajukandana');
+    Route::patch('mengajukandana/{id}', [penjualcontroller::class, 'mengajukandana'])->name('mengajukandana');
     Route::get('pjedit/{id}/edit', [penjualcontroller::class,'pjedit'])->name ('pjedit');
     Route::put('pjupdate/{id}', [penjualcontroller::class, 'pjupdate'])->name ('pjupdate');
 

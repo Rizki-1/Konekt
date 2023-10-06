@@ -289,33 +289,34 @@
         </nav>
     </div>
     <div class="content-inner mt-5 py-0">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="iq-main">
-                    <div class="card mb-0 iq-content rounded-bottom">
-                        <div class="d-flex flex-wrap align-items-center justify-content-between mx-3 my-3">
-                            <div class="d-flex flex-wrap align-items-center">
-                                <div class="profile-img22 position-relative me-3 mb-3 mb-lg-0">
-                                    <img src="../../assets/images/User-profile/1.png"
-                                        class="img-fluid avatar avatar-100 avatar-rounded" alt="profile-image">
-                                </div>
-                                <div class="d-flex align-items-center mb-3 mb-sm-0">
-                                    <div>
-                                        <h6 class="me-2 text-primary">namaku</h6>
-                                        <span><svg width="19" height="19" class="me-2" viewBox="0 0 24 24"
-                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M21 10.8421C21 16.9172 12 23 12 23C12 23 3 16.9172 3 10.8421C3 4.76697 7.02944 1 12 1C16.9706 1 21 4.76697 21 10.8421Z"
-                                                    stroke="#07143B" stroke-width="1.5" />
-                                                <circle cx="12" cy="9" r="3"
-                                                    stroke="#07143B" stroke-width="1.5" />
-                                            </svg><small class="mb-0 text-dark">Jl Ngijo GPA</small></span>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="iq-main">
+                        <div class="card mb-0 iq-content rounded-bottom">
+                            <div class="d-flex flex-wrap align-items-center justify-content-between mx-3 my-3">
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <div class="profile-img-edit position-relative">
+                                        <img class="profile-pic rounded avatar-100"
+                                            src="../../assets/images/avatars/06.png" alt="profile-pic">
+                                        <div class="upload-icone bg-primary">
+                                            <svg class="upload-button" width="14" height="14"
+                                                viewBox="0 0 24 24">
+                                                <path fill="#ffffff"
+                                                    d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                            </svg>
+                                            <input class="file-upload" type="file" accept="image/*">
+                                        </div>
                                     </div>
-                                    <div class="ms-4">
+                                <div class="d-flex align-items-center mb-3 mb-sm-0">
+                                    <div style="margin-left: 20px;">
+                                    <h6 style="color: black; font-size: 15px;" class="me-2 text-primary" id="profileNameDisplay">{{ Auth::user()->name }}</h6>
+                                    <div style="color: black; font-size: 15px;" class="mb-1"><span id="email">{{ Auth::user()->email }}</span></div>
+                                    </div>
+                                    <!-- <div class="ms-4">
                                         <p class="me-2 mb-0 text-primary">Warung Berkah</p>
                                         <p class="me-2 mb-0 text-dark">wb@gmail.com</p>
                                         <p class="mb-0 text-dark">Masakkan Nasi</p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <ul class="d-flex mb-0 text-center ">
@@ -328,8 +329,7 @@
                                     <small class="mb-1 fw-normal">Menu</small>
                                 </li>
                                 <li class="badge bg-primary py-2 me-2">
-                                    <p class="mb-3 mt-2">3.1k</p>
-                                    <small class="mb-1 fw-normal">Followers</small>
+                                    <button class="btn btn-primary" id="edit-profile-button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profil</button>  
                                 </li>
                             </ul>
                         </div>
@@ -340,9 +340,54 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <h4 class="card-title">{{ Auth::user()->penjuallogin->nama_toko }}</h4>
+                            </div>
+                        </div>
+                      
+                        <div class="card-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>nama</label>
+                <input type="text" name="name" class="form-control" value="{{ Auth::user()->name }}" Readonly>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>email</label>
+                <input type="text" name="email" class="form-control" value="{{ Auth::user()->email }}" Readonly>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>nama toko</label>
+                <input type="text" name="nama_toko" class="form-control" value="{{ Auth::user()->penjuallogin->nama_toko }}" Readonly>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>no tlp</label>
+                <input type="number" name="notlp" class="form-control" value="{{ Auth::user()->penjuallogin->notlp }}" Readonly>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>alamat toko</label>
+                <textarea type="text" name="alamat_toko" class="form-control"  Readonly>{{ Auth::user()->penjuallogin->alamat_toko }}</textarea>
+            </div>
+        </div>
+        
+    </div>
+</div>
+    
+                
             <div class="row">
                 <!-- Menu Items -->
-                <div class="col-lg-15">
+                <div class="col-lg-15 ">
                     <div class="card">
                         <div>
                             <h2 class="text-primary text-special">Menu</h2>
@@ -374,17 +419,11 @@
                                                 </div>
                                                 <div class="d-flex justify-content-between mt-3">
                                                     <div class="d-flex align-items-center">
-                                                        <span class="text-primary fw-bolder me-2">Rp.
+                                                       <span class="text-primary fw-bolder me-2">Rp.
                                                             {{ number_format($p->harga) }}</span>
                                                         {{-- @dump($p->id) --}}
                                                         {{-- <small class="text-decoration-line-through">$8.49</small> --}}
                                                     </div>
-                                                    <button class="btn btn-primary rounded-pill"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#myModal-{{ $p->id }}">beli
-                                                    </button>
-                                                    <a class="btn btn-primary rounded-pill"
-                                                        href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -393,6 +432,10 @@
                             @endforeach
                         </div>
                     </div>
+                 </div>
+            </div>
+            
+                    </center>
                     <!-- Footer Section Start -->
                     <footer class="footer">
                         <div class="footer-body">
@@ -418,6 +461,7 @@
                             </div>
                         </div>
                     </footer>
+                  
                     <!-- Footer Section End -->
 </main>
 <!-- Wrapper End-->
@@ -458,6 +502,48 @@
 
 <!-- moment JavaScript -->
 <script src="../../assets/vendor/moment.min.js"></script>
+ <!-- Modal untuk mengedit profil -->
+ <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Profil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulir pengeditan profil -->
+                <form id="profileForm">
+                    <div class="row">
+                <div class="mb-3">
+                        <label for="profileName" class="form-label">Nama</label>
+                        <input type="Name" class="form-control" id="profileName" value="{{ Auth::user()->name }}">
+                    </div>
+                <div class="mb-3">
+                        <label for="profileEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="profileEmail" value="{{ Auth::user()->email }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nama_toko" class="form-label">Nama Toko</label>
+                        <input type="text" class="form-control" id="" value="{{ Auth::user()->penjuallogin->nama_toko }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="profilePhone" class="form-label">Nomor Telepon</label>
+                        <input type="number" class="form-control" id="profilePhone" value="{{ Auth::user()->penjuallogin->notlp }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="profileLocation" class="form-label">Alamat</label>
+                        <textarea type="text" class="form-control" id="profileLocation" placeholder="masukkan alamat" >{{ Auth::user()->penjuallogin->alamat_toko }}</textarea>
+                    </div>
+               </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary" id="saveProfileChanges">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/app/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:55:19 GMT -->

@@ -353,7 +353,8 @@
                                     <div class="d-flex ms-5" id="namatoko">
                                         <input type="checkbox" name="selectAllItems" class="selectAllItems my-3"
                                             data-toko-id="{{ $storeName }}">
-                                        <p class="fs-5 text-black mx-5 my-2"><i class="bi bi-shop"></i> {{ $storeName }}</p>
+                                        <p class="fs-5 text-black mx-5 my-2"><i class="bi bi-shop"></i>
+                                            {{ $storeName }}</p>
                                     </div>
                                     <tr>
                                         <th scope="col"></th>
@@ -369,7 +370,7 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" name="itemCheckbox" class="itemCheckbox"
-                                                    data-toko-id="{{ $storeName }}" value="{{$p->id}}">
+                                                    data-toko-id="{{ $storeName }}" value="{{ $p->id }}">
                                             </td>
                                             <td>
                                                 <img src="{{ Storage::url($p->barangpenjual->fotomakanan) }}"
@@ -613,29 +614,40 @@
                 return;
             }
 
-            var response;
-            $.ajax({
-                url: "{{ route('order') }}",
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "items": itemIds,
-                },
-                success: function(data) {
-                    // Cek jika pesanan berhasil diproses
-                    if (data.message === 'Pesanan berhasil diproses.') {
-                        Swal.fire('Sukses', data.message, 'success');
-                        // Redirect ke halaman konfirmasi pembelian
-                        window.location = `/konfimasipembelian/${data.id}`;
-                    }
-                },
-                error: function(response) {
-                    console.log(response);
-                    Swal.fire('Peringatan',
-                        'Jumlah pembelian melebihi jumlah stok yang tersedia.',
-                        'warning');
+            Swal.fire({
+                title: 'Konfirmasi Pembelian',
+                text: 'Anda yakin ingin melakukan pembelian?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Beli',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('order') }}",
+                        type: "POST",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "items": itemIds,
+                        },
+                        success: function(data) {
+                            // Cek jika pesanan berhasil diproses
+                            if (data.message === 'Pesanan berhasil diproses.') {
+                                Swal.fire('Sukses', data.message, 'success');
+                                // Redirect ke halaman konfirmasi pembelian
+                                window.location = `/konfimasipembelian/${data.id}`;
+                            }
+                        },
+                        error: function(response) {
+                            console.log(response);
+                            Swal.fire('Peringatan',
+                                'Jumlah pembelian melebihi jumlah stok yang tersedia.',
+                                'warning');
+                        }
+                    });
                 }
             });
+
         });
     });
 </script>

@@ -601,15 +601,6 @@
             $("#checkAllItems").prop("checked", allChecked);
         });
 
-        // $(".item-checkbox").change(function() {
-        //     var allChecked = $(".item-checkbox:checked").length === $(".item-checkbox").length;
-        //     $("#selectAllItems").prop("checked", allChecked);
-        // });
-
-        // $("#selectAllItems").change(function() {
-        //     $(".item-checkbox").prop("checked", $(this).prop("checked"));
-        // });
-
         $("#beli").click(function() {
             var itemIds = [];
             // Mengumpulkan ID item yang dicentang
@@ -635,7 +626,7 @@
                     if (data.message === 'Pesanan berhasil diproses.') {
                         Swal.fire('Sukses', data.message, 'success');
                         // Redirect ke halaman konfirmasi pembelian
-                        // window.location = `/konfimasipembelian/${data.id}`;
+                        window.location = `/konfimasipembelian/${data.id}`;
                     }
                 },
                 error: function(response) {

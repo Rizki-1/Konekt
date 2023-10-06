@@ -93,7 +93,7 @@
     background-size: cover;">
 
     @foreach ($user as $u)
-        <form action="{{ route('ulasan', ['id' => $u->barangpenjual_id]) }}" method="POST">
+        <form action="{{ route('ulasan', ['id' => $u->barangpenjual_id]) }}" method="POST" name="ulasan">
             @csrf
             <div class="modal fade" id="myModal-{{ $u->barangpenjual_id }}" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
@@ -108,39 +108,75 @@
                             <div class="mb-3">
                                 {{ $u->rating }}
                                 @for ($i = 1; $i <= 5; $i++)
-                                    <label style="color: gray;"
-                                        class="star   @error('komentar') is-invalid @enderror"
+                                    <label style="color: gray;" class="star @error('komentar') is-invalid @enderror"
                                         value="{{ $u->komentar }}">
-                                        <input type="radio" name="rating" value="{{ $i }}" style="cursor: pointer;"
-                                            class="form-control rating-input  " min="1" max="5">
+                                        <input type="radio" name="rating" value="{{ $i }}"
+                                            style="cursor: pointer;" class="form-control rating-input  " min="1"
+                                            max="5">
                                         <i class="fas fa-star"></i>
                                     </label>
                                 @endfor
                                 @error('rating')
-                                    <p class="" style="color: red">{{ $message }}</p>
+                                    <div class="invalid-feedback error-message">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="my-3">
-                                {{ $u->komentar }}
                                 <label for="ulasan">Komentar</label>
-                                <textarea name="komentar" class="form-control   @error('komentar') is-invalid @enderror" value="{{ $u->komentar }}"></textarea>
+                                <textarea name="komentar" class="form-control @error('komentar') is-invalid @enderror" value="{{ $u->komentar }}"></textarea>
                                 @error('komentar')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback error-message">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                            <form action="{{ route('riwayatuser', ['id' => $u->id]) }}" method="GET">
-                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                            </form>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
     @endforeach
-    </form>
+
+    {{-- validasi swal --}}
+    <script>
+        $(document).ready(function() {
+            // Listen for the submit event on all forms with the name "ulasan"
+            $("form[name='ulasan']").submit(function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Validate the form data
+                var rating = $("input[name='rating']:checked").val();
+                if (rating === undefined) {
+                    // Show an error message using SweetAlert
+                    Swal.fire({
+                        title: 'Peringatan',
+                        text: 'Silakan pilih rating.',
+                        icon: 'warning',
+                    });
+                    return;
+                }
+
+                var komentar = $("textarea[name='komentar']").val();
+                if (komentar === "") {
+                    // Show an error message using SweetAlert
+                    Swal.fire({
+                        title: 'Peringatan',
+                        text: 'Silakan isi komentar.',
+                        icon: 'warning',
+                    });
+                    return;
+                }
+
+                // If validation is successful, submit the form
+                $(this).off("submit"); // Remove the previous submit event listener
+                this.submit(); // Submit the form
+            });
+        });
+    </script>
+    {{-- validasi swal --}}
+
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -361,14 +397,14 @@
                                                         @endphp
 
                                                         @if (!$ulasan)
-                                                            <div class="btn btn-outline-warning text-capitalize" type="submit"
-                                                                data-bs-toggle="modal"
+                                                            <div class="btn btn-outline-warning text-capitalize"
+                                                                type="submit" data-bs-toggle="modal"
                                                                 data-bs-target="#myModal-{{ $u->barangpenjual_id }}"
                                                                 style="">beri ulasan</div>
                                                         @endif
                                                     @endif
-                                                    <a href="{{ route('menu.store') }}" class="btn btn-outline-primary"
-                                                        method="POST">Pesan Lagi</a>
+                                                    <a href="{{ route('menu.store') }}"
+                                                        class="btn btn-outline-primary" method="POST">Pesan Lagi</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -385,23 +421,6 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="d-flex justify-content-evenly">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div> --}}
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        {{-- @include('layout.footer') --}}
     </main>
     @include('layout.js')
 

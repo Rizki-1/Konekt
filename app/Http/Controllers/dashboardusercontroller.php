@@ -371,7 +371,8 @@ class dashboardusercontroller extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-   
+
+
         $user->name = $request->input('name');
         $user->tanggal_lahir = $request->input('tanggal_lahir');
         $user->bio = $request->input('bio');
@@ -783,7 +784,7 @@ class dashboardusercontroller extends Controller
         $kategori = adminkategori::all();
         $penjualpagination =  barangpenjual::paginate(8);
         $penjual = Barangpenjual::where('kategori_id', $Kategori)->get();
-        $ulasan = ulasan::avg('rating');
+        $ulasan = ulasan::avg('rating'); 
 
         return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan'));
     }

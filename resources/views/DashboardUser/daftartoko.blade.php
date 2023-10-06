@@ -363,14 +363,14 @@
                                                         class="img">
                                                     <div class="d-flex justify-content-between my-3">
                                                         <div>
-                                                            <a class="btn btn-warning"
+                                                            <a class="btn btn-outline-warning"
                                                                 href="{{ route('detailtoko', ['id' => $p->user->id]) }}">
                                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                                                                 Detail
                                                             </a>
                                                         </div>
                                                         <div>
-                                                            <a class="btn btn-warning" href="{{ $url }}">
+                                                            <a class="btn btn-outline-warning" href="{{ $url }}">
                                                                 <i class="fa fa-comments" aria-hidden="true"></i> Chat
                                                                 Penjual
                                                             </a>
@@ -455,12 +455,12 @@
                                                         class="img">
                                                         <div class="d-flex justify-content-between my-3">
                                                             <div>
-                                                                <a class="btn btn-warning" href="{{ route('detailtoko', ['id' => '/']) }}/ ${menu.id}">
+                                                                <a class="btn btn-outline-warning" href="{{ route('detailtoko', ['id' => '/']) }}/ ${menu.id}">
                                                                     <i class="fa fa-info-circle" aria-hidden="true"></i> Detail
                                                                 </a>
                                                             </div>
                                                             <div>
-                                                                <a class="btn btn-warning" href="/chatify/${menu.user_id}">
+                                                                <a class="btn btn-outline-warning" href="/chatify/${menu.user_id}">
                                                                     <i class="fa fa-comments" aria-hidden="true"></i> Chat Penjual
                                                                 </a>
                                                             </div>

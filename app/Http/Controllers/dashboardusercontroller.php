@@ -47,19 +47,19 @@ class dashboardusercontroller extends Controller
         $kategori = adminkategori::all();
         $ulasan = ulasan::avg('rating');
         $totalUlasan = ulasan::all()->count();
-    
+
         $produkPopuler = barangpenjual::all()->filter(function ($item) {
             $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
                 ->where('pembelianstatus', 'statusselesai')
                 ->count();
             return $item->terjual > 5;
         });
-        
-        $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5); 
+
+        $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
 
         return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler'));
     }
-    
+
 
 
     public function beli(Request $request)
@@ -360,30 +360,29 @@ class dashboardusercontroller extends Controller
 
     public function profileUpdate(Request $request) {
         $user = Auth::user();
-    
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'tanggal_lahir' => 'required|date',
             'bio' => 'required|min:5|max:255',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
    
-    
         $user->name = $request->input('name');
         $user->tanggal_lahir = $request->input('tanggal_lahir');
         $user->bio = $request->input('bio');
         $user->save();
-    
+
         return redirect()->route('profileuser')->with('success', 'Profile berhasil diperbarui');
     }
-    
-    
-    
-    
+
+
+
+
 
     public function detailmenu(Request $request, $id)
     {
@@ -810,6 +809,6 @@ class dashboardusercontroller extends Controller
 
         return response()->json(['message' => 'Notifikasi tidak ditemukan'], 404);
     }
-    
+
 
 }

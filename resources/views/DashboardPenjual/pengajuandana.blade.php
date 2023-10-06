@@ -212,7 +212,7 @@
                     <div class="modal-footer">
 
                         <button type="button" class="btn btn-outline-secondary rounded-pill"
-                            data-bs-dismiss="modal">Close</button>
+                            data-bs-dismiss="modal">Kembali</button>
                         <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
                     </div>
                 </div>

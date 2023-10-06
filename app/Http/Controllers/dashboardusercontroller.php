@@ -516,7 +516,7 @@ class dashboardusercontroller extends Controller
         ];
 
         ulasan::create($ulasan);
-        return redirect()->route('riwayatuser');
+        return redirect()->route('detailmenu', ['id' => $id]);
     }
 
     public function pengembaliandana(Request $request, $id)
@@ -786,7 +786,7 @@ class dashboardusercontroller extends Controller
         $kategori = adminkategori::all();
         $penjualpagination =  barangpenjual::paginate(8);
         $penjual = Barangpenjual::where('kategori_id', $Kategori)->get();
-        $ulasan = ulasan::avg('rating'); 
+        $ulasan = ulasan::avg('rating');
 
         return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan'));
     }

@@ -366,8 +366,10 @@
                 <div class="card-body">
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
-                        <table class="table">
+                        style="">
+                        <div class="card-body p-0">
+                        <div class="table-responsive">
+                        <table id="basic-table" class="table table-striped table-shadow mb-0" role="grid">
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
@@ -375,7 +377,7 @@
                                     <th scope="col">Nama toko</th>
                                     <th scope="col">Nama menu</th>
                                     <th scope="col">Jumlah Pesanan</th>
-                                    <th scope="col">metode pembayaran</th>
+                                    <!-- <th scope="col">metode pembayaran</th> -->
                                     <th scope="col">Total Harga</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -391,7 +393,7 @@
                                         <td>{{ $s->nama_toko }}</td>
                                         <td>{{ $s->penjual->namamenu }}</td>
                                         <td>{{ $s->jumlah }}</td>
-                                        <td>{{ $s->metodepembayaran }}</td>
+                                        <!-- <td>{{ $s->metodepembayaran }}</td> -->
                                         <td>
                                             <div>
                                                Rp. {{ number_format($s->totalharga, 0, ',', '.') }}</div>
@@ -407,6 +409,8 @@
 
                             </tbody>
                         </table>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>

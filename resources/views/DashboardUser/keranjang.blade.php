@@ -337,66 +337,88 @@
                             <i class="fas fa-shopping-cart"></i> Keranjang Saya
                         </h3>
                         <hr>
-                        <table class="table text-center">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Pilih</th>
-                                    <th scope="col">Menu</th>
-                                    <th scope="col">Harga</th>
-                                    <th scope="col">Jumlah</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabelKeranjang">
-                                @forelse ($keranjangItems as $p)
+
+                        @php
+                            $groupedItems = $keranjangItems->groupBy('barangpenjual.toko_id');
+                        @endphp
+
+                        @forelse ($groupedItems as $toko_id => $items)
+                            @php
+                                // Retrieve the store name (namatoko) based on user_id
+                                $storeName = \App\Models\penjuallogin::where('user_id', $toko_id)->value('nama_toko');
+                            @endphp
+
+                            <table class="table text-center">
+                                <thead>
+                                    <div class="d-flex ms-5" id="namatoko">
+                                        <input type="checkbox" name="selectAllItems" class="selectAllItems my-3"
+                                            data-toko-id="{{ $storeName }}">
+                                        <p class="fs-5 text-black mx-5 my-2"><i class="bi bi-shop"></i> {{ $storeName }}</p>
+                                    </div>
                                     <tr>
-                                        <td><input class="item-checkbox" type="checkbox" value="{{ $p->id }}">
-                                        </td>
-                                        <td>
-                                            <img src="{{ Storage::url($p->barangpenjual->fotomakanan) }}"
-                                                width="100px" alt="" srcset="">
-                                            {{ $p->barangpenjual->namamenu }}
-                                        </td>
-                                        <td>Rp. {{ number_format($p->barangpenjual->harga, 0, ',', '.') }} </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <button type="button"
-                                                    class="btn btn-outline-primary btn-sm minus-btn">–</button>
-                                                <input type="number"
-                                                    class="form-control product-quantity text-center"
-                                                    style="width: 30px" value="{{ $p->jumlah }}" min="0"
-                                                    max="100" readonly data-product-id="{{ $p->id }}">
-                                                <button type="button"
-                                                    class="btn btn-outline-primary btn-sm plus-btn">+</button>
-                                            </div>
-                                        </td>
-                                        <td class="total-td">Rp. <span class="total" data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
-                                                data-bs-title="5% Biaya Admin">{{ number_format($p->totalHarga, 0, ',', '.') }}</span>
-                                        </td>
-                                        <td>
-                                            <button type="submit" class="btn btn-outline-danger hapus"
-                                                data-item-id="{{ $p->id }}" style="border-radius: 10%;"><i
-                                                    class="bi bi-trash-fill"></i></button>
-                                        </td>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
                                     </tr>
+                                </thead>
+                                <tbody id="tabelKeranjang">
+                                    @foreach ($items as $p)
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="itemCheckbox" class="itemCheckbox"
+                                                    data-toko-id="{{ $storeName }}" value="{{$p->id}}">
+                                            </td>
+                                            <td>
+                                                <img src="{{ Storage::url($p->barangpenjual->fotomakanan) }}"
+                                                    width="100px" alt="" srcset="">
+                                                {{ $p->barangpenjual->namamenu }}
+                                            </td>
+                                            <td>Rp. {{ number_format($p->barangpenjual->harga, 0, ',', '.') }} </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <button type="button"
+                                                        class="btn btn-outline-primary btn-sm minus-btn">–</button>
+                                                    <input type="number"
+                                                        class="form-control product-quantity text-center"
+                                                        style="width: 30px" value="{{ $p->jumlah }}"
+                                                        min="0" max="100" readonly
+                                                        data-product-id="{{ $p->id }}">
+                                                    <button type="button"
+                                                        class="btn btn-outline-primary btn-sm plus-btn">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="total-td">Rp. <span class="total" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    data-bs-title="5% Biaya Admin">{{ number_format($p->totalHarga, 0, ',', '.') }}</span>
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-outline-danger hapus"
+                                                    data-item-id="{{ $p->id }}" style="border-radius: 10%;"><i
+                                                        class="bi bi-trash-fill"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @empty
                                     <p>Anda belum menambahkan keranjang.</p>
-                                @endforelse
-                            </tbody>
+                        @endforelse
+                        </tbody>
                         </table>
-                        <div class="d-flex container-fluid" id="keranjang">
-                            <div class="me-2">
-                                <input type="checkbox" id="selectAllItems">
-                                <label for="selectAllItems" style="cursor: pointer; color:#000000">
-                                    Pilih Semua
-                                </label>
+                        @if ($keranjangItems->count() > 0)
+                            <div class="d-flex container-fluid" id="keranjang">
+                                <div class="me-2">
+                                    <input type="checkbox" id="checkAllItems">
+                                    <label for="checkAllItems" style="cursor: pointer; color:#000000">
+                                        Pilih Semua
+                                    </label>
+                                </div>
+                                <div class="ms-auto">
+                                    <button type="button" class="btn btn-primary" id="beli">Beli</button>
+                                </div>
                             </div>
-                            <div class="ms-auto">
-                                <button type="button" class="btn btn-primary" id="beli">Beli</button>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -407,36 +429,6 @@
 </body>
 
 </html>
-
-{{-- js tampilan --}}
-<script>
-    // Ambil elemen-elemen yang ingin dihapus jika tidak ada <tr>
-    var keranjangContainer = document.getElementById('keranjang');
-    var thead = document.querySelector('thead');
-
-    // Fungsi untuk memeriksa apakah ada <tr> dalam tabel
-    function cekTrAda() {
-        var tabel = document.getElementById('tabelKeranjang'); // Ganti 'tabelKeranjang' dengan ID tabel Anda
-        var trItems = tabel.getElementsByTagName('tr');
-        return trItems.length > 0;
-    }
-
-    // Fungsi untuk mengubah class jika tidak ada <tr>
-    function ubahClassJikaTrTidakAda() {
-        if (!cekTrAda()) {
-            keranjangContainer.classList.remove('d-flex');
-            keranjangContainer.classList.add('d-none');
-            thead.remove();
-        } else {
-            keranjangContainer.classList.remove('d-none');
-            keranjangContainer.classList.add('d-flex');
-        }
-    }
-
-    // Panggil fungsi awal saat halaman dimuat
-    ubahClassJikaTrTidakAda();
-</script>
-{{-- js tampilan --}}
 
 {{-- JS for Update jumlah --}}
 <script>
@@ -490,7 +482,7 @@
     $(document).ready(function() {
         $(".hapus").click(function() {
             var itemId = $(this).data("item-id");
-            var itemElement = $(this).closest("tr"); // Temukan elemen yang berisi item keranjang
+            var itemElement = $(this).closest("tr");
 
             Swal.fire({
                 title: 'Konfirmasi',
@@ -578,19 +570,50 @@
 {{-- AJAX order --}}
 <script>
     $(document).ready(function() {
-        $(".item-checkbox").change(function() {
-            var allChecked = $(".item-checkbox:checked").length === $(".item-checkbox").length;
-            $("#selectAllItems").prop("checked", allChecked);
+        // Ketika tombol "Pilih Semua" diubah
+        $("#checkAllItems").change(function() {
+            var isChecked = $(this).prop("checked");
+
+            // Perbarui status semua checkbox-item keranjang sesuai dengan tombol "Pilih Semua"
+            $(".itemCheckbox").prop("checked", isChecked);
+            $(".selectAllItems").prop("checked", isChecked);
         });
 
-        $("#selectAllItems").change(function() {
-            $(".item-checkbox").prop("checked", $(this).prop("checked"));
+        // Ketika checkbox "Pilih Semua" diubah
+        $(".selectAllItems").change(function() {
+            var tokoId = $(this).data("toko-id");
+            var isChecked = $(this).prop("checked");
+
+            // Temukan semua checkbox item keranjang yang terkait dengan toko ini
+            $(".itemCheckbox[data-toko-id='" + tokoId + "']").prop("checked", isChecked);
         });
+
+        // Ketika salah satu checkbox item keranjang diubah
+        $(".itemCheckbox").change(function() {
+            var tokoId = $(this).data("toko-id");
+
+            // Periksa apakah semua checkbox item keranjang dalam grup ini dicentang
+            var allChecked = $(".itemCheckbox[data-toko-id='" + tokoId + "']:checked").length ===
+                $(".itemCheckbox[data-toko-id='" + tokoId + "']").length;
+
+            // Perbarui status checkbox "Pilih Semua" sesuai dengan hasil seleksi grup
+            $(".selectAllItems[data-toko-id='" + tokoId + "']").prop("checked", allChecked);
+            $("#checkAllItems").prop("checked", allChecked);
+        });
+
+        // $(".item-checkbox").change(function() {
+        //     var allChecked = $(".item-checkbox:checked").length === $(".item-checkbox").length;
+        //     $("#selectAllItems").prop("checked", allChecked);
+        // });
+
+        // $("#selectAllItems").change(function() {
+        //     $(".item-checkbox").prop("checked", $(this).prop("checked"));
+        // });
 
         $("#beli").click(function() {
             var itemIds = [];
             // Mengumpulkan ID item yang dicentang
-            $(".item-checkbox:checked").each(function() {
+            $(".itemCheckbox:checked").each(function() {
                 itemIds.push($(this).val());
             });
 
@@ -612,7 +635,7 @@
                     if (data.message === 'Pesanan berhasil diproses.') {
                         Swal.fire('Sukses', data.message, 'success');
                         // Redirect ke halaman konfirmasi pembelian
-                        window.location = `/konfimasipembelian/${data.id}`;
+                        // window.location = `/konfimasipembelian/${data.id}`;
                     }
                 },
                 error: function(response) {

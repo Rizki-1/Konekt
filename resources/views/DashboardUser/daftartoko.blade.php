@@ -141,6 +141,8 @@
 
     @include('layout.link')
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 
 <body class="  "
@@ -340,24 +342,12 @@
                                                     <h3>{{ $p->nama_toko }}</h3>
                                                     <a>Masakan Tradisional</a><br>
                                                     <p></p>
-                                                    <a><i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                        <a style="margin-left: 5px; ">{{ $p->alamat_toko }}</a></a>
-                                                    <p><i class="fa-solid fa-phone"></i><a style="margin-left: 2px;">
-                                                            {{ $p->notlp }}</a></p>
-                                                    <tr>
-                                                        <i class="fa fa-star" style="color:gold"
-                                                            aria-hidden="true"></i>
-                                                        <i class="fa fa-star" style="color:gold"
-                                                            aria-hidden="true"></i>
-                                                        <i class="fa fa-star" style="color:gold"
-                                                            aria-hidden="true"></i>
-                                                        <i class="fa fa-star" style="color:gold"
-                                                            aria-hidden="true"></i>
-                                                        <i class="fa fa-star" style="color:gold"
-                                                            aria-hidden="true"></i>
-                                                        <a>(26)</a>
+                                                    <a><i class="fas fa-map-marker-alt"></i>
+                                                        <a style="margin-left: 5px;">{{ $p->alamat_toko }}</a>
+                                                    </a>
+                                                    <p><i class="fas fa-phone"></i><a style="margin-left: 2px;">{{ $p->notlp }}</a></p>                                                    <tr>
                                                     </tr>
-                                                    <div class="btn-custom"><span>12 menu</span></div>
+                                                    <div class="angka m-0">{{ $menu }} Menu</div>
                                                     <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
                                                         style="position: absolute; top: 10px; right: 10px; width: 190px; height:85px;"
                                                         class="img">

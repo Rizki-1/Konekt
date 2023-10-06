@@ -287,14 +287,14 @@
                 </div>
                 <div class="card-content p-4 ">
                   <div class="d-flex justify-content-between">
+                      <tr>{{ $User->created_at }}</tr>
                     <a class="card-text">
-                      <tr>{{ $User->pembelianstatus }}</tr>
+                        <tr>{{ $User->pembelianstatus }}</tr>
                     </a>
-                    <tr>{{ $User->created_at }}</tr>
                   </div>
                   <hr>
                   <div class="">
-                    <img src="{{ asset('css/img/baru.webp') }}" style="width: 110px; margin-left:10px; border-radius: 10px;">
+                    <img src="{{ asset('Storage/' . $User->penjual->fotomakanan) }}" style="width: 110px; margin-left:10px; border-radius: 10px;">
                     <a style="margin-left: 10px;">Jumlah : {{ $User->jumlah }}</a>
                   </div>
                   <hr>

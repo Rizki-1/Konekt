@@ -382,12 +382,13 @@
                                     <thead>
                                         <tr class="text-capitalize">
                                             <th scope="col">No</th>
-                                            <th scope="col">nama pembeli</th>
+                                            <th scope="col">pembeli</th>
                                             <th scope="col">menu</th>
-                                            <th scope="col">jumlah pesanan</th>
+                                            <th scope="col">jumlah pesan</th>
                                             <th scope="col">total harga</th>
                                             <th scope="col">status</th>
                                             <th scope="col">aksi</th>
+                                            <th scope="col">chat</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -400,7 +401,7 @@
                                                 <td>{{ $s->user->name }}</td>
                                                 <td>{{ $s->barangpenjual->namamenu }}</td>
                                                 <td>{{ $s->jumlah }}</td>
-                                                <td>{{ $s->totalharga }}</td>
+                                                <td>Rp. {{ number_format($s->totalharga, 0, ',', '.') }}</td>
                                                 <td>{{ $s->pembelianstatus }}</td>
                                                 <td>
                                                     @if ($s->pembelianstatus === 'sedang di proses')
@@ -409,10 +410,9 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('PATCH')
-                                                            <button type="submit"
-                                                                class="btn btn-outline-success complete-btn">Tandakan
-                                                                Telah
-                                                                Selesai</button>
+                                                            <button type="submit" class="btn btn-outline-success complete-btn">
+                                                                <i class="fas fa-check"></i>
+                                                            </button>
                                                         </form>
                                                     @else
                                                             <a class="btn btn-outline-primary"
@@ -420,9 +420,11 @@
                                                             data-bs-target="#myModal_{{ $s->id }}"><i
                                                                 class="bi bi-eye"></i></a>
                                                     @endif
-                                                    <a href="{{ $url }}" class="btn btn-outline-primary">
-                                                        <i class="fas fa-comments"></i>
-                                                    </a>
+                                                </td>
+                                                <td>
+                                                <a href="{{ $url }}" class="btn btn-outline-primary">
+                                                    <i class="fas fa-comments"></i>
+                                                </a>
                                                 </td>
                                             </tr>
                                         @endforeach

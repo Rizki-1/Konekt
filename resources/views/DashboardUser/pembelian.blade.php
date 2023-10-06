@@ -374,10 +374,11 @@
                                 $jefri = strlen($data->keterangan);
                             @endphp
                             @if ($jefri >= 20)
-                                <p class="" name="keteranganqr" value="{{ $data->keterangan }}"
-                                    id="{{ $data->tujuan }}">
-                                    <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}"
-                                        style="width: 150px; height=80px;" disabled>
+                                <p class="" name="keteranganqr" value="{{ $data->keterangan }}" id="{{ $data->tujuan }}">
+                                    <a href="{{ asset('storage/pembayaran/' . $data->keterangan) }}" data-toggle="lightbox">
+                                        <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}"
+                                            style="width: 150px; height=80px;">
+                                    </a>
                                 </p>
                             @else
                                 <a></a>
@@ -409,7 +410,7 @@
                                 {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
                             @else
                                 <input type="text" name="keterangan" value="{{ $data->keterangan }}"
-                                    id="{{ $data->tujuan }}" class="form-control" disabled>
+                                    id="{{ $data->tujuan }}" class="form-control" readonly disabled>
                             @endif
                         @endforeach
                     </div>

@@ -125,13 +125,18 @@
               @endphp
               @if ($saya >= 20)
                   {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
-                  <p><img value="" src="{{ asset('storage/pembayaran/'.$finish->pembayaranpenjual->keterangan) }}" alt="" style="max-width:150px; height:100px;"></p>
+                  <p>
+                    <a href="{{ asset('storage/pembayaran/'.$finish->pembayaranpenjual->keterangan) }}" data-toggle="lightbox">
+                        <img src="{{ asset('storage/pembayaran/'.$finish->pembayaranpenjual->keterangan) }}"
+                            style="width: 150px; height=80px;">
+                    </a>
+                  </p>
                   @else
                   <p class="form-control">{{ $finish->pembayaranpenjual->keterangan }}</p>
               @endif
             </div>
             <div class="modal-footer mx-3">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
               <button type="submit" class="btn btn-primary">Kirim</button>
             </div>
         </div>
@@ -392,12 +397,12 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $finish->penjuallogin->nama_toko }}</td>
                                             <td>{{ $finish->userOrder->penjual->namamenu }}</td>
-                                            <td>{{ $finish->userOrder->totalharga }}</td>
+                                            <td>Rp. {{ number_format($finish->userOrder->totalharga, 0, ',', '.') }}</td>
                                             <td>{{ $finish->pembayaranpenjual->metodepembayaran }}</td>
                                             <td>
-                                                <div class="btn btn-warning" type="submit"
+                                                <div class="btn btn-outline-warning" type="submit"
                                                 data-bs-toggle="modal" data-bs-target="#myModal"
-                                                style="">Detail</div>
+                                                style=""><i class="fa fa-info-circle" aria-hidden="true"></i>Detail</div>
                                             </td>
                                         </tr>
                                         @endforeach

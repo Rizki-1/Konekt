@@ -200,7 +200,7 @@
                                             {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
                                          @else
                                             <input type="text" name="keterangan_bank" value="{{ $data->keterangan }}"
-                                                id="{{ $data->tujuan }}" class="form-control form-control-lg mb-3" disabled>
+                                                id="{{ $data->tujuan }}" class="form-control form-control-lg mb-3" disabled readonly>
                                         @endif
                                     @endforeach
                                 </div>

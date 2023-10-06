@@ -361,13 +361,13 @@
                                                         @endphp
 
                                                         @if (!$ulasan)
-                                                            <div class="btn btn-warning text-capitalize" type="submit"
+                                                            <div class="btn btn-outline-warning text-capitalize" type="submit"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#myModal-{{ $u->barangpenjual_id }}"
                                                                 style="">beri ulasan</div>
                                                         @endif
                                                     @endif
-                                                    <a href="{{ route('menu.store') }}" class="btn btn-warning"
+                                                    <a href="{{ route('menu.store') }}" class="btn btn-outline-primary"
                                                         method="POST">Pesan Lagi</a>
                                                 </div>
                                             </div>

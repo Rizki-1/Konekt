@@ -207,7 +207,7 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="keterangan_bank" class="form-label fw-bold">Keterangan</label>
+                            <label for="keterangan_bank" class="form-label fw-bold">Nomor Rekening</label>
                             <input type="number" class="form-control" id="keterangan_bank" name="keterangan_bank"
                                 rows="3">
                             @if ($errors->has('keterangan_bank'))

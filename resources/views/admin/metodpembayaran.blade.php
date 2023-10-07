@@ -144,7 +144,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="kelas" class="form-label fw-bold">Nomor Rekening</label>
-                                <input type="number" name="keterangan" class="form-control"
+                                <input type="number" name="keterangan" id="keterangan" class="form-control"
                                     value="{{ old('keterangan') }}">
                                 @if ($errors->has('keterangan'))
                                     <span class="text-danger">{{ $errors->first('keterangan') }}</span>
@@ -481,29 +481,25 @@
                 var metodeId = $(this).data('id');
                 var metodePembayaran = $(this).data('metode');
 
-                // Menggunakan Ajax untuk mengambil data metode pembayaran berdasarkan ID
+
                 $.ajax({
                     url: '/aedit/' + metodeId +
-                        '/edit', // Gantilah dengan rute yang sesuai di Laravel
+                        '/edit',
                     type: 'GET',
                     success: function(data) {
                         $('#editMetodeId').val(data.id);
                         $('#editMetodepembayaran').val(data.metodepembayaran);
                         $('#editTujuan').val(data.tujuan);
-
-                        // Mengganti tipe input berdasarkan metode pembayaran
                         if (metodePembayaran === 'e-wallet') {
                             $('#editKeterangan').attr('type',
-                                'file'); // Mengubah tipe input menjadi file
+                                'file');
                             $('#keteranganType').val('file');
                         } else if (metodePembayaran === 'bank') {
                             $('#editKeterangan').attr('type',
-                                'number'); // Mengubah tipe input menjadi teks
+                                'number');
                             $('#keteranganType').val('number');
                             $('#editKeterangan').val(data.keterangan);
-
                         }
-
                         $('#editMetodePembayaranModal').modal('show');
                     },
                     error: function() {
@@ -524,6 +520,7 @@
                 var tujuan = $('#editTujuan').val();
                 var keteranganType = $('#keteranganType').val(); // Tipe input (text atau file)
                 var metodepembayaran = $('#editMetodepembayaran').val();
+                
 
                 // Inisialisasi variabel keterangan dengan null
                 var keterangan = null;
@@ -587,6 +584,7 @@
     const ewalletInput = document.getElementById('ewalletInput');
     const bankInput = document.getElementById('bankInput');
     const tujuan = document.getElementById('tujuan-bank');
+    const keterangan = document.getElementById('keterangan');
 
     selectMetode.addEventListener('change', function() {
         if (this.value === 'e-wallet') {

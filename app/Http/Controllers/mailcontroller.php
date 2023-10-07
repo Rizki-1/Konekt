@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Mail;
 
 class mailcontroller extends Controller
 {
-    public function index(Request $request)
-    {
-        $user = User::where('role', 'penjualnotapprove')->get();
-        Mail::to('email@gmail.com')->send(new SendEmail($user));
-    }
+    // public function index(Request $request)
+    // {
+    //     $user = User::where('role', 'penjualnotapprove')->get();
+    //     Mail::to('email@gmail.com')->send(new SendEmail($user));
+    // }
 }

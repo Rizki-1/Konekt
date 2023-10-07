@@ -16,16 +16,15 @@ class SendEmail extends Mailable
     use Queueable, SerializesModels;
 
     public $user;
-
-
-
+    public $type;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($user)
+    public function __construct($user, $type)
     {
         $this->user = $user;
+        $this->type = $type;
     }
 
     /**
@@ -44,8 +43,10 @@ class SendEmail extends Mailable
      */
     public function content(): Content
     {
+        $view = ($this->type == 'tolak') ? 'emails.tolakEmail' : 'emails.terimaEmail';
+
         return new Content(
-            view: 'emails.test-mail',
+            view: $view,
         );
     }
 

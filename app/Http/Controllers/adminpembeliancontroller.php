@@ -177,7 +177,7 @@ class adminpembeliancontroller extends Controller
     {
         $user = User::where('role', 'penjualnotapprove')->get();
         foreach ($user as $User) {
-            Mail::to($User->email)->send(new SendEmail($User));
+            Mail::to($User->email)->send(new SendEmail($User, 'terima'));
         }
         $calonPenjual = penjuallogin::where('id', $id)->first()->user_id;
         $user = User::where('id', $calonPenjual)->first();
@@ -197,6 +197,10 @@ class adminpembeliancontroller extends Controller
             $user = User::find($penjuallogin->user_id);
             if ($user) {
                 $user->delete();
+                $user = User::where('role', 'penjualnotapprove')->get();
+                foreach ($user as $User) {
+                    Mail::to($User->email)->send(new SendEmail($User, 'tolak'));
+                }
             }
 
 

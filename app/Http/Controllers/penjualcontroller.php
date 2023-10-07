@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\pengajuandanapenjual;
 use App\Models\penjuallogin;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
 class penjualcontroller extends Controller
@@ -194,28 +195,51 @@ class penjualcontroller extends Controller
         $pembayaranpenjual = pembayaranpenjual::all();
         return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual'));
     }
+    public function pembayaranupdate(Request $request, $id){
 
-    public function pembayaranupdate(Request $request, $id)
-    {
-        $data = pembayaranpenjual::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            'tujuan' => 'required',
+            'keterangan.norek' => 'required|numeric', // Norek harus diisi dan berupa angka
+            'keterangan.file' => 'required_without:keterangan.norek|image|mimes:jpeg,png,jpg,gif|max:2048', // File harus diisi jika tidak ada norek yang diisi
+        ], [
+            'tujuan.required' => 'Kolom tujuan harus diisi.',
+            'keterangan.norek.required' => 'Kolom norek harus diisi.',
+            'keterangan.norek.numeric' => 'Kolom norek harus berupa angka.',
+            'keterangan.file.required_without' => 'File harus diunggah jika tidak mengisi kolom norek.',
+            'keterangan.file.image' => 'File harus berupa gambar.',
+            'keterangan.file.mimes' => 'Format gambar tidak valid. Hanya diperbolehkan: jpeg, png, jpg, gif.',
+            'keterangan.file.max' => 'Ukuran gambar tidak boleh melebihi 2 MB.',
+        ]);
+
+
+        $data = pembayaranpenjual::find($id);
         $data->tujuan = $request->tujuan;
-        $data->keterangan = $request->keterangan;
+        $old = $data->keterangan;
+        if ($request->file('keterangan')){
+            $image = $request->file('keterangan');
+            $filename = $image->hashName();
+            $image->storeAs('public/pembayaran', $filename);
+            if ($old && $old !== $filename){
+                Storage::delete('public/pembayaran'. $old);
+            }
+            $data->keterangan = $filename;
+        }else{
+            $data->keterangan = $request->keterangan;
+        }
         $data->save();
-        return redirect()->back()->with('succes', 'berhasil mengubah');
+        return redirect()->route('pembayaranpenjual')->with('succes','berhasil mengubah');
     }
 
-    public function pembayaranpenjual_destroy(Pembayaranpenjual $pembayaranpenjual)
+
+    public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {
-        // $pembayaranpenjual->delete();
-        // return redirect()->route('pembayaranpenjual');
-        try {
+        try{
             $pembayaranpenjual->delete();
             return redirect()->route('pembayaranpenjual')->with('success', 'berhasil dihapus');
         } catch (Exception $e) {
             return back()->with('error', 'data masih digunakan');
         }
     }
-
     public function detailmenupen(Request $request, $id)
     {
         $user = BarangPenjual::findOrFail($id);
@@ -308,14 +332,10 @@ class penjualcontroller extends Controller
     {
         $penjualId = Auth::id();
         $pengajuan = pengajuandanapenjual::whereIn('status', ['siapMengajukan', 'sedangMengajukan'])->get();
-        // $pengajuan = pengajuandanapenjual::where('status', 'siapMengajukan')->get();
-        // $pengajuandanapenjual = penjuallogin::all();
         $pengajuandanapenjual = penjuallogin::where('user_id', $penjualId)->get();
-
         $bank = pembayaranpenjual::where('metodepembayaran', 'bank')->get();
         $wallet = pembayaranpenjual::where('metodepembayaran', 'e-wallet')->get();
-        // dd($userOrder);
-        return view('DashboardPenjual.pengajuandana', compact('pengajuandanapenjual', 'bank', 'wallet', 'pengajuan', 'penjualId'));
+        return view('DashboardPenjual.pengajuandana', compact( 'pengajuandanapenjual', 'bank', 'wallet', 'pengajuan', 'penjualId'));
     }
 
     protected function mengajukandana(Request $request, $id)
@@ -330,7 +350,6 @@ class penjualcontroller extends Controller
         // dd($mengajukan);
         return redirect()->route('pengajuanpenjualad');
     }
-
 
 
 

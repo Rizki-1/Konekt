@@ -28,11 +28,7 @@ use App\Http\Controllers\mailcontroller;
 
 Route::middleware(['ceklogin'])->group(function () {
 
-
-
-
 Route::middleware(['AdminMiddleware'])->group(function () {
-
     Route::patch('terima/{id}', [adminpembeliancontroller::class, 'terima'])->name('admin.terima');
     Route::patch('tolak/{id}', [adminpembeliancontroller::class, 'tolak'])->name('admin.tolak');
     Route::patch('terimapenjual/{id}', [adminpembeliancontroller::class, 'terimapenjual'])->name('terimapenjual');
@@ -57,7 +53,6 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::patch('terimapengajuanuser/{id}', [adminpembeliancontroller::class, 'terimapengajuanuser'])->name('terimapengajuanuser');
 });
 
-
 Route::middleware(['userMiddleware'])->group(function ()
     {
     Route::get('daftartoko', [dashboardusercontroller::class,'daftartoko'])->name('daftartoko');
@@ -67,7 +62,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('riwayatuser', [dashboardusercontroller::class, 'riwayatuser'])->name('riwayatuser');
     Route::get('pesanan', [dashboardusercontroller::class, 'pesanan'])->name('pesanan');
     Route::get('profileuser', [dashboardusercontroller::class, 'profileuser'])->name('profileuser');
-    Route::post('profileUpdate/{id}', [dashboardusercontroller::class, 'profileUpdate'])->name('profileUpdate');
+    Route::put('profileUpdate/{id}', [dashboardusercontroller::class, 'profileUpdate'])->name('profileUpdate');
     Route::resource('menu' , App\Http\Controllers\dashboardusercontroller::class);
     Route::get('searching', [dashboardusercontroller::class, 'search'])->name('searching');
     Route::get('caritoko', [dashboardusercontroller::class, 'caritoko'])->name('caritoko');
@@ -87,10 +82,7 @@ Route::middleware(['userMiddleware'])->group(function ()
     Route::get('notifikasiuser', [dashboardusercontroller::class, 'notifikasiuser'])->name('notifikasiuser');
     Route::post('readnotifikasiuser/{id}', [dashboardusercontroller::class, 'readnotifikasiuser'])->name('readnotifikasiuser');
     Route::get('kategorifilter/{kategori}', [dashboardusercontroller::class, 'kategorifilter'])->name('kategorifilter');
-
 });
-
-
 
 Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::resource('/DashboardPenjual', penjualcontroller::class);

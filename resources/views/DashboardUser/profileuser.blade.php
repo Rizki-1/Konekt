@@ -56,7 +56,7 @@
             display: inline-block;
             cursor: pointer;
         }
-  
+
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -244,16 +244,16 @@
                             <div class="d-flex flex-wrap align-items-center justify-content-between mx-3 my-3">
                                 <div class="d-flex flex-wrap align-items-center">
                                     <div class="profile-img-edit position-relative">
-                                        <img class="profile-pic rounded avatar-100"
-                                            src="../../assets/images/avatars/06.png" alt="profile-pic">
-                                        <div class="upload-icone bg-primary">
-                                            <svg class="upload-button" width="14" height="14"
-                                                viewBox="0 0 24 24">
-                                                <path fill="#ffffff"
-                                                    d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                            </svg>
-                                            <input class="file-upload" type="file" accept="image/*">
-                                        </div>
+                                        @foreach ($user as $User )
+                                        @if ($User->fotoProfile === null)
+                                        <img src="../assets/images/avatars/01.png" alt="User-Profile"
+                                        class="profile-pic rounded avatar-100">
+                                            @else
+                                            <img src="{{ asset('storage/' . $User->fotoProfile)}}" alt="User-Profile"
+                                            class="profile-pic rounded avatar-100">
+                                        @endif
+                                        @endforeach
+
                                     </div>
                                     <div class="d-flex align-items-center mb-3 mb-sm-0 ms-sm-4">
                                         <div>
@@ -278,15 +278,19 @@
                                         </div> -->
                                     </div>
                                 </div>
-    
+
                             </div>
                         </div>
                         <div class="iq-header-img">
+                            @foreach ($user as $User)
+                            @if ($User === null)
                             <img src="../../assets/images/User-profile/01.png" alt="header"
-                                class="img-fluid w-100 rounded" style="object-fit: contain;">
-                            
-  
-
+                            class="img-fluid w-100 rounded" style="object-fit: contain;">
+                            @else
+                            <img src="{{ asset('storage/' . $User->fotoBanner)}}" alt="header"
+                            class="img-fluid w-50 rounded" style="object-fit: contain;">
+                            @endif
+                            @endforeach
                             <svg class="upload-button" width="14" height="14" viewBox="0 0 24 24">
                                 <path fill="#ffffff"
                                     d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
@@ -296,11 +300,11 @@
                     </div>
                 </div>
     </div>
- 
+
     <div class="row">
     <div class="card ">
         <div class="col-lg-12">
-           <div class="card-header"> 
+           <div class="card-header">
               <div class="card-body">
                  <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                         @if ($message = Session::get('success'))
@@ -308,42 +312,68 @@
                             {{ $message}}
                         </div>
                         @endif
-                        <form action="{{route('profileUpdate', auth()->id())}}" method="post" enctype="multipart/form-data">
+                        @foreach ($user as $User )
+                        <form action="{{route('profileUpdate', ['id'=>$User->id])}}" method="post" enctype="multipart/form-data">
                             @csrf
+                            @method('put')
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nama</label>
                                     <input type="text" name="name" class="form-control" value="{{ Auth()->user()->name }}">
-                                    
+
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Email</label>
                                     <input type="email" name="email" class="form-control" value="{{Auth()->user()->email}}" readonly>
-                                  
+
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Tanggal Lahir</label>
                                     <input type="date" name="tanggal_lahir" class="form-control" value="{{Auth()->user()->tanggal_lahir}}" required>
-                                  
+
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Bio</label>
                                     <textarea name="bio" class="form-control">{{ Auth()->user()->bio }}</textarea>
-                                   
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>foto profile</label>
+                                    @if ($User->fotoProfile === null)
+                                    <input type="file" name="fotoProfile" class="form-control" value="" required>
+                                    @else
+                                    <input type="file" name="fotoProfile" class="form-control" value="{{ $User->fotoProfile }}" >
+                                    <img src="{{ asset('storage/' . $User->fotoProfile)}}" style="width: 150px; ">
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>foto Banner</label>
+                                    @if ($User->fotoBanner === null)
+                                        <input type="file" name="fotoBanner" class="form-control" value="" required>
+                                    @else
+                                        <input type="text" name="fotoBanner" class="form-control" value="{{ $User->fotoBanner }}">
+                                        <img src="{{ asset('storage/' . $User->fotoBanner)}}" style="width: 150px; ">
+                                    @endif
+                                </div>
+                            </div>
+
                         </div>
                         <div class="mt-2">
                             <button type="submit" class="btn btn-primary">simpan perubahan</button>
                         </div>
                         </form>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -408,10 +438,6 @@ form.addEventListener('submit', (event) => {
   }
 });
 </script>
-
- 
-
-
                 <div class="row">
                     <!-- Footer Section Start -->
                     <footer class="footer">

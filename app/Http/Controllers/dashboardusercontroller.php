@@ -37,6 +37,7 @@ class dashboardusercontroller extends Controller
     public function index()
     {
         $user_id = Auth::id();
+
         $users = userOrder::all();
         $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
             ->where('is_read', false)
@@ -57,7 +58,17 @@ class dashboardusercontroller extends Controller
 
         $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler'));
+
+        $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {
+            $user->populer = UserOrder::where('toko_id', $user->user_id)
+                ->where('pembelianstatus', 'statusselesai')
+                ->count();
+            return $user->populer > 0;
+        });
+        // dd($tokoPopuler);
+        $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
+
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users', 'tokoPopuler'));
     }
 
 
@@ -162,7 +173,6 @@ class dashboardusercontroller extends Controller
             $keranjang->delete();
 
             $userOrdersIds[] = $userOrder->id;
-
         }
         $orderId = $userOrder->id;
 
@@ -354,12 +364,14 @@ class dashboardusercontroller extends Controller
 
     public function profileuser()
     {
-        $user = User::all();
-        return view('DashboardUser.profileuser', compact('user'));
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->get();
+        return view('DashboardUser.profileuser', compact('user', 'user_id'));
     }
 
-    public function profileUpdate(Request $request) {
-        $user = Auth::user();
+    public function profileUpdate(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -371,7 +383,20 @@ class dashboardusercontroller extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+        if ($request->hasFile('fotoProfile')) {
+            if ($user->fotoProfile) {
+                unlink(storage_path('app/public/' . $user->fotoProfile));
+            }
+            $filePath = $request->file('fotoProfile')->store('users-avatar', 'public');
+            $user->fotoProfile = $filePath;
+        }
+        if ($request->hasFile('fotoBanner')) {
+            if ($user->fotoBanner) {
+                unlink(storage_path('app/public/' . $user->fotoBanner));
+            }
+            $filepath = $request->file('fotoBanner')->store('users-avatar', 'public');
+            $user->fotoBanner = $filepath;
+        }
 
         $user->name = $request->input('name');
         $user->tanggal_lahir = $request->input('tanggal_lahir');
@@ -380,9 +405,6 @@ class dashboardusercontroller extends Controller
 
         return redirect()->route('profileuser')->with('success', 'Profile berhasil diperbarui');
     }
-
-
-
 
 
     public function detailmenu(Request $request, $id)
@@ -399,19 +421,18 @@ class dashboardusercontroller extends Controller
     public function daftartoko()
     {
         $penjuallogin = penjuallogin::paginate(4);
-        $penjualId = Auth::id();
-        $menu = barangpenjual::where('toko_id', $penjualId)->count();
+        $url = '';
         foreach ($penjuallogin as $p) {
             $url = url('/chatify/' . $p->user->id);
         }
-        return view('DashboardUser.daftartoko', compact('penjuallogin', 'url', 'menu'));
+        return view('DashboardUser.daftartoko', compact('penjuallogin', 'url'));
     }
 
     public function detailtoko(Request $request, $id)
     {
         $penjualId = Auth::id();
         $penjual = barangpenjual::where('toko_id', $id)->get();
-        $user = penjuallogin::where('user_id', $id)->get();
+        $user = penjuallogin::where('id', $id)->get();
 
         return view('DashboardUser.detailtoko', compact('penjual', 'user'));
     }
@@ -516,7 +537,7 @@ class dashboardusercontroller extends Controller
         ];
 
         ulasan::create($ulasan);
-        return redirect()->route('detailmenu', ['id' => $id]);
+        return redirect()->route('riwayatuser');
     }
 
     public function pengembaliandana(Request $request, $id)
@@ -788,7 +809,16 @@ class dashboardusercontroller extends Controller
         $penjual = Barangpenjual::where('kategori_id', $Kategori)->get();
         $ulasan = ulasan::avg('rating');
 
-        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan'));
+        $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {
+            $user->populer = UserOrder::where('toko_id', $user->user_id)
+                ->where('pembelianstatus', 'statusselesai')
+                ->count();
+            return $user->populer > 0;
+        });
+        // dd($tokoPopuler);
+        $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
+
+        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler'));
     }
 
     public function notifikasiuser()
@@ -812,6 +842,4 @@ class dashboardusercontroller extends Controller
 
         return response()->json(['message' => 'Notifikasi tidak ditemukan'], 404);
     }
-
-
 }

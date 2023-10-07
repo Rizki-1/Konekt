@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->string('bio')->nullable();
+            $table->string('fotoProfile')->nullable();
+            $table->string('fotoBanner')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -345,9 +345,13 @@
                                                     <a><i class="fas fa-map-marker-alt"></i>
                                                         <a style="margin-left: 5px;">{{ $p->alamat_toko }}</a>
                                                     </a>
-                                                    <p><i class="fas fa-phone"></i><a style="margin-left: 2px;">{{ $p->notlp }}</a></p>                                                    <tr>
-                                                    </tr>
-                                                    <div class="angka m-0"> Menu {{ $menu }}</div>
+                                                    <p><i class="fas fa-phone"></i><a
+                                                            style="margin-left: 2px;">{{ $p->notlp }}</a></p>
+                                                    @php
+                                                        $menuCount = \App\Models\barangpenjual::where('toko_id', $p->user_id)->count();
+                                                    @endphp
+
+                                                    <div class="angka m-0">{{ $menuCount }} Menu</div>
                                                     <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
                                                         style="position: absolute; top: 10px; right: 10px; width: 190px; height:85px;"
                                                         class="img">
@@ -360,7 +364,8 @@
                                                             </a>
                                                         </div>
                                                         <div>
-                                                            <a class="btn btn-outline-warning" href="{{ $url }}">
+                                                            <a class="btn btn-outline-warning"
+                                                                href="{{ url('chatify/'. $p->user_id) }}">
                                                                 <i class="fa fa-comments" aria-hidden="true"></i> Chat
                                                                 Penjual
                                                             </a>
@@ -369,8 +374,8 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -440,7 +445,7 @@
                                                         <a>(26)</a>
                                                     </tr>
                                                     <div class="btn-custom"><span>12 menu</span></div>
-                                                    <img src="{{ asset('Storage/')}}/${menu.foto_toko}" alt="Foto Toko"
+                                                    <img src="{{ asset('Storage/') }}/${menu.foto_toko}" alt="Foto Toko"
                                                         style="position: absolute; top: 10px; right: 10px; width: 190px; height:85px;"
                                                         class="img">
                                                         <div class="d-flex justify-content-between my-3">

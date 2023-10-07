@@ -421,11 +421,7 @@ class dashboardusercontroller extends Controller
     public function daftartoko()
     {
         $penjuallogin = penjuallogin::paginate(4);
-        $url = '';
-        foreach ($penjuallogin as $p) {
-            $url = url('/chatify/' . $p->user->id);
-        }
-        return view('DashboardUser.daftartoko', compact('penjuallogin', 'url'));
+        return view('DashboardUser.daftartoko', compact('penjuallogin'));
     }
 
     public function detailtoko(Request $request, $id)
@@ -762,7 +758,7 @@ class dashboardusercontroller extends Controller
         $results = barangpenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
 
         // Kembalikan hasil pencarian dalam format JSON
-        return response()->json($results);
+        return view('DashboardUser.menu', ['results' => $results]);
     }
 
     public function caritoko(Request $request)

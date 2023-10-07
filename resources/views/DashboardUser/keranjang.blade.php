@@ -353,8 +353,8 @@
                                     <div class="d-flex ms-5" id="namatoko">
                                         <input type="checkbox" name="selectAllItems" class="selectAllItems my-3"
                                             data-toko-id="{{ $storeName }}">
-                                        <p class="fs-5 text-black mx-5 my-2"><i class="bi bi-shop"></i>
-                                            {{ $storeName }}</p>
+                                        <a href="{{route('detailtoko', ['id' => $toko_id])}}" class="fs-5 text-black mx-5 my-2"><i class="bi bi-shop"></i>
+                                            {{ $storeName }}</a>
                                     </div>
                                     <tr>
                                         <th scope="col"></th>
@@ -600,6 +600,7 @@
             // Perbarui status checkbox "Pilih Semua" sesuai dengan hasil seleksi grup
             $(".selectAllItems[data-toko-id='" + tokoId + "']").prop("checked", allChecked);
             $("#checkAllItems").prop("checked", allChecked);
+
         });
 
         $("#beli").click(function() {

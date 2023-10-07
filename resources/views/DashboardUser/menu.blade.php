@@ -579,7 +579,10 @@
                                     stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
-                        <input type="search" id="search" class="form-control" placeholder="Cari...">
+                        <form action="{{ route('searching') }}" method="POST">
+                            @csrf
+                            <input type="text" class="form-control" name="query" placeholder="Cari...">
+                        </form>
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -1015,7 +1018,7 @@
     </main>
 
     {{-- search --}}
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             // Simpan hasil awal semua item
             var allItems = $(".row-cols-1.row-cols-md-2.row-cols-xl-4.row-cols-xxl-4").html();
@@ -1141,58 +1144,8 @@
                 return formatter.format(amount);
             }
         });
-    </script>
-    {{-- search --}}
-
-    {{-- Search w/wo category --}}
-    {{-- <script>
-        $(document).ready(function() {
-            // Tangkap klik pada tautan kategori
-            $('.kategori-link').click(function(event) {
-                event.preventDefault(); // Hentikan tautan dari pergi ke URL yang sebenarnya
-
-                var kategoriId = $(this).data(
-                'kategori-id'); // Ambil nilai kategori-id dari tautan yang diklik
-
-                // Lanjutkan dengan permintaan pencarian dengan kategori_id
-                performSearch(kategoriId);
-            });
-
-            $('#search').keyup(function() {
-                var query = $(this).val();
-
-                // Periksa apakah parameter kategori ada dalam URL
-                var kategoriId = getUrlParameter('kategori');
-
-                // Lanjutkan dengan permintaan pencarian dengan kategori_id jika ada
-                performSearch(query, kategoriId);
-            });
-
-            function performSearch(query, kategoriId) {
-                $.ajax({
-                    url: "{{ route('searching') }}",
-                    method: 'GET',
-                    data: {
-                        query: query,
-                        kategori_id: kategoriId // Sertakan kategori_id dalam permintaan jika ada
-                    },
-                    success: function(data) {
-                        // Handle hasil pencarian
-                    },
-                    // ...
-                });
-            }
-
-            // Fungsi untuk mendapatkan nilai parameter dari URL
-            function getUrlParameter(name) {
-                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-                var results = regex.exec(location.search);
-                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-            }
-        });
     </script> --}}
-    {{-- Search w/wo category --}}
+    {{-- search --}}
 
     @include('layout.js')
 

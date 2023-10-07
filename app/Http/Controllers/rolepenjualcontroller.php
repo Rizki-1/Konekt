@@ -76,6 +76,7 @@ class rolepenjualcontroller extends Controller
 
         User::find($user->id)->penjuallogin()->create([
             'nama_toko' => $request->nama_toko,
+            'user_id' => $user->id,
             'foto_toko' => $foto_tokoPath, // Simpan path ke database, bahkan jika foto_tokoPath adalah null
             'alamat_toko' => $request->alamat_toko,
             'notlp' => $request->notlp

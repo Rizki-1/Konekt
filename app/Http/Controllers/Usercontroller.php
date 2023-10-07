@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\barangpenjual;
 use App\Models\User;
+use App\Models\userOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,8 +23,18 @@ class Usercontroller extends Controller
     $totalpenjual = User::where('role', 'penjual')->count();
     $totaluser = User::where('role', 'user')->count();
     $totalmenu = barangpenjual::all()->count();
+    $users = userOrder::all();
+    $produkPopuler = barangpenjual::all()->filter(function ($item) {
+        $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
+            ->where('pembelianstatus', 'statusselesai')
+            ->count();
+        return $item->terjual > 4;
+    });
 
-    return view('welcome' , compact('totaluser', 'totalpenjual', 'totalmenu'));
+    $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
+
+
+    return view('welcome' , compact('totaluser', 'totalpenjual', 'totalmenu', 'produkPopuler', 'users'));
    }
     public function register()
     {

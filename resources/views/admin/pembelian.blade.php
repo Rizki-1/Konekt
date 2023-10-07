@@ -366,7 +366,7 @@
                 <div class="card-body">
                     <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
                         data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
+                        style="">
                         <table class="table">
                             <thead>
                                 <tr>

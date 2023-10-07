@@ -113,7 +113,8 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
     Route::patch('mengajukandana/{id}', [penjualcontroller::class, 'mengajukandana'])->name('mengajukandana');
     Route::get('pjedit/{id}/edit', [penjualcontroller::class,'pjedit'])->name ('pjedit');
     Route::put('pjupdate/{id}', [penjualcontroller::class, 'pjupdate'])->name ('pjupdate');
-
+    Route::get('pembayaranedit/{id}', [penjualcontroller::class, 'pembayaranedit'])->name('pembayaranedit');
+    Route::put('pembayaranupdate/{id}',[penjualcontroller::class, 'pembayaranupdate'])->name('pembayaranupdate');
 });
 
 

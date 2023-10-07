@@ -3,8 +3,6 @@
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
 
 <head>
-    <style>
-    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kuliner kita</title>
@@ -137,13 +135,12 @@
                         <h5 class="modal-title">Metode Pembayaran</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" style="border: none;">
-                        <div class="container m-0 p-0 d-flex justify-content-between">
+                        <div class="container m-2 p-0 d-flex justify-content-between">
                             <div class="d-grid" style="display: flex; justify-content: space-between;">
                                 <label for="metode" class="form-label fw-bold"
                                     style="align-self: center; font-size: 16px;"> PIlih Metode Pembayaran</label>
-                                <select class="form-select form-select-lg mb-3" name="metodepembayaran"
-                                    aria-label=".form-select-lg example" id="selectMetode">
+                                <select class="form-select mb-3" name="metodepembayaran"
+                                    aria-label=".form-select example" id="selectMetode">
                                     <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
                                     <option value="e-wallet" data-target="#myModal2">E-Wallet</option>
                                     <option value="bank" data-target="myModalBank">Bank</option>
@@ -224,9 +221,7 @@
             </div>
         </div>
         </div>
-
     </form>
-
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
@@ -410,6 +405,63 @@
             </nav>
         </div>
         <!-- The modal itself -->
+
+        @foreach ($pembayaranpenjual as $p)
+        <div class="modal" id="editModal-{{ $p->id }}" tabindex="-1" role="dialog">
+            <form action="{{ route('pembayaranupdate', ['id' => $p->id]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Data</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Konten Form Edit Data -->
+                            <!-- Misalnya: -->
+                            <div class="mb-3">
+                                <label for="metodepembayaran" class="form-label fw-bold">Metode Pembayaran</label>
+                                <input type="text" class="form-control" id="metodepembayaran" name="metodepembayaran" value="{{ $p->metodepembayaran }}" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tujuan" class="form-label fw-bold">Tujuan</label>
+                                <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{ $p->tujuan }}">
+                                @if ($errors->has('tujuan'))
+                                <span class="text-danger">{{ $errors->first('tujuan') }}</span>
+                            @endif
+                            </div>
+                            <div class="mb-3">
+                                <label for="keterangan" class="form-label fw-bold">Keterangan</label>
+                                {{-- <input type="file" class="form-control" id="keterangan" name="keterangan" value="{{ $p->keterangan }}"> --}}
+                                @php
+                                    $long = strlen($p->keterangan);
+                                @endphp
+                                @if ($long >=20)
+                                <input type="file" class="form-control" name="keterangan" id="keterangan" value="{{ $p->keterangan }}">
+                                <img src="{{ asset('storage/pembayaran/' . $p->keterangan) }}"
+                                                    style="width:120px;height:120px;margin-top:15px;" alt="tes">
+                                @else
+                                <input type="number" class="form-control" name="keterangan" id="keterangan" value="{{ $p->keterangan }}">
+
+                                @endif
+                            </div>
+                            <!-- ... Tambahkan input lain sesuai kebutuhan ... -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    @endforeach
+
+
+
+
         <!-- Start Isi Dashboard -->
         <div class="content-inner mt-5 py-0">
             <div class="card border-0 shadow rounded">
@@ -441,7 +493,7 @@
                                             $i = strlen($p->keterangan);
                                         @endphp
                                         <td>
-                                            @if ($i >= 15)
+                                            @if ($i >= 20)
                                                 <img src="{{ asset('storage/pembayaran/' . $p->keterangan) }}"
                                                     style="width:120px;height:120px;" alt="tes">
                                             @else
@@ -450,13 +502,16 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <button style="margin-right: 10px;" class="btn btn-warning"> edit
-                                                </button>
+                                               <button style="margin-right: 10px;" type="submit" class="btn btn-outline-warning "  data-bs-toggle="modal"
+                                               data-bs-target="#editModal-{{ $p->id }}">
+                                                 Edit
+                                               </button>
+
                                                 <form action="{{ route('pembayaranpenjual_destroy', $p->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"> hapus </button>
+                                                    <button type="submit" class="btn btn-outline-danger"> hapus </button>
                                                 </form>
                                             </div>
                                         </td>

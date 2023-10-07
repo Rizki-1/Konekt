@@ -114,74 +114,74 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
-
-
-@foreach ($pengajuan as $index => $Pengajuan)
-@foreach ( $pengajuandanapenjual as $U)
-@foreach ($wallet as $w)
-@foreach ($bank as $b)
-<form action="{{ route('mengajukandana', ['id' => $Pengajuan->id]) }}" method="post">
-    @csrf
+    @foreach ($pengajuan as $Pengajuan )
+    <form action="{{ route('mengajukandana', ['id' => $Pengajuan->id]) }}" method="post">
         @csrf
         @method('patch')
-        <div class="modal" id="myModal-{{$Pengajuan->id}}" tabindex="-1">
+        <div class="modal" id="myModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Mengajukan Dana</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
                         <div class="container">
                             <div class="row">
-                                <div class="col-8">
-                                </div>
+                                <div class="col-8"></div>
                                 <div class="mb-3">
+                                    @foreach ($pengajuandanapenjual as $U)
                                         <input type="hidden" name="penjual_id" value="{{ $U->id }}">
-                                    <label for="metodepembayaran_id" class="form-label fw-bold">Metode
-                                        Pembayaran</label>
-
-                                    <select class="form-select form-select-lg mb-3" name="metodepembayaran_id"
-                                        aria-label=".form-select-lg example" id="selectMetode">
-                                        <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
-                                        <option value="{{ $w->id }}" data-target="ewalletInput-{{ $w->id }}">E-Wallet</option>
-                                        <option value="{{ $b->id }}" data-target="bankInput-{{ $b->id }}">Bank</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3" id="ewalletInput-{{ $w->id }}" style="display: none;">
-                                    <div>
-                                        <p class="form-label fw-bold">Jenis QR</p>
-                                    </div>
-                                    <select name="tujuan_e_wallet" id="JenisEwallet" class="form-select form-select-lg mb-3">
-                                        <option value="" disabled selected>Pilih</option>
-                                        @forelse ($wallet as $data)
-                                            <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
-                                        @empty
-                                            <option value="" disabled selected>Data E-wallet Kosong</option>
-                                        @endforelse
-                                    </select>
-                                    <div><br>
-                                        <p class="form-label fw-bold">Kode QR</p>
-                                    </div>
-                                    @foreach ($wallet as $data)
-                                        @php
-                                            $jefri = strlen($data->keterangan);
-                                        @endphp
-                                        @if ($jefri >= 24)
-                                        <p class="" name="keterangan_e_wallet" value="{{ $data->keterangan }}"
-                                            id="{{ $data->tujuan }}">
-                                            <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}"
-                                                style="width: 150px; height=80px;" disabled>
-                                        </p>
-                                        @else
-                                        @endif
                                     @endforeach
+                                    <label for="metodepembayaran_id" class="form-label fw-bold">Metode Pembayaran</label>
+                                    <select class="form-select  mb-3" name="metodepembayaran_id" aria-label=".form-select-lg example" id="selectMetode">
+                                        <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
+                                        @if (count($wallet) > 0)
+                                            <option value="{{ $wallet[0]->id }}" data-target="ewalletInput">E-Wallet</option>
+                                        @endif
+
+                                        @if (count($bank) > 0)
+                                            <option value="{{ $bank[0]->id }}" data-target="bankInput">Bank</option>
+                                        @endif
+
+                                        @if (count($wallet) == 0 && count($bank) == 0)
+                                            <option value="" disabled>Data Metode Pembayaran Kosong</option>
+                                        @endif
+                                    </select>
                                 </div>
-                                <div class="mb-3" id="bankInput-{{ $b->id }}" style="display: none;">
+                                        <div class="mb-3" id="ewalletInput" style="display: none;">
+                                            <div>
+                                                <p class="form-label fw-bold">Jenis QR</p>
+                                            </div>
+                                            <select name="tujuan_e_wallet" id="JenisEwallet" class="form-select mb-3">
+                                                <option value="" disabled selected>Pilih</option>
+                                                @forelse ($wallet as $data)
+                                                    <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
+                                                @empty
+                                                    <option value="" disabled selected>Data E-wallet Kosong</option>
+                                                @endforelse
+                                            </select>
+                                            <div><br>
+                                                <p class="form-label fw-bold">Kode QR</p>
+                                            </div>
+                                            @foreach ($wallet as $data)
+                                                @php
+                                                    $jefri = strlen($data->keterangan);
+                                                @endphp
+                                                @if ($jefri >= 24)
+                                                <p class="" name="keterangan_e_wallet" value="{{ $data->keterangan }}"
+                                                    id="{{ $data->tujuan }}">
+                                                    <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}"
+                                                        style="width: 150px; height=80px;" disabled>
+                                                </p>
+                                                @else
+                                                @endif
+                                            @endforeach
+                                    </div>
+                                <div class="mb-3" id="bankInput" style="display: none;">
                                     <div>
                                         <p class="form-label fw-bold">Jenis Bank</p>
                                     </div>
-                                    <select name="tujuan_bank" id="JenisBank" class="form-select form-select-lg mb-3">
+                                    <select name="tujuan_bank" id="JenisBank" class="form-select mb-3">
                                         <option value="" disabled selected>Pilih</option>
                                         @forelse ($bank as $data)
                                             <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
@@ -198,28 +198,25 @@
                                         @endphp
                                         @if ($saya >= 24)
                                             {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
-                                         @else
+                                          @else
                                             <input type="text" name="keterangan_bank" value="{{ $data->keterangan }}"
-                                                id="{{ $data->tujuan }}" class="form-control form-control-lg mb-3" disabled>
+                                                id="{{ $data->tujuan }}" class="form-control mb-3" disabled>
                                         @endif
                                     @endforeach
                                 </div>
-
                             </div>
                         </div>
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-outline-secondary rounded-pill"
-                            data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary rounded-pill"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-
+@endforeach
 
      <script>
         let selectElement = document.querySelector('#JenisBank');
@@ -266,23 +263,21 @@
       var selectedOption = $(this).val();
 
     // Sembunyikan semua elemen
-    $("#ewalletInput-{{ $w->id }}").hide();
-    $("#bankInput-{{ $b->id }}").hide();
+    $("#ewalletInput").hide();
+    $("#bankInput").hide();
 
     // Periksa opsi yang dipilih
-    if (selectedOption === "{{ $w->id }}" && "{{ $w->id }}" !== "") {
-        $("#ewalletInput-{{ $w->id }}").show();
+    if (selectedOption === "{{ $wallet[0]->id }}" && "{{ $wallet[0]->id }}" !== "") {
+        $("#ewalletInput").show();
         $("#tujuan_e_wallet").val(selectedOption);
-    } else if (selectedOption === "{{ $b->id }}" && "{{ $b->id }}" !== "") {
-        $("#bankInput-{{ $b->id }}").show();
+    } else if (selectedOption === "{{ $bank[0]->id }}" && "{{ $bank[0]->id }}" !== "") {
+        $("#bankInput").show();
         $("#tujuan_bank").val(selectedOption);
     }
 });
    </script>
-       @endforeach
-       @endforeach
-       @endforeach
-       @endforeach
+
+
 
 
 <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -514,7 +509,7 @@
                                                     @else
                                                     <button type="submit" class="btn btn-outline-primary"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#myModal-{{$Pengajuan->id}}">
+                                                        data-bs-target="#myModal">
                                                         {{-- @dump($Pengajuan->id) --}}
                                                         ajukan pengambilan dana
                                                     </button>

@@ -419,11 +419,6 @@ class adminpembeliancontroller extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $adminmp = adminmetodepembayaran::all();
-        return view('admin.metodpembayaran', compact('adminmp'));
-    }
 
     public function terimapengajuanuser($id)
     {
@@ -433,6 +428,11 @@ class adminpembeliancontroller extends Controller
         return redirect()->back();
     }
 
+    public function create()
+    {
+        $adminmp = adminmetodepembayaran::all();
+        return view('admin.metodpembayaran', compact('adminmp'));
+    }
     /**
      * Store a newly created resource in storage.
      */

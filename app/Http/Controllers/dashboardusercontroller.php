@@ -58,7 +58,7 @@ class dashboardusercontroller extends Controller
         ];
 
         userOrder::create($userOrderData);
-        dd($request->$penjual->id);
+        // dd($request->$penjual->id);
         return redirect()->route('pembelian', ['id' => $request->id]);
     }
 

@@ -353,7 +353,8 @@
                                     <div class="d-flex ms-5" id="namatoko">
                                         <input type="checkbox" name="selectAllItems" class="selectAllItems my-3"
                                             data-toko-id="{{ $storeName }}">
-                                        <a href="{{route('detailtoko', ['id' => $toko_id])}}" class="fs-5 text-black mx-5 my-2"><i class="bi bi-shop"></i>
+                                        <a href="{{ route('detailtoko', ['id' => $toko_id]) }}"
+                                            class="fs-5 text-black mx-5 my-2"><i class="bi bi-shop"></i>
                                             {{ $storeName }}</a>
                                     </div>
                                     <tr>
@@ -578,29 +579,55 @@
             // Perbarui status semua checkbox-item keranjang sesuai dengan tombol "Pilih Semua"
             $(".itemCheckbox").prop("checked", isChecked);
             $(".selectAllItems").prop("checked", isChecked);
+
+            // Periksa apakah semua selectAllItems tercentang
+            var allSelectAllChecked = $(".selectAllItems:checked").length === $(".selectAllItems")
+                .length;
+
+            // Perbarui status checkbox "Pilih Semua" utama
+            $("#checkAllItems").prop("checked", allSelectAllChecked);
         });
 
-        // Ketika checkbox "Pilih Semua" diubah
+        // Ketika checkbox "Pilih Semua" berdasarkan toko diubah
         $(".selectAllItems").change(function() {
             var tokoId = $(this).data("toko-id");
             var isChecked = $(this).prop("checked");
 
             // Temukan semua checkbox item keranjang yang terkait dengan toko ini
             $(".itemCheckbox[data-toko-id='" + tokoId + "']").prop("checked", isChecked);
+
+            // Periksa apakah semua checkbox-item keranjang dalam grup ini dicentang
+            var allChecked = $(".itemCheckbox[data-toko-id='" + tokoId + "']:checked").length ===
+                $(".itemCheckbox[data-toko-id='" + tokoId + "']").length;
+
+            // Perbarui status checkbox "Pilih Semua" berdasarkan toko
+            $(this).prop("checked", allChecked);
+
+            // Periksa apakah semua selectAllItems tercentang
+            var allSelectAllChecked = $(".selectAllItems:checked").length === $(".selectAllItems")
+                .length;
+
+            // Perbarui status checkbox "Pilih Semua" utama
+            $("#checkAllItems").prop("checked", allSelectAllChecked);
         });
 
         // Ketika salah satu checkbox item keranjang diubah
         $(".itemCheckbox").change(function() {
             var tokoId = $(this).data("toko-id");
 
-            // Periksa apakah semua checkbox item keranjang dalam grup ini dicentang
+            // Periksa apakah semua checkbox-item keranjang dalam grup ini dicentang
             var allChecked = $(".itemCheckbox[data-toko-id='" + tokoId + "']:checked").length ===
                 $(".itemCheckbox[data-toko-id='" + tokoId + "']").length;
 
-            // Perbarui status checkbox "Pilih Semua" sesuai dengan hasil seleksi grup
+            // Perbarui status checkbox "Pilih Semua" berdasarkan toko
             $(".selectAllItems[data-toko-id='" + tokoId + "']").prop("checked", allChecked);
-            $("#checkAllItems").prop("checked", allChecked);
 
+            // Periksa apakah semua selectAllItems tercentang
+            var allSelectAllChecked = $(".selectAllItems:checked").length === $(".selectAllItems")
+                .length;
+
+            // Perbarui status checkbox "Pilih Semua" utama
+            $("#checkAllItems").prop("checked", allSelectAllChecked);
         });
 
         $("#beli").click(function() {

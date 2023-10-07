@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en" dir="ltr">
-
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
-
 <head>
     <style>
         body {

@@ -53,7 +53,7 @@ class dashboardusercontroller extends Controller
             $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
                 ->where('pembelianstatus', 'statusselesai')
                 ->count();
-            return $item->terjual > 5;
+            return $item->terjual > 4;
         });
 
         $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
@@ -421,7 +421,11 @@ class dashboardusercontroller extends Controller
     public function daftartoko()
     {
         $penjuallogin = penjuallogin::paginate(4);
-        return view('DashboardUser.daftartoko', compact('penjuallogin'));
+        $url = '';
+        foreach ($penjuallogin as $p) {
+            $url = url('/chatify/' . $p->user->id);
+        }
+        return view('DashboardUser.daftartoko', compact('penjuallogin', 'url'));
     }
 
     public function detailtoko(Request $request, $id)
@@ -430,7 +434,6 @@ class dashboardusercontroller extends Controller
         $penjual = barangpenjual::where('toko_id', $id)->get();
         $menu = $penjual->count();
         $user = penjuallogin::where('user_id', $id)->get();
-
         return view('DashboardUser.detailtoko', compact('penjual', 'user', 'menu'));
     }
 
@@ -758,7 +761,7 @@ class dashboardusercontroller extends Controller
         $results = barangpenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
 
         // Kembalikan hasil pencarian dalam format JSON
-        return view('DashboardUser.menu', ['results' => $results]);
+        return response()->json($results);
     }
 
     public function caritoko(Request $request)
@@ -806,6 +809,16 @@ class dashboardusercontroller extends Controller
         $penjual = Barangpenjual::where('kategori_id', $Kategori)->get();
         $ulasan = ulasan::avg('rating');
 
+        $produkPopuler = barangpenjual::all()->filter(function ($item) {
+            $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
+                ->where('pembelianstatus', 'statusselesai')
+                ->count();
+            return $item->terjual > 4;
+        });
+
+        $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
+
+
         $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {
             $user->populer = UserOrder::where('toko_id', $user->user_id)
                 ->where('pembelianstatus', 'statusselesai')
@@ -815,7 +828,7 @@ class dashboardusercontroller extends Controller
         // dd($tokoPopuler);
         $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
 
-        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler'));
+        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler', 'produkPopuler'));
     }
 
     public function notifikasiuser()

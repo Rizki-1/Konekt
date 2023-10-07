@@ -579,10 +579,7 @@
                                     stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
-                        <form action="{{ route('searching') }}" method="POST">
-                            @csrf
-                            <input type="text" class="form-control" name="query" placeholder="Cari...">
-                        </form>
+                        <input type="search" id="search" class="form-control" placeholder="Cari...">
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -766,6 +763,7 @@
         </div>
         </nav>
         </div>
+
         <div class="content-inner mt-5 py-0">
             <div class="row">
                 <div class="col-md-12 col-lg-12">
@@ -780,7 +778,7 @@
                             <h2 class="d-flex justify-content-center gap-2 mt-3">Kategori</h2>
                             <div class="d-flex justify-content-center gap-2 mt-3">
 
-                                <a href="{{ route('menu.index') }}" class="btn btn-outline-primary"> Semua Kategori
+                                <a href="{{ route('menu.index') }}" class="btn btn-primary"> Semua Kategori
                                 </a>
                                 @php
                                     $kategoriterbaru = $kategori->sortByDesc('created_at')->take(3);
@@ -790,235 +788,173 @@
                                         class="btn btn-outline-primary kategori-link"
                                         data-kategori-id="{{ $Kategori->id }}"> {{ $Kategori->kategori }} </a>
                                 @endforeach
-                                <button class="btn btn-outline-primary" data-bs-target="#modalkategori"
+                                <button class="btn btn-primary" data-bs-target="#modalkategori"
                                     data-bs-toggle="modal"> Lihat Semua Kategori </button>
-                            </div>
-                        </div>
-
-
-                        <!-- ***** Men Area Starts ***** -->
-                        <section class="section" id="men">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="section-heading">
-                                            <h2>Men's Latest</h2>
-                                            <span>Details to details is what makes Hexashop different from the other
-                                                themes.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="men-item-carousel">
-                                            <div class="owl-men-item owl-carousel">
-                                                <div class="item">
-                                                    <div class="thumb">
-                                                        <div class="hover-content">
-                                                            <ul>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-eye"></i></a></li>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-star"></i></a></li>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <img src="assett/images/men-01.jpg" alt="">
-                                                    </div>
-                                                    <div class="down-content">
-                                                        <h4>Classic Spring</h4>
-                                                        <span>$120.00</span>
-                                                        <ul class="stars">
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="thumb">
-                                                        <div class="hover-content">
-                                                            <ul>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-eye"></i></a></li>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-star"></i></a></li>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <img src="assett/images/men-02.jpg" alt="">
-                                                    </div>
-                                                    <div class="down-content">
-                                                        <h4>Air Force 1 X</h4>
-                                                        <span>$90.00</span>
-                                                        <ul class="stars">
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="thumb">
-                                                        <div class="hover-content">
-                                                            <ul>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-eye"></i></a></li>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-star"></i></a></li>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <img src="assett/images/men-03.jpg" alt="">
-                                                    </div>
-                                                    <div class="down-content">
-                                                        <h4>Love Nana ‘20</h4>
-                                                        <span>$150.00</span>
-                                                        <ul class="stars">
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="thumb">
-                                                        <div class="hover-content">
-                                                            <ul>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-eye"></i></a></li>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-star"></i></a></li>
-                                                                <li><a href="single-product.html"><i
-                                                                            class="fa fa-shopping-cart"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <img src="assett/images/men-01.jpg" alt="">
-                                                    </div>
-                                                    <div class="down-content">
-                                                        <h4>Classic Spring</h4>
-                                                        <span>$120.00</span>
-                                                        <ul class="stars">
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!-- ***** Men Area Ends ***** -->
-
-                        @php
-                            $no = 1;
-                        @endphp
-
-                        <div id="results">
-                            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
-                                @foreach ($penjual as $p)
-                                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
-                                        <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
-                                            data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
-                                            data-iq-trigger="scroll" data-iq-ease="none"
-                                            style="transform: translate(0px, 0px); opacity: 1;">
-                                            <div class="card card-white dish-card profile-img mb-5">
-                                                <div class="profile-img21">
-                                                    <!-- tempat foto -->
-                                                    <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
-                                                        class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
-                                                        alt="profile-image">
-                                                    <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
-                                                        class="hehe img-fluid rounded-pill avatar-170 hover-image "
-                                                        alt="profile-image" data-iq-gsap="onStart"
-                                                        data-iq-opacity="0" data-iq-scale=".6" data-iq-rotate="180"
-                                                        data-iq-duration="1" data-iq-delay=".6"
-                                                        data-iq-trigger="scroll" data-iq-ease="none">
-                                                </div>
-                                                <!-- Menu muter muter Start -->
-                                                <div class="card-body menu-image">
-                                                    <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
-                                                        {{ $p->penjuallogin->nama_toko }}</h6>
-                                                    <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
-                                                        {{ $p->namamenu }}</h6>
-                                                    <div class="d-flex justify-content-evenly">
-                                                        <p class="text-primary fw-bolder my-2">Rp.
-                                                            {{ number_format($p->harga, 0, ',', '.') }}
-                                                        </p>
-                                                    </div>
-                                                    @if ($p->ulasan->count() > 0)
-                                                        <div class="card-rating stars-ratings text-center">
-                                                            @for ($i = 0; $i < 5; $i++)
-                                                                @if ($i < floor($p->ulasan->avg('rating')))
-                                                                    <svg width="18" viewBox="0 0 30 30"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path
-                                                                            d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
-                                                                            fill="currentColor" />
-                                                                    </svg>
-                                                                @else
-                                                                    <svg width="18" viewBox="0 0 30 30"
-                                                                        fill="none" style="color: grey"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path
-                                                                            d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
-                                                                            fill="currentColor" />
-                                                                    </svg>
-                                                                @endif
-                                                            @endfor
-
-                                                            <p>({{ number_format($p->ulasan->avg('rating'), 1, ',', '.') }}
-                                                                / {{ $p->ulasan->count() }})</p>
-                                                        </div>
-                                                    @else
-                                                        <p style="text-align: center">tidak ada ulasan</p>
-                                                    @endif
-
-
-                                                    <div class="d-flex justify-content-center gap-2 mt-3">
-                                                        <button class="btn btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#myModal-{{ $p->id }}"><i
-                                                                class="bi bi-bag-check"></i> Beli
-                                                        </button>
-                                                        <a class="btn btn-primary"
-                                                            href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="pagination" style="text-align: center  justify-content:center">
-                    @if ($penjual->count() > 0)
-                        {{ $penjualpagination->links('pagination::default') }}
-                    @endif
+            </div>
+        </div>
+
+        <section class="section" id="men">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                <div class="section-heading">
+                    <h4 style="color: #EA6A12">Menu Yang Sedang Populer</h4>
                 </div>
-                {{-- @include('layout.footer') --}}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="men-item-carousel">
+                        <div class="owl-men-item owl-carousel">
+                            @forelse($produkPopuler as $item)
+                                <div class="item">
+                                <div class="thumb">
+                                    <div class="hover-content">
+                                        <ul>
+                                            <li><a href="{{ route('detailmenu', ['id' => $item->id]) }}"><i
+                                                class="fa fa-eye"></i></a></li>
+                                            <li><a data-bs-toggle="modal" data-bs-target="#myModal-{{ $item->id }}"><i
+                                                class="bi bi-bag-check"></i></a></li>
+                                        </ul>
+                                            </div>
+                                                <img src="{{ asset('Storage/' . $item->fotomakanan) }}"
+                                                    alt="{{ $item->namamenu }}">
+                                            </div>
+                                    <div class="down-content">
+                                    <div class="card-body menu-image">
+                                        <h4 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">{{ $item->namamenu }}</h4>
+                                        <div class="d-flex justify-content-center">
+                                            <p class="text-primary fw-bolder my-2">Rp.{{ number_format($item->harga, 0, ',', '.') }}</p>
+                                        </div>
+                                        <div class="card-rating stars-ratings text-center">
+                                            @if ($item->ulasan->count() > 0)
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    @if ($i < floor($item->ulasan->avg('rating')))
+                                                        <svg width="18" viewBox="0 0 30 30" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M27.2035 11.1678C27.1270 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.7620 2.62662C15.5654 2.49904 15.3360 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.4490 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.75370 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.7260 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.6320 25.7104 23.6393 25.4560 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
+                                                            fill="currentColor" />
+                                                        </svg>
+                                                    @else
+                                                        <svg width="18" viewBox="0 0 30 30" fill="none" style="color: grey"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M27.2035 11.1678C27.1270 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.7620 2.62662C15.5654 2.49904 15.3360 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.4490 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.75370 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.7260 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.6320 25.7104 23.6393 25.4560 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
+                                                            fill="currentColor" />
+                                                        </svg>
+                                                    @endif
+                                                @endfor
+                                                    <p>( {{ number_format($item->ulasan->avg('rating'), 1, ',', '.') }}/{{ $item->ulasan->count() }})</p>
+                                                    @else
+                                                    <p style="text-align: center">Tidak ada ulasan</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            @empty
+                            <p>Tidak ada menu populer</p>
+                            @endforelse
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>          
+    </section>
+
+
+
+
+
+                <!-- ***** Men Area Ends ***** -->
+
+                @php
+                    $no = 1;
+                @endphp
+                <div id="results">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
+                        @foreach ($penjual as $p)
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
+                                <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
+                                    data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
+                                    data-iq-trigger="scroll" data-iq-ease="none"
+                                    style="transform: translate(0px, 0px); opacity: 1;">
+                                    <div class="card card-white dish-card profile-img mb-5">
+                                        <div class="profile-img21">
+                                            <!-- tempat foto -->
+                                            <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
+                                                class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                                                alt="profile-image">
+                                            <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
+                                                class="hehe img-fluid rounded-pill avatar-170 hover-image "
+                                                alt="profile-image" data-iq-gsap="onStart" data-iq-opacity="0"
+                                                data-iq-scale=".6" data-iq-rotate="180" data-iq-duration="1"
+                                                data-iq-delay=".6" data-iq-trigger="scroll" data-iq-ease="none">
+                                        </div>
+                                        <!-- Menu muter muter Start -->
+                                        <div class="card-body menu-image">
+                                            <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
+                                                {{ $p->namamenu }}</h6>
+                                            <div class="d-flex justify-content-evenly">
+                                                <p class="text-primary fw-bolder my-2">Rp.
+                                                    {{ number_format($p->harga, 0, ',', '.') }}
+                                                </p>
+                                            </div>
+                                            @if ($p->ulasan->count() > 0)
+                                                <div class="card-rating stars-ratings text-center">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @if ($i < floor($p->ulasan->avg('rating')))
+                                                            <svg width="18" viewBox="0 0 30 30" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        @else
+                                                            <svg width="18" viewBox="0 0 30 30" fill="none"
+                                                                style="color: grey"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        @endif
+                                                    @endfor
+
+                                                    <p>( {{ number_format($p->ulasan->avg('rating'), 1, ',', '.') }}
+                                                        / {{ $p->ulasan->count() }})</p>
+                                                    {{-- <p>( {{ $ulasan }} /  {{ $totalUlasan }})</p> --}}
+                                                </div>
+                                            @else
+                                                <p style="text-align: center">tidak ada ulasan</p>
+                                            @endif
+
+
+                                            <div class="d-flex justify-content-center gap-2 mt-3">
+                                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#myModal-{{ $p->id }}"><i
+                                                        class="bi bi-bag-check"></i> Beli
+                                                </button>
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    @include('layout.footer')
     </main>
 
+
     {{-- search --}}
-    {{-- <script>
+    <script>
         $(document).ready(function() {
             // Simpan hasil awal semua item
             var allItems = $(".row-cols-1.row-cols-md-2.row-cols-xl-4.row-cols-xxl-4").html();
@@ -1144,8 +1080,58 @@
                 return formatter.format(amount);
             }
         });
-    </script> --}}
+    </script>
     {{-- search --}}
+
+    {{-- Search w/wo category --}}
+    {{-- <script>
+        $(document).ready(function() {
+            // Tangkap klik pada tautan kategori
+            $('.kategori-link').click(function(event) {
+                event.preventDefault(); // Hentikan tautan dari pergi ke URL yang sebenarnya
+
+                var kategoriId = $(this).data(
+                'kategori-id'); // Ambil nilai kategori-id dari tautan yang diklik
+
+                // Lanjutkan dengan permintaan pencarian dengan kategori_id
+                performSearch(kategoriId);
+            });
+
+            $('#search').keyup(function() {
+                var query = $(this).val();
+
+                // Periksa apakah parameter kategori ada dalam URL
+                var kategoriId = getUrlParameter('kategori');
+
+                // Lanjutkan dengan permintaan pencarian dengan kategori_id jika ada
+                performSearch(query, kategoriId);
+            });
+
+            function performSearch(query, kategoriId) {
+                $.ajax({
+                    url: "{{ route('searching') }}",
+                    method: 'GET',
+                    data: {
+                        query: query,
+                        kategori_id: kategoriId // Sertakan kategori_id dalam permintaan jika ada
+                    },
+                    success: function(data) {
+                        // Handle hasil pencarian
+                    },
+                    // ...
+                });
+            }
+
+            // Fungsi untuk mendapatkan nilai parameter dari URL
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            }
+        });
+    </script> --}}
+    {{-- Search w/wo category --}}
 
     @include('layout.js')
 

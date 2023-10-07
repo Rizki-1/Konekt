@@ -287,6 +287,11 @@ body {
                                                             <p class="mb-0"
                                                                 style="white-space: nowrap; margin-top: 0;">Alamat:
                                                                 {{ $p->alamat_toko }}</p>
+
+                                                                <p class="mb-0"
+                                                                    style="white-space: nowrap; margin-top: 0;">menu:
+                                                                    {{ $menu }}</p>
+
                                                         </div>
                                                     </div>
                                                 </div>

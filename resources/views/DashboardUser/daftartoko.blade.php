@@ -347,7 +347,7 @@
                                                     </a>
                                                     <p><i class="fas fa-phone"></i><a style="margin-left: 2px;">{{ $p->notlp }}</a></p>                                                    <tr>
                                                     </tr>
-                                                    <div class="angka m-0">{{ $menu }} Menu</div>
+                                                    <div class="angka m-0"> Menu {{ $menu }}</div>
                                                     <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko"
                                                         style="position: absolute; top: 10px; right: 10px; width: 190px; height:85px;"
                                                         class="img">

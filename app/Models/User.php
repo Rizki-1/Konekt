@@ -3,7 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Notifications\EmailNotification;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -62,4 +65,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserOrder::class);
     }
+
+    // public function sendPasswordResetNotification($token)
+    // {
+    //     $url = URL::signedRoute('password.reset', ['token' => $token]);
+    //     $this->notify(new EmailNotification($url));
+    // }
 }

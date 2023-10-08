@@ -233,7 +233,9 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {
-        try{
+        // $pembayaranpenjual->delete();
+        // return redirect()->route('pembayaranpenjual');
+        try {
             $pembayaranpenjual->delete();
             return redirect()->route('pembayaranpenjual')->with('success', 'berhasil dihapus');
         } catch (Exception $e) {

@@ -305,30 +305,6 @@
             </nav>
         </div>
         <div class="content-inner mt-5 py-0">
-            </a>
-            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="profileuser">Profile</a></li>
-                <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                <li>
-                    <button type="submit" class="dropdown-item"> logout </button>
-                </li>
-                </form>
-                </li>
-            </ul>
-            </li>
-            <!-- End Profile-->
-            </ul>
-        </div>
-        </div>
-        </nav>
-        </div>
-        <div class="content-inner mt-5 py-0">
             <div class="card col-md-12 col-lg-12">
                 <div class="card-body h-100">
                     <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"

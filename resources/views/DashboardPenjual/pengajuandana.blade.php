@@ -206,19 +206,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary rounded-pill"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
-                        </div>
+                    {{-- </div> --}}
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-outline-secondary rounded-pill"
+                            data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-@endforeach
-
-     <script>
+    @endforeach
+    <script>
         let selectElement = document.querySelector('#JenisBank');
         let inputElements = document.querySelectorAll('input[name="keterangan_bank"]');
         let spElement = document.querySelector('#JenisEwallet');
@@ -256,26 +257,29 @@
         selectElement.dispatchEvent(new Event('change'));
         spElement.dispatchEvent(new Event('change'));
     </script>
-
-
+    @if (count($wallet) > 0 && count($bank) > 0)
     <script>
-     $("#selectMetode").change(function() {
-      var selectedOption = $(this).val();
-
+$("#selectMetode").change(function() {
+    var selectedOption = $(this).val();
     // Sembunyikan semua elemen
-    $("#ewalletInput").hide();
-    $("#bankInput").hide();
-
+    $("#ewalletInput, #bankInput").hide();
     // Periksa opsi yang dipilih
-    if (selectedOption === "{{ $wallet[0]->id }}" && "{{ $wallet[0]->id }}" !== "") {
-        $("#ewalletInput").show();
-        $("#tujuan_e_wallet").val(selectedOption);
-    } else if (selectedOption === "{{ $bank[0]->id }}" && "{{ $bank[0]->id }}" !== "") {
-        $("#bankInput").show();
-        $("#tujuan_bank").val(selectedOption);
+    if (selectedOption) {
+        if (selectedOption === "{{ $wallet[0]->id }}" && "{{ $wallet[0]->id }}" !== "") {
+            $("#ewalletInput").show();
+            $("#tujuan_e_wallet").prop('disabled', false);
+        } else if (selectedOption === "{{ $bank[0]->id }}" && "{{ $bank[0]->id }}" !== "") {
+            $("#bankInput").show();
+            $("#tujuan_bank").prop('disabled', false);
+        }
     }
 });
-   </script>
+
+
+</script>
+   @endif
+
+
 
 
 
@@ -449,12 +453,13 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="profilepenjual">Profile</a></li>
-                                <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a>
-                                </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <li><button type="submit" class="dropdown-item"> logout </button></li>
+                                </form>
                             </ul>
                         </li>
                         <!-- End Profile-->

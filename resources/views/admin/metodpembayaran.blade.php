@@ -359,12 +359,13 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <li><button type="submit" class="dropdown-item"> logout </button></li>
+                                    </form>
                                 </ul>
                             </li>
                             <!-- End Profile-->

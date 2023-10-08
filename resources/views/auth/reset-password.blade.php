@@ -505,9 +505,7 @@
                                 @endforeach
                             </ul>
                         </div>
-
                            @endif
-
                            @if (session()->has('status'))
                            <div class="alert alert-success">
                             {{ session()->get('status')}}
@@ -520,7 +518,9 @@
                               <div class="col-lg-12">
                                  <div class="floating-label form-group">
                                  <input type="hidden" name="token" value="{{ request()->token }}" id="">
+
                                 <input type="hidden" name="email" value="{{ request()->email }}" id="">
+                                @dump(request()->email)
                                 <label for="password">Password</label>
                                 <input type="password"  class="form-control" name="password">
                                 @error('password')

@@ -142,7 +142,12 @@
     @include('layout.link')
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+      <!-- style css -->
+      <link rel="stylesheet" type="text/css" href="assetss/css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="assetss/css/responsive.css">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" type="text/css" href="assetss/css/bootstrap.min.css">
 </head>
 
 <body class="  "
@@ -303,8 +308,6 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="profileuser">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -383,6 +386,119 @@
             </div>
         </div>
         </div>
+
+              <!-- coffee section start -->
+      <div class="coffee_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <h1 class="coffee_taital">OUR Coffee OFFER</h1>
+            </div>
+         </div>
+         <div class="coffee_section_2">
+            <div id="main_slider" class="carousel slide" data-ride="carousel">
+               <div class="carousel-inner">
+                  <div class="carousel-item active">
+                     <div class="container-fluid">
+                        <div class="row">
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-1.png"></div>
+                              <h3 class="types_text">TYPES OF COFFEE</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-2.png"></div>
+                              <h3 class="types_text">BEAN VARIETIES</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-3.png"></div>
+                              <h3 class="types_text">COFFEE & PASTRY</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-4.png"></div>
+                              <h3 class="types_text">COFFEE TO GO</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="carousel-item">
+                     <div class="container-fluid">
+                        <div class="row">
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-1.png"></div>
+                              <h3 class="types_text">TYPES OF COFFEE</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-2.png"></div>
+                              <h3 class="types_text">BEAN VARIETIES</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-3.png"></div>
+                              <h3 class="types_text">COFFEE & PASTRY</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-4.png"></div>
+                              <h3 class="types_text">COFFEE TO GO</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="carousel-item">
+                     <div class="container-fluid">
+                        <div class="row">
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-1.png"></div>
+                              <h3 class="types_text">TYPES OF COFFEE</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-2.png"></div>
+                              <h3 class="types_text">BEAN VARIETIES</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-3.png"></div>
+                              <h3 class="types_text">COFFEE & PASTRY</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <div class="col-lg-3 col-md-6">
+                              <div class="coffee_img"><img src="assetss/images/img-4.png"></div>
+                              <h3 class="types_text">COFFEE TO GO</h3>
+                              <p class="looking_text">looking at its layout. The point of</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+               <i class="fa fa-arrow-left"></i>
+               </a>
+               <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+               <i class="fa fa-arrow-right"></i>
+               </a>
+            </div>
+         </div>
+      </div>
+      <!-- coffee section end -->
+
 
         <div class="container">
             @if ($penjuallogin->count() > 0)
@@ -494,6 +610,17 @@
         </script>
         {{-- search --}}
 
+        
+        <!-- Javascript files-->
+        <script src="assetss/js/jquery.min.js"></script>
+        <script src="assetss/js/popper.min.js"></script>
+        <script src="assetss/js/bootstrap.bundle.min.js"></script>
+        <script src="assetss/js/jquery-3.0.0.min.js"></script>
+        <script src="assetss/js/plugin.js"></script>
+        <!-- sidebar -->
+        <script src="assetss/js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="assetss/js/custom.js"></script>
+        
         @include('layout.js')
 </body>
 

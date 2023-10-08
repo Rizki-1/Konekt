@@ -386,8 +386,6 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="profilepenjual">Profile</a></li>
-                                    <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -435,11 +433,13 @@
                             <div class="mb-3">
                                 <label for="keterangan" class="form-label fw-bold">Keterangan</label>
                                 {{-- <input type="file" class="form-control" id="keterangan" name="keterangan" value="{{ $p->keterangan }}"> --}}
+                                <input type="file" class="form-control" name="keterangan" id="keterangan">
+
+                                @dump($p->keterangan)
                                 @php
                                     $long = strlen($p->keterangan);
                                 @endphp
                                 @if ($long >=20)
-                                <input type="file" class="form-control" name="keterangan" id="keterangan" value="{{ $p->keterangan }}">
                                 <img src="{{ asset('storage/pembayaran/' . $p->keterangan) }}"
                                                     style="width:120px;height:120px;margin-top:15px;" alt="tes">
                                 @else

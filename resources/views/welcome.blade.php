@@ -543,79 +543,122 @@
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Jelajahi makanan kami</h5>
                 </div>
                 
-        <section class="section" id="men">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                    <div class="section-heading">
-                        <h4 style="color: #EA6A12">Menu Yang Sedang Populer</h4>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="men-item-carousel">
-                            <div class="owl-men-item owl-carousel">
-                                @forelse($produkPopuler as $item)
-                                    <div class="item">
-                                    <div class="thumb">
-                                        <div class="hover-content">
-                                            <ul>
-                                                <li><a href="{{ route('detailmenu', ['id' => $item->id]) }}"><i
-                                                    class="fa fa-eye"></i></a></li>
-                                                <li><a data-bs-toggle="modal" data-bs-target="#myModal-{{ $item->id }}"><i
-                                                    class="bi bi-bag-check"></i></a></li>
-                                            </ul>
-                                                </div>
-                                                    <img src="{{ asset('Storage/' . $item->fotomakanan) }}"
-                                                        alt="{{ $item->namamenu }}">
-                                                </div>
-                                        <div class="down-content">
-                                        <div class="card-body menu-image">
-                                            <h4 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">{{ $item->namamenu }}</h4>
-                                            <div class="d-flex justify-content-center">
-                                                <p class="text-primary fw-bolder my-2">Rp.{{ number_format($item->harga, 0, ',', '.') }}</p>
-                                            </div>
-                                            <div class="card-rating stars-ratings text-center">
-                                                @if ($item->ulasan->count() > 0)
-                                                    @for ($i = 0; $i < 5; $i++)
-                                                        @if ($i < floor($item->ulasan->avg('rating')))
-                                                            <svg width="18" viewBox="0 0 30 30" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M27.2035 11.1678C27.1270 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.7620 2.62662C15.5654 2.49904 15.3360 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.4490 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.75370 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.7260 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.6320 25.7104 23.6393 25.4560 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
-                                                                fill="currentColor" />
-                                                            </svg>
-                                                        @else
-                                                            <svg width="18" viewBox="0 0 30 30" fill="none" style="color: grey"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M27.2035 11.1678C27.1270 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.7620 2.62662C15.5654 2.49904 15.3360 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.4490 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.75370 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.7260 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.6320 25.7104 23.6393 25.4560 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
-                                                                fill="currentColor" />
-                                                            </svg>
-                                                        @endif
-                                                    @endfor
-                                                        <p>( {{ number_format($item->ulasan->avg('rating'), 1, ',', '.') }}/{{ $item->ulasan->count() }})</p>
-                                                        @else
-                                                        <p style="text-align: center">Tidak ada ulasan</p>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                @empty
-                                <p>Tidak ada menu populer</p>
-                                @endforelse
+                @if ($filterKategori === 'filter')
+                <section class="section" id="men">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-heading" style="text-align: center">
+                                    <h4 style="color: #EA6A12">Menu Yang Sedang Populer</h4>
+                                </div>
                             </div>
                         </div>
-                    </div> 
-                </div>
-            </div>          
-        </section>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="men-item-carousel">
+                                    <div class="owl-men-item owl-carousel">
+                                        @forelse($produkPopuler as $item)
+                                            <div class="item">
+                                                <div class="card">
+                                                    <div class="thumb">
+                                                        <div class="hover-content">
+                                                            <ul>
+                                                                <li><a href="{{ route('detailmenu', ['id' => $item->id]) }}"><i class="fa fa-eye"></i></a></li>
+                                                                <li><a data-bs-toggle="modal" data-bs-target="#myModal-{{ $item->id }}"><i class="bi bi-bag-check"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <img class="menu-image" src="{{ asset('Storage/' . $item->fotomakanan) }}" alt="{{ $item->namamenu }}">
+                                                    </div>
+                                                    <div class="down-content">
+                                                        <div class="card-body">
+                                                            <h4 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">{{ $item->namamenu }}</h4>
+                                                            <div class="d-flex justify-content-center">
+                                                                <p class="text-primary fw-bolder my-2">Rp.{{ number_format($item->harga, 0, ',', '.') }}</p>
+                                                            </div>
+                                                            <div class="card-rating stars-ratings text-center">
+                                                                @if ($item->ulasan->count() > 0)
+                                                                    @for ($i = 0; $i < 5; $i++)
+                                                                        @if ($i < floor($item->ulasan->avg('rating')))
+                                                                            <svg width="18" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                <path d="M27.2035 11.1678C27.1270 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.7620 2.62662C15.5654 2.49904 15.3360 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.4490 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.75370 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.7260 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.6320 25.7104 23.6393 25.4560 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z" fill="currentColor" />
+                                                                            </svg>
+                                                                        @else
+                                                                            <svg width="18" viewBox="0 0 30 30" fill="none" style="color: grey" xmlns="http://www.w3.org/2000/svg">
+                                                                                <path d="M27.2035 11.1678C27.1270 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.7620 2.62662C15.5654 2.49904 15.3360 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.4490 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.75370 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.7260 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.6320 25.7104 23.6393 25.4560 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z" fill="currentColor" />
+                                                                            </svg>
+                                                                        @endif
+                                                                    @endfor
+                                                                    <p>( {{ number_format($item->ulasan->avg('rating'), 1, ',', '.') }}/{{ $item->ulasan->count() }})</p>
+                                                                @else
+                                                                    <p style="text-align: center">Tidak ada ulasan</p>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <p>Tidak ada menu populer</p>
+                                        @endforelse
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        @endif
 
             </div>
         </div>
         <!-- Menu End -->
+        <section class="section" id="men">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading" style="text-align: center">
+                    <h4 style="color: #EA6A12">Daftar Toko Terpopuler</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="men-item-carousel">
+                    <div class="owl-men-item owl-carousel">
+                        @forelse($tokoPopuler as $p)
+                            <div class="item">
+                                <div class="thumb">
+                                    <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko">
+                                </div>
+                                <div class="down-content">
+                                    <div class="d-flex justify-content-center">
+                                        <h3 class="types_text">{{ $p->nama_toko }}</h3>
+                                    </div>
+                                    <div class="card-body menu-image">
+                                        <div class="d-flex justify-content-center">
+                                            <a class="btn btn-outline-primary"
+                                               href="{{ route('detailtoko', ['id' => $p->user->id]) }}">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                Detail
+                                            </a> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <p style="text-align: center">Tidak ada toko populer</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- Footer Start -->
         <div class="container-fluid bg-primary text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -747,6 +790,26 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-</body>
+      <!-- jQuery -->
+      <script src="assett/js/jquery-2.1.0.min.js"></script>
 
+<!-- Bootstrap -->
+<script src="assett/js/popper.js"></script>
+<script src="assett/js/bootstrap.min.js"></script>
+
+<!-- Plugins -->
+<script src="assett/js/owl-carousel.js"></script>
+<script src="assett/js/accordions.js"></script>
+<script src="assett/js/datepicker.js"></script>
+<script src="assett/js/scrollreveal.min.js"></script>
+<script src="assett/js/waypoints.min.js"></script>
+<script src="assett/js/jquery.counterup.min.js"></script>
+<script src="assett/js/imgfix.min.js"></script>
+<script src="assett/js/slick.js"></script>
+<script src="assett/js/lightbox.js"></script>
+<script src="assett/js/isotope.js"></script>
+
+<!-- Global Init -->
+<script src="assett/js/custom.js"></script>
+</body>
 </html>

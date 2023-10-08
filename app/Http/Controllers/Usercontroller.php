@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\barangpenjual;
 use App\Models\User;
 use App\Models\userOrder;
+use App\Models\penjuallogin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,18 +25,27 @@ class Usercontroller extends Controller
     $totaluser = User::where('role', 'user')->count();
     $totalmenu = barangpenjual::all()->count();
     $users = userOrder::all();
+    $filterKategori = 'filter';
     $produkPopuler = barangpenjual::all()->filter(function ($item) {
         $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
             ->where('pembelianstatus', 'statusselesai')
             ->count();
-        return $item->terjual > 4;
+        return $item->terjual > 0;
     });
 
     $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
+    $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {
+        $user->populer = UserOrder::where('toko_id', $user->user_id)
+            ->where('pembelianstatus', 'statusselesai')
+            ->count();
+        return $user->populer > 0;
+    });
+    // dd($tokoPopuler);
+    $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
 
-
-    return view('welcome' , compact('totaluser', 'totalpenjual', 'totalmenu', 'produkPopuler', 'users'));
+    return view('welcome' , compact('totaluser', 'totalpenjual', 'totalmenu', 'produkPopuler', 'users', 'filterKategori', 'tokoPopuler'));
    }
+
     public function register()
     {
         $user = User::all();

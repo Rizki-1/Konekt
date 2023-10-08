@@ -59,17 +59,7 @@ class dashboardusercontroller extends Controller
 
         $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
 
-
-        $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {
-            $user->populer = UserOrder::where('toko_id', $user->user_id)
-                ->where('pembelianstatus', 'statusselesai')
-                ->count();
-            return $user->populer > 0;
-        });
-        // dd($tokoPopuler);
-        $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
-
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users', 'tokoPopuler', 'filterKategori'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users',  'filterKategori'));
     }
 
 
@@ -426,7 +416,16 @@ class dashboardusercontroller extends Controller
         foreach ($penjuallogin as $p) {
             $url = url('/chatify/' . $p->user->id);
         }
-        return view('DashboardUser.daftartoko', compact('penjuallogin', 'url'));
+        $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {
+            $user->populer = UserOrder::where('toko_id', $user->user_id)
+                ->where('pembelianstatus', 'statusselesai')
+                ->count();
+            return $user->populer > 0;
+        });
+        // dd($tokoPopuler);
+        $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
+
+        return view('DashboardUser.daftartoko', compact('penjuallogin', 'url', 'tokoPopuler'));
     }
 
     public function detailtoko(Request $request, $id)

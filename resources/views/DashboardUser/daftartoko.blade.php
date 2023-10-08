@@ -137,19 +137,168 @@
         .card-body {
             height: auto;
         }
+        #men {
+            padding-top: 90px;
+            padding-bottom: 90px;
+            border-bottom: 3px dotted #eee;
+        }
+
+        #men .section-heading {
+            margin-bottom: 60px;
+        }
+
+        #men .item .down-content {
+            padding-top: 30px;
+            position: relative;
+            z-index: 3;
+            background-color: #fff;
+        }
+
+        #men .item .down-content h4 {
+            font-size: 22px;
+            color: #2a2a2a;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        #men .item .down-content span {
+            font-size: 18px;
+            color: #a1a1a1;
+            font-weight: 500;
+            display: block;
+        }
+
+        #men .item .down-content ul.stars {
+            position: absolute;
+            right: 0;
+            top: 30px;
+        }
+
+        #men .item .down-content ul.stars li {
+            display: inline;
+            font-size: 13px;
+        }
+
+        #men .item .thumb .hover-content {
+            position: absolute;
+            z-index: 2;
+            text-align: center;
+            bottom: -60px;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: all .5s;
+        }
+
+        #men .item .thumb:hover .hover-content {
+            bottom: 30px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #men .item .thumb {
+            position: relative;
+        }
+
+        #men .item .thumb .hover-content ul li {
+            display: inline;
+            margin: 0px 10px;
+        }
+
+        #men .item .thumb .hover-content ul li a {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            display: inline-block;
+            color: #2a2a2a;
+            background-color: #fff;
+        }
+
+
+        #men .owl-nav {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            top: 40%;
+            transform: translateY(-25px);
+        }
+
+        #men .owl-dots {
+            display: none;
+        }
+
+        #men .owl-nav .owl-prev {
+            position: absolute;
+            left: -80px;
+            outline: none;
+        }
+
+        #men .owl-nav .owl-prev span,
+        #men .owl-nav .owl-next span {
+            opacity: 0;
+        }
+
+        #men .owl-nav .owl-prev:before {
+            display: inline-block;
+            font-family: 'FontAwesome';
+            color: #2a2a2a;
+            font-size: 25px;
+            font-weight: 700;
+            content: '\f104';
+            width: 50px;
+            height: 50px;
+            background-color: transparent;
+            line-height: 48px;
+            border: 1px solid #2a2a2a;
+        }
+
+        #men .owl-nav .owl-prev {
+            opacity: 0.75;
+            transition: all .5s;
+        }
+
+        #men .owl-nav .owl-prev:hover {
+            opacity: 1;
+        }
+
+        #men .owl-nav .owl-next {
+            opacity: 0.75;
+            transition: all .5s;
+        }
+
+        #men .owl-nav .owl-next:hover {
+            opacity: 1;
+        }
+
+        #men .owl-nav .owl-next {
+            outline: none;
+            position: absolute;
+            right: -85px;
+        }
+
+        #men .owl-nav .owl-next:before {
+            display: inline-block;
+            font-family: 'FontAwesome';
+            color: #2a2a2a;
+            font-size: 25px;
+            font-weight: 700;
+            content: '\f105';
+            width: 50px;
+            height: 50px;
+            background-color: transparent;
+            line-height: 48px;
+            border: 1px solid #2a2a2a;
+        }
+     
     </style>
 
     @include('layout.link')
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-      <!-- style css -->
-      <link rel="stylesheet" type="text/css" href="assetss/css/style.css">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="assetss/css/responsive.css">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" type="text/css" href="assetss/css/bootstrap.min.css">
+    
 </head>
-
+<link rel="stylesheet" href="assett/css/owl-carousel.css">
+    <link rel="stylesheet" type="text/css" href="assett/css/font-awesome.css">
 <body class="  "
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
@@ -325,15 +474,61 @@
                 </div>
             </nav>
         </div>
+        
+<div>
+    <h2 class="title text-primary"><span class="h2">Kuliner Kita |</span> Daftar Toko</h2>
+</div>
 
-        <div class="content-inner mt-5 py-0">
-            <div class="card col-md-12 col-lg-12 my-custom-card">
-                <div class="card-body">
-                    <div class=" " data-iq-gsap="onStart" data-iq-opacity="0" data-iq-position-y="-40"
-                        data-iq-duration=".6" data-iq-delay=".8" data-iq-trigger="scroll" data-iq-ease="none"
-                        style="position: relative">
-                        <h2 class="title text-primary"><span class="h2">Kuliner Kita | </span>Daftar Toko</h2>
-                        <br><br>
+<section class="section" id="men">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading" style="text-align: center">
+                    <h4 style="color: #EA6A12">Daftar Toko Terpopuler</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="men-item-carousel">
+                    <div class="owl-men-item owl-carousel">
+                        @forelse($tokoPopuler as $p)
+                            <div class="item">
+                                <div class="thumb">
+                                    <img src="{{ asset('Storage/' . $p->foto_toko) }}" alt="Foto Toko">
+                                </div>
+                                <div class="down-content">
+                                    <div class="d-flex justify-content-center">
+                                        <h3 class="types_text">{{ $p->nama_toko }}</h3>
+                                    </div>
+                                    <div class="card-body menu-image">
+                                        <div class="d-flex justify-content-center">
+                                            <a class="btn btn-outline-primary"
+                                               href="{{ route('detailtoko', ['id' => $p->user->id]) }}">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                Detail
+                                            </a> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <p style="text-align: center">Tidak ada toko populer</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+                        @php
+                    $no = 1;
+                @endphp
                         <div id="result">
                             <div class="container">
                                 <div class="row gap-5">
@@ -360,14 +555,14 @@
                                                         class="img">
                                                     <div class="d-flex justify-content-between my-3">
                                                         <div>
-                                                            <a class="btn btn-outline-warning"
+                                                            <a class="btn btn-outline-primary"
                                                                 href="{{ route('detailtoko', ['id' => $p->user->id]) }}">
                                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                                                                 Detail
                                                             </a>
                                                         </div>
                                                         <div>
-                                                            <a class="btn btn-outline-warning"
+                                                            <a class="btn btn-outline-primary"
                                                                 href="{{ url('chatify/'. $p->user_id) }}">
                                                                 <i class="fa fa-comments" aria-hidden="true"></i> Chat
                                                                 Penjual
@@ -381,131 +576,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-
-              <!-- coffee section start -->
-      <div class="coffee_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <h1 class="coffee_taital">OUR Coffee OFFER</h1>
-            </div>
-         </div>
-         <div class="coffee_section_2">
-            <div id="main_slider" class="carousel slide" data-ride="carousel">
-               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                     <div class="container-fluid">
-                        <div class="row">
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-1.png"></div>
-                              <h3 class="types_text">TYPES OF COFFEE</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-2.png"></div>
-                              <h3 class="types_text">BEAN VARIETIES</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-3.png"></div>
-                              <h3 class="types_text">COFFEE & PASTRY</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-4.png"></div>
-                              <h3 class="types_text">COFFEE TO GO</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="container-fluid">
-                        <div class="row">
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-1.png"></div>
-                              <h3 class="types_text">TYPES OF COFFEE</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-2.png"></div>
-                              <h3 class="types_text">BEAN VARIETIES</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-3.png"></div>
-                              <h3 class="types_text">COFFEE & PASTRY</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-4.png"></div>
-                              <h3 class="types_text">COFFEE TO GO</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="container-fluid">
-                        <div class="row">
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-1.png"></div>
-                              <h3 class="types_text">TYPES OF COFFEE</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-2.png"></div>
-                              <h3 class="types_text">BEAN VARIETIES</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-3.png"></div>
-                              <h3 class="types_text">COFFEE & PASTRY</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                           <div class="col-lg-3 col-md-6">
-                              <div class="coffee_img"><img src="assetss/images/img-4.png"></div>
-                              <h3 class="types_text">COFFEE TO GO</h3>
-                              <p class="looking_text">looking at its layout. The point of</p>
-                              <div class="read_bt"><a href="#">Read More</a></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-               <i class="fa fa-arrow-left"></i>
-               </a>
-               <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-               <i class="fa fa-arrow-right"></i>
-               </a>
-            </div>
-         </div>
-      </div>
-      <!-- coffee section end -->
-
-
         <div class="container">
             @if ($penjuallogin->count() > 0)
                 {{ $penjuallogin->links('pagination::default') }}
             @endif
-        </div>
-        </div>
+        </div>  
         {{-- @include('layout.footer') --}}
 
         {{-- search --}}
@@ -588,7 +663,7 @@
                                     console.log("gagal");
 
                                     var errorMessage =
-                                        `<p class="error-message my-3">Menu tidak ditemukan.</p>`;
+                                        <p class="error-message my-3">Menu tidak ditemukan.</p>;
                                     resultsContainer.append(errorMessage);
                                 }
                             },
@@ -596,7 +671,7 @@
                                 // Tampilkan pesan kesalahan jika terjadi kesalahan pada permintaan
                                 console.log(response.responseText);
                                 var errorMessage =
-                                    `<p class="error-message">Terjadi kesalahan saat mengirim permintaan.</p>`;
+                                    <p class="error-message">Terjadi kesalahan saat mengirim permintaan.</p>;
                                 resultsContainer.append(errorMessage);
                             }
                         });
@@ -612,16 +687,38 @@
 
         
         <!-- Javascript files-->
-        <script src="assetss/js/jquery.min.js"></script>
-        <script src="assetss/js/popper.min.js"></script>
-        <script src="assetss/js/bootstrap.bundle.min.js"></script>
-        <script src="assetss/js/jquery-3.0.0.min.js"></script>
-        <script src="assetss/js/plugin.js"></script>
+        <script src="{{asset('assetss/js/jquery.min.js')}}"></script>
+        <script src="{{asset('assetss/js/popper.min.js')}}"></script>
+        <script src="{{asset('assetss/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('assetss/js/jquery-3.0.0.min.js')}}"></script>
+        <script src="{{asset('assetss/js/plugin.js')}}"></script>
         <!-- sidebar -->
-        <script src="assetss/js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="assetss/js/custom.js"></script>
+        <script src="{{asset('assetss/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+        <script src="{{asset('assetss/js/custom.js')}}"></script>
         
         @include('layout.js')
+
+      <!-- jQuery -->
+    <script src="assett/js/jquery-2.1.0.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="assett/js/popper.js"></script>
+<script src="assett/js/bootstrap.min.js"></script>
+
+<!-- Plugins -->
+<script src="assett/js/owl-carousel.js"></script>
+<script src="assett/js/accordions.js"></script>
+<script src="assett/js/datepicker.js"></script>
+<script src="assett/js/scrollreveal.min.js"></script>
+<script src="assett/js/waypoints.min.js"></script>
+<script src="assett/js/jquery.counterup.min.js"></script>
+<script src="assett/js/imgfix.min.js"></script>
+<script src="assett/js/slick.js"></script>
+<script src="assett/js/lightbox.js"></script>
+<script src="assett/js/isotope.js"></script>
+
+<!-- Global Init -->
+<script src="assett/js/custom.js"></script>
 </body>
 
 </html>

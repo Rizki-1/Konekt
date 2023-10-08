@@ -54,7 +54,7 @@ class dashboardusercontroller extends Controller
             $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
                 ->where('pembelianstatus', 'statusselesai')
                 ->count();
-            return $item->terjual > 5;
+            return $item->terjual > 0;
         });
 
         $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);

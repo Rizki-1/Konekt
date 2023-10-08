@@ -105,6 +105,7 @@
                             <input type="hidden" name="barangpenjual_id" value="{{ $u->barangpenjual_id }}">
                         </div>
                         <div class="modal-body">
+                            @dump($u->barangpenjual_id)
                             <div class="mb-3">
                                 {{ $u->rating }}
                                 @for ($i = 1; $i <= 5; $i++)
@@ -138,44 +139,52 @@
         </form>
     @endforeach
 
-    {{-- validasi swal --}}
     <script>
         $(document).ready(function() {
-            // Listen for the submit event on all forms with the name "ulasan"
-            $("form[name='ulasan']").submit(function(event) {
-                // Prevent the default form submission
+            // Listen for the click event on all elements with the class "btn-outline-warning"
+            $(".btn-outline-warning").click(function(event) {
+                // Prevent the default click behavior
                 event.preventDefault();
 
-                // Validate the form data
-                var rating = $("input[name='rating']:checked").val();
-                if (rating === undefined) {
-                    // Show an error message using SweetAlert
-                    Swal.fire({
-                        title: 'Peringatan',
-                        text: 'Silakan pilih rating.',
-                        icon: 'warning',
-                    });
-                    return;
-                }
+                // Get the data-id attribute value
+                var id = $(this).data("id");
 
-                var komentar = $("textarea[name='komentar']").val();
-                if (komentar === "") {
-                    // Show an error message using SweetAlert
-                    Swal.fire({
-                        title: 'Peringatan',
-                        text: 'Silakan isi komentar.',
-                        icon: 'warning',
-                    });
-                    return;
-                }
+                // You can also use 'id' to open the corresponding modal, for example:
+                $("#myModal-" + id).modal("show");
 
-                // If validation is successful, submit the form
-                $(this).off("submit"); // Remove the previous submit event listener
-                this.submit(); // Submit the form
+                // Event handler untuk form di dalam modal
+                $("form[name='ulasan']").submit(function(event) {
+                    event.preventDefault();
+
+                    // Validate the form data within this specific modal
+                    var rating = $("#myModal-" + id + " input[name='rating']:checked").val();
+                    var komentar = $("#myModal-" + id + " textarea[name='komentar']").val();
+
+                    if (rating === undefined) {
+                        Swal.fire({
+                            title: 'Peringatan',
+                            text: 'Silakan pilih rating.',
+                            icon: 'warning',
+                        });
+                        return;
+                    }
+
+                    if (komentar === "") {
+                        Swal.fire({
+                            title: 'Peringatan',
+                            text: 'Silakan isi komentar.',
+                            icon: 'warning',
+                        });
+                        return;
+                    }
+
+                    // Jika validasi berhasil, Anda dapat melakukan submit form
+                    $(this).off("submit");
+                    this.submit();
+                });
             });
         });
     </script>
-    {{-- validasi swal --}}
 
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
@@ -398,9 +407,9 @@
 
                                                         @if (!$ulasan)
                                                             <div class="btn btn-outline-warning text-capitalize"
-                                                                type="submit" data-bs-toggle="modal"
-                                                                data-bs-target="#myModal-{{ $u->barangpenjual_id }}"
-                                                                style="">beri ulasan</div>
+                                                                type="submit" data-id="{{ $u->barangpenjual_id }}"
+                                                                style="">
+                                                                beri ulasan</div>
                                                         @endif
                                                     @endif
                                                     <a href="{{ route('menu.store') }}"

@@ -1,4 +1,4 @@
-<div class="hero-image p-3" style="background: url('../assets/images/layouts/01.png') no-repeat center right; background-size: cover; background-position: center;">
+<div class="hero-image p-3" style="background: url('{{asset('../assets/images/layouts/01.png')}}') no-repeat center right; background-size: cover; background-position: center;">
     <div class="card-body p-5">
        <div class="row banner-container">
           <div class="col-lg-30 banner-item">

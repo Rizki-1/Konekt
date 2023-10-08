@@ -782,6 +782,8 @@ class dashboardusercontroller extends Controller
 
         $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
 
+        $filterKategori = 'filter';
+
 
         $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {
             $user->populer = UserOrder::where('toko_id', $user->user_id)
@@ -792,7 +794,7 @@ class dashboardusercontroller extends Controller
         // dd($tokoPopuler);
         $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users', 'tokoPopuler'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users', 'tokoPopuler', 'filterKategori'));
     }
 
     public function caritoko(Request $request)
@@ -861,6 +863,47 @@ class dashboardusercontroller extends Controller
         $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
 
         return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler', 'produkPopuler', 'filterKategori'));
+    }
+
+    public function searchKategori(Request $request, $menu, $Kategori)
+    {
+        // Ambil kata kunci pencarian dari input form
+        $searchTerm = $request->input('searchTerm');
+
+        // Lakukan pencarian pada model BarangPenjual dengan memfilter berdasarkan kategori_id dan namamenu
+        $penjual = BarangPenjual::where('kategori_id', $Kategori)
+            ->where('namamenu', 'like', '%' . $searchTerm . '%')
+            ->get();
+
+        $user_id = Auth::id();
+        $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
+            ->where('is_read', false)
+            ->get();
+        $kategori = adminkategori::all();
+        $penjualpagination =  barangpenjual::paginate(8);
+        $filterKategori = $penjual;
+        $ulasan = ulasan::avg('rating');
+
+        $produkPopuler = barangpenjual::all()->filter(function ($item) {
+            $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
+                ->where('pembelianstatus', 'statusselesai')
+                ->count();
+            return $item->terjual > 4;
+        });
+
+        $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
+
+
+        $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {
+            $user->populer = UserOrder::where('toko_id', $user->user_id)
+                ->where('pembelianstatus', 'statusselesai')
+                ->count();
+            return $user->populer > 0;
+        });
+        // dd($tokoPopuler);
+        $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
+
+        return view('DashboardUser.menuKategori', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler', 'produkPopuler', 'filterKategori'));
     }
 
     public function notifikasiuser()

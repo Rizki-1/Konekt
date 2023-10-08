@@ -44,6 +44,7 @@ class dashboardusercontroller extends Controller
             ->get();
         $penjualpagination =  barangpenjual::paginate(8);
         $penjual = barangpenjual::all();
+        $filterKategori = 'filter';
         $adminnotifikasi = adminnotifikasi::all();
         $kategori = adminkategori::all();
         $ulasan = ulasan::avg('rating');
@@ -53,7 +54,7 @@ class dashboardusercontroller extends Controller
             $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
                 ->where('pembelianstatus', 'statusselesai')
                 ->count();
-            return $item->terjual > 4;
+            return $item->terjual > 5;
         });
 
         $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
@@ -68,7 +69,7 @@ class dashboardusercontroller extends Controller
         // dd($tokoPopuler);
         $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users', 'tokoPopuler'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users', 'tokoPopuler', 'filterKategori'));
     }
 
 
@@ -807,6 +808,7 @@ class dashboardusercontroller extends Controller
         $kategori = adminkategori::all();
         $penjualpagination =  barangpenjual::paginate(8);
         $penjual = Barangpenjual::where('kategori_id', $Kategori)->get();
+        $filterKategori = $penjual;
         $ulasan = ulasan::avg('rating');
 
         $produkPopuler = barangpenjual::all()->filter(function ($item) {
@@ -828,7 +830,7 @@ class dashboardusercontroller extends Controller
         // dd($tokoPopuler);
         $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
 
-        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler', 'produkPopuler'));
+        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler', 'produkPopuler', 'filterKategori'));
     }
 
     public function notifikasiuser()

@@ -105,14 +105,15 @@ class penjualcontroller extends Controller
                 ->count();
             return $item->terjual > 0;
         });
-        $produk = $produk->sortByDesc('terjual')->take(5);
+
+        $produk = $produk->sortByDesc('terjual')->take(3);
+
         $produkRating = barangpenjual::with('ulasan')->where('toko_id', $penjualId)->get();
         $produkRating->each(function ($item) {
             $item->jumlahUlasan = $item->ulasan->avg('rating');
 
             return $item->jumlahUlasan > 0;
         });
-
 
         $produkRating = $produkRating->sortByDesc('jumlahUlasan');
 
@@ -189,9 +190,10 @@ class penjualcontroller extends Controller
         return redirect()->route('pembayaranpenjual');
     }
 
-    public function pembayaranedit(){
+    public function pembayaranedit()
+    {
         $pembayaranpenjual = pembayaranpenjual::all();
-        return view('DashboardPenjual.pembayaran',compact('pembayaranpenjual'));
+        return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual'));
     }
     public function pembayaranupdate(Request $request, $id){
 
@@ -231,11 +233,13 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_destroy(pembayaranpenjual $pembayaranpenjual)
     {
-        try{
+        // $pembayaranpenjual->delete();
+        // return redirect()->route('pembayaranpenjual');
+        try {
             $pembayaranpenjual->delete();
-            return redirect()->route('pembayaranpenjual')->with('success','berhasil dihapus');
-        } catch (Exception $e){
-            return back()->with('error','data masih digunakan');
+            return redirect()->route('pembayaranpenjual')->with('success', 'berhasil dihapus');
+        } catch (Exception $e) {
+            return back()->with('error', 'data masih digunakan');
         }
     }
     public function detailmenupen(Request $request, $id)
@@ -347,7 +351,7 @@ class penjualcontroller extends Controller
         $mengajukan->save();
         // dd($mengajukan);
         return redirect()->route('pengajuanpenjualad');
-     }
+    }
 
 
 
@@ -417,7 +421,7 @@ class penjualcontroller extends Controller
                 'namamenu' => $request->namamenu,
                 'keterangan_makanan' => $request->keterangan_makanan,
                 'kategori_id' => $request->kategori_id,
-                'nama_toko' => $request-> nama_toko,
+                'nama_toko' => $request->nama_toko,
                 'harga' => $request->harga,
                 'stok' => $request->stok,
                 'fotomakanan' => $filePath,
@@ -513,6 +517,11 @@ class penjualcontroller extends Controller
 
             // Jika ada file gambar yang diunggah, simpan gambar baru
             if ($request->hasFile('fotomakanan')) {
+                // Hapus file gambar sebelumnya jika ada
+                if (Storage::disk('public')->exists($item->fotomakanan)) {
+                    Storage::disk('public')->delete($item->fotomakanan);
+                }
+
                 $filePath = $request->file('fotomakanan')->store('penjual/menu', 'public');
                 $item->fotomakanan = $filePath;
             }

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:52:12 GMT -->
+
 <head>
     <style>
         body {
@@ -55,20 +56,15 @@
             cursor: pointer;
         }
 
+        <style>.img-banner {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            object-position: center top;
+        }
     </style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Kuliner kita</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="../../assets/images/kuliner.png" />
-
-    <!-- Library / Plugin Css Build -->
-    <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+    </style>
+    @include('layout.link')
 </head>
 
 <body class="  "
@@ -242,22 +238,25 @@
                             <div class="d-flex flex-wrap align-items-center justify-content-between mx-3 my-3">
                                 <div class="d-flex flex-wrap align-items-center">
                                     <div class="profile-img-edit position-relative">
-                                        @foreach ($user as $User )
-                                        @if ($User->fotoProfile === null)
-                                        <img src="../assets/images/avatars/01.png" alt="User-Profile"
-                                        class="profile-pic rounded avatar-100">
+                                        @foreach ($user as $User)
+                                            @if ($User->fotoProfile === null)
+                                                <img src="../assets/images/avatars/01.png" alt="User-Profile"
+                                                    class="profile-pic rounded avatar-100">
                                             @else
-                                            <img src="{{ asset('storage/' . $User->fotoProfile)}}" alt="User-Profile"
-                                            class="profile-pic rounded avatar-100">
-                                        @endif
+                                                <img src="{{ asset('storage/' . $User->fotoProfile) }}"
+                                                    alt="User-Profile" class="profile-pic rounded avatar-100">
+                                            @endif
                                         @endforeach
 
                                     </div>
                                     <div class="d-flex align-items-center mb-3 mb-sm-0 ms-sm-4">
                                         <div>
-                                            <h6 class="me-2 text-primary" id="profileNameDisplay">{{ Auth::user()->name }}</h6>
-                                            <div class="mb-1"><span id="email">{{ Auth::user()->email }}</span></div>
-                                            <div class="mb-1"><span id="">{{Auth::user()->bio}}</span></div>
+                                            <h6 class="me-2 text-primary" id="profileNameDisplay">
+                                                {{ Auth::user()->name }}</h6>
+                                            <div class="mb-1"><span id="email">{{ Auth::user()->email }}</span>
+                                            </div>
+                                            <div class="mb-1"><span id="">{{ Auth::user()->bio }}</span>
+                                            </div>
                                             <!-- <span>
                                                 <svg width="19" height="19" class="me-2" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -281,264 +280,225 @@
                         </div>
                         <div class="iq-header-img">
                             @foreach ($user as $User)
-                            @if ($User === null)
-                            <img src="../../assets/images/User-profile/01.png" alt="header"
-                            class="img-fluid w-100 rounded" style="object-fit: contain;">
-                            @else
-                            <img src="{{ asset('storage/' . $User->fotoBanner)}}" alt="header"
-                            class="img-fluid w-50 rounded" style="object-fit: contain;">
-                            @endif
+                                @if ($User === null)
+                                    <img src="{{ asset('../../assets/images/User-profile/01.png') }}" alt="header"
+                                        class="img-fluid w-100 rounded" style="object-fit: contain;">
+                                @else
+                                    <img src="{{ asset('storage/' . $User->fotoBanner) }}" alt="header"
+                                        class="img-fluid w-100 rounded" style="object-fit: contain;">
+                                @endif
                             @endforeach
-                            <svg class="upload-button" width="14" height="14" viewBox="0 0 24 24">
-                                <path fill="#ffffff"
-                                    d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                            </svg>
-
                         </div>
-                    </div>
-                </div>
-    </div>
-
-    <div class="row">
-    <div class="card ">
-        <div class="col-lg-12">
-           <div class="card-header">
-              <div class="card-body">
-                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-                        @if ($message = Session::get('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ $message}}
-                        </div>
-                        @endif
-                        @foreach ($user as $User )
-                        <form action="{{route('profileUpdate', ['id'=>$User->id])}}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            @method('put')
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Nama</label>
-                                    <input type="text" name="name" class="form-control" value="{{ Auth()->user()->name }}">
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" name="email" class="form-control" value="{{Auth()->user()->email}}" readonly>
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Tanggal Lahir</label>
-                                    <input type="date" name="tanggal_lahir" class="form-control" value="{{Auth()->user()->tanggal_lahir}}" required>
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Bio</label>
-                                    <textarea name="bio" class="form-control">{{ Auth()->user()->bio }}</textarea>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>foto profile</label>
-                                    @if ($User->fotoProfile === null)
-                                    <input type="file" name="fotoProfile" class="form-control" value="" required>
-                                    @else
-                                    <input type="file" name="fotoProfile" class="form-control" value="{{ $User->fotoProfile }}" >
-                                    <img src="{{ asset('storage/' . $User->fotoProfile)}}" style="width: 150px; ">
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>foto Banner</label>
-                                    @if ($User->fotoBanner === null)
-                                        <input type="file" name="fotoBanner" class="form-control" value="" required>
-                                    @else
-                                        <input type="text" name="fotoBanner" class="form-control" value="{{ $User->fotoBanner }}">
-                                        <img src="{{ asset('storage/' . $User->fotoBanner)}}" style="width: 150px; ">
-                                    @endif
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="mt-2">
-                            <button type="submit" class="btn btn-primary">simpan perubahan</button>
-                        </div>
-                        </form>
-                        @endforeach
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<script>
-const form = document.querySelector('form'); // Menggunakan 'form' untuk menemukan elemen form.
-const submitButton = document.querySelector('button[type="submit"]'); // Menggunakan selektor untuk menemukan tombol submit.
 
-submitButton.disabled = true;
+            <div class="row">
+                <div class="card ">
+                    <div class="col-lg-12">
+                        <div class="card-header">
+                            <div class="card-body">
+                                <div class="tab-pane fade show active" id="account" role="tabpanel"
+                                    aria-labelledby="account-tab">
+                                    @if ($message = Session::get('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @endif
+                                    @foreach ($user as $User)
+                                        <form action="{{ route('profileUpdate', ['id' => $User->id]) }}"
+                                            method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('put')
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Nama</label>
+                                                        <input type="text" name="name" class="form-control"
+                                                            value="{{ Auth()->user()->name }}">
 
-form.addEventListener('submit', (event) => {
-  const inputs = form.querySelectorAll('input');
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="email" name="email" class="form-control"
+                                                            value="{{ Auth()->user()->email }}" readonly>
 
-  submitButton.disabled = inputs.some(input => input.value === '');
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Tanggal Lahir</label>
+                                                        <input type="text" name="tanggal_lahir"
+                                                            class="form-control flatpickr"
+                                                            data-default-date="{{ Auth()->user()->tanggal_lahir }}"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Bio</label>
+                                                        <textarea name="bio" class="form-control">{{ Auth()->user()->bio }}</textarea>
+                                                    </div>
+                                                </div>
 
-  // Cek apakah bio kosong
-  const bioInput = document.querySelector('textarea[name="bio"]');
-  const tanggal_lahirInput = document.querySelector('input[name="tanggal_lahir"]');
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Foto Profile</label>
+                                                        @if ($User->fotoProfile === null)
+                                                            <input type="file" name="fotoProfile"
+                                                                class="form-control" value="" required>
+                                                        @else
+                                                            <input type="file" name="fotoProfile"
+                                                                class="form-control"
+                                                                value="{{ $User->fotoProfile }}">
+                                                            <img src="{{ asset('storage/' . $User->fotoProfile) }}"
+                                                                style="width: 150px; ">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Foto Banner</label>
+                                                        {{-- @if ($User->fotoBanner === null) --}}
+                                                        <input type="file" name="fotoBanner" class="form-control"
+                                                            value="" required>
+                                                        {{-- @else
+                                                            <input type="text" name="fotoBanner"
+                                                                class="form-control" value="{{ $User->fotoBanner }}">
+                                                            <img src="{{ asset('storage/' . $User->fotoBanner) }}"
+                                                                style="width: 150px; ">
+                                                        @endif --}}
+                                                    </div>
+                                                </div>
 
-  // Jika bio kosong, set bio menjadi null
-  if (bioInput.value === '') {
-    bioInput.value = null;
-    alert('Bio telah dihapus.');
-  }
-
-  // Jika tanggal lahir kosong, set tanggal lahir menjadi null
-  if (tanggal_lahirInput.value === '') {
-    tanggal_lahirInput.value = null;
-    alert('Tanggal lahir telah dihapus.');
-  }
-});
-
-form.addEventListener('submit', (event) => {
-  const inputs = form.querySelectorAll('input');
-  const bio = document.querySelector('textarea[name="bio"]').value;
-  const tanggal_lahir = document.querySelector('input[name="tanggal_lahir"]').value;
-
-  // Validasi bio dan tanggal lahir
-  if (bio.length > 255 || !/^\d{4}-\d{2}-\d{2}$/.test(tanggal_lahir)) {
-    event.preventDefault();
-    alert('Harap isi semua inputan dengan benar.');
-  }
-});
-</script>
-<script>
-const form = document.querySelector('form'); // Menggunakan 'form' untuk menemukan elemen form.
-const submitButton = document.querySelector('button[type="submit"]'); // Menggunakan selektor untuk menemukan tombol submit.
-
-submitButton.disabled = true;
-
-form.addEventListener('submit', (event) => {
-  const inputs = form.querySelectorAll('input');
-  const bio = document.querySelector('textarea[name="bio"]').value;
-  const tanggal_lahir = document.querySelector('input[name="tanggal_lahir"]').value;
-
-  // Validasi bio dan tanggal lahir
-  if (bio.length > 255 || !/^\d{4}-\d{2}-\d{2}$/.test(tanggal_lahir)) {
-    event.preventDefault();
-    alert('Harap isi semua inputan dengan benar.');
-  }
-});
-</script>
-                <div class="row">
-                    <!-- Footer Section Start -->
-                    <footer class="footer">
-                        <div class="footer-body">
-                            <ul class="left-panel list-inline mb-0 p-0">
-                                <li class="list-inline-item"><a href="../extra/privacy-policy.html">Privacy Policy</a>
-                                </li>
-                                <li class="list-inline-item"><a href="../extra/terms-of-service.html">Terms of Use</a>
-                                </li>
-                            </ul>
-                            <div class="right-panel">
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear())
-                                </script> Aprycot, Made with
-                                <span class="text-gray">
-                                    <svg width="15" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z"
-                                            fill="currentColor"></path>
-                                    </svg>
-                                </span> by <a href="https://iqonic.design/">Konekt</a>.
+                                            </div>
+                                            <div class="mt-2">
+                                                <button type="submit" class="btn btn-primary text-capitalize">simpan
+                                                    perubahan</button>
+                                            </div>
+                                        </form>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </footer>
-</div>
-                    <!-- Footer Section End -->
+                    </div>
+                </div>
+            </div>
+            <script>
+                const form = document.querySelector('form'); // Menggunakan 'form' untuk menemukan elemen form.
+                const submitButton = document.querySelector(
+                    'button[type="submit"]'); // Menggunakan selektor untuk menemukan tombol submit.
+
+                submitButton.disabled = true;
+
+                form.addEventListener('submit', (event) => {
+                    const inputs = form.querySelectorAll('input');
+
+                    submitButton.disabled = inputs.some(input => input.value === '');
+
+                    // Cek apakah bio kosong
+                    const bioInput = document.querySelector('textarea[name="bio"]');
+                    const tanggal_lahirInput = document.querySelector('input[name="tanggal_lahir"]');
+
+                    // Jika bio kosong, set bio menjadi null
+                    if (bioInput.value === '') {
+                        bioInput.value = null;
+                        alert('Bio telah dihapus.');
+                    }
+
+                    // Jika tanggal lahir kosong, set tanggal lahir menjadi null
+                    if (tanggal_lahirInput.value === '') {
+                        tanggal_lahirInput.value = null;
+                        alert('Tanggal lahir telah dihapus.');
+                    }
+                });
+
+                form.addEventListener('submit', (event) => {
+                    const inputs = form.querySelectorAll('input');
+                    const bio = document.querySelector('textarea[name="bio"]').value;
+                    const tanggal_lahir = document.querySelector('input[name="tanggal_lahir"]').value;
+
+                    // Validasi bio dan tanggal lahir
+                    if (bio.length > 255 || !/^\d{4}-\d{2}-\d{2}$/.test(tanggal_lahir)) {
+                        event.preventDefault();
+                        alert('Harap isi semua inputan dengan benar.');
+                    }
+                });
+            </script>
+            <script>
+                const form = document.querySelector('form'); // Menggunakan 'form' untuk menemukan elemen form.
+                const submitButton = document.querySelector(
+                    'button[type="submit"]'); // Menggunakan selektor untuk menemukan tombol submit.
+
+                submitButton.disabled = true;
+
+                form.addEventListener('submit', (event) => {
+                    const inputs = form.querySelectorAll('input');
+                    const bio = document.querySelector('textarea[name="bio"]').value;
+                    const tanggal_lahir = document.querySelector('input[name="tanggal_lahir"]').value;
+
+                    // Validasi bio dan tanggal lahir
+                    if (bio.length > 255 || !/^\d{4}-\d{2}-\d{2}$/.test(tanggal_lahir)) {
+                        event.preventDefault();
+                        alert('Harap isi semua inputan dengan benar.');
+                    }
+                });
+            </script>
+            <div class="row">
+                <!-- Footer Section Start -->
+                @include('layout.footer')
+            </div>
+            <!-- Footer Section End -->
     </main>
+
+    {{-- flatpickr --}}
+    <script>
+        flatpickr(".flatpickr", {
+            // Konfigurasi Flatpickr sesuai kebutuhan Anda
+            // Misalnya, jika Anda ingin menggunakan format tanggal tertentu:
+            dateFormat: "Y-m-d"
+        });
+    </script>
+    {{-- flatpickr --}}
 
     <script>
         function editField(field) {
-    const fieldValue = document.getElementById(field);
-    const originalValue = fieldValue.innerText;
+            const fieldValue = document.getElementById(field);
+            const originalValue = fieldValue.innerText;
 
-    const input = document.createElement('input');
-    input.value = originalValue;
+            const input = document.createElement('input');
+            input.value = originalValue;
 
-    // Replace the text with an input field
-    fieldValue.innerHTML = '';
-    fieldValue.appendChild(input);
+            // Replace the text with an input field
+            fieldValue.innerHTML = '';
+            fieldValue.appendChild(input);
 
-    input.focus();
+            input.focus();
 
-    input.addEventListener('blur', () => {
-        // Save changes and replace the input field with the new value
-        const newValue = input.value;
-        fieldValue.innerHTML = newValue + ` <a href="profileuser" onclick="editField('${field}')">Edit</a>`;
-    });
-}
-</script>
-<script>
-    const form = document.getElementById('myForm');
-const submitButton = document.getElementById('submitButton');
+            input.addEventListener('blur', () => {
+                // Save changes and replace the input field with the new value
+                const newValue = input.value;
+                fieldValue.innerHTML = newValue + ` <a href="profileuser" onclick="editField('${field}')">Edit</a>`;
+            });
+        }
+    </script>
+    <script>
+        const form = document.getElementById('myForm');
+        const submitButton = document.getElementById('submitButton');
 
-submitButton.disabled = true;
+        submitButton.disabled = true;
 
-form.addEventListener('input', () => {
-  const inputs = form.querySelectorAll('input');
+        form.addEventListener('input', () => {
+            const inputs = form.querySelectorAll('input');
 
-  submitButton.disabled = inputs.some(input => input.value === '');
-});
-</script>
+            submitButton.disabled = inputs.some(input => input.value === '');
+        });
+    </script>
     <!-- Wrapper End-->
     <!-- offcanvas start -->
 
-    <!-- Required Library Bundle Script -->
-    <script src="../../assets/js/core/libs.min.js"></script>
-
-    <!-- External Library Bundle Script -->
-    <script src="../../assets/js/core/external.min.js"></script>
-
-    <!-- Widgetchart JavaScript -->
-    <script src="../../assets/js/charts/widgetcharts.js"></script>
-
-    <!-- Mapchart JavaScript -->
-    <script src="../../assets/js/charts/vectore-chart.js"></script>
-    <script src="../../assets/js/charts/dashboard.js"></script>
-
-    <!-- Admin Dashboard Chart -->
-    <script src="../../assets/js/charts/admin.js"></script>
-
-    <!-- fslightbox JavaScript -->
-    <script src="../../assets/js/fslightbox.js"></script>
-
-    <!-- GSAP Animation -->
-    <script src="../../assets/vendor/gsap/gsap.min.js"></script>
-    <script src="../../assets/vendor/gsap/ScrollTrigger.min.js"></script>
-    <script src="../../assets/js/animation/gsap-init.js"></script>
-
-    <!-- Stepper Plugin -->
-    <script src="../../assets/js/stepper.js"></script>
-
-    <!-- Form Wizard Script -->
-    <script src="../../assets/js/form-wizard.js"></script>
-
-    <!-- app JavaScript -->
-    <script src="../../assets/js/app.js"></script>
-
-    <!-- moment JavaScript -->
-    <script src="../../assets/vendor/moment.min.js"></script>
-</body>
-
-<!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/app/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:55:19 GMT -->
+    @include('layout.js')
 
 </html>

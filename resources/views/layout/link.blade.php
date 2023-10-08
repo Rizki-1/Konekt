@@ -3,12 +3,12 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Kuliner kita</title>
 <!-- Favicon -->
-<link rel="shortcut icon" href="../../assets/images/kuliner.png" />
+<link rel="shortcut icon" href="{{asset('../../assets/images/kuliner.png')}}" />
 
 <!-- Library / Plugin Css Build -->
-<link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+<link rel="stylesheet" href="{{asset('../../assets/css/core/libs.min.css')}}">
 <!-- Custom Css -->
-<link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+<link rel="stylesheet" href="{{asset('../../assets/css/aprycot.mine209.css?v=1.0.0')}}">
 
 <!-- Include the SweetAlert 2 CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">

@@ -40,7 +40,6 @@
                 </h1>
              </div>
              <p class="mb-4">Dapatkan kemudahan Karena semua ter<span class="text-primary">Konekt</span>kan</p>
-             <button type="button" class="btn btn-primary rounded-pill">Check Menu</button>
           </div>
        </div>
     </div>

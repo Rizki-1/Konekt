@@ -752,16 +752,46 @@ class dashboardusercontroller extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function search(Request $request, $menu)
     {
         // Ambil kata kunci pencarian dari input form
         $searchTerm = $request->input('query');
 
         // Lakukan pencarian pada model BarangPenjual (sesuaikan dengan model Anda)
-        $results = barangpenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
+        $penjual = barangpenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
 
-        // Kembalikan hasil pencarian dalam format JSON
-        return response()->json($results);
+        $user_id = Auth::id();
+
+        $users = userOrder::all();
+        $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
+            ->where('is_read', false)
+            ->get();
+        $penjualpagination =  barangpenjual::paginate(8);
+        $adminnotifikasi = adminnotifikasi::all();
+        $kategori = adminkategori::all();
+        $ulasan = ulasan::avg('rating');
+        $totalUlasan = ulasan::all()->count();
+
+        $produkPopuler = barangpenjual::all()->filter(function ($item) {
+            $item->terjual = UserOrder::where('barangpenjual_id', $item->id)
+                ->where('pembelianstatus', 'statusselesai')
+                ->count();
+            return $item->terjual > 5;
+        });
+
+        $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
+
+
+        $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {
+            $user->populer = UserOrder::where('toko_id', $user->user_id)
+                ->where('pembelianstatus', 'statusselesai')
+                ->count();
+            return $user->populer > 0;
+        });
+        // dd($tokoPopuler);
+        $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
+
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users', 'tokoPopuler'));
     }
 
     public function caritoko(Request $request)

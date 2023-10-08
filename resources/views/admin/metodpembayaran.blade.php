@@ -419,12 +419,40 @@
                                                     data-metode="{{ $a->metodepembayaran }}"><i
                                                         class="bi bi-pencil-square"></i>
                                                 </button>
-                                                <form action="{{ route('adestroy', $a->id) }}" method="post">
+                                                <form action="{{ route('adestroy', $a->id) }}" method="post"
+                                                    id="delete-form">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-outline-danger"><i
-                                                            class="bi bi-trash-fill"></i></button>
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                        id="delete-button"><i class="bi bi-trash-fill"></i></button>
                                                 </form>
+
+                                                <script>
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        // Select the delete form and button
+                                                        const deleteForm = document.getElementById('delete-form');
+                                                        const deleteButton = document.getElementById('delete-button');
+
+                                                        // Attach a click event listener to the delete button
+                                                        deleteButton.addEventListener('click', function() {
+                                                            Swal.fire({
+                                                                title: 'Apakah Anda Yakin?',
+                                                                text: 'Data akan terhapus selamanya!',
+                                                                icon: 'question',
+                                                                showCancelButton: true,
+                                                                confirmButtonText: 'Ya, Hapus',
+                                                                cancelButtonText: 'Batal',
+                                                                reverseButtons: true
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    // If the user confirms, submit the delete form
+                                                                    deleteForm.submit();
+                                                                }
+                                                            });
+                                                        });
+                                                    });
+                                                </script>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -520,7 +548,6 @@
                 var tujuan = $('#editTujuan').val();
                 var keteranganType = $('#keteranganType').val(); // Tipe input (text atau file)
                 var metodepembayaran = $('#editMetodepembayaran').val();
-                
 
                 // Inisialisasi variabel keterangan dengan null
                 var keterangan = null;

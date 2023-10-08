@@ -512,7 +512,7 @@ class dashboardusercontroller extends Controller
     {
 
         //dd($request->all());
-        $username = Auth::user()->name;
+        $user_id = Auth::user()->id;
         $penjual = BarangPenjual::findOrFail($id);
         $ulasan = ulasan::where('barangpenjual_id', $penjual->id)->get();
 
@@ -530,7 +530,7 @@ class dashboardusercontroller extends Controller
 
         $ulasan = [
             'barangpenjual_id' => $request->barangpenjual_id,
-            'username' => $username,
+            'user_id' => $user_id,
             'rating' => $request->rating,
             'komentar' => $request->komentar
 

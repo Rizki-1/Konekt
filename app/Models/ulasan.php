@@ -15,8 +15,7 @@ class ulasan extends Model
         'barangpenjual_id',
         'rating',
         'komentar',
-        'username',
-        
+        'user_id',
     ];
 
 

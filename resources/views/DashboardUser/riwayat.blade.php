@@ -399,7 +399,7 @@
                                                     @if ($u->pembelianstatus === 'statusselesai')
                                                         @php
                                                             $ulasan = \App\Models\Ulasan::where('barangpenjual_id', $u->barangpenjual_id)
-                                                                ->where('username', Auth::user()->name)
+                                                                ->where('user_id', Auth::user()->id)
                                                                 ->where('id', $u->id)
                                                                 ->first();
                                                         @endphp

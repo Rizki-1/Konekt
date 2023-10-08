@@ -105,7 +105,6 @@
                             <input type="hidden" name="barangpenjual_id" value="{{ $u->barangpenjual_id }}">
                         </div>
                         <div class="modal-body">
-                            @dump($u->barangpenjual_id)
                             <div class="mb-3">
                                 {{ $u->rating }}
                                 @for ($i = 1; $i <= 5; $i++)

@@ -128,7 +128,7 @@
 
                                     <div class="mb-3">
                                         <label for="tujuanpembayaran" class="form-label fw-bold">metode
-                                            pembayaran</label>
+                                            pengajuan</label>
                                         <input type="text" class="form-control" id="tujuanpembayaran"
                                             name="tujuanpembayaran" value="{{ $Pengajuanuser->tujuanpembayaran }}"
                                             readonly>
@@ -150,12 +150,14 @@
                                         @php
                                             $data_foto_keterangan = strlen($Pengajuanuser->keterangan_metode_pembayaran);
                                         @endphp
-                                        @if ($data_foto_keterangan < 20)
+                                        @if ($Pengajuanuser->tujuanpembayaran === 'e-wallet')
                                             <img src="{{asset('storage/pengajuanUser/' . $Pengajuanuser->keterangan_metode_pengembalian)}}" alt="" srcset="" style="width: 100%">
+
                                         @else
                                             <input type="number" name="keterangan_metode_pengembalian"
                                                 value="{{ $Pengajuanuser->keterangan_metode_pengembalian }}"
                                                 id="{{ $Pengajuanuser->keterangan }}" class="form-control" disabled>
+
                                         @endif
                                     </div>
                                 </div>

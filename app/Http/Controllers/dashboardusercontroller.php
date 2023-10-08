@@ -261,7 +261,7 @@ class dashboardusercontroller extends Controller
         $user_id = Auth::id();
         $user = userOrder::where('user_orders.user_id', $user_id)
             ->whereNotNull('pembelianstatus')
-            ->whereIn('pembelianstatus', ['statusselesai', 'pesanan di tolak', 'dibatalkan'])
+            ->whereIn('pembelianstatus', ['statusselesai', 'pengembalian dana di terima'])
             ->join('penjuallogins', 'penjuallogins.user_id', '=', 'user_orders.toko_id')
             ->select('user_orders.*', 'penjuallogins.nama_toko', 'user_orders.created_at')
             ->orderBy('created_at', 'desc')
@@ -781,7 +781,7 @@ class dashboardusercontroller extends Controller
 
         $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
 
-        $filterKategori = 'filter';
+        $filterKategori = $penjual;
 
 
         $tokoPopuler = penjuallogin::all()->filter(function (penjuallogin $user) {

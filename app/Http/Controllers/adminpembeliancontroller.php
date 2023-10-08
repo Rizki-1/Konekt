@@ -247,12 +247,13 @@ class adminpembeliancontroller extends Controller
                 'max:255',
                 Rule::unique('adminkategoris', 'kategori')->ignore($request->id), // Tambahkan aturan unique
             ],
-            'keterangan' => 'required|string',
+            'keterangan' => 'required|string|max:255',
         ], [
             'kategori.required' => 'Nama kategori harus diisi.',
             'kategori.unique' => 'Nama kategori sudah digunakan.',
             'kategori.max' => 'Nama kategori maksimal 255 karakter.',
             'keterangan.required' => 'Keterangan harus diisi.',
+            'keterangan.max' => 'Keterangan maksimal 255',
         ]);
 
         try {
@@ -355,12 +356,13 @@ class adminpembeliancontroller extends Controller
                 'max:255',
                 Rule::unique('adminkategoris', 'kategori')->ignore($id), // Tambahkan aturan unique
             ],
-            'keterangan' => 'required|string',
+            'keterangan' => 'required|string|max:255',
         ], [
             'kategori.required' => 'Nama kategori harus diisi.',
             'kategori.unique' => 'Nama kategori sudah digunakan.',
             'kategori.max' => 'Nama kategori maksimal 255 karakter.',
             'keterangan.required' => 'Keterangan harus diisi.',
+            'keterangan.max' => 'Keterangan maksimal 255',
         ]);
 
         try {
@@ -427,7 +429,7 @@ class adminpembeliancontroller extends Controller
     public function terimapengajuanuser($id)
     {
         $user = userOrder::findOrFail($id);
-        $user->pembelianstatus = 'pengajuan di terima';
+        $user->pembelianstatus = 'pengembalian dana di terima';
         $user->save();
         return redirect()->back();
     }

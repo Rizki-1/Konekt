@@ -67,7 +67,7 @@ class logincontroller extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('user.index');
+        return redirect()->route('dashboard');
     }
     public function forgotpassword()
     {
@@ -92,7 +92,7 @@ class logincontroller extends Controller
     {
         $request->validate([
             'token' => 'required',
-            // 'email' => 'required|email',
+            'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ],[
             'password.required' => 'password tidak boleh kosong',

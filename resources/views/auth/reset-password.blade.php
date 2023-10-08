@@ -518,11 +518,11 @@
                               <div class="col-lg-12">
                                  <div class="floating-label form-group">
                                  <input type="hidden" name="token" value="{{ request()->token }}" id="">
-
-                                <input type="hidden" name="email" value="{{ request()->email }}" id="">
-                                @dump(request()->email)
+                                 <label for="email">email</label>
+                                <input type="email" class="form-control" name="email" value="{{ request()->email }}" id="">
                                 <label for="password">Password</label>
                                 <input type="password"  class="form-control" name="password">
+                             
                                 @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

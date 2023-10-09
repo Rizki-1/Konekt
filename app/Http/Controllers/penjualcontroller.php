@@ -144,10 +144,12 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_store(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
             'metodepembayaran' => 'required',
             'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
-            'keterangan' => 'required',
+            // 'keterangan' => 'required',
             'tujuan_bank' => 'required_if:metodepembayaran,bank',
             'keterangan_bank' => 'required_if:metodepembayaran,bank',
             'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
@@ -162,6 +164,7 @@ class penjualcontroller extends Controller
             'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
             'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
         ]);
+
 
         $metodePembayaran = $request->input('metodepembayaran');
         $data = [
@@ -195,7 +198,8 @@ class penjualcontroller extends Controller
         $pembayaranpenjual = pembayaranpenjual::all();
         return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual'));
     }
-    public function pembayaranupdate(Request $request, $id){
+    public function pembayaranupdate(Request $request, $id)
+    {
 
         $validator = Validator::make($request->all(), [
             'tujuan' => 'required',
@@ -215,19 +219,19 @@ class penjualcontroller extends Controller
         $data = pembayaranpenjual::find($id);
         $data->tujuan = $request->tujuan;
         $old = $data->keterangan;
-        if ($request->file('keterangan')){
+        if ($request->file('keterangan')) {
             $image = $request->file('keterangan');
             $filename = $image->hashName();
             $image->storeAs('public/pembayaran', $filename);
-            if ($old && $old !== $filename){
-                Storage::delete('public/pembayaran'. $old);
+            if ($old && $old !== $filename) {
+                Storage::delete('public/pembayaran' . $old);
             }
             $data->keterangan = $filename;
-        }else{
+        } else {
             $data->keterangan = $request->keterangan;
         }
         $data->save();
-        return redirect()->route('pembayaranpenjual')->with('succes','berhasil mengubah');
+        return redirect()->route('pembayaranpenjual')->with('succes', 'berhasil mengubah');
     }
 
 
@@ -337,7 +341,7 @@ class penjualcontroller extends Controller
         $pengajuandanapenjual = penjuallogin::where('user_id', $penjualId)->get();
         $bank = pembayaranpenjual::where('metodepembayaran', 'bank')->get();
         $wallet = pembayaranpenjual::where('metodepembayaran', 'e-wallet')->get();
-        return view('DashboardPenjual.pengajuandana', compact( 'pengajuandanapenjual', 'bank', 'wallet', 'pengajuan', 'penjualId'));
+        return view('DashboardPenjual.pengajuandana', compact('pengajuandanapenjual', 'bank', 'wallet', 'pengajuan', 'penjualId'));
     }
 
     public function mengajukanDana(Request $request, $id)
@@ -366,70 +370,65 @@ class penjualcontroller extends Controller
         return redirect()->route('pengajuanpenjualad');
     }
 
-
-
-
     protected function profilepenjual(Request $request)
-{
-    $penjualId = Auth::id();
-    $penjual = barangpenjual::where('toko_id', $penjualId)->get();
-    return view('DashboardPenjual.profilepenjual', compact('penjual'));
-}
-
-public function profileUpdateP(Request $request, $id)
-{
-    //dd($request->all());
-    $penjual = Penjuallogin::findOrFail($id);
-    $userPenjual = User::where('id', $penjual->user_id)->first();
-   
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
-        'email' => 'required|email|max:255',
-        'bio' => 'required|min:5|max:255',
-        'nama_toko' => 'required|max:255', // Add validation for nama_toko
-        'notlp' => 'required|max:255', // Add validation for notlp
-        'alamat_toko' => 'required', // Add validation for alamat_toko
-        'fotoProfile' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        'fotoBanner' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-    
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
+    {
+        $penjualId = Auth::id();
+        $penjual = barangpenjual::where('toko_id', $penjualId)->get();
+        return view('DashboardPenjual.profilepenjual', compact('penjual'));
     }
-    // dd($validator);
 
-    $penjual->nama_toko = $request->input('nama_toko'); // Update nama_toko
-    $penjual->notlp = $request->input('notlp'); // Update notlp
-    $penjual->alamat_toko = $request->input('alamat_toko'); // Update alamat_toko
-    $penjual->save();
-    
-    
+    public function profileUpdateP(Request $request, $id)
+    {
+        //dd($request->all());
+        $penjual = Penjuallogin::findOrFail($id);
+        $userPenjual = User::where('id', $penjual->user_id)->first();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'bio' => 'required|min:5|max:255',
+            'nama_toko' => 'required|max:255', // Add validation for nama_toko
+            'notlp' => 'required|max:255', // Add validation for notlp
+            'alamat_toko' => 'required', // Add validation for alamat_toko
+            'fotoProfile' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'fotoBanner' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        // dd($validator);
+
+        $penjual->nama_toko = $request->input('nama_toko'); // Update nama_toko
+        $penjual->notlp = $request->input('notlp'); // Update notlp
+        $penjual->alamat_toko = $request->input('alamat_toko'); // Update alamat_toko
+        $penjual->save();
+
+
         $userPenjual->name = $request->input('name');
         $userPenjual->bio = $request->input('bio');
 
-    if ($request->hasFile('fotoProfile')) {
-        if ($userPenjual->fotoProfile) {
-            Storage::delete('public/' . $userPenjual->fotoProfile);
+        if ($request->hasFile('fotoProfile')) {
+            if ($userPenjual->fotoProfile) {
+                Storage::delete('public/' . $userPenjual->fotoProfile);
+            }
+            $filePath = $request->file('fotoProfile')->store('users-avatar', 'public');
+            $userPenjual->fotoProfile = $filePath;
         }
-        $filePath = $request->file('fotoProfile')->store('users-avatar', 'public');
-        $userPenjual->fotoProfile = $filePath;
-     
-    }
 
-    if ($request->hasFile('fotoBanner')) {
-        if ($userPenjual->fotoBanner) {
-            Storage::delete('public/' . $userPenjual->fotoBanner);
+        if ($request->hasFile('fotoBanner')) {
+            if ($userPenjual->fotoBanner) {
+                Storage::delete('public/' . $userPenjual->fotoBanner);
+            }
+            $filePath = $request->file('fotoBanner')->store('users-avatar', 'public');
+            $userPenjual->fotoBanner = $filePath;
         }
-        $filePath = $request->file('fotoBanner')->store('users-avatar', 'public');
-        $userPenjual->fotoBanner = $filePath;
+        $userPenjual->save();
+        //dd($userPenjual);
+
+
+        return redirect()->route('profilepenjual')->with('success', 'Profile berhasil diperbarui');
     }
-    $userPenjual->save();
-     //dd($userPenjual);
-    
-    
-    return redirect()->route('profilepenjual')->with('success', 'Profile berhasil diperbarui');
-    
-}
 
     /**
      * Show the form for creating a new resource.
@@ -633,7 +632,7 @@ public function profileUpdateP(Request $request, $id)
             'success' => true,
             'message' => 'Menu berhasil dihapus.'
         ]);
-    }   
+    }
 
     public function notifikasipenjual()
     {

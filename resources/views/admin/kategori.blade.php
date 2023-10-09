@@ -95,8 +95,7 @@
     <title>Kuliner kita</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="../../assets/images/kuliner.png" />
+    <link rel="shortcut icon" href="../../assets/images/kuliner.png" />
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
@@ -460,11 +459,52 @@
     @include('layout.js')
 </body>
 
-{{-- AJAX DELETE --}}
 <script>
     $(document).ready(function() {
-        // Tangani klik tombol "Delete"
-        $(".delete-btn").click(function() {
+        // AJAX GET
+        // Fungsi untuk mengambil data kategori melalui AJAX GET
+        function getData() {
+            $.ajax({
+                url: '/get-kategori-data', // Ganti dengan URL yang sesuai dengan rute Anda
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Mengosongkan tabel
+                    $('#tabel-data tbody').empty();
+
+                    // Memasukkan data ke dalam tabel
+                    $.each(data, function(index, category) {
+                        $('#tabel-data tbody').append(`
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${category.kategori}</td>
+                                <td>${category.keterangan}</td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-warning edit-btn" data-id="${category.id}">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger delete-btn ms-1" data-id="${category.id}">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+        // Memanggil fungsi getData() saat halaman pertama dimuat
+        getData();
+
+        // AJAX GET
+
+        // AJAX DELETE
+        // Tangani klik tombol "Delete" dengan event delegasi
+        $(document).on('click', '.delete-btn', function() {
             var itemId = $(this).data("id"); // Dapatkan ID item dari atribut data
 
             // Konfirmasi penghapusan dengan SweetAlert atau pesan konfirmasi lainnya
@@ -493,11 +533,10 @@
                                     title: 'Sukses',
                                     text: response.message,
                                     icon: 'success'
-                                }).then(function() {
-                                    // Hapus elemen <tr> terkait dari tabel
-                                    $(`.delete-btn[data-id="${itemId}"]`)
-                                        .closest('tr').remove();
+
                                 });
+                                
+                                getData();
                             } else {
                                 Swal.fire('Peringatan', response.message,
                                     'warning');
@@ -511,14 +550,9 @@
                 }
             });
         });
-    });
-</script>
-{{-- AJAX DELETE --}}
+        // AJAX DELETE
 
-{{-- AJAX Store --}}
-<script>
-    $(document).ready(function() {
-        // Tangani klik tombol "Simpan"
+        // AJAX STORE
         $("#myModal form").submit(function(e) {
             e.preventDefault();
 
@@ -540,12 +574,10 @@
                     if (response.success) {
                         $("#myModal").modal("hide"); // Sembunyikan modal
                         Swal.fire('Sukses',
-                            'Berhasil menambahkan kategori, halaman akan terefresh.',
+                            'Berhasil menambahkan kategori.',
                             'success');
 
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2000);
+                        getData();
 
                     } else {
                         Swal.fire('Gagal', 'Terjadi kesalahan saat menambahkan kategori.',
@@ -572,15 +604,10 @@
                 }
             });
         });
-    });
-</script>
-{{-- AJAX Store --}}
+        // AJAX STORE
 
-{{-- AJAX Edit --}}
-<script>
-    $(document).ready(function() {
-        // Tangani klik tombol "Edit"
-        $(".edit-btn").click(function() {
+        // AJAX UPDATE
+        $(document).on('click', '.edit-btn', function() {
             var itemId = $(this).data("id"); // Dapatkan ID item dari atribut data'
 
             // Reset pesan kesalahan dari validasi sebelumnya
@@ -649,12 +676,11 @@
                         $("#editModal").modal("hide");
 
                         Swal.fire('Sukses',
-                            'Berhasil memperbarui data kategori, halaman akan terefresh.',
+                            'Berhasil memperbarui data kategori.',
                             'success');
 
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2000);
+                        getData();
+
                     } else {
                         Swal.fire('Gagal', 'Terjadi kesalahan saat menyimpan perubahan.',
                             'error');
@@ -665,7 +691,8 @@
                         var responseErrors = xhr.responseJSON.errors;
 
                         $.each(responseErrors, function(key, value) {
-                            var inputField = $("input[name='" + key + "'], textarea[name='" + key + "']");
+                            var inputField = $("input[name='" + key +
+                                "'], textarea[name='" + key + "']");
                             inputField.addClass('is-invalid');
                             // Jika ini elemen select, tambahkan pesan validasi di bawahnya
                             if (inputField.is('select')) {
@@ -686,8 +713,9 @@
                 }
             });
         });
+        // AJAX UPDATE
+
     });
 </script>
-{{-- AJAX Edit --}}
 
 </html>

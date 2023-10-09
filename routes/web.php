@@ -36,6 +36,7 @@ Route::middleware(['AdminMiddleware'])->group(function () {
     Route::resource('pembelianadmin', App\Http\Controllers\adminpembeliancontroller::class);
     Route::get('metodpembayaran', [adminpembeliancontroller::class, 'metodpembayaran'])->name('metodpembayaran');
     Route::get('kategori', [adminpembeliancontroller::class, 'kategori'])->name('kategori');
+    Route::get('/get-kategori-data', [adminpembeliancontroller::class, 'getKategoriData'])->name('getKategoriData');
     Route::post('kstore', [adminpembeliancontroller::class, 'kstore'])->name('kstore');
     Route::get('kedit/{id}/edit', [adminpembeliancontroller::class, 'kedit'])->name('kedit');
     Route::get('aedit/{id}/edit', [adminpembeliancontroller::class, 'aedit'])->name('aedit');

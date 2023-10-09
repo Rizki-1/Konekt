@@ -321,7 +321,7 @@
                                     <p class="mb-3 mt-2">5</p>
                                     <small class="mb-1 fw-normal">Menu</small>
                                 </li>
-                               
+
                             </ul>
                         </div>
                     </div>
@@ -344,7 +344,7 @@
             </div>
         </div>
     </div>
-            
+
     <div class="row">
     <div class="card ">
         <div class="col-lg-12">
@@ -389,7 +389,7 @@
 
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>foto profile</label>
@@ -482,8 +482,8 @@
                     </div>
                 </div>
     </div>
-          
-            
+
+
                     </center>
                     <!-- Footer Section Start -->
                     <footer class="footer">
@@ -510,7 +510,7 @@
                             </div>
                         </div>
                     </footer>
-                  
+
                     <!-- Footer Section End -->
 </main>
 <!-- Wrapper End-->
@@ -552,7 +552,7 @@
 <!-- moment JavaScript -->
 <script src="../../assets/vendor/moment.min.js"></script>
  <!-- Modal untuk mengedit profil -->
- 
+
 </body>
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/app/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:55:19 GMT -->

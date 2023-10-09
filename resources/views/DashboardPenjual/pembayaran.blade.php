@@ -25,7 +25,6 @@
             });
         });
 
-
         $(document).ready(function() {
             // Tangani perubahan pada elemen select
             $("#selectMetode").change(function() {
@@ -393,7 +392,6 @@
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">

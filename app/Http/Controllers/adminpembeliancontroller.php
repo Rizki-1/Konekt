@@ -198,7 +198,7 @@ class adminpembeliancontroller extends Controller
 
             if ($user) {
                 // dd('berhasil');
-                $user = User::where('role','penjualnotapprove')->get();
+                $user = User::where('role', 'penjualnotapprove')->get();
                 foreach ($user as $User) {
                     Mail::to($User->email)->send(new SendEmail($User, 'tolak'));
                     // dd('mantap');
@@ -232,6 +232,12 @@ class adminpembeliancontroller extends Controller
     {
         $admink = adminkategori::all();
         return view('admin.kategori', compact('admink'));
+    }
+
+    public function getKategoriData()
+    {
+        $admink = adminkategori::all();
+        return response()->json($admink);
     }
 
     public function kcreate()

@@ -16,6 +16,7 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
+    
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -193,33 +194,21 @@
                                         <div style="position: relative; overflow: hidden;">
                                             <img src="{{ asset('storage/' . $p->foto_toko) }}"
                                                 class="img-fluid rounded" alt="image"
-                                                style="width: 80%; max-height: 200px;">
+                                                style="width: 80%; max-height: 300px;">
                                         </div>
                                     </div>
                                     <div class="col-12 col-xl-7">
-                                        <h4 class="mb-2 font-family: Arial, sans-serif;">{{ $p->nama_toko }}</h4>
-                                        <div class="mb-5">
-                                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 g-lg-3">
-                                                <div class="col">
-                                                    <div class="d-flex align-items-center">
-                                                        <div>
-                                                            <p class="heading-title"
-                                                                style="white-space: nowrap; margin-bottom: 0;">No.Telp:
-                                                                {{ $p->notlp }}</p>
-                                                            <p class="mb-0"
-                                                                style="white-space: nowrap; margin-top: 0;">Alamat:
-                                                                {{ $p->alamat_toko }}</p>
-
-                                                            <p class="mb-0"
-                                                                style="white-space: nowrap; margin-top: 0;">menu:
-                                                                {{ $menu }}</p>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div class="card mb-5">
+                                            <div class="card-body">
+                                                <h4 class="card-title font-family: Arial, sans-serif;">{{ $p->nama_toko }}</h4>
+                                                <hr>
+                                                <p class="card-text">No.Telp: {{ $p->notlp }}</p>
+                                                <p class="card-text">Alamat: {{ $p->alamat_toko }}</p>
+                                                <p class="card-text">Menu: {{ $menu }}</p>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -228,78 +217,74 @@
             @endforeach
         </div>
 
-        <!-- Menu -->
-        <div class="col-12">
-            <div class="card">
-                <div class="col-lg-8 col-xl-8">
-                    <h2 class="card-title">Menu</h2>
-                </div>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
-                    @foreach ($penjual as $p)
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
-                            <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
-                                data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
-                                data-iq-trigger="scroll" data-iq-ease="none"
-                                style="transform: translate(0px, 0px); opacity: 1;">
-                                <div class="card card-white dish-card profile-img mb-5">
-                                    <div class="profile-img21">
-                                        <!-- tempat foto -->
-                                        <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
-                                            class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
-                                            alt="profile-image">
-                                        <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
-                                            class="hehe img-fluid rounded-pill avatar-170 hover-image "
-                                            alt="profile-image" data-iq-gsap="onStart" data-iq-opacity="0"
-                                            data-iq-scale=".6" data-iq-rotate="180" data-iq-duration="1"
-                                            data-iq-delay=".6" data-iq-trigger="scroll" data-iq-ease="none">
-                                    </div>
-                                    <!-- Menu muter muter Start -->
-                                    <div class="card-body menu-image">
-                                        <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
-                                            {{ $p->penjuallogin->nama_toko }}</h6>
-                                        <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
-                                            {{ $p->namamenu }}</h6>
-                                        <div class="d-flex justify-content-evenly">
-                                            <p class="text-primary fw-bolder my-2">Rp.
-                                                {{ number_format($p->harga, 0, ',', '.') }}
-                                            </p>
+            <!-- Menu -->
+            <div id="results">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
+                        @foreach ($penjual as $p)
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
+                                <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
+                                    data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
+                                    data-iq-trigger="scroll" data-iq-ease="none"
+                                    style="transform: translate(0px, 0px); opacity: 1;">
+                                    <div class="card card-white dish-card profile-img mb-5">
+                                        <div class="profile-img21">
+                                            <!-- tempat foto -->
+                                            <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
+                                                class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                                                alt="profile-image">
+                                            <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
+                                                class="hehe img-fluid rounded-pill avatar-170 hover-image "
+                                                alt="profile-image" data-iq-gsap="onStart" data-iq-opacity="0"
+                                                data-iq-scale=".6" data-iq-rotate="180" data-iq-duration="1"
+                                                data-iq-delay=".6" data-iq-trigger="scroll" data-iq-ease="none">
                                         </div>
-                                        @if ($p->ulasan->count() > 0)
-                                            <div class="card-rating stars-ratings text-center">
-                                                @for ($i = 0; $i < 5; $i++)
-                                                    @if ($i < floor($p->ulasan->avg('rating')))
-                                                        <svg width="18" viewBox="0 0 30 30" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
-                                                                fill="currentColor" />
-                                                        </svg>
-                                                    @else
-                                                        <svg width="18" viewBox="0 0 30 30" fill="none"
-                                                            style="color: grey" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
-                                                                fill="currentColor" />
-                                                        </svg>
-                                                    @endif
-                                                @endfor
-
-                                                <p>( {{ number_format($p->ulasan->avg('rating'), 1, ',', '.') }}
-                                                    / {{ $p->ulasan->count() }})</p>
-                                                {{-- <p>( {{ $ulasan }} /  {{ $totalUlasan }})</p> --}}
+                                        <!-- Menu muter muter Start -->
+                                        <div class="card-body menu-image">
+                                            <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
+                                                {{ $p->namamenu }}</h6>
+                                            <div class="d-flex justify-content-evenly">
+                                                <p class="text-primary fw-bolder my-2">Rp.
+                                                    {{ number_format($p->harga, 0, ',', '.') }}
+                                                </p>
                                             </div>
-                                        @else
-                                            <p style="text-align: center">tidak ada ulasan</p>
-                                        @endif
+                                            @if ($p->ulasan->count() > 0)
+                                                <div class="card-rating stars-ratings text-center">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @if ($i < floor($p->ulasan->avg('rating')))
+                                                            <svg width="18" viewBox="0 0 30 30" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        @else
+                                                            <svg width="18" viewBox="0 0 30 30" fill="none"
+                                                                style="color: grey"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        @endif
+                                                    @endfor
 
-                                        <div class="d-flex justify-content-center gap-2 mt-3">
-                                            <button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#myModal-{{ $p->id }}"><i
-                                                    class="bi bi-bag-check"></i> Beli
-                                            </button>
-                                            <a class="btn btn-primary"
-                                                href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
-                                        </div>
+                                                    <p>( {{ number_format($p->ulasan->avg('rating'), 1, ',', '.') }}
+                                                        / {{ $p->ulasan->count() }})</p>
+                                                    {{-- <p>( {{ $ulasan }} /  {{ $totalUlasan }})</p> --}}
+                                                </div>
+                                            @else
+                                                <p style="text-align: center">tidak ada ulasan</p>
+                                            @endif
+
+
+                                            <div class="d-flex justify-content-center gap-2 mt-3">
+                                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#myModal-{{ $p->id }}"><i
+                                                        class="bi bi-bag-check"></i> Beli
+                                                </button>
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -392,8 +377,6 @@
                     <div class="modal-footer">
                         <!-- Footer content here -->
                     </div>
-                </div>
-            </div>
         </div>
 
         {{-- Modal Pembeli --}}

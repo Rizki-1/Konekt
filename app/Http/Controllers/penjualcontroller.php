@@ -370,12 +370,66 @@ class penjualcontroller extends Controller
 
 
     protected function profilepenjual(Request $request)
-    {
-        $penjualId = Auth::id();
-        $penjual = barangpenjual::where('toko_id', $penjualId)->get();
-        return view('DashboardPenjual.profilepenjual', compact('penjual'));
+{
+    $penjualId = Auth::id();
+    $penjual = barangpenjual::where('toko_id', $penjualId)->get();
+    return view('DashboardPenjual.profilepenjual', compact('penjual'));
+}
+
+public function profileUpdateP(Request $request, $id)
+{
+    //dd($request->all());
+    $penjual = Penjuallogin::findOrFail($id);
+    $userPenjual = User::where('id', $penjual->user_id)->first();
+   
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'bio' => 'required|min:5|max:255',
+        'nama_toko' => 'required|string|max:255', // Add validation for nama_toko
+        'notlp' => 'required|max:255', // Add validation for notlp
+        'alamat_toko' => 'required|string', // Add validation for alamat_toko
+        'fotoProfile' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'fotoBanner' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+    
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+    // dd($validator);
+    
+    $penjual->nama_toko = $request->input('nama_toko'); // Update nama_toko
+    $penjual->notlp = $request->input('notlp'); // Update notlp
+    $penjual->alamat_toko = $request->input('alamat_toko'); // Update alamat_toko
+    $penjual->save();
+    
+    
+        $userPenjual->name = $request->input('name');
+        $userPenjual->bio = $request->input('bio');
+
+    if ($request->hasFile('fotoProfile')) {
+        if ($userPenjual->fotoProfile) {
+            Storage::delete('public/' . $userPenjual->fotoProfile);
+        }
+        $filePath = $request->file('fotoProfile')->store('users-avatar', 'public');
+        $userPenjual->fotoProfile = $filePath;
+     
     }
 
+    if ($request->hasFile('fotoBanner')) {
+        if ($userPenjual->fotoBanner) {
+            Storage::delete('public/' . $userPenjual->fotoBanner);
+        }
+        $filePath = $request->file('fotoBanner')->store('users-avatar', 'public');
+        $userPenjual->fotoBanner = $filePath;
+    }
+    $userPenjual->save();
+     //dd($userPenjual);
+    
+    
+    return redirect()->route('profilepenjual')->with('success', 'Profile berhasil diperbarui');
+    
+}
 
     /**
      * Show the form for creating a new resource.
@@ -579,7 +633,7 @@ class penjualcontroller extends Controller
             'success' => true,
             'message' => 'Menu berhasil dihapus.'
         ]);
-    }
+    }   
 
     public function notifikasipenjual()
     {

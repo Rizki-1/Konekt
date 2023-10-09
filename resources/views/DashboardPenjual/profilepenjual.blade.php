@@ -304,8 +304,6 @@
                                             <img src="../assets/images/avatars/01.png" alt="User-Profile" class="profile-pic rounded avatar-100">
                                         @endif
                                     @endforeach
-
-
                                     </div>
                                 <div class="d-flex align-items-center mb-3 mb-sm-0">
                                     <div style="margin-left: 20px;">

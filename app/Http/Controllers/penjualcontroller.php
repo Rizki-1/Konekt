@@ -383,12 +383,12 @@ public function profileUpdateP(Request $request, $id)
     $userPenjual = User::where('id', $penjual->user_id)->first();
    
     $validator = Validator::make($request->all(), [
-        'name' => 'required|string|max:255',
+        'name' => 'required|max:255',
         'email' => 'required|email|max:255',
         'bio' => 'required|min:5|max:255',
-        'nama_toko' => 'required|string|max:255', // Add validation for nama_toko
+        'nama_toko' => 'required|max:255', // Add validation for nama_toko
         'notlp' => 'required|max:255', // Add validation for notlp
-        'alamat_toko' => 'required|string', // Add validation for alamat_toko
+        'alamat_toko' => 'required', // Add validation for alamat_toko
         'fotoProfile' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         'fotoBanner' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
@@ -397,7 +397,7 @@ public function profileUpdateP(Request $request, $id)
         return redirect()->back()->withErrors($validator)->withInput();
     }
     // dd($validator);
-    
+
     $penjual->nama_toko = $request->input('nama_toko'); // Update nama_toko
     $penjual->notlp = $request->input('notlp'); // Update notlp
     $penjual->alamat_toko = $request->input('alamat_toko'); // Update alamat_toko

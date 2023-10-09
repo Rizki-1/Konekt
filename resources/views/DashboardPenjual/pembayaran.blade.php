@@ -418,13 +418,15 @@
                                 <div class="mb-3">
                                     <label for="keterangan" class="form-label fw-bold">Keterangan</label>
                                     {{-- <input type="file" class="form-control" id="keterangan" name="keterangan" value="{{ $p->keterangan }}"> --}}
-                                    <input type="file" class="form-control" name="keterangan" id="keterangan">
 
                                     {{-- @dump($p->keterangan) --}}
                                     @php
                                         $long = strlen($p->keterangan);
-                                    @endphp
+                                        @endphp
                                     @if ($long >= 20)
+                                    <input type="file"  class="form-control" value="{{ asset('storage/pembayaran/' . $p->keterangan) }}" name="keterangan" id="keterangan">
+                                    <input type="hidden" value="{{ $p->keterangan }}" name="keterangan">
+                                    @dump($p->keterangan);
                                         <img src="{{ asset('storage/pembayaran/' . $p->keterangan) }}"
                                             style="width:120px;height:120px;margin-top:15px;" alt="tes">
                                     @else
@@ -495,21 +497,17 @@
                                                 </button>
 
                                                 <form action="{{ route('pembayaranpenjual_destroy', $p->id) }}"
-                                                    method="POST" id="delete-form">
+                                                    method="POST" id="delete-form{{ $p->id }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-outline-danger"
-                                                        id="delete-button"> hapus
+                                                        id="delete-button" onclick="deletePembayaran({{ $p->id }})"> hapus
                                                     </button>
                                                 </form>
                                                 <script>
-                                                    document.addEventListener('DOMContentLoaded', function() {
-                                                        // Select the delete form and button
                                                         const deleteForm = document.getElementById('delete-form');
                                                         const deleteButton = document.getElementById('delete-button');
-
-                                                        // Attach a click event listener to the delete button
-                                                        deleteButton.addEventListener('click', function() {
+                                                        function deletePembayaran(id) {
                                                             Swal.fire({
                                                                 title: 'Apakah Anda Yakin?',
                                                                 text: 'Data akan terhapus selamanya!',
@@ -520,12 +518,10 @@
                                                                 reverseButtons: true
                                                             }).then((result) => {
                                                                 if (result.isConfirmed) {
-                                                                    // If the user confirms, submit the delete form
-                                                                    deleteForm.submit();
+                                                                    document.getElementById('delete-form'+id).submit();
                                                                 }
                                                             });
-                                                        });
-                                                    });
+                                                        }
                                                 </script>
 
                                             </div>

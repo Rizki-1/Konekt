@@ -421,13 +421,33 @@
                                                         class="bi bi-pencil-square"></i>
                                                 </button>
                                                 <form action="{{ route('adestroy', $a->id) }}" method="post"
-                                                    id="delete-form">
+                                                    id="delete-form{{ $a->id }}">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button type="button" class="btn btn-outline-danger delete-btn"
-                                                        id="delete-button" data-id="{{ $a->id }}"><i
+                                                        id="delete-button" onclick="deleteKategori({{ $a->id }})"><i
                                                             class="bi bi-trash-fill"></i></button>
                                                 </form>
+                                                <script>
+                                                    const deleteForm = document.getElementById('delete-form');
+                                                    const deleteButton = document.getElementById('delete-button');
+                                                    function deleteKategori(id) {
+                                                        Swal.fire({
+                                                            title: 'Apakah Anda Yakin?',
+                                                            text: 'Data akan terhapus selamanya!',
+                                                            icon: 'question',
+                                                            showCancelButton: true,
+                                                            confirmButtonText: 'Ya, Hapus',
+                                                            cancelButtonText: 'Batal',
+                                                            reverseButtons: true
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                document.getElementById('delete-form'+id).submit();
+                                                            }
+                                                        });
+                                                    }
+                                            </script>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -544,32 +564,7 @@
     });
 </script>
 
-<script>
-    $(document).ready(function() {
-        // Tangani klik tombol "Delete"
-        $(".delete-btn").click(function() {
-            var itemId = $(this).data("id"); // Dapatkan ID item dari atribut data
 
-            // Konfirmasi penghapusan dengan SweetAlert atau pesan konfirmasi lainnya
-            Swal.fire({
-                title: 'Konfirmasi',
-                text: 'Anda yakin ingin menghapus item ini?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Hapus',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-
-                var form = $(this).closest('form');
-
-                // Klik tombol submit formulir
-                form.submit();
-            });
-        });
-    });
-</script>
 
 {{-- ajax edit --}}
 <script>

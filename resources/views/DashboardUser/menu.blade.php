@@ -579,10 +579,20 @@
                                     stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
+                        @if ($kategoriId === 'null')
                         <form action="{{ route('searching', ['menu' => 'query']) }}" method="GET">
+
                             <input type="text" class="form-control" name="query"
                                 value="{{ request('query') }}" placeholder="Cari...">
                         </form>
+                        @else
+                        <form action="{{ route('searchingKategori', ['menu' => 'query', 'kategori'=>$kategoriId]) }}" method="GET">
+
+                            <input type="text" class="form-control" name="query"
+                                value="{{ request('query') }}" placeholder="Cari...">
+                        </form>
+
+                        @endif
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -780,7 +790,7 @@
                             <h2 class="d-flex justify-content-center gap-2 mt-3">Kategori</h2>
                             <div class="d-flex justify-content-center gap-2 mt-3">
 
-                                <a href="{{ route('menu.index') }}" class="btn btn-primary"> Semua Kategori
+                                <a href="{{ route('menu.index') }}" class="btn btn-outline-primary"> Semua Kategori
                                 </a>
                                 @php
                                     $kategoriterbaru = $kategori->sortByDesc('created_at')->take(3);
@@ -790,7 +800,7 @@
                                         class="btn btn-outline-primary kategori-link"
                                         data-kategori-id="{{ $Kategori->id }}"> {{ $Kategori->kategori }} </a>
                                 @endforeach
-                                <button class="btn btn-primary" data-bs-target="#modalkategori"
+                                <button class="btn btn-outline-primary" data-bs-target="#modalkategori"
                                     data-bs-toggle="modal"> Lihat Semua Kategori </button>
                             </div>
                         </div>

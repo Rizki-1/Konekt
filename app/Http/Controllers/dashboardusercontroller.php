@@ -58,8 +58,9 @@ class dashboardusercontroller extends Controller
         });
 
         $produkPopuler = $produkPopuler->sortByDesc('terjual')->take(5);
+        $kategoriId = 'null';
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users',  'filterKategori'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users',  'filterKategori','kategoriId'));
     }
 
 
@@ -757,6 +758,7 @@ class dashboardusercontroller extends Controller
     {
         // Ambil kata kunci pencarian dari input form
         $searchTerm = $request->input('query');
+        $kategoriId = 'null';
 
         // Lakukan pencarian pada model BarangPenjual (sesuaikan dengan model Anda)
         $penjual = barangpenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
@@ -794,7 +796,7 @@ class dashboardusercontroller extends Controller
         // dd($tokoPopuler);
         $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
 
-        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users', 'tokoPopuler', 'filterKategori'));
+        return view('DashboardUser.menu', compact('penjual', 'users', 'notifikasi', 'adminnotifikasi', 'ulasan', 'user_id', 'kategori', 'penjualpagination', 'totalUlasan', 'produkPopuler', 'users', 'tokoPopuler', 'filterKategori','kategoriId'));
     }
 
     public function caritoko(Request $request)
@@ -834,6 +836,7 @@ class dashboardusercontroller extends Controller
     public function kategorifilter($Kategori)
     {
         $user_id = Auth::id();
+        $kategoriId = $Kategori;
         $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
             ->where('is_read', false)
             ->get();
@@ -862,18 +865,20 @@ class dashboardusercontroller extends Controller
         // dd($tokoPopuler);
         $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
 
-        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler', 'produkPopuler', 'filterKategori'));
+        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler', 'produkPopuler', 'filterKategori','kategoriId'));
     }
 
-    public function searchKategori(Request $request, $menu, $Kategori)
+    public function searchKategori(Request $request, $menu, $kategori)
     {
         // Ambil kata kunci pencarian dari input form
-        $searchTerm = $request->input('searchTerm');
+        $searchTerm = $request->input('query');
+        $kategoriId = $kategori;
 
         // Lakukan pencarian pada model BarangPenjual dengan memfilter berdasarkan kategori_id dan namamenu
-        $penjual = BarangPenjual::where('kategori_id', $Kategori)
-            ->where('namamenu', 'like', '%' . $searchTerm . '%')
-            ->get();
+        $penjual = barangpenjual::where('kategori_id', $kategoriId)
+        ->where('namamenu', 'like', '%' . $searchTerm . '%')
+        ->get();
+
 
         $user_id = Auth::id();
         $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
@@ -903,7 +908,7 @@ class dashboardusercontroller extends Controller
         // dd($tokoPopuler);
         $tokoPopuler =  $tokoPopuler->sortByDesc('populer')->take(5);
 
-        return view('DashboardUser.menuKategori', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler', 'produkPopuler', 'filterKategori'));
+        return view('DashboardUser.menu', compact('penjual', 'user_id', 'notifikasi', 'kategori', 'penjualpagination', 'ulasan', 'tokoPopuler', 'produkPopuler', 'filterKategori','kategoriId'));
     }
 
     public function notifikasiuser()

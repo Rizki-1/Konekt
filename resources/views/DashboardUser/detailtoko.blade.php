@@ -9,15 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Kuliner kita</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Favicon -->
-<link rel="shortcut icon" href="../../assets/images/kuliner.png" />
-
-<!-- Library / Plugin Css Build -->
-<link rel="stylesheet" href="../../assets/css/core/libs.min.css">
-
-<!-- Custom Css -->
-<link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
+@include('layout.link')
 </head>
 
 <body class="  "
@@ -69,11 +61,11 @@
                         <a class="nav-link active"aria-current="page" href="{{ asset('daftartoko') }}">
                             <i class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30"
-                                viewBox="0 0 27 23" fill="none">
-                                <path
-                                    d="M26.1895 6.67998L24.377 1.24248C24.3139 1.05491 24.1912 0.893125 24.0276 0.781849C23.8639 0.670572 23.6684 0.615917 23.4707 0.626232H3.53323C3.33561 0.615917 3.14004 0.670572 2.9764 0.781849C2.81276 0.893125 2.69004 1.05491 2.62698 1.24248L0.81448 6.67998C0.801423 6.77621 0.801423 6.87376 0.81448 6.96998V12.4075C0.81448 12.6478 0.909959 12.8783 1.07991 13.0483C1.24987 13.2183 1.48038 13.3137 1.72073 13.3137H2.62698V22.3762H4.43948V13.3137H9.87698V22.3762H24.377V13.3137H25.2832C25.5236 13.3137 25.7541 13.2183 25.924 13.0483C26.094 12.8783 26.1895 12.6478 26.1895 12.4075V6.96998C26.2025 6.87376 26.2025 6.77621 26.1895 6.67998ZM22.5645 20.5637H11.6895V13.3137H22.5645V20.5637ZM24.377 11.5012H20.752V7.87623H18.9395V11.5012H14.4082V7.87623H12.5957V11.5012H8.06448V7.87623H6.25198V11.5012H2.62698V7.11498L4.18573 2.43873H22.8182L24.377 7.11498V11.5012Z"
-                                    fill="white" />
-                            </svg>
+                                    viewBox="0 0 27 23" fill="none">
+                                    <path
+                                        d="M26.1895 6.67998L24.377 1.24248C24.3139 1.05491 24.1912 0.893125 24.0276 0.781849C23.8639 0.670572 23.6684 0.615917 23.4707 0.626232H3.53323C3.33561 0.615917 3.14004 0.670572 2.9764 0.781849C2.81276 0.893125 2.69004 1.05491 2.62698 1.24248L0.81448 6.67998C0.801423 6.77621 0.801423 6.87376 0.81448 6.96998V12.4075C0.81448 12.6478 0.909959 12.8783 1.07991 13.0483C1.24987 13.2183 1.48038 13.3137 1.72073 13.3137H2.62698V22.3762H4.43948V13.3137H9.87698V22.3762H24.377V13.3137H25.2832C25.5236 13.3137 25.7541 13.2183 25.924 13.0483C26.094 12.8783 26.1895 12.6478 26.1895 12.4075V6.96998C26.2025 6.87376 26.2025 6.77621 26.1895 6.67998ZM22.5645 20.5637H11.6895V13.3137H22.5645V20.5637ZM24.377 11.5012H20.752V7.87623H18.9395V11.5012H14.4082V7.87623H12.5957V11.5012H8.06448V7.87623H6.25198V11.5012H2.62698V7.11498L4.18573 2.43873H22.8182L24.377 7.11498V11.5012Z"
+                                        fill="white" />
+                                </svg>
                             </i>
                             <span class="item-name">Daftar Toko</span>
                         </a>
@@ -218,9 +210,9 @@
                                                                 style="white-space: nowrap; margin-top: 0;">Alamat:
                                                                 {{ $p->alamat_toko }}</p>
 
-                                                                <p class="mb-0"
-                                                                    style="white-space: nowrap; margin-top: 0;">menu:
-                                                                    {{ $menu }}</p>
+                                                            <p class="mb-0"
+                                                                style="white-space: nowrap; margin-top: 0;">menu:
+                                                                {{ $menu }}</p>
 
                                                         </div>
                                                     </div>
@@ -231,67 +223,314 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
-              @endforeach
             </div>
+            @endforeach
+        </div>
 
-            <!-- Menu -->
-            <div class="col-12">
-                <div class="card">
-                    <div class="col-lg-8 col-xl-8">
-                        <h2 class="card-title">Menu</h2>
-                    </div>
-                    <div class="row row-cols-12 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
-                        @foreach ($penjual as $p)
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
-                                <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
-                                    data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
-                                    data-iq-trigger="scroll" data-iq-ease="none">
-                                    <div class="card card-white dish-card profile-img mb-5">
-                                        <div class="profile-img21">
-                                            <!-- tempat foto -->
-                                            <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
-                                                class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
-                                                alt="profile-image">
-                                            <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
-                                                class="img-fluid rounded-pill avatar-170 hover-image "
-                                                alt="profile-image" data-iq-gsap="onStart" data-iq-opacity="0"
-                                                data-iq-scale=".6" data-iq-rotate="180" data-iq-duration="1"
-                                                data-iq-delay=".6" data-iq-trigger="scroll" data-iq-ease="none">
+        <!-- Menu -->
+        <div class="col-12">
+            <div class="card">
+                <div class="col-lg-8 col-xl-8">
+                    <h2 class="card-title">Menu</h2>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
+                    @foreach ($penjual as $p)
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
+                            <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
+                                data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
+                                data-iq-trigger="scroll" data-iq-ease="none"
+                                style="transform: translate(0px, 0px); opacity: 1;">
+                                <div class="card card-white dish-card profile-img mb-5">
+                                    <div class="profile-img21">
+                                        <!-- tempat foto -->
+                                        <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
+                                            class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
+                                            alt="profile-image">
+                                        <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
+                                            class="hehe img-fluid rounded-pill avatar-170 hover-image "
+                                            alt="profile-image" data-iq-gsap="onStart" data-iq-opacity="0"
+                                            data-iq-scale=".6" data-iq-rotate="180" data-iq-duration="1"
+                                            data-iq-delay=".6" data-iq-trigger="scroll" data-iq-ease="none">
+                                    </div>
+                                    <!-- Menu muter muter Start -->
+                                    <div class="card-body menu-image">
+                                        <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
+                                            {{ $p->penjuallogin->nama_toko }}</h6>
+                                        <h6 class="heading-title fw-bolder mt-3 mb-0 text-center fs-5">
+                                            {{ $p->namamenu }}</h6>
+                                        <div class="d-flex justify-content-evenly">
+                                            <p class="text-primary fw-bolder my-2">Rp.
+                                                {{ number_format($p->harga, 0, ',', '.') }}
+                                            </p>
                                         </div>
-                                        <!-- Menu muter muter Start -->
-                                        <div class="card-body menu-image">
-                                            <h6 class="heading-title fw-bolder mt-4 mb-0">
-                                                {{ $p->namamenu }}</h6>
-                                            <div class="card-rating stars-ratings">
-                                                <!-- Star ratings here -->
+                                        @if ($p->ulasan->count() > 0)
+                                            <div class="card-rating stars-ratings text-center">
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    @if ($i < floor($p->ulasan->avg('rating')))
+                                                        <svg width="18" viewBox="0 0 30 30" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
+                                                                fill="currentColor" />
+                                                        </svg>
+                                                    @else
+                                                        <svg width="18" viewBox="0 0 30 30" fill="none"
+                                                            style="color: grey" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M27.2035 11.1678C27.127 10.9426 26.9862 10.7446 26.7985 10.5985C26.6109 10.4523 26.3845 10.3643 26.1474 10.3453L19.2112 9.79418L16.2097 3.14996C16.1141 2.93597 15.9586 2.75421 15.762 2.62662C15.5654 2.49904 15.336 2.43108 15.1017 2.43095C14.8673 2.43083 14.6379 2.49853 14.4411 2.6259C14.2444 2.75327 14.0887 2.93486 13.9929 3.14875L10.9914 9.79418L4.05515 10.3453C3.82211 10.3638 3.59931 10.449 3.41343 10.5908C3.22754 10.7325 3.08643 10.9249 3.00699 11.1447C2.92754 11.3646 2.91311 11.6027 2.96544 11.8305C3.01776 12.0584 3.13462 12.2663 3.30204 12.4295L8.42785 17.4263L6.61502 25.2763C6.55997 25.5139 6.57762 25.7626 6.66566 25.99C6.7537 26.2175 6.90807 26.4132 7.10874 26.5519C7.30942 26.6905 7.54713 26.7656 7.79103 26.7675C8.03493 26.7693 8.27376 26.6978 8.47652 26.5623L15.1013 22.1458L21.726 26.5623C21.9333 26.6999 22.1777 26.7707 22.4264 26.7653C22.6751 26.7598 22.9161 26.6783 23.1171 26.5318C23.3182 26.3852 23.4695 26.1806 23.5507 25.9455C23.632 25.7104 23.6393 25.456 23.5717 25.2167L21.3464 17.43L26.8652 12.4635C27.2266 12.1375 27.3592 11.6289 27.2035 11.1678Z"
+                                                                fill="currentColor" />
+                                                        </svg>
+                                                    @endif
+                                                @endfor
+
+                                                <p>( {{ number_format($p->ulasan->avg('rating'), 1, ',', '.') }}
+                                                    / {{ $p->ulasan->count() }})</p>
+                                                {{-- <p>( {{ $ulasan }} /  {{ $totalUlasan }})</p> --}}
                                             </div>
-                                            <div class="d-flex justify-content-between mt-3">
-                                                <div class="d-flex align-items-center">
-                                                    <span class="text-primary fw-bolder me-2">Rp.
-                                                        {{ number_format($p->harga) }}</span>
-                                                    {{-- @dump($p->id) --}}
-                                                    {{-- <small class="text-decoration-line-through">$8.49</small> --}}
-                                                </div>
-                                                <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
-                                                    data-bs-target="#myModal-{{ $p->id }}">beli
-                                                </button>
-                                                <a class="btn btn-primary rounded-pill"
-                                                    href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
-                                            </div>
+                                        @else
+                                            <p style="text-align: center">tidak ada ulasan</p>
+                                        @endif
+
+                                        <div class="d-flex justify-content-center gap-2 mt-3">
+                                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#myModal-{{ $p->id }}"><i
+                                                    class="bi bi-bag-check"></i> Beli
+                                            </button>
+                                            <a class="btn btn-primary"
+                                                href="{{ route('detailmenu', ['id' => $p->id]) }}">Detail</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        {{-- Modal Pembelian --}}
+        @foreach ($penjual as $p)
+            <form action="{{ route('pembelian', ['id' => $p->id]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal fade" id="myModal-{{ $p->id }}" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tambah Pesanan</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img src="{{ asset('storage/' . $p->fotomakanan) }}" alt="Foto Menu"
+                                                class="img-fluid">
+                                        </div>
+                                        <div class="col-8">
+
+                                            <p class="fs-4 text-dark">
+                                                {{ $p->namamenu }}
+                                                <input type="hidden" name="namamenu_id"
+                                                    value="{{ $p->id }}">
+                                                <input type="hidden" name="user_id" value="{{ $user_id }}">
+                                                <input type="hidden" name="toko_id" value="{{ $p->toko_id }}">
+                                            </p>
+                                            <input type="hidden" name="barangpenjual_id"
+                                                value="{{ $p->id }}">
+                                            <input type="hidden" name="id_toko" value="{{ $p->id }}">
+                                            <p class="fs-6 text-primary">
+                                                Harga :
+                                                Rp. {{ $p->harga }}
+                                                <input type="hidden" id="harga-{{ $p->id }}" name="harga"
+                                                    value="{{ $p->id }}">
+                                                <input type="hidden" id="totalHarga-{{ $p->id }}"
+                                                    name="totalHarga" value="">
+                                            </p>
+                                            <p class="fs-6 text-black">
+                                                Stok :
+                                                {{ $p->stok }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="jumlah-{{ $p->id }}" class="form-label fw-bold">Jumlah</label>
+                                    <input type="number" id="jumlah-{{ $p->id }}" name="jumlah"
+                                        class="form-control" placeholder="Masukan jumlah">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning text-white rounded-pill"
+                                    id="addToCart-{{ $p->id }}">Tambah Keranjang</button>
+                                <button type="button" class="btn btn-primary pesan-btn rounded-pill"
+                                    id="pembelian-{{ $p->id }}" data-id="{{ $p->id }}">Pesan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        @endforeach
+        <div class="modal fade" id="modalkategori" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Semua Kategori</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex flex-wrap justify-content-start align-items-start">
+                            @foreach ($kategori as $Kategori)
+                                <a href="{{ route('kategorifilter', ['kategori' => $Kategori->id]) }}"
+                                    class="btn btn-warning"
+                                    style="width: auto; margin: 0.5rem;">{{ $Kategori->kategori }}</a>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Footer content here -->
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
+        {{-- Modal Pembeli --}}
+
+        {{-- AJAX tambah pesanan --}}
+        <script>
+            $(document).ready(function() {
+                @foreach ($penjual as $p)
+                    $("#pembelian-{{ $p->id }}").click(function() {
+
+                        var jumlah = $("#jumlah-{{ $p->id }}").val();
+                        var harga = {{ $p->harga }};
+                        var stok = {{ $p->stok }};
+                        var pajak = 0.05; // 5% pajak
+
+                        // Periksa jika input jumlah kosong
+                        if (!jumlah || jumlah <= 0) {
+                            Swal.fire('Peringatan', 'Masukkan jumlah yang valid sebelum memesan!', 'warning');
+                            return;
+                        }
+
+                        if (jumlah > stok) {
+                            Swal.fire('Peringatan', 'Jumlah melebihi stok yang tersedia!', 'warning');
+                            return;
+                        }
+
+                        // Hitung totalHarga
+                        var totalHarga = jumlah * harga * (1 + pajak); // jumlah * harga * (1 + pajak)
+
+                        // Set nilai totalHarga ke input tersembunyi
+                        $("#totalHarga-{{ $p->id }}").val(totalHarga);
+
+                        // Mendapatkan data yang diperlukan dari modal
+                        var user_id = {{ $user_id }};
+                        var toko_id = {{ $p->toko_id }};
+                        var barangpenjual_id = {{ $p->id }};
+
+                        // Kirim permintaan AJAX
+                        $.ajax({
+                            url: "{{ route('pembelian', ['id' => $p->id]) }}", // Mengarahkan ke rute 'tambahKeranjang'
+                            type: "POST",
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "user_id": user_id,
+                                "toko_id": toko_id,
+                                "barangpenjual_id": barangpenjual_id,
+                                "jumlah": jumlah,
+                                "totalHarga": totalHarga, // Sertakan totalHarga dalam data yang dikirim
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire('Sukses', response.message, 'success');
+
+                                    setTimeout(function() {
+                                        window.location =
+                                            `/konfimasipembelian/${response.id}`;
+                                    }, 2000);
+                                } else {
+                                    Swal.fire('Error', response.message, 'error');
+                                }
+                            },
+                            error: function() {
+                                Swal.fire('Error',
+                                    'Terjadi kesalahan. Item tidak dapat ditambahkan ke keranjang.',
+                                    'error');
+                            }
+                        });
+                    });
+                @endforeach
+            });
+        </script>
+        {{-- AJAX tambah pesanan --}}
+
+        {{-- AJAX tambah keranjang --}}
+        <script>
+            $(document).ready(function() {
+                @foreach ($penjual as $p)
+                    $("#addToCart-{{ $p->id }}").click(function() {
+
+                        var jumlah = $("#jumlah-{{ $p->id }}").val();
+                        var harga = {{ $p->harga }};
+                        var stok = {{ $p->stok }};
+                        var pajak = 0.05; // 5% pajak
+
+                        // Periksa jika input jumlah kosong
+                        if (!jumlah || jumlah <= 0) {
+                            Swal.fire('Peringatan', 'Masukkan jumlah yang valid sebelum menambah keranjang!',
+                                'warning');
+                            return;
+                        }
+
+                        if (jumlah > stok) {
+                            Swal.fire('Peringatan', 'Jumlah melebihi stok yang tersedia!', 'warning');
+                            return;
+                        }
+
+                        // Hitung totalHarga
+                        var totalHarga = jumlah * harga * (1 + pajak); // jumlah * harga * (1 + pajak)
+
+                        // Set nilai totalHarga ke input tersembunyi
+                        $("#totalHarga-{{ $p->id }}").val(totalHarga);
+
+                        // Mendapatkan data yang diperlukan dari modal
+                        var user_id = {{ $user_id }};
+                        var toko_id = {{ $p->toko_id }};
+                        var barangpenjual_id = {{ $p->id }};
+
+                        // Kirim permintaan AJAX
+                        $.ajax({
+                            url: "{{ route('tambahKeranjang', ['id' => $p->id]) }}", // Mengarahkan ke rute 'tambahKeranjang'
+                            type: "POST",
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "user_id": user_id,
+                                "toko_id": toko_id,
+                                "barangpenjual_id": barangpenjual_id,
+                                "jumlah": jumlah,
+                                "totalHarga": totalHarga, // Sertakan totalHarga dalam data yang dikirim
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire('Sukses', response.message, 'success');
+                                } else {
+                                    Swal.fire('Error', response.message, 'error');
+                                }
+                            },
+                            error: function() {
+                                Swal.fire('Error',
+                                    'Terjadi kesalahan. Item tidak dapat ditambahkan ke keranjang.',
+                                    'error');
+                            }
+                        });
+                    });
+                @endforeach
+            });
+        </script>
+        {{-- AJAX tambah keranjang --}}
     </main>
     <script src="../../assets/js/core/libs.min.js"></script>
 

@@ -138,13 +138,15 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual()
     {
-        $pembayaranpenjual = pembayaranpenjual::all();
-        return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual'));
+        $penjualId = Auth::id();
+        $pembayaranpenjual = pembayaranpenjual::where('penjual_id', $penjualId)->get();
+        return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual','penjualId'));
     }
 
     public function pembayaranpenjual_store(Request $request)
     {
         // dd($request->all());
+        $penjualId = Auth::id();
 
         $request->validate([
             'metodepembayaran' => 'required',
@@ -169,6 +171,7 @@ class penjualcontroller extends Controller
         $metodePembayaran = $request->input('metodepembayaran');
         $data = [
             'metodepembayaran' => $metodePembayaran,
+            'penjualId' => $penjualId,
         ];
 
         if ($metodePembayaran === 'e-wallet') {
@@ -195,8 +198,10 @@ class penjualcontroller extends Controller
 
     public function pembayaranedit()
     {
-        $pembayaranpenjual = pembayaranpenjual::all();
-        return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual'));
+        $penjualId = Auth::id();
+        $pembayaranpenjual = pembayaranpenjual::where('penjual_id', $penjualId)->get();
+        return view('DashboardPenjual.pembayaran', compact('pembayaranpenjual', 'penjualId'));
+
     }
     public function pembayaranupdate(Request $request, $id)
     {

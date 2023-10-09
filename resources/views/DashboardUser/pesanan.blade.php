@@ -123,11 +123,16 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="metode_pengembalian" class="form-label fw-bold">tujuan pengembalian</label>
-                                    <input type="text" name="metode_pengembalian_ewallet" class="form-control">
+                                    <select name="metode_pengembalian" id="selectMetode" class="form-control">
+                                        <option value="" class="dropdown-menu" disabled selected>Pilih tujuan pengembalian</option>
+                                        <option value="dana" data-target="ewalletInput">dana</option>
+                                        <option value="ovo" data-target="bankInput">ovo</option>
+                                        <option value="gopay" data-target="bankInput">gopay</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="keterangan_metode_pengembalian" class="form-label fw-bold">Keterangan</label>
-                                    <input type="file" name="keterangan_metode_pengembalian" id="keterangan_metode_pengembalian" class="form-control">
+                                    <input type="file" name="keterangan_metode_pengembalian" id="keterangan_metode_pengembalian_ewallet" class="form-control">
                                 </div>
                             </div>
                         <!-- Input Bank -->
@@ -138,11 +143,17 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="metode_pengembalian" class="form-label fw-bold">tujuan pengembalian</label>
-                                    <input type="text" name="metode_pengembalian_bank" class="form-control">
+                                    <select name="metode_pengembalian" id="selectMetode" class="form-control">
+                                        <option value="" class="dropdown-menu" disabled selected>Pilih tujuan pengembalian</option>
+                                        <option value="bri" data-target="ewalletInput">BRI</option>
+                                        <option value="bca" data-target="bankInput">BCA</option>
+                                        <option value="mandiri" data-target="bankInput">MANDIRI</option>
+                                        <option value="bni" data-target="bankInput">BNI</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="keterangan_metode_pengembalian" class="form-label fw-bold">Keterangan</label>
-                                    <input type="text" name="keterangan_metode_pengembalian" id="keterangan_metode_pengembalian" class="form-control">
+                                    <input type="number" name="keterangan_metode_pengembalian" id="keterangan_metode_pengembalian_bank" class="form-control">
                                 </div>
                             </div>
                     </div>

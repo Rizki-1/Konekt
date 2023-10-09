@@ -549,35 +549,25 @@ class dashboardusercontroller extends Controller
         // Validasi input umum
         $request->validate([
             'tujuanpembayaran' => 'required',
-            'totalharga' => 'required', // Atur validasi sesuai dengan kebutuhan Anda
-            'keterangan_metode_pengembalian' => 'nullable|file', // Validasi file jika ada, boleh kosong jika teks
+            // 'totalharga' => 'required',
+            // 'keterangan_metode_pengembalian' => 'nullable|file', // Validasi file jika ada, boleh kosong jika teks
         ]);
 
         $userOrder = UserOrder::findOrFail($id);
 
 
         $userOrder->pembelianstatus = 'mengajukan pengembalian dana';
-        $userOrder->tujuanpembayaran = $request->input('tujuanpembayaran');
+        $userOrder->metode_pengembalian = $request->input('tujuanpembayaran');
 
-        // Menentukan metode pengembalian berdasarkan metode pembayaran yang dipilih
         $selectedPaymentMethod = $request->input('tujuanpembayaran');
-
+        // dd($request->input('keterangan_metode_pengembalian'));
         if ($selectedPaymentMethod === 'bank') {
-            $request->validate([
-                'metode_pengembalian_bank' => 'required_if:tujuanpembayaran,bank',
-            ]);
+            $userOrder->keterangan_metode_pengembalian = $request->input('keterangan_metode_pengembalian_bank');
 
-            $userOrder->metode_pengembalian = $request->input('metode_pengembalian_bank');
         } elseif ($selectedPaymentMethod === 'e-wallet') {
-            // Hanya validasi metode pengembalian jika metode pembayaran adalah "e-wallet"
-            $request->validate([
-                'metode_pengembalian_ewallet' => 'required_if:tujuanpembayaran,ewallet',
-            ]);
-
-            $userOrder->metode_pengembalian = $request->input('metode_pengembalian_ewallet');
+            $userOrder->keterangan_metode_pengembalian = $request->input('keterangan_metode_pengembalian_ewallet');
         }
 
-        // Penanganan file yang diunggah jika ada
         if ($request->hasFile('keterangan_metode_pengembalian')) {
             $file = $request->file('keterangan_metode_pengembalian');
             $fileName = $file->hashName(); // Mendapatkan nama file asli
@@ -587,9 +577,9 @@ class dashboardusercontroller extends Controller
             // Jika tidak ada file diunggah, ambil teks dari input
             $userOrder->keterangan_metode_pengembalian = $request->input('keterangan_metode_pengembalian');
         }
-
+        // dd($userOrder);     
         $userOrder->save();
-        // dd($request->all());
+
         return redirect()->back()->with('success', 'Pengajuan pengembalian dana berhasil');
     }
 

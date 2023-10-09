@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pembayaranpenjuals', function (Blueprint $table) {
             $table->id();
+            $table->string('penjual_id');
             $table->enum('metodepembayaran', ['e-wallet','bank']);
             $table->string('tujuan');
             $table->string('keterangan');

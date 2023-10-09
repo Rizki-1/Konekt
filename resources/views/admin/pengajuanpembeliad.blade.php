@@ -130,28 +130,19 @@
                                         <label for="tujuanpembayaran" class="form-label fw-bold">metode
                                             pengajuan</label>
                                         <input type="text" class="form-control" id="tujuanpembayaran"
-                                            name="tujuanpembayaran" value="{{ $Pengajuanuser->tujuanpembayaran }}"
+                                            name="tujuanpembayaran" value="{{ $Pengajuanuser->metode_pengembalian }}"
                                             readonly>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="metode_pengembalian" class="form-label fw-bold">Tujuan
-                                            pengembalian</label>
-                                        <input type="text" class="form-control" id="metode_pengembalian"
-                                            name="metode_pengembalian" value="{{ $Pengajuanuser->metode_pengembalian }}"
-                                            readonly>
-                                    </div>
+
 
                                     <div class="mb-3" id="bankInput">
                                         <div class="mb-3">
                                             <label for="keterangan_metode_pengembalian"
                                                 class="form-label fw-bold">Keterangan</label>
                                         </div>
-
-                                        @php
-                                            $data_foto_keterangan = strlen($Pengajuanuser->keterangan_metode_pembayaran);
-                                        @endphp
-                                        @if ($Pengajuanuser->tujuanpembayaran === 'e-wallet')
+                                        @if ($Pengajuanuser->metode_pengembalian === 'e-wallet')
                                             <img src="{{asset('storage/pengajuanUser/' . $Pengajuanuser->keterangan_metode_pengembalian)}}" alt="" srcset="" style="width: 100%">
+                                            <p>test</p>
 
                                         @else
                                             <input type="number" name="keterangan_metode_pengembalian"
@@ -457,7 +448,7 @@
                                                 <td>{{ $Pengajuanuser->user->name }}</td>
                                                 <td>{{ $Pengajuanuser->jumlah }}</td>
                                                 <td>Rp. {{ number_format($Pengajuanuser->totalharga) }}</td>
-                                                <td>{{ $Pengajuanuser->metodepembayaran }}</td>
+                                                <td>{{ $Pengajuanuser->metode_pengembalian }}</td>
                                                 <td>
 
                                                     <button type="submit" class="btn btn-outline-primary "

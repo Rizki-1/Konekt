@@ -16,7 +16,7 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
     @include('layout.logoloader')
-    
+
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             @include('layout.minilogo')
@@ -218,7 +218,7 @@
         </div>
 
             <!-- Menu -->
-            <div id="results">
+            <div class="container">
                     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
                         @foreach ($penjual as $p)
                         <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">

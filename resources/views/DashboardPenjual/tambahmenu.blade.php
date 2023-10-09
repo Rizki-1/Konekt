@@ -25,7 +25,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-    
+
     .avatar-container {
         width: 200px; /* Sesuaikan lebar yang Anda inginkan */
         height: 170px; /* Sesuaikan tinggi yang Anda inginkan (disesuaikan dengan lebar agar menjadi kotak) */
@@ -462,7 +462,7 @@
                 @endphp
                 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4 ">
                     @foreach ($penjual as $p)
-                    
+
                         <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2 ">
 
                             <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
@@ -498,6 +498,12 @@
                                                     </svg>
                                                 @endif
                                             @endfor
+                                        </div>
+                                        <div class="rating-info">
+                                            <p class="mb-0 text-center">
+                                                {{ number_format($p->ulasan->avg('rating'), 1, ',', '.') }} /
+                                                {{ $p->ulasan->count() }}
+                                            </p>
                                         </div>
                                     @else
                                         <p style="text-align: center">tidak ada ulasan</p>

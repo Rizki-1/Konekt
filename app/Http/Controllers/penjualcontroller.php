@@ -340,18 +340,32 @@ class penjualcontroller extends Controller
         return view('DashboardPenjual.pengajuandana', compact( 'pengajuandanapenjual', 'bank', 'wallet', 'pengajuan', 'penjualId'));
     }
 
-    protected function mengajukandana(Request $request, $id)
+    public function mengajukanDana(Request $request, $id)
     {
+        // dd($id);
+        $wallet = pengajuandanapenjual::find($id);
+        $bank = pengajuandanapenjual::find($id);
         $mengajukan = pengajuandanapenjual::findOrFail($id);
         $mengajukan->penjual_id = $request->penjual_id;
         $mengajukan->status = 'sedangMengajukan';
         $mengajukan->metodepembayaran_id = $request->metodepembayaran_id;
-        $mengajukan->keterangan_pengajuan = $request->input('keterangan_bank', 'keterangan_e_wallet');
-        $mengajukan->tujuan_pengajuan = $request->input('tujuan_bank', 'tujuan_e_wallet');
+
+        // Pilih input berdasarkan metode pembayaran
+        if ($request->metodepembayaran_id == $wallet) {
+            $mengajukan->keterangan_pengajuan = $request->input('keterangan_e_wallet');
+            $mengajukan->tujuan_pengajuan = $request->input('tujuan_e_wallet');
+        } elseif ($request->metodepembayaran_id == $bank) {
+            $mengajukan->keterangan_pengajuan = $request->input('keterangan_bank');
+            $mengajukan->tujuan_pengajuan = $request->input('tujuan_bank');
+        } else {
+            // Handle metode pembayaran lain jika perlu
+        }
+
         $mengajukan->save();
-        // dd($mengajukan);
+
         return redirect()->route('pengajuanpenjualad');
     }
+
 
 
 

@@ -100,7 +100,7 @@ class logincontroller extends Controller
         ]);
 
         $status = Password::reset(
-            $request->only( 'password', 'token'),
+            $request->only( 'email','password', 'token'),
             function (User $user, string $password) {
                 $user->forceFill([
                     'password' => Hash::make($password)

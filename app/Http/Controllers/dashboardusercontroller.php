@@ -430,11 +430,12 @@ class dashboardusercontroller extends Controller
 
     public function detailtoko(Request $request, $id)
     {
-
+        $user_id = Auth::id();
         $penjual = barangpenjual::where('toko_id', $id)->get();
         $menu = $penjual->count();
         $user = penjuallogin::where('user_id', $id)->get();
-        return view('DashboardUser.detailtoko', compact('penjual', 'user', 'menu'));
+        $kategori = adminkategori::all();
+        return view('DashboardUser.detailtoko', compact('penjual', 'user', 'menu', 'user_id', 'kategori'));
     }
 
     /**

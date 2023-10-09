@@ -424,36 +424,10 @@
                                                     id="delete-form">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button type="button" class="btn btn-outline-danger"
-                                                        id="delete-button"><i class="bi bi-trash-fill"></i></button>
+                                                    <button type="button" class="btn btn-outline-danger delete-btn"
+                                                        id="delete-button" data-id="{{ $a->id }}"><i
+                                                            class="bi bi-trash-fill"></i></button>
                                                 </form>
-
-                                                <script>
-                                                    document.addEventListener('DOMContentLoaded', function() {
-                                                        // Select the delete form and button
-                                                        const deleteForm = document.getElementById('delete-form');
-                                                        const deleteButton = document.getElementById('delete-button');
-
-                                                        // Attach a click event listener to the delete button
-                                                        deleteButton.addEventListener('click', function() {
-                                                            Swal.fire({
-                                                                title: 'Apakah Anda Yakin?',
-                                                                text: 'Data akan terhapus selamanya!',
-                                                                icon: 'question',
-                                                                showCancelButton: true,
-                                                                confirmButtonText: 'Ya, Hapus',
-                                                                cancelButtonText: 'Batal',
-                                                                reverseButtons: true
-                                                            }).then((result) => {
-                                                                if (result.isConfirmed) {
-                                                                    // If the user confirms, submit the delete form
-                                                                    deleteForm.submit();
-                                                                }
-                                                            });
-                                                        });
-                                                    });
-                                                </script>
-
                                             </div>
                                         </td>
                                     </tr>
@@ -539,67 +513,6 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            // Event listener untuk submit form edit
-            $('#editMetodePembayaranForm').submit(function(event) {
-                event.preventDefault();
-
-                var metodeId = $('#editMetodeId').val();
-                var tujuan = $('#editTujuan').val();
-                var keteranganType = $('#keteranganType').val(); // Tipe input (text atau file)
-                var metodepembayaran = $('#editMetodepembayaran').val();
-
-                // Inisialisasi variabel keterangan dengan null
-                var keterangan = null;
-
-                // Periksa apakah metodepembayaran adalah "e-wallet"
-                if (metodepembayaran === 'e-wallet') {
-                    // Jika metodepembayaran adalah "e-wallet," gunakan input file untuk keterangan
-                    keterangan = $('#editKeterangan')[0].files[0];
-                } else {
-                    // Jika metodepembayaran bukan "e-wallet," gunakan nilai dari input teks
-                    keterangan = $('#editKeterangan').val();
-                }
-
-
-                // Buat objek FormData untuk mengirim data
-                var formData = new FormData();
-                formData.append('tujuan', tujuan);
-                formData.append('keterangan', keterangan);
-                formData.append('keteranganType', keteranganType); // Sertakan tipe input
-                formData.append('_token', '{{ csrf_token() }}'); // Tambahkan token CSRF
-                formData.append('_method', 'PUT'); // Tambahkan metode PUT
-
-                // Kirim permintaan AJAX untuk update
-                $.ajax({
-                    url: '/aupdate/' + metodeId, // Gantilah dengan rute yang sesuai di Laravel
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        // Tutup modal setelah berhasil
-                        $('#editMetodePembayaranModal').modal('hide');
-
-                        // Tampilkan pesan sukses (Anda bisa menggantinya dengan cara yang sesuai)
-                        swal.fire('Berhasil', 'Metode pembayaran berhasil diperbarui.',
-                            'success');
-
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2000);
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        // Tampilkan pesan kesalahan jika ada
-                        swal.fire('Gagal', 'Gagal memperbarui metode pembayaran. Error: ' +
-                            errorThrown,
-                            'error');
-                    }
-                });
-            });
-        });
-    </script>
 
     @include('layout.js')
 </body>
@@ -630,3 +543,93 @@
         }
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        // Tangani klik tombol "Delete"
+        $(".delete-btn").click(function() {
+            var itemId = $(this).data("id"); // Dapatkan ID item dari atribut data
+
+            // Konfirmasi penghapusan dengan SweetAlert atau pesan konfirmasi lainnya
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Anda yakin ingin menghapus item ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+
+                var form = $(this).closest('form');
+
+                // Klik tombol submit formulir
+                form.submit();
+            });
+        });
+    });
+</script>
+
+{{-- ajax edit --}}
+<script>
+    $(document).ready(function() {
+        // Event listener untuk submit form edit
+        $('#editMetodePembayaranForm').submit(function(event) {
+            event.preventDefault();
+
+            var metodeId = $('#editMetodeId').val();
+            var tujuan = $('#editTujuan').val();
+            var keteranganType = $('#keteranganType').val(); // Tipe input (text atau file)
+            var metodepembayaran = $('#editMetodepembayaran').val();
+
+            // Inisialisasi variabel keterangan dengan null
+            var keterangan = null;
+
+            // Periksa apakah metodepembayaran adalah "e-wallet"
+            if (metodepembayaran === 'e-wallet') {
+                // Jika metodepembayaran adalah "e-wallet," gunakan input file untuk keterangan
+                keterangan = $('#editKeterangan')[0].files[0];
+            } else {
+                // Jika metodepembayaran bukan "e-wallet," gunakan nilai dari input teks
+                keterangan = $('#editKeterangan').val();
+            }
+
+            // Buat objek FormData untuk mengirim data
+            var formData = new FormData();
+            formData.append('tujuan', tujuan);
+            formData.append('keterangan', keterangan);
+            formData.append('keteranganType', keteranganType); // Sertakan tipe input
+            formData.append('_token', '{{ csrf_token() }}'); // Tambahkan token CSRF
+            formData.append('_method', 'PUT'); // Tambahkan metode PUT
+
+            // Kirim permintaan AJAX untuk update
+            $.ajax({
+                url: '/aupdate/' + metodeId, // Gantilah dengan rute yang sesuai di Laravel
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Tutup modal setelah berhasil
+                    $('#editMetodePembayaranModal').modal('hide');
+
+                    // Tampilkan pesan sukses (Anda bisa menggantinya dengan cara yang sesuai)
+                    swal.fire('Berhasil', 'Metode pembayaran berhasil diperbarui.',
+                        'success');
+
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    // Tampilkan pesan kesalahan jika ada
+                    swal.fire('Gagal', 'Gagal memperbarui metode pembayaran. Error: ' +
+                        errorThrown,
+                        'error');
+                }
+            });
+        });
+    });
+</script>
+{{-- ajax edit --}}

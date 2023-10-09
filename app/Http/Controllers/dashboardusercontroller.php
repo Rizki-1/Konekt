@@ -42,8 +42,8 @@ class dashboardusercontroller extends Controller
         $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
             ->where('is_read', false)
             ->get();
-        $penjualpagination =  barangpenjual::paginate(8);
-        $penjual = barangpenjual::all();
+        $penjualpagination =  barangpenjual:: paginate(8);
+        $penjual = barangpenjual::orderBy('created_at', 'desc')->get();
         $filterKategori = 'filter';
         $adminnotifikasi = adminnotifikasi::all();
         $kategori = adminkategori::all();

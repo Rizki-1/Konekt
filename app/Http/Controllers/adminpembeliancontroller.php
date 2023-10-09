@@ -194,13 +194,16 @@ class adminpembeliancontroller extends Controller
 
             $penjuallogin = PenjualLogin::findOrFail($id);
             $penjuallogin->delete();
-            $user = User::find($penjuallogin->user_id);
+            $user = User::findOrFail($penjuallogin->user_id);
+
             if ($user) {
-                $user->delete();
-                $user = User::where('role', 'penjualnotapprove')->get();
+                // dd('berhasil');
+                $user = User::where('role','penjualnotapprove')->get();
                 foreach ($user as $User) {
                     Mail::to($User->email)->send(new SendEmail($User, 'tolak'));
+                    // dd('mantap');
                 }
+                $user->delete();
             }
 
 

@@ -66,9 +66,9 @@ class User extends Authenticatable
         return $this->hasMany(UserOrder::class);
     }
 
-    // public function sendPasswordResetNotification($token)
-    // {
-    //     $url = URL::signedRoute('password.reset', ['token' => $token]);
-    //     $this->notify(new EmailNotification($url));
-    // }
+    public function sendPasswordResetNotification($token)
+    {
+        $url = URL::signedRoute('password.reset', ['token' => $token]);
+        $this->notify(new EmailNotification($url));
+    }
 }

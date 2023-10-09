@@ -639,7 +639,7 @@
             </div>
 
             <div class="pesan-shopee">
-                <a href="">
+                <a href="{{ $url }}">
                     <button class="btn-pesan-shopee" id="btn-pesan-shopee">
                         <i class="fa fa-comments"></i>
                     </button>

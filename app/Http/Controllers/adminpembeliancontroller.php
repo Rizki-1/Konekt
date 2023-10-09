@@ -93,8 +93,13 @@ class adminpembeliancontroller extends Controller
         }
 
         $chartData = array_values($processedData);
+        $penjuallogin = penjuallogin::paginate(4);
+        $url = '';
+        foreach ($penjuallogin as $p) {
+            $url = url('/chatify/' . $p->user->id);
+        }
 
-        return view('admin.dashboard', compact('adminnotifikasi', 'totalpengguna', 'totaluser', 'totalpembelian', 'untung', 'chartData'));
+        return view('admin.dashboard', compact('adminnotifikasi', 'totalpengguna', 'totaluser', 'totalpembelian', 'untung', 'chartData', 'url'));
     }
 
     public function terima($id)

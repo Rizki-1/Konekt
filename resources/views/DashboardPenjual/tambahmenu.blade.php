@@ -24,7 +24,23 @@
     {{-- jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<style>
+    
+    .avatar-container {
+        width: 200px; /* Sesuaikan lebar yang Anda inginkan */
+        height: 170px; /* Sesuaikan tinggi yang Anda inginkan (disesuaikan dengan lebar agar menjadi kotak) */
+        overflow: hidden;
+        position: relative;
+        border-radius: 0%; /* Mengatur radius sudut menjadi 0% untuk membuatnya menjadi kotak */
+    }
 
+    .avatar-container img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+</style>
 </head>
 
 <body class="  "
@@ -454,16 +470,10 @@
                                 data-iq-trigger="scroll" data-iq-ease="none">
                             </div>
                             <div class="card card-white dish-card profile-img mb-0">
-                                <div class="profile-img21">
+                                <div class="profile-img21 d-flex justify-content-center align-items-center">
                                     <!-- tempat foto -->
-                                    <img src="{{ Storage::url($p->fotomakanan) }}"
-                                        class="img-fluid rounded-pill avatar-170 blur-shadow position-bottom"
-                                        alt="profile-image">
-                                    <img src="{{ Storage::url($p->fotomakanan) }}"
-                                        class="img-fluid rounded-pill avatar-170 hover-image " alt="profile-image"
-                                        data-iq-gsap="onStart" data-iq-opacity="0" data-iq-scale=".6"
-                                        data-iq-rotate="180" data-iq-duration="1" data-iq-delay=".6"
-                                        data-iq-trigger="scroll" data-iq-ease="none">
+                                    <img src="{{ asset('Storage/' . $p->fotomakanan) }}"
+                                        class="img-fluid avatar-170 position-bottom" alt="profile-image">
                                 </div>
 
                                 <!-- Menu muter muter Start -->

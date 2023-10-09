@@ -171,7 +171,7 @@ class penjualcontroller extends Controller
         $metodePembayaran = $request->input('metodepembayaran');
         $data = [
             'metodepembayaran' => $metodePembayaran,
-            'penjualId' => $penjualId,
+            'penjual_id' => $penjualId,
         ];
 
         if ($metodePembayaran === 'e-wallet') {

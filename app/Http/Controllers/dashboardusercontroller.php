@@ -42,8 +42,8 @@ class dashboardusercontroller extends Controller
         $notifikasi = notifikasi::where('user_id_notifikasi', $user_id)
             ->where('is_read', false)
             ->get();
-        $penjualpagination =  barangpenjual:: paginate(8);
-        $penjual = barangpenjual::orderBy('created_at', 'desc')->get();
+        $penjualpagination =  barangpenjual::paginate(8);
+        $penjual = barangpenjual::orderBy('created_at', 'desc')->paginate(8);
         $filterKategori = 'filter';
         $adminnotifikasi = adminnotifikasi::all();
         $kategori = adminkategori::all();
@@ -751,7 +751,7 @@ class dashboardusercontroller extends Controller
         $kategoriId = 'null';
 
         // Lakukan pencarian pada model BarangPenjual (sesuaikan dengan model Anda)
-        $penjual = barangpenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->get();
+        $penjual = barangpenjual::where('namamenu', 'like', '%' . $searchTerm . '%')->paginate(8);
 
         $user_id = Auth::id();
 
@@ -832,7 +832,7 @@ class dashboardusercontroller extends Controller
             ->get();
         $kategori = adminkategori::all();
         $penjualpagination =  barangpenjual::paginate(8);
-        $penjual = Barangpenjual::where('kategori_id', $Kategori)->get();
+        $penjual = Barangpenjual::where('kategori_id', $Kategori)->paginate(8);
         $filterKategori = $penjual;
         $ulasan = ulasan::avg('rating');
 
@@ -867,7 +867,7 @@ class dashboardusercontroller extends Controller
         // Lakukan pencarian pada model BarangPenjual dengan memfilter berdasarkan kategori_id dan namamenu
         $penjual = barangpenjual::where('kategori_id', $kategoriId)
         ->where('namamenu', 'like', '%' . $searchTerm . '%')
-        ->get();
+        ->paginate(8);
 
 
         $user_id = Auth::id();

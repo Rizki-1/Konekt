@@ -480,8 +480,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="collapse" href="{{route('menu.index')}}" role="button"
-                            aria-expanded="false" aria-controls="home">
+                        <a class="nav-link active" data-bs-toggle="collapse" href="{{ route('menu.index') }}"
+                            role="button" aria-expanded="false" aria-controls="home">
                             <i class="icon">
                                 <svg width="23" height="30" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -496,7 +496,7 @@
                             <span class="item-name">Dashboard</span>
                         </a>
                     <li class="nav-item">
-                        <a class="nav-link "aria-current="page" href="{{route('daftartoko')}}">
+                        <a class="nav-link "aria-current="page" href="{{ route('daftartoko') }}">
                             <i class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30"
                                     viewBox="0 0 27 23" fill="none">
@@ -509,7 +509,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="{{route('pesanan')}}">
+                        <a class="nav-link " href="{{ route('pesanan') }}">
                             <i class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30"
                                     viewBox="0 0 26 23" fill="none">
@@ -522,7 +522,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="{{route('riwayatuser')}}">
+                        <a class="nav-link " href="{{ route('riwayatuser') }}">
                             <i class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="30"
                                     viewBox="0 0 33 30" fill="none">
@@ -580,18 +580,19 @@
                             </svg>
                         </span>
                         @if ($kategoriId === 'null')
-                        <form action="{{ route('searching', ['menu' => 'query']) }}" method="GET">
+                            <form action="{{ route('searching', ['menu' => 'query']) }}" method="GET">
 
-                            <input type="text" class="form-control" name="query"
-                                value="{{ request('query') }}" placeholder="Cari...">
-                        </form>
+                                <input type="text" class="form-control" name="query"
+                                    value="{{ request('query') }}" placeholder="Cari...">
+                            </form>
                         @else
-                        <form action="{{ route('searchingKategori', ['menu' => 'query', 'kategori'=>$kategoriId]) }}" method="GET">
+                            <form
+                                action="{{ route('searchingKategori', ['menu' => 'query', 'kategori' => $kategoriId]) }}"
+                                method="GET">
 
-                            <input type="text" class="form-control" name="query"
-                                value="{{ request('query') }}" placeholder="Cari...">
-                        </form>
-
+                                <input type="text" class="form-control" name="query"
+                                    value="{{ request('query') }}" placeholder="Cari...">
+                            </form>
                         @endif
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -965,6 +966,9 @@
                     </div>
                 @endforeach
             </div>
+            @if ($penjual->count() > 0)
+                {{$penjual->links('pagination::default')}}
+            @endif
         </div>
         @include('layout.footer')
 

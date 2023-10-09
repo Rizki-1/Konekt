@@ -73,8 +73,8 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                @foreach($penjualTokoId as $idToko)
-                                <input type="hidden" name = "nama_toko" value = "{{ $idToko->id }}">
+                                @foreach ($penjualTokoId as $idToko)
+                                    <input type="hidden" name="nama_toko" value="{{ $idToko->id }}">
                                 @endforeach
                                 <div class="mb-3">
                                     <label for="harga" class="form-label fw-bold">Harga</label>
@@ -446,6 +446,7 @@
                 @endphp
                 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4 ">
                     @foreach ($penjual as $p)
+                    
                         <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2 ">
 
                             <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
@@ -492,7 +493,7 @@
                                         <p style="text-align: center">tidak ada ulasan</p>
                                     @endif
                                     <div class="d-flex justify-content-evenly text-black">
-                                        <p>Sisa Stok : {{$p->stok}}</p>
+                                        <p>Sisa Stok : {{ $p->stok }}</p>
                                     </div>
                                     <div class="d-flex justify-content-evenly">
                                         <a class="btn btn-outline-info"
@@ -612,8 +613,7 @@
                                                 <div class="mb-3">
                                                     <label for="keterangan_makanan"
                                                         class="form-label fw-bold">Keterangan Makanan</label>
-                                                    <textarea type="text" name="keterangan_makanan"
-                                                        id="editketerangan_makanan" class="form-control">
+                                                    <textarea type="text" name="keterangan_makanan" id="editketerangan_makanan" class="form-control">
                                                     </textarea>
                                                 </div>
                                             </div>
@@ -628,7 +628,8 @@
                                                         Makanan</label>
                                                     <input type="file" name="fotomakanan" class="form-control"
                                                         id="editPreviewImage">
-                                                    <div id="editImagePreview" class="mt-2" style="width: 200px"></div>
+                                                    <div id="editImagePreview" class="mt-2" style="width: 200px">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

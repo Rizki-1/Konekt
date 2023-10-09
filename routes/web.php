@@ -114,11 +114,10 @@ Route::middleware(['PenjualMiddleware'])->group(function () {
 Route::post('logout', [logincontroller::class, 'logout'])->name('logout');
 });
 
-// Route::middleware(['guest'])->group(function () {
+Route::middleware(['guest'])->group(function () {
 
     Route::resource('user', UserController::class);
     Route::resource('penjualrole', rolepenjualcontroller::class);
-    // });
     Route::get('/', [Usercontroller::class, 'dashboard'])->name('dashboard');
     Route::get('/forgot-password',[logincontroller::class, 'forgotpassword'])->middleware('guest')->name('password.request');
     Route::post('/forgot-password', [logincontroller::class, 'forgotpassword_store'] )->middleware('guest')->name('password.email');
@@ -127,6 +126,7 @@ Route::post('logout', [logincontroller::class, 'logout'])->name('logout');
     Route::post('calonpenjual_store', [adminpembeliancontroller::class, 'calonpenjual_store'])->name('calonpenjual_store');
     Route::get('register', [UserController::class, 'register'])->name('register');
     Route::post('authenticate', [logincontroller::class, 'authenticate'])->name('authenticate');
+    });
 // Route::resource('/test_email', mailcontroller::class);
 
 

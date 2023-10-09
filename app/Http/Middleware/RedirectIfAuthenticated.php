@@ -15,16 +15,13 @@ class RedirectIfAuthenticated
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, \Closure $next, string ...$guards): Response
-{
-    $guards = empty($guards) ? [null] : $guards;
-
-    foreach ($guards as $guard) {
-        if (Auth::guard($guard)->check()) {
+    public function handle(Request $request, Closure $next)
+    {
+        if (auth()->check() && auth()->user()->role != 'null') {
             return redirect()->back();
         }
+
+        return $next($request);
     }
 
-    return $next($request);
-}
 }

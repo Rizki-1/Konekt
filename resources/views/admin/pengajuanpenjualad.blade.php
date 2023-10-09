@@ -116,7 +116,7 @@
                 </div>
                 <div class="modal-body">
                     <label for="" class="form-label fw-bold">Tujuan</label>
-                    <a class="form-control" value="">{{ $finish->tujuan_pengajuan }}</a>
+                    <a class="form-control" value="{{ $finish->tujuan_pengajuan }}">{{ $finish->tujuan_pengajuan }}</a>
                 </div>
             <div class="modal-body ">
               <label for="" class="form-label fw-bold">Keterangan</label>

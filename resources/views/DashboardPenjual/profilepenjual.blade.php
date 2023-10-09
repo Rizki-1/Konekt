@@ -297,104 +297,151 @@
                             <div class="d-flex flex-wrap align-items-center justify-content-between mx-3 my-3">
                                 <div class="d-flex flex-wrap align-items-center">
                                     <div class="profile-img-edit position-relative">
-                                        <img class="profile-pic rounded avatar-100"
-                                            src="../../assets/images/avatars/06.png" alt="profile-pic">
-                                        <div class="upload-icone bg-primary">
-                                            <svg class="upload-button" width="14" height="14"
-                                                viewBox="0 0 24 24">
-                                                <path fill="#ffffff"
-                                                    d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                            </svg>
-                                            <input class="file-upload" type="file" accept="image/*">
-                                        </div>
+                                    @foreach ($penjual as $Penjual)
+                                        @if ($Penjual->userPenjual ->fotoProfile)
+                                            <img src="{{ asset('storage/' . $Penjual->user->fotoProfile) }}" alt="User-Profile" class="profile-pic rounded avatar-100">
+                                        @else
+                                            <img src="../assets/images/avatars/01.png" alt="User-Profile" class="profile-pic rounded avatar-100">
+                                        @endif
+                                    @endforeach
                                     </div>
                                 <div class="d-flex align-items-center mb-3 mb-sm-0">
                                     <div style="margin-left: 20px;">
                                     <h6 style="color: black; font-size: 15px;" class="me-2 text-primary" id="profileNameDisplay">{{ Auth::user()->name }}</h6>
                                     <div style="color: black; font-size: 15px;" class="mb-1"><span id="email">{{ Auth::user()->email }}</span></div>
                                     </div>
-                                    <!-- <div class="ms-4">
-                                        <p class="me-2 mb-0 text-primary">Warung Berkah</p>
-                                        <p class="me-2 mb-0 text-dark">wb@gmail.com</p>
-                                        <p class="mb-0 text-dark">Masakkan Nasi</p>
-                                    </div> -->
                                 </div>
                             </div>
                             <ul class="d-flex mb-0 text-center ">
                                 <li class="badge bg-primary py-2 me-2">
-                                    <p class="mb-3 mt-2">142</p>
+                                    <p class="mb-3 mt-2">34</p>
                                     <small class="mb-1 fw-normal">Ulasan</small>
                                 </li>
                                 <li class="badge bg-primary py-2 me-2">
                                     <p class="mb-3 mt-2">5</p>
                                     <small class="mb-1 fw-normal">Menu</small>
                                 </li>
-                                <li class="badge bg-primary py-2 me-2">
-                                    <button class="btn btn-primary" id="edit-profile-button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profil</button>  
-                                </li>
+                               
                             </ul>
                         </div>
                     </div>
                     <div class="iq-header-img">
-                        <img src="../../assets/images/User-profile/01.png" alt="header"
+                    @foreach ($penjual as $User)
+                            @if ($User === null)
+                            <img src="../../assets/images/User-profile/01.png" alt="header"
                             class="img-fluid w-100 rounded" style="object-fit: contain;">
+                            @else
+                            <img src="{{ asset('storage/' . $User->fotoBanner)}}" alt="header"
+                            class="img-fluid w-50 rounded" style="object-fit: contain;">
+                            @endif
+                            @endforeach
+                            <svg class="upload-button" width="14" height="14" viewBox="0 0 24 24">
+                                <path fill="#ffffff"
+                                    d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                            </svg>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="header-title">
-                                <h4 class="card-title">{{ Auth::user()->penjuallogin->nama_toko }}</h4>
-                            </div>
-                        </div>
-                      
-                        <div class="card-body">
+        </div>
+    </div>
+            
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>nama</label>
-                <input type="text" name="name" class="form-control" value="{{ Auth::user()->name }}" Readonly>
+    <div class="card ">
+        <div class="col-lg-12">
+           <div class="card-header">
+              <div class="card-body">
+                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ $message}}
+                        </div>
+                        @endif
+                        @foreach ($userPenjual as $Penjual)
+                        <form action="{{route('profileUpdateP', ['id'=>$Penjual->id])}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('put')
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" name="name" class="form-control" value="{{ Auth()->user()->name }}">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nama Toko</label>
+                                    <input type="text" name="nama_toko" class="form-control" value="{{$Penjual->penjuallogin->nama_toko}}" >
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nomor Telepon</label>
+                                    <input type="number" name="notlp" class="form-control" value="{{$Penjual->penjuallogin->notlp}}" required>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Alamat Toko</label>
+                                    <input type="text" name="alamat_toko" class="form-control" value="{{$Penjual->penjuallogin->alamat_toko}}" required>
+
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>foto profile</label>
+                                    @if ($userPenjual->fotoProfile === null)
+                                    <input type="file" name="fotoProfile" class="form-control" value="" required>
+                                    @else
+                                    <input type="file" name="fotoProfile" class="form-control" value="{{ $Penjual->fotoProfile }}" >
+                                    <img src="{{ asset('storage/' . $Penjual->fotoProfile)}}" style="width: 150px; ">
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>foto Banner</label>
+                                    @if ($Penjual->fotoBanner === null)
+                                    <input type="file" name="fotoBanner" class="form-control" value="" required>
+                                    @else
+                                    <input type="file" name="fotoBanner" class="form-control" value="{{ $Penjual->fotoBanner }}">
+                                    <img src="{{ asset('storage/' . $Penjual->fotoBanner)}}" style="width: 150px; ">
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Bio</label>
+                                    <textarea name="bio" class="form-control">{{ Auth()->user()->bio }}</textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary">simpan perubahan</button>
+                        </div>
+                        </form>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>email</label>
-                <input type="text" name="email" class="form-control" value="{{ Auth::user()->email }}" Readonly>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>nama toko</label>
-                <input type="text" name="nama_toko" class="form-control" value="{{ Auth::user()->penjuallogin->nama_toko }}" Readonly>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>no tlp</label>
-                <input type="number" name="notlp" class="form-control" value="{{ Auth::user()->penjuallogin->notlp }}" Readonly>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>alamat toko</label>
-                <textarea type="text" name="alamat_toko" class="form-control"  Readonly>{{ Auth::user()->penjuallogin->alamat_toko }}</textarea>
-            </div>
-        </div>
-        
     </div>
 </div>
-    
-                
-            <div class="row">
+
+
                 <!-- Menu Items -->
-                <div class="col-lg-15 ">
+                <div class="row">
+                <div class="col-lg-12 ">
                     <div class="card">
                         <div>
                             <h2 class="text-primary text-special">Menu</h2>
                         </div>
                         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 row-cols-xxl-4">
-                            @foreach ($penjual as $p)
+                              @foreach ($penjual as $p)
                                 <div class="col-xl-3 col-lg-3 col-md-6 col-12 dish-card-horizontal mt-2">
                                     <div class="col active" data-iq-gsap="onStart" data-iq-opacity="0"
                                         data-iq-position-y="-40" data-iq-duration=".6" data-iq-delay=".6"
@@ -433,8 +480,9 @@
                             @endforeach
                         </div>
                     </div>
-                 </div>
-            </div>
+                </div>
+    </div>
+          
             
                     </center>
                     <!-- Footer Section Start -->
@@ -504,47 +552,7 @@
 <!-- moment JavaScript -->
 <script src="../../assets/vendor/moment.min.js"></script>
  <!-- Modal untuk mengedit profil -->
- <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Profil</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulir pengeditan profil -->
-                <form id="profileForm">
-                    <div class="row">
-                <div class="mb-3">
-                        <label for="profileName" class="form-label">Nama</label>
-                        <input type="Name" class="form-control" id="profileName" value="{{ Auth::user()->name }}">
-                    </div>
-                <div class="mb-3">
-                        <label for="profileEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="profileEmail" value="{{ Auth::user()->email }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="nama_toko" class="form-label">Nama Toko</label>
-                        <input type="text" class="form-control" id="" value="{{ Auth::user()->penjuallogin->nama_toko }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="profilePhone" class="form-label">Nomor Telepon</label>
-                        <input type="number" class="form-control" id="profilePhone" value="{{ Auth::user()->penjuallogin->notlp }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="profileLocation" class="form-label">Alamat</label>
-                        <textarea type="text" class="form-control" id="profileLocation" placeholder="masukkan alamat" >{{ Auth::user()->penjuallogin->alamat_toko }}</textarea>
-                    </div>
-               </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" id="saveProfileChanges">Simpan Perubahan</button>
-            </div>
-        </div>
-    </div>
-</div>
+ 
 </body>
 
 <!-- Mirrored from templates.iqonic.design/aprycot/html/dashboard/dist/dashboard/app/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Aug 2023 04:55:19 GMT -->

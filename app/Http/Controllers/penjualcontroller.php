@@ -144,24 +144,24 @@ class penjualcontroller extends Controller
 
     public function pembayaranpenjual_store(Request $request)
     {
-        // $request->validate([
-        //     'metodepembayaran' => 'required',
-        //     'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
-        //     'keterangan' => 'required',
-        //     'tujuan_bank' => 'required_if:metodepembayaran,bank',
-        //     'keterangan_bank' => 'required_if:metodepembayaran,bank',
-        //     'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
-        // ], [
-        //     'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
-        //     'tujuan_e_wallet.required_if' => 'Tujuan E-Wallet wajib diisi.',
-        //     'keterangan.required' => 'Keterangan wajib diisi.',
-        //     'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
-        //     'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
-        //     'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
-        //     'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
-        //     'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
-        //     'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
-        // ]);
+        $request->validate([
+            'metodepembayaran' => 'required',
+            'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
+            'keterangan' => 'required',
+            'tujuan_bank' => 'required_if:metodepembayaran,bank',
+            'keterangan_bank' => 'required_if:metodepembayaran,bank',
+            'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
+        ], [
+            'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
+            'tujuan_e_wallet.required_if' => 'Tujuan E-Wallet wajib diisi.',
+            'keterangan.required' => 'Keterangan wajib diisi.',
+            'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
+            'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
+            'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
+            'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
+            'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
+            'keterangan_e_wallet.max' => 'Ukuran maksimal Keterangan E-Wallet adalah 2MB.',
+        ]);
 
         $metodePembayaran = $request->input('metodepembayaran');
         $data = [
@@ -418,7 +418,7 @@ class penjualcontroller extends Controller
             'fotomakanan.mimes' => 'Foto makanan harus berformat jpeg, png, jpg, atau gif.',
             'fotomakanan.max' => 'Ukuran file foto makanan tidak boleh lebih dari :max KB.',
             'keterangan_makanan.required' => 'keterangan makanan tidak boleh kosong',
-            'ketrangan_makanan.max' => 'Keterangan makanan maximal 255',
+            'keterangan_makanan.max' => 'Keterangan makanan maximal 255',
         ]);
 
 

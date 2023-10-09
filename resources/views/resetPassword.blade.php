@@ -7,7 +7,7 @@
     <table align="center" cellpadding="0" cellspacing="0" width="600" style="background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);">
         <tr>
             <td>
-                <img src="assets/images/kuliner.png" class="img-fluid logo-img" alt="Logo" style="display: block; margin: 0 auto;">
+                <img src="{{ asset('../../assets/images/kuliner.png') }}" class="img-fluid logo-img" alt="Logo" style="display: block; width: 200px; margin: 0 auto;">
             </td>
         </tr>
         <tr>

@@ -41,7 +41,7 @@
                      <div class="d-flex justify-content-center mb-0">
                         <div class="card-body text-center">
                            <a href="../index-2.html">
-                              <img src="../../assets/images/kuliner.png" class="img-fluid logo-img mb-4" alt="img3">
+                              <img src="{{ asset('../../assets/images/kuliner.png') }}" class="img-fluid logo-img mb-4" alt="img3">
                            </a>
                            @if ($errors->any())
                             <div class="alert alert-danger">
@@ -58,7 +58,7 @@
                            <div class="alert alert-success">
                             {{ session()->get('status')}}
                            @endif
-                           <h2 class="mb-2 text-center">selamat akun anda berhasil di buat anda bisa login dengan klik <a class="text-center" href="{{ route('user.index') }}">disini</a></h2>
+                           <h2 class="mb-2 text-center">selamat akun anda berhasil di buat anda bisa login dengan klik <a class="btn btn-outline-primary" href="{{ route('user.index') }}">disini</a></h2>
                         </div>
                      </div>
                   </div>

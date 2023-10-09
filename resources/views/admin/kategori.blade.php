@@ -665,7 +665,7 @@
                         var responseErrors = xhr.responseJSON.errors;
 
                         $.each(responseErrors, function(key, value) {
-                            var inputField = $("input[name='" + key + "']");
+                            var inputField = $("input[name='" + key + "'], textarea[name='" + key + "']");
                             inputField.addClass('is-invalid');
                             // Jika ini elemen select, tambahkan pesan validasi di bawahnya
                             if (inputField.is('select')) {

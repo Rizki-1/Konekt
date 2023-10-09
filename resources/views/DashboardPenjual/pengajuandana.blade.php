@@ -261,7 +261,7 @@
     spElement.dispatchEvent(new Event('change'));
 </script>
 @foreach ($wallet as $w)
-@foreach ($bank as $b)
+    @foreach ($bank as $b)
         <script>
             function Pembayaran(id) {
                 var selectedOption = $("#selectMetode" + id).val();
@@ -288,9 +288,9 @@
             }
         </script>
     @endforeach
-    @endforeach
+@endforeach
 
-    {{-- // $(".selectMetode").change(function() {
+{{-- // $(".selectMetode").change(function() {
         //     var selectedOption = $(this).val();
         //     // Sembunyikan semua elemen
         //     $("#ewalletInput, #bankInput").hide();
@@ -306,7 +306,7 @@
     //     }
     // }); --}}
 
-    {{-- @if (count($wallet) > 0 && count($bank) > 0) --}}
+{{-- @if (count($wallet) > 0 && count($bank) > 0) --}}
 {{-- @endif --}}
 
 

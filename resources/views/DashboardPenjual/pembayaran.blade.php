@@ -66,24 +66,9 @@
                 $(targetModalId).modal("show");
             });
         });
-
-
-
-        // document.getElementById("selectMetode").addEventListener("change", function () {
-        //   var selectedOption = this.value;
-        //   var targetModalId = document.querySelector("option[value='" + selectedOption + "']").getAttribute("data-target");
-        //   var modals = document.querySelectorAll(".modal");
-
-        //   modals.forEach(function (modal) {
-        //     modal.style.display = "none";
-        //   });
-
-        //   document.querySelector(targetModalId).style.display = "block";
-        // });
     </script>
     <!-- Favicon -->
-    <link rel="shortcut icon"
-        href="../../assets/images/kuliner.png" />
+    <link rel="shortcut icon" href="../../assets/images/kuliner.png" />
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
     <!-- Custom Css -->
@@ -129,33 +114,31 @@
     <form action="{{ route('pembayaranpenjual_store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal" id="myModal" tabindex="-1">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Metode Pembayaran</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                        <div class="container m-2 p-0 d-flex justify-content-between">
-                            <div class="d-grid" style="display: flex; justify-content: space-between;">
-                                <label for="metode" class="form-label fw-bold"
-                                    style="align-self: center; font-size: 16px;"> PIlih Metode Pembayaran</label>
-                                <select class="form-select mb-3" name="metodepembayaran"
-                                    aria-label=".form-select example" id="selectMetode">
-                                    <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
-                                    <option value="e-wallet" data-target="#myModal2">E-Wallet</option>
-                                    <option value="bank" data-target="myModalBank">Bank</option>
-                                </select>
-                            </div>
+                    <div class="container m-2 p-0 d-flex justify-content-between">
+                        <div class="d-grid" style="display: flex; justify-content: space-between;">
+                            <label for="metode" class="form-label fw-bold"
+                                style="align-self: center; font-size: 16px;"> PIlih Metode Pembayaran</label>
+                            <select class="form-select mb-3" name="metodepembayaran" aria-label=".form-select example"
+                                id="selectMetode">
+                                <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
+                                <option value="e-wallet" data-target="#myModal2">E-Wallet</option>
+                                <option value="bank" data-target="myModalBank">Bank</option>
+                            </select>
                         </div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <!-- <button type="button" class="btn btn-primary" id="nextButton">Next</button> -->
                     </div>
                 </div>
             </div>
         </div>
+        </div>
 
-        <div class="modal" id="myModal2" tabindex="-1">
-            <div class="modal-dialog">
+        <div class="modal fade" id="myModal2" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Metode Pembayaran E-wallet</h5>
@@ -172,7 +155,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="keterangan_e_wallet" class="form-label fw-bold">Keterangan</label>
-                                <input type="file" class="form-control" id="keterangan_e_wallet" name="keterangan_e_wallet">
+                                <input type="file" class="form-control" id="keterangan_e_wallet"
+                                    name="keterangan_e_wallet">
                                 @if ($errors->has('keterangan_e_wallet'))
                                     <span class="text-danger">{{ $errors->first('keterangan_e_wallet') }}</span>
                                 @endif
@@ -187,13 +171,12 @@
                 </div>
             </div>
         </div>
-        <div class="modal" id="myModalBank" tabindex="-1">
-            <div class="modal-dialog">
+        <div class="modal fade" id="myModalBank" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Metode Pembayaran Bank</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -405,59 +388,64 @@
         <!-- The modal itself -->
 
         @foreach ($pembayaranpenjual as $p)
-        <div class="modal" id="editModal-{{ $p->id }}" tabindex="-1" role="dialog">
-            <form action="{{ route('pembayaranupdate', ['id' => $p->id]) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+            <div class="modal fade" id="editModal-{{ $p->id }}" tabindex="-1" role="dialog">
+                <form action="{{ route('pembayaranupdate', ['id' => $p->id]) }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
 
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Data</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Konten Form Edit Data -->
-                            <!-- Misalnya: -->
-                            <div class="mb-3">
-                                <label for="metodepembayaran" class="form-label fw-bold">Metode Pembayaran</label>
-                                <input type="text" class="form-control" id="metodepembayaran" name="metodepembayaran" value="{{ $p->metodepembayaran }}" readonly>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Data</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                            <div class="mb-3">
-                                <label for="tujuan" class="form-label fw-bold">Tujuan</label>
-                                <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{ $p->tujuan }}">
-                                @if ($errors->has('tujuan'))
-                                <span class="text-danger">{{ $errors->first('tujuan') }}</span>
-                            @endif
-                            </div>
-                            <div class="mb-3">
-                                <label for="keterangan" class="form-label fw-bold">Keterangan</label>
-                                {{-- <input type="file" class="form-control" id="keterangan" name="keterangan" value="{{ $p->keterangan }}"> --}}
-                                <input type="file" class="form-control" name="keterangan" id="keterangan">
+                            <div class="modal-body">
+                                <!-- Konten Form Edit Data -->
+                                <!-- Misalnya: -->
+                                <div class="mb-3">
+                                    <label for="metodepembayaran" class="form-label fw-bold">Metode Pembayaran</label>
+                                    <input type="text" class="form-control" id="metodepembayaran"
+                                        name="metodepembayaran" value="{{ $p->metodepembayaran }}" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tujuan" class="form-label fw-bold">Tujuan</label>
+                                    <input type="text" class="form-control" id="tujuan" name="tujuan"
+                                        value="{{ $p->tujuan }}">
+                                    @if ($errors->has('tujuan'))
+                                        <span class="text-danger">{{ $errors->first('tujuan') }}</span>
+                                    @endif
+                                </div>
+                                <div class="mb-3">
+                                    <label for="keterangan" class="form-label fw-bold">Keterangan</label>
+                                    {{-- <input type="file" class="form-control" id="keterangan" name="keterangan" value="{{ $p->keterangan }}"> --}}
+                                    <input type="file" class="form-control" name="keterangan" id="keterangan">
 
-                                @dump($p->keterangan)
-                                @php
-                                    $long = strlen($p->keterangan);
-                                @endphp
-                                @if ($long >=20)
-                                <img src="{{ asset('storage/pembayaran/' . $p->keterangan) }}"
-                                                    style="width:120px;height:120px;margin-top:15px;" alt="tes">
-                                @else
-                                <input type="number" class="form-control" name="keterangan" id="keterangan" value="{{ $p->keterangan }}">
-
-                                @endif
+                                    {{-- @dump($p->keterangan) --}}
+                                    @php
+                                        $long = strlen($p->keterangan);
+                                    @endphp
+                                    @if ($long >= 20)
+                                        <img src="{{ asset('storage/pembayaran/' . $p->keterangan) }}"
+                                            style="width:120px;height:120px;margin-top:15px;" alt="tes">
+                                    @else
+                                        <input type="number" class="form-control" name="keterangan" id="keterangan"
+                                            value="{{ $p->keterangan }}">
+                                    @endif
+                                </div>
+                                <!-- ... Tambahkan input lain sesuai kebutuhan ... -->
                             </div>
-                            <!-- ... Tambahkan input lain sesuai kebutuhan ... -->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Kembali</button>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-    @endforeach
+                </form>
+            </div>
+        @endforeach
 
 
 
@@ -473,7 +461,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">No.</th>
                                     <th scope="col">metode pembayaran</th>
                                     <th scope="col">tujuan</th>
                                     <th scope="col">keterangan</th>
@@ -502,17 +490,46 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                               <button style="margin-right: 10px;" type="submit" class="btn btn-outline-warning "  data-bs-toggle="modal"
-                                               data-bs-target="#editModal-{{ $p->id }}">
-                                                 Edit
-                                               </button>
+                                                <button style="margin-right: 10px;" type="submit"
+                                                    class="btn btn-outline-warning " data-bs-toggle="modal"
+                                                    data-bs-target="#editModal-{{ $p->id }}">
+                                                    Edit
+                                                </button>
 
                                                 <form action="{{ route('pembayaranpenjual_destroy', $p->id) }}"
-                                                    method="POST">
+                                                    method="POST" id="delete-form">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-outline-danger"> hapus </button>
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                        id="delete-button"> hapus
+                                                    </button>
                                                 </form>
+                                                <script>
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        // Select the delete form and button
+                                                        const deleteForm = document.getElementById('delete-form');
+                                                        const deleteButton = document.getElementById('delete-button');
+
+                                                        // Attach a click event listener to the delete button
+                                                        deleteButton.addEventListener('click', function() {
+                                                            Swal.fire({
+                                                                title: 'Apakah Anda Yakin?',
+                                                                text: 'Data akan terhapus selamanya!',
+                                                                icon: 'question',
+                                                                showCancelButton: true,
+                                                                confirmButtonText: 'Ya, Hapus',
+                                                                cancelButtonText: 'Batal',
+                                                                reverseButtons: true
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    // If the user confirms, submit the delete form
+                                                                    deleteForm.submit();
+                                                                }
+                                                            });
+                                                        });
+                                                    });
+                                                </script>
+
                                             </div>
                                         </td>
                                     </tr>

@@ -124,7 +124,8 @@
               @if ($finish->pembayaranpenjual->metodepembayaran === 'bank')
               <input type="number" class="form-control" value="{{ $finish->pembayaranpenjual->keterangan }}" readonly>
               @else
-              <p>halo</p>
+            <p></p>
+              <img src="{{ asset('storage/pembayaran/'.$finish->pembayaranpenjual->keterangan) }}" alt="" style="width: 450px; text-align:center">
               @endif
 
             </div>

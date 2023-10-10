@@ -144,7 +144,7 @@
                                 <option value="" disabled selected>Pilih jenis bank</option>
                                 @foreach ($bank as $bnk)
                                     <option name="tujuan_bank" value="{{ $bnk->id }}" data-keterangan="{{ $bnk->keterangan }}">{{ $bnk->tujuan }}</option>
-                                    <input type="hidden" value="{{ $bnk->tujuan }}" name="tujuan_pengajuan">
+
                                 @endforeach
                             </select>
                             <div name="keterangan_bank" id="selected_bank_keterangan"></div>
@@ -155,7 +155,7 @@
                                 <option value="" disabled selected>Pilih jenis e-wallet</option>
                                 @foreach ($wallet as $wl)
                                     <option name="tujuan_e_wallet" value="{{ $wl->id }}" data-keterangan="{{ $wl->keterangan }}" data-image="{{ $wl->image }}">{{ $wl->tujuan }}</option>
-                                    <input type="hidden" value="{{ $wl->tujuan }}" name="tujuan_pengajuan">
+
                                 @endforeach
                             </select>
                             <div name="keterangan_e_wallet" id="selected_wallet_image"></div>
@@ -178,8 +178,8 @@
         var modals = document.querySelectorAll('.modal');
         modals.forEach(function(modal) {
             var modalId = modal.getAttribute('id');
-            var selectBankList = modal.querySelectorAll('select[name="jenis_bank"]');
-            var selectWalletList = modal.querySelectorAll('select[name="jenis_wallet"]');
+            var selectBankList = modal.querySelectorAll('select[name="metodepembayaran_id"]');
+            var selectWalletList = modal.querySelectorAll('select[name="metodepembayaran_id"]');
 
             selectBankList.forEach(function(selectBank) {
                 var selectedBankKeterangan = selectBank.nextElementSibling;
@@ -197,7 +197,9 @@
                 selectWallet.addEventListener('change', function() {
     var selectedOption = selectWallet.options[selectWallet.selectedIndex];
     selectedWalletKeterangan.innerText = selectedOption.getAttribute('data-keterangan');
-    selectedWalletImage.innerHTML = '<img src="{{ asset('storage/pembayaran/') }}/' + selectedOption.getAttribute('data-keterangan') + '" alt="Selected Wallet Image">';
+    selectedWalletImage.innerHTML = '<img src="{{ asset('storage/pembayaran/') }}/' + selectedOption.getAttribute('data-keterangan') + '" alt="Selected Wallet Image"> ';
+    document.querySelector('#selected_wallet_image img').style.width = '200px';
+document.querySelector('#selected_wallet_image img').style.height = '200px';
 });
             });
         });

@@ -379,15 +379,16 @@ class penjualcontroller extends Controller
     protected function profilepenjual(Request $request)
     {
         $penjualId = Auth::id();
+        $userPenjual = penjuallogin::where('user_id', $penjualId)->get();
         $penjual = barangpenjual::where('toko_id', $penjualId)->get();
-        return view('DashboardPenjual.profilepenjual', compact('penjual'));
+        return view('DashboardPenjual.profilepenjual', compact('userPenjual', 'penjualId','penjual'));
     }
 
     public function profileUpdateP(Request $request, $id)
     {
         //dd($request->all());
-        $penjual = Penjuallogin::findOrFail($id);
-        $userPenjual = User::where('id', $penjual->user_id)->first();
+        $userPenjual = User::findOrFail($id);
+        $penjual = Penjuallogin::findOrFail($userPenjual->id);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -400,9 +401,7 @@ class penjualcontroller extends Controller
             'fotoBanner' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+
         // dd($validator);
 
         $penjual->nama_toko = $request->input('nama_toko'); // Update nama_toko
@@ -430,6 +429,7 @@ class penjualcontroller extends Controller
             $userPenjual->fotoBanner = $filePath;
         }
         $userPenjual->save();
+        // dd('mantap');
         //dd($userPenjual);
 
 

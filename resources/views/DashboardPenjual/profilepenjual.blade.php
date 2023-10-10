@@ -297,9 +297,9 @@
                             <div class="d-flex flex-wrap align-items-center justify-content-between mx-3 my-3">
                                 <div class="d-flex flex-wrap align-items-center">
                                     <div class="profile-img-edit position-relative">
-                                    @foreach ($penjual as $Penjual)
-                                        @if ($Penjual->userPenjual ->fotoProfile)
-                                            <img src="{{ asset('storage/' . $Penjual->user->fotoProfile) }}" alt="User-Profile" class="profile-pic rounded avatar-100">
+                                    @foreach ($userPenjual as $Penjual)
+                                        @if ($Penjual->user->fotoBanner != null)
+                                            <img src="{{ asset('storage/' . $Penjual->user->fotoBanner) }}" alt="User-Profile" class="profile-pic rounded avatar-100">
                                         @else
                                             <img src="../assets/images/avatars/01.png" alt="User-Profile" class="profile-pic rounded avatar-100">
                                         @endif
@@ -326,13 +326,13 @@
                         </div>
                     </div>
                     <div class="iq-header-img">
-                    @foreach ($penjual as $User)
-                            @if ($User === null)
+                    @foreach ($userPenjual as $User)
+                            @if ($User->user->fotoProfile === null)
                             <img src="../../assets/images/User-profile/01.png" alt="header"
                             class="img-fluid w-100 rounded" style="object-fit: contain;">
                             @else
-                            <img src="{{ asset('storage/' . $User->fotoBanner)}}" alt="header"
-                            class="img-fluid w-50 rounded" style="object-fit: contain;">
+                             <img src="{{ asset('storage/' . $User->user->fotoBanner)}}" alt="header"
+                            class="img-fluid w-100 rounded" style="object-fit: contain;">
                             @endif
                             @endforeach
                             <svg class="upload-button" width="14" height="14" viewBox="0 0 24 24">
@@ -357,7 +357,7 @@
                         </div>
                         @endif
                         @foreach ($userPenjual as $Penjual)
-                        <form action="{{route('profileUpdateP', ['id'=>$Penjual->id])}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('profileUpdateP', ['id'=>$Penjual->user->id])}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                         <div class="row">
@@ -365,27 +365,26 @@
                                 <div class="form-group">
                                     <label>Nama</label>
                                     <input type="text" name="name" class="form-control" value="{{ Auth()->user()->name }}">
-
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nama Toko</label>
-                                    <input type="text" name="nama_toko" class="form-control" value="{{$Penjual->penjuallogin->nama_toko}}" >
+                                    <input type="text" name="nama_toko" class="form-control" value="{{$Penjual->nama_toko}}" >
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nomor Telepon</label>
-                                    <input type="number" name="notlp" class="form-control" value="{{$Penjual->penjuallogin->notlp}}" required>
+                                    <input type="number" name="notlp" class="form-control" value="{{$Penjual->notlp}}" required>
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Alamat Toko</label>
-                                    <input type="text" name="alamat_toko" class="form-control" value="{{$Penjual->penjuallogin->alamat_toko}}" required>
+                                    <input type="text" name="alamat_toko" class="form-control" value="{{$Penjual->alamat_toko}}" required>
 
                                 </div>
                             </div>
@@ -393,22 +392,23 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>foto profile</label>
-                                    @if ($userPenjual->fotoProfile === null)
+                                    @if ($Penjual->user->fotoBanner === null)
                                     <input type="file" name="fotoProfile" class="form-control" value="" required>
                                     @else
-                                    <input type="file" name="fotoProfile" class="form-control" value="{{ $Penjual->fotoProfile }}" >
-                                    <img src="{{ asset('storage/' . $Penjual->fotoProfile)}}" style="width: 150px; ">
+                                    <input type="file" name="fotoProfile" class="form-control" value="{{ $Penjual->user->fotoProfile }}" >
+                                    <img src="{{ asset('storage/' . $User->user->fotoBanner)}}" alt="header"
+                                    class="profile-pic rounded avatar-100" >
                                     @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>foto Banner</label>
-                                    @if ($Penjual->fotoBanner === null)
+                                    @if ($Penjual->user->fotoBanner === null)
                                     <input type="file" name="fotoBanner" class="form-control" value="" required>
                                     @else
                                     <input type="file" name="fotoBanner" class="form-control" value="{{ $Penjual->fotoBanner }}">
-                                    <img src="{{ asset('storage/' . $Penjual->fotoBanner)}}" style="width: 150px; ">
+                                    <img src="{{ asset('storage/' . $Penjual->user->fotoBanner) }}" alt="User-Profile" class="profile-pic rounded avatar-100">
                                     @endif
                                 </div>
                             </div>
@@ -431,8 +431,6 @@
         </div>
     </div>
 </div>
-
-
                 <!-- Menu Items -->
                 <div class="row">
                 <div class="col-lg-12 ">

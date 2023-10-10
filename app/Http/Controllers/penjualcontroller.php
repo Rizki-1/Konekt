@@ -153,7 +153,7 @@ class penjualcontroller extends Controller
             'tujuan_e_wallet' => 'required_if:metodepembayaran,e-wallet',
             // 'keterangan' => 'required',
             'tujuan_bank' => 'required_if:metodepembayaran,bank',
-            'keterangan_bank' => 'required_if:metodepembayaran,bank',
+            'keterangan_bank' => 'required_if:metodepembayaran,bank|gt:0|unique:pembayaranpenjuals,keterangan',
             'keterangan_e_wallet' => 'required_if:metodepembayaran,e-wallet|file|mimes:jpeg,jpg,png|max:2048',
         ], [
             'metodepembayaran.required' => 'Metode pembayaran wajib dipilih.',
@@ -161,6 +161,8 @@ class penjualcontroller extends Controller
             'keterangan.required' => 'Keterangan wajib diisi.',
             'tujuan_bank.required_if' => 'Tujuan Bank wajib diisi.',
             'keterangan_bank.required_if' => 'Keterangan Bank wajib diisi.',
+            'keterangan_bank.gt' => 'Keterangan Bank tidak boleh min.',
+            'keterangan_bank.unique' => 'Keterangan bank gak boleh sama.',
             'keterangan_e_wallet.required_if' => 'Keterangan E-Wallet wajib diisi.',
             'keterangan_e_wallet.file' => 'Keterangan E-Wallet harus berupa file.',
             'keterangan_e_wallet.mimes' => 'Keterangan E-Wallet harus berupa file dengan format jpeg, jpg, atau png.',
@@ -208,12 +210,13 @@ class penjualcontroller extends Controller
 
         $validator = Validator::make($request->all(), [
             'tujuan' => 'required',
-            'keterangan.norek' => 'required|numeric', // Norek harus diisi dan berupa angka
+            'keterangan.norek' => 'required|numeric|regex:/^\d*$/', // Norek harus diisi dan berupa angka
             'keterangan.file' => 'required_without:keterangan.norek|image|mimes:jpeg,png,jpg,gif|max:2048', // File harus diisi jika tidak ada norek yang diisi
         ], [
             'tujuan.required' => 'Kolom tujuan harus diisi.',
             'keterangan.norek.required' => 'Kolom norek harus diisi.',
             'keterangan.norek.numeric' => 'Kolom norek harus berupa angka.',
+            'keterangan.norek.regex' => 'format tidak valid ',
             'keterangan.file.required_without' => 'File harus diunggah jika tidak mengisi kolom norek.',
             'keterangan.file.image' => 'File harus berupa gambar.',
             'keterangan.file.mimes' => 'Format gambar tidak valid. Hanya diperbolehkan: jpeg, png, jpg, gif.',
@@ -348,8 +351,7 @@ class penjualcontroller extends Controller
         $wallet = pembayaranpenjual::where('metodepembayaran', 'e-wallet')->where('penjual_id', $penjualId)->get();
         return view('DashboardPenjual.pengajuandana', compact('pengajuandanapenjual', 'bank', 'wallet', 'pengajuan', 'penjualId'));
     }
-
-    public function mengajukanDana(Request $request, $id)
+    protected function mengajukandana(Request $request,$id)
     {
         // dd($id);
         // dd($request->all());

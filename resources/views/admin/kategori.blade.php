@@ -318,10 +318,6 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
                                     <li>
                                         <form action="{{ route('logout') }}" method="POST">
                                             @csrf

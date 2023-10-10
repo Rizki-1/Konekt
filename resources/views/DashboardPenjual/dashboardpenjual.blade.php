@@ -683,8 +683,7 @@
                                             <th>Gambar</th>
                                             <th>Nama Produk</th>
                                             <th>Harga</th>
-                                            <th>Rata Rata rating</th>
-                                            <th>jumlah rating</th>
+                                            <th>Penilaian Menu</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -724,16 +723,12 @@
                                                                         </svg>
                                                                     @endif
                                                                 @endfor
-                                                                <p>({{ number_format($item->ulasan->avg('rating'), 1, ',', '.') }}
-                                                                    / {{ $item->ulasan->count() }})</p>
+                                                                <p>{{ number_format($item->ulasan->avg('rating'), 1, ',', '.')}} ({{ $item->ulasan->count() }} Ulasan)</p>
                                                             </div>
                                                         @else
                                                             <p style="text-align: center">tidak ada ulasan</p>
                                                         @endif
 
-                                                    </td>
-                                                    <td>
-                                                        {{ $item->ulasan->count() }}
                                                     </td>
                                                 </tr>
                                             @endif

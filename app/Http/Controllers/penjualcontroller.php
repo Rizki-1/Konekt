@@ -373,7 +373,7 @@ class penjualcontroller extends Controller
 
         $mengajukan->save();
 
-        return redirect()->route('pengajuanpenjualad');
+        return redirect()->route('pengajuanpenjualad')->with('success', 'Berhasil mengajukan dana!');
     }
 
     protected function profilepenjual(Request $request)

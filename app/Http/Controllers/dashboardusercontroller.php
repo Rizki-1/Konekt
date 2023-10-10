@@ -249,7 +249,7 @@ class dashboardusercontroller extends Controller
         $order = userOrder::find($id);
         $order->update([
             'pembelianstatus' => 'dibatalkan',
-            'adminstatus' => 'pesanan di batalkan',
+            'adminstatu s' => 'pesanan di batalkan',
         ]);
 
         return redirect()->back()->with('success', 'pesanan berhasil di batalkan');
@@ -448,7 +448,6 @@ class dashboardusercontroller extends Controller
         $penjual = barangpenjual::all();
         return view('DashboardUser.pembelian', compact('dashboardusercontrollers', 'penjual'));
     }
-
 
     public function tandakanselesai($id)
     {

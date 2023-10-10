@@ -42,7 +42,7 @@ class rolepenjualcontroller extends Controller
             'nama_toko' => 'required',
             'foto_toko' => 'required',
             'alamat_toko' => 'required|max:100',
-            'notlp' => 'required|numeric|regex:/^[a-zA-Z\s]+$/|digits_between:10,12'
+            'notlp' => 'required|numeric|regex:/^\d*$/|digits_between:10,12'
         ], [
             'name.required' => 'Nama wajib diisi',
             'email.required' => 'Email Wajib diisi',

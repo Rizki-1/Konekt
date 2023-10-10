@@ -243,7 +243,7 @@
                                                 <img src="../assets/images/avatars/01.png" alt="User-Profile"
                                                     class="profile-pic rounded avatar-100">
                                             @else
-                                                <img src="{{ asset('storage/' . $User->fotoProfile) }}"
+                                                <img src="{{ asset('storage/'. $User->fotoProfile) }}"
                                                     alt="User-Profile" class="profile-pic rounded avatar-100">
                                             @endif
                                         @endforeach
@@ -369,7 +369,7 @@
                                                                 class="form-control" value="{{ $User->fotoBanner }}">
                                                             <img src="{{ asset('storage/' . $User->fotoBanner) }}"
                                                                 style="width: 150px; ">
-                                                        @endif 
+                                                        @endif
                                                     </div>
                                                 </div>
 

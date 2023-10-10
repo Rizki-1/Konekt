@@ -421,12 +421,11 @@
                                                     @method('DELETE')
                                                     @csrf
                                                     <button type="button" class="btn btn-outline-danger delete-btn"
-                                                        id="delete-button" onclick="deleteKategori({{ $a->id }})"><i
+                                                        id="delete-button"
+                                                        onclick="deleteKategori({{ $a->id }})"><i
                                                             class="bi bi-trash-fill"></i></button>
                                                 </form>
                                                 <script>
-                                                    const deleteForm = document.getElementById('delete-form');
-                                                    const deleteButton = document.getElementById('delete-button');
                                                     function deleteKategori(id) {
                                                         Swal.fire({
                                                             title: 'Apakah Anda Yakin?',
@@ -438,11 +437,11 @@
                                                             reverseButtons: true
                                                         }).then((result) => {
                                                             if (result.isConfirmed) {
-                                                                document.getElementById('delete-form'+id).submit();
+                                                                document.getElementById('delete-form' + id).submit();
                                                             }
                                                         });
                                                     }
-                                            </script>
+                                                </script>
 
                                             </div>
                                         </td>
@@ -561,8 +560,6 @@
 </script>
 
 
-
-{{-- ajax edit --}}
 <script>
     $(document).ready(function() {
         // Event listener untuk submit form edit
@@ -584,6 +581,18 @@
             } else {
                 // Jika metodepembayaran bukan "e-wallet," gunakan nilai dari input teks
                 keterangan = $('#editKeterangan').val();
+
+                // Validasi bahwa keterangan tidak boleh bernilai negatif jika itu bukan input file
+                if (keterangan < 0) {
+                    swal.fire('Peringatan', 'Keterangan tidak boleh kurang dari nol.', 'warning');
+                    return;
+                }
+            }
+
+            // Validasi
+            if (!tujuan || !keterangan) {
+                swal.fire('Peringatan', 'Tujuan dan Keterangan harus diisi.', 'warning');
+                return;
             }
 
             // Buat objek FormData untuk mengirim data
@@ -615,12 +624,18 @@
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     // Tampilkan pesan kesalahan jika ada
-                    swal.fire('Gagal', 'Gagal memperbarui metode pembayaran. Error: ' +
-                        errorThrown,
-                        'error');
+                    var errorMessage = 'Gagal memperbarui metode pembayaran. Error: ' +
+                        errorThrown;
+
+                    // Menampilkan pesan kesalahan dalam SweetAlert
+                    Swal.fire({
+                        title: 'Peringatan',
+                        text: 'Keterangan harus unique',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
                 }
             });
         });
     });
 </script>
-{{-- ajax edit --}}

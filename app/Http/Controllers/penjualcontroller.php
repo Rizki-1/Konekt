@@ -224,7 +224,7 @@ class penjualcontroller extends Controller
         ]);
 
 
-        $data = pembayaranpenjual::find($id);
+        $data = pembayaranpenjual::findOrFail($id);
         $data->tujuan = $request->tujuan;
         $old = $data->keterangan;
         if ($request->file('keterangan')) {
@@ -298,7 +298,7 @@ class penjualcontroller extends Controller
         $jumlahDibeli = $userOrder->jumlah;
 
         // Mengembalikan jumlah yang dibeli ke stok barangpenjual
-        $barangPenjual = BarangPenjual::find($userOrder->barangpenjual_id);
+        $barangPenjual = BarangPenjual::findOrFail($userOrder->barangpenjual_id);
         $barangPenjual->stok += $jumlahDibeli;
         $barangPenjual->save();
 

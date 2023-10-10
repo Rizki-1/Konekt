@@ -317,7 +317,7 @@ class adminpembeliancontroller extends Controller
             [
                 'tujuan' => 'required',
                 // Tambahkan validasi untuk keterangan atau keteranganFile sesuai jenisnya
-                'keterangan' => $request->keteranganType === 'number' ? 'required' : 'required|image',
+                'keterangan' => $request->keteranganType === 'number' ? 'required|unique:metode_pembayaran,keterangan' : 'required|image',
             ],
             [
                 'tujuan.required' => 'Tujuan pembayaran wajib diisi.',
@@ -487,6 +487,14 @@ class adminpembeliancontroller extends Controller
                     if ($request->input('metodepembayaran') == 'bank') {
                         if (!is_numeric($value)) {
                             $fail('Keterangan untuk metode pembayaran bank harus berupa angka.');
+                        }
+                        // Selain validasi angka, tambahkan validasi keunikan untuk metode pembayaran 'bank'
+                        $isUnique = adminmetodepembayaran::where('metodepembayaran', 'bank')
+                            ->where('keterangan', $value)
+                            ->count();
+
+                        if ($isUnique > 0) {
+                            $fail('Keterangan untuk metode pembayaran bank sudah ada.');
                         }
                     } elseif ($request->input('metodepembayaran') == 'ewallet') {
                         if (

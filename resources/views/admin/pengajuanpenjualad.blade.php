@@ -107,7 +107,7 @@
 @foreach ($data as $finish )
 <form action="{{ route('terimapengajuan', ['id' => $finish->id]) }}" method="post">
     @csrf
-    <div class="modal" name="terimapengajuan" id="myModal" tabindex="-1">
+    <div class="modal" name="terimapengajuan" id="myModal--{{ $finish->id}}" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -116,24 +116,17 @@
                 </div>
                 <div class="modal-body">
                     <label for="" class="form-label fw-bold">Tujuan</label>
-                    <a class="form-control" value="{{ $finish->tujuan_pengajuan }}">{{ $finish->tujuan_pengajuan }}</a>
+                    <a class="form-control" value="{{ $finish->tujuan_pengajuan }}">{{ $finish->pembayaranpenjual->tujuan }}</a>
                 </div>
             <div class="modal-body ">
               <label for="" class="form-label fw-bold">Keterangan</label>
-              @php
-              $saya = strlen($finish->pembayaranpenjual->keterangan)
-              @endphp
-              @if ($saya >= 20)
-                  {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
-                  <p>
-                    <a href="{{ asset('storage/pembayaran/'.$finish->pembayaranpenjual->keterangan) }}" data-toggle="lightbox">
-                        <img src="{{ asset('storage/pembayaran/'.$finish->pembayaranpenjual->keterangan) }}"
-                            style="width: 150px; height=80px;">
-                    </a>
-                  </p>
-                  @else
-                  <p class="form-control">{{ $finish->pembayaranpenjual->keterangan }}</p>
+
+              @if ($finish->pembayaranpenjual->metodepembayaran === 'bank')
+              <input type="number" class="form-control" value="{{ $finish->pembayaranpenjual->keterangan }}" readonly>
+              @else
+              <p>halo</p>
               @endif
+
             </div>
             <div class="modal-footer mx-3">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -382,7 +375,7 @@
                                             <th scope="col">nama toko</th>
                                             <th scope="col">nama menu</th>
                                             <th scope="col">total harga</th>
-                                            <th scope="col">pembayaran</th>
+
                                             <th scope="col">aksi</th>
                                         </tr>
                                     </thead>
@@ -396,10 +389,10 @@
                                             <td>{{ $finish->penjuallogin->nama_toko }}</td>
                                             <td>{{ $finish->userOrder->penjual->namamenu }}</td>
                                             <td>Rp. {{ number_format($finish->userOrder->totalharga, 0, ',', '.') }}</td>
-                                            <td>{{ $finish->pembayaranpenjual->metodepembayaran }}</td>
+                                            {{-- <td>{{ $finish->pembayaranpenjual->metodepembayaran }}</td> --}}
                                             <td>
                                                 <div class="btn btn-outline-warning" type="submit"
-                                                data-bs-toggle="modal" data-bs-target="#myModal"
+                                                data-bs-toggle="modal" data-bs-target="#myModal--{{ $finish->id}}"
                                                 style=""><i class="fa fa-info-circle" aria-hidden="true"></i>Detail</div>
                                             </td>
                                         </tr>

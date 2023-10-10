@@ -114,181 +114,95 @@
     <link rel="stylesheet" href="../../assets/css/aprycot.mine209.css?v=1.0.0">
 </head>
 @foreach ($pengajuan as $Pengajuan)
-    <form action="{{ route('mengajukandana', ['id' => $Pengajuan->id]) }}" method="post">
-        @csrf
-        @method('patch')
-        <div class="modal" id="myModal{{ $Pengajuan->id }}" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Mengajukan Dana</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-8"></div>
-                            <div class="mb-3">
-                                @foreach ($pengajuandanapenjual as $U)
-                                    <input type="hidden" name="penjual_id" value="{{ $U->id }}"
-                                        id="penjual_id_{{ $U->id }}">
+<form action="{{ route('mengajukandana',$Pengajuan->id) }}" method="post">
+    @csrf
+    @method('patch')
+    @foreach ($pengajuandanapenjual as $U)
+    <input type="hidden" name="penjual_id" value="{{ $U->id }}"
+        id="penjual_id_{{ $U->id }}">
+@endforeach
+    <div class="modal fade" id="exampleModal{{ $Pengajuan->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="myTab-{{ $Pengajuan->id }}" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab-{{ $Pengajuan->id }}" data-bs-toggle="tab" href="#home-{{ $Pengajuan->id }}" role="tab" aria-controls="home-{{ $Pengajuan->id }}" aria-selected="true">Bank</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab-{{ $Pengajuan->id }}" data-bs-toggle="tab" href="#profile-{{ $Pengajuan->id }}" role="tab" aria-controls="profile-{{ $Pengajuan->id }}" aria-selected="false">E Wallet</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent-{{ $Pengajuan->id }}">
+                        <div class="tab-pane fade show active" id="home-{{ $Pengajuan->id }}" role="tabpanel" aria-labelledby="home-tab-{{ $Pengajuan->id }}">
+                            <p class="fs-7 text-dark fw-semibold" for="">Pilih Jenis</p>
+                            <select name="metodepembayaran_id" class="form-select mb-3">
+                                <option value="" disabled selected>Pilih jenis bank</option>
+                                @foreach ($bank as $bnk)
+                                    <option name="tujuan_bank" value="{{ $bnk->id }}" data-keterangan="{{ $bnk->keterangan }}">{{ $bnk->tujuan }}</option>
+                                    <input type="hidden" value="{{ $bnk->tujuan }}" name="tujuan_pengajuan">
                                 @endforeach
-                                <label for="metodepembayaran_id" class="form-label fw-bold">Metode Pembayaran</label>
-                                <select class="form-select  mb-3 selectMetode" name="metodepembayaran_id"
-                                    aria-label=".form-select-lg example" onchange="Pembayaran({{ $Pengajuan->id }})"
-                                    id="selectMetode{{ $Pengajuan->id }}">
-
-                                    <option selected class="dropdown-menu" disabled>Pilih Pembayaran</option>
-                                    @foreach ($wallet as $w)
-                                        <option value="{{ $w->id }}"
-                                            data-target="ewalletInput{{ $Pengajuan->id }}"
-                                            id="walletOption{{ $w->id }}">E-Wallet</option>
-                                    @endforeach
-
-                                    @foreach ($bank as $b)
-                                        <option value="{{ $b->id }}" data-target="bankInput{{ $Pengajuan->id }}"
-                                            id="bankOption{{ $b->id }}">Bank</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3" id="ewalletInput{{ $Pengajuan->id }}" style="display: none;">
-                                <div>
-                                    <p class="form-label fw-bold">Jenis QR</p>
-                                </div>
-                                <select name="tujuan_e_wallet{{ $Pengajuan->id }}" id="JenisEwallet"
-                                    class="form-select mb-3">
-                                    <option value="" disabled selected>Pilih</option>
-                                    @forelse ($wallet as $data)
-                                        <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
-                                    @empty
-                                        <option value="" disabled selected>Data E-wallet Kosong</option>
-                                    @endforelse
-                                </select>
-                                <div><br>
-                                    <p class="form-label fw-bold">Kode QR</p>
-                                </div>
-                                @foreach ($wallet as $data)
-                                    @php
-                                        $jefri = strlen($data->keterangan);
-                                    @endphp
-                                    @if ($jefri >= 24)
-                                        <p class="" name="keterangan_e_wallet" value="{{ $data->keterangan }}"
-                                            id="{{ $data->tujuan }}">
-                                            <img src="{{ asset('storage/pembayaran/' . $data->keterangan) }}"
-                                                style="width: 150px; height=80px;" disabled>
-                                        </p>
-                                    @else
-                                    @endif
+                            </select>
+                            <div name="keterangan_bank" id="selected_bank_keterangan"></div>
+                        </div>
+                        <div class="tab-pane fade" id="profile-{{ $Pengajuan->id }}" role="tabpanel" aria-labelledby="profile-tab-{{ $Pengajuan->id }}">
+                            <p class="fs-7 text-dark fw-semibold" for="">Pilih Jenis</p>
+                            <select name="metodepembayaran_id" class="form-select mb-3">
+                                <option value="" disabled selected>Pilih jenis e-wallet</option>
+                                @foreach ($wallet as $wl)
+                                    <option name="tujuan_e_wallet" value="{{ $wl->id }}" data-keterangan="{{ $wl->keterangan }}" data-image="{{ $wl->image }}">{{ $wl->tujuan }}</option>
+                                    <input type="hidden" value="{{ $wl->tujuan }}" name="tujuan_pengajuan">
                                 @endforeach
-                            </div>
-                            <div class="mb-3" id="bankInput{{ $Pengajuan->id }}" style="display: none;">
-                                <div>
-                                    <p class="form-label fw-bold">Jenis Bank</p>
-                                </div>
-                                <select name="tujuan_bank{{ $Pengajuan->id }}" id="JenisBank" class="form-select mb-3">
-                                    <option value="" disabled selected>Pilih</option>
-                                    @forelse ($bank as $data)
-                                        <option value="{{ $data->tujuan }}">{{ $data->tujuan }}</option>
-                                    @empty
-                                        <option value=""disabled selected>Data No Rekening Kosong</option>
-                                    @endforelse
-                                </select>
-                                <div>
-                                    <p class="form-label fw-bold">No Rekening</p>
-                                </div>
-                                @foreach ($bank as $data)
-                                    @php
-                                        $saya = strlen($data->keterangan);
-                                    @endphp
-                                    @if ($saya >= 24)
-                                        {{-- <a class="text-bold">No Rekening Tidak Ada</a> --}}
-                                    @else
-                                        <input type="text" name="keterangan_bank" value="{{ $data->keterangan }}"
-                                            id="{{ $data->tujuan }}" class="form-control form-control-lg mb-3" disabled
-                                            readonly>
-                                    @endif
-                                @endforeach
-                            </div>
+                            </select>
+                            <div name="keterangan_e_wallet" id="selected_wallet_image"></div>
                         </div>
                     </div>
-                    {{-- </div> --}}
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill"
-                            data-bs-dismiss="modal">Kembali</button>
-                        <button type="submit" class="btn btn-outline-primary rounded-pill">Ajukan</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="submit" class="btn btn-primary">Ajukan</button>
                 </div>
             </div>
         </div>
-    </form>
-    <script></script>
+    </div>
+
+</form>
 @endforeach
+
 <script>
-    let selectElement = document.querySelector('#JenisBank');
-    let inputElements = document.querySelectorAll('input[name^="keterangan_bank"]');
-    let spElement = document.querySelector('#JenisEwallet');
-    let pElements = document.querySelectorAll('p[name^="keterangan_e_wallet"]');
+    document.addEventListener('DOMContentLoaded', function() {
+        var modals = document.querySelectorAll('.modal');
+        modals.forEach(function(modal) {
+            var modalId = modal.getAttribute('id');
+            var selectBankList = modal.querySelectorAll('select[name="jenis_bank"]');
+            var selectWalletList = modal.querySelectorAll('select[name="jenis_wallet"]');
 
-    selectElement.addEventListener('change', function() {
-        let selectedValue = selectElement.value;
+            selectBankList.forEach(function(selectBank) {
+                var selectedBankKeterangan = selectBank.nextElementSibling;
 
-        inputElements.forEach(function(input) {
-            if (input.id === selectedValue) {
-                input.style.display = 'block';
-                input.removeAttribute('disabled');
-            } else {
-                input.style.display = 'none';
-                input.setAttribute('disabled', 'disabled');
-            }
+                selectBank.addEventListener('change', function() {
+                    var selectedOption = selectBank.options[selectBank.selectedIndex];
+                    selectedBankKeterangan.innerText = selectedOption.getAttribute('data-keterangan');
+                });
+            });
+
+            selectWalletList.forEach(function(selectWallet) {
+                var selectedWalletKeterangan = selectWallet.nextElementSibling;
+                var selectedWalletImage = modal.querySelector('#selected_wallet_image');
+
+                selectWallet.addEventListener('change', function() {
+    var selectedOption = selectWallet.options[selectWallet.selectedIndex];
+    selectedWalletKeterangan.innerText = selectedOption.getAttribute('data-keterangan');
+    selectedWalletImage.innerHTML = '<img src="{{ asset('storage/pembayaran/') }}/' + selectedOption.getAttribute('data-keterangan') + '" alt="Selected Wallet Image">';
+});
+            });
         });
     });
-
-    spElement.addEventListener('change', function() {
-        let selectedValue = spElement.value;
-
-        pElements.forEach(function(p) {
-            if (p.id === selectedValue) {
-                p.style.display = 'block';
-                p.removeAttribute('disabled');
-            } else {
-                p.style.display = 'none';
-                p.setAttribute('disabled', 'disabled');
-            }
-        });
-    });
-
-    // Menjalankan pengecekan saat halaman pertama kali dimuat
-    selectElement.dispatchEvent(new Event('change'));
-    spElement.dispatchEvent(new Event('change'));
 </script>
-@foreach ($wallet as $w)
-    @foreach ($bank as $b)
-        <script>
-            function Pembayaran(id) {
-                var selectedOption = $("#selectMetode" + id).val();
-                // Sembunyikan semua elemen
-                $("#ewalletInput" + id).hide();
-                $("#bankInput" + id).hide();
-
-                // Periksa opsi yang dipilih
-                if (selectedOption) {
-                    @if ($w->id !== '')
-                        if (selectedOption === "{{ $w->id }}") {
-                            $("#ewalletInput" + id).show();
-                            $("#tujuan_e_wallet" + id).prop('disabled', false);
-                        }
-                    @endif
-
-                    @if ($b->id !== '')
-                        if (selectedOption === "{{ $b->id }}") {
-                            $("#bankInput" + id).show();
-                            $("#tujuan_bank" + id).prop('disabled', false);
-                        }
-                    @endif
-                }
-            }
-        </script>
-    @endforeach
-@endforeach
 
 {{-- // $(".selectMetode").change(function() {
         //     var selectedOption = $(this).val();
@@ -544,7 +458,7 @@
                                                     @else
                                                         <button type="submit" class="btn btn-outline-primary"
                                                             data-bs-toggle="modal"
-                                                            data-bs-target="#myModal{{ $Pengajuan->id }}">
+                                                            data-bs-target="#exampleModal{{ $Pengajuan->id }}">
                                                             {{-- @dump($Pengajuan->id) --}}
                                                             ajukan pengambilan dana
                                                         </button>

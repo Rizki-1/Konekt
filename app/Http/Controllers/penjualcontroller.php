@@ -352,6 +352,7 @@ class penjualcontroller extends Controller
     public function mengajukanDana(Request $request, $id)
     {
         // dd($id);
+        // dd($request->all());
         $wallet = pengajuandanapenjual::find($id);
         $bank = pengajuandanapenjual::find($id);
         $mengajukan = pengajuandanapenjual::findOrFail($id);
@@ -360,10 +361,10 @@ class penjualcontroller extends Controller
         $mengajukan->metodepembayaran_id = $request->metodepembayaran_id;
 
         // Pilih input berdasarkan metode pembayaran
-        if ($request->metodepembayaran_id == $wallet) {
+        if ($mengajukan->pembayaranpenjual->metodepembayaran === 'e-wallet') {
             $mengajukan->keterangan_pengajuan = $request->input('keterangan_e_wallet');
             $mengajukan->tujuan_pengajuan = $request->input('tujuan_e_wallet');
-        } elseif ($request->metodepembayaran_id == $bank) {
+        } elseif ($mengajukan->pembayaranpenjual->metodepembayaran === 'bank') {
             $mengajukan->keterangan_pengajuan = $request->input('keterangan_bank');
             $mengajukan->tujuan_pengajuan = $request->input('tujuan_bank');
         } else {

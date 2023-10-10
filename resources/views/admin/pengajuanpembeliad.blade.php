@@ -142,8 +142,6 @@
                                         </div>
                                         @if ($Pengajuanuser->metode_pengembalian === 'e-wallet')
                                             <img src="{{asset('storage/pengajuanUser/' . $Pengajuanuser->keterangan_metode_pengembalian)}}" alt="" srcset="" style="width: 100%">
-                                            <p>test</p>
-
                                         @else
                                             <input type="number" name="keterangan_metode_pengembalian"
                                                 value="{{ $Pengajuanuser->keterangan_metode_pengembalian }}"

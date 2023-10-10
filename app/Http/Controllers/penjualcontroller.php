@@ -344,8 +344,8 @@ class penjualcontroller extends Controller
         $penjualId = Auth::id();
         $pengajuan = pengajuandanapenjual::whereIn('status', ['siapMengajukan', 'sedangMengajukan'])->get();
         $pengajuandanapenjual = penjuallogin::where('user_id', $penjualId)->get();
-        $bank = pembayaranpenjual::where('metodepembayaran', 'bank')->get();
-        $wallet = pembayaranpenjual::where('metodepembayaran', 'e-wallet')->get();
+        $bank = pembayaranpenjual::where('metodepembayaran', 'bank')->where('penjual_id', $penjualId)->get();
+        $wallet = pembayaranpenjual::where('metodepembayaran', 'e-wallet')->where('penjual_id', $penjualId)->get();
         return view('DashboardPenjual.pengajuandana', compact('pengajuandanapenjual', 'bank', 'wallet', 'pengajuan', 'penjualId'));
     }
 

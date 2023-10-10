@@ -92,6 +92,7 @@
     style="background:url(../../assets/images/dashboard.png);    background-attachment: fixed;
     background-size: cover;">
 
+    @include('layout.sweetalert')
     @foreach ($user as $u)
         <form action="{{ route('ulasan', ['id' => $u->barangpenjual_id]) }}" method="POST" name="ulasan">
             @csrf
@@ -178,12 +179,17 @@
                     }
 
                     // Jika validasi berhasil, Anda dapat melakukan submit form
-                    $(this).off("submit");
-                    this.submit();
+                    swal.fire('Berhasil', 'Berhasil memberi ulasan', 'success');
+
+                    // window.timeout(3000) {
+                        $(this).off("submit");
+                        this.submit();
+                    // };
                 });
             });
         });
     </script>
+
 
     @include('layout.logoloader')
     <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all ">

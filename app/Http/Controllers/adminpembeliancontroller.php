@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\adminmetodepembayaran;
 use App\Models\pengajuandanapenjual;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class adminpembeliancontroller extends Controller
 {
@@ -214,7 +215,7 @@ class adminpembeliancontroller extends Controller
 
 
             return redirect()->route('calonpenjual');
-                // ->with('success', 'Permintaan penjual login telah ditolak dan data terkait telah dihapus.');
+            // ->with('success', 'Permintaan penjual login telah ditolak dan data terkait telah dihapus.');
         } catch (\Exception $e) {
 
             return redirect()->back();
@@ -434,6 +435,14 @@ class adminpembeliancontroller extends Controller
         $pengajuanPenjual->status = 'pengajuanDiterima';
         $pengajuanPenjual->save();
 
+        $penjualId = Auth::id();
+
+        $notifikasipenjual = new notifikasipenjual();
+        $notifikasipenjual->keterangan_penjual = 'Pengajuan anda berhasil!';
+        $notifikasipenjual->isi_penjual = 'Dana berhasil diterima';
+        $notifikasipenjual->toko_id_notifikasi = $penjualId;
+        $notifikasipenjual->save();
+
         return redirect()->back()->with('success', 'pengembalian dana telah di setujui');
     }
 
@@ -447,6 +456,15 @@ class adminpembeliancontroller extends Controller
         $user = userOrder::findOrFail($id);
         $user->pembelianstatus = 'pengembalian dana di terima';
         $user->save();
+
+        $user_id = $user->user_id;
+
+        $notifikasipenjual = new notifikasi();
+        $notifikasipenjual->keterangan = 'Pengajuan anda berhasil!';
+        $notifikasipenjual->isi = 'Dana berhasil diterima';
+        $notifikasipenjual->user_id_notifikasi = $user_id;
+        $notifikasipenjual->save();
+
         return redirect()->back();
     }
 

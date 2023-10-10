@@ -508,9 +508,13 @@
                                     @else
                                         <p style="text-align: center">tidak ada ulasan</p>
                                     @endif
+                                    @if ($p->stok === 0)
+                                    <p class="text-center">stok habis</p>
+                                    @else
                                     <div class="d-flex justify-content-evenly text-black">
                                         <p>Sisa Stok : {{ $p->stok }}</p>
                                     </div>
+                                    @endif
                                     <div class="d-flex justify-content-evenly">
                                         <a class="btn btn-outline-info"
                                             href="{{ route('detailmenupen', ['id' => $p->id]) }}"><i

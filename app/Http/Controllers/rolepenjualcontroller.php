@@ -42,7 +42,7 @@ class rolepenjualcontroller extends Controller
             'nama_toko' => 'required',
             'foto_toko' => 'required',
             'alamat_toko' => 'required|max:100',
-            'notlp' => 'required|min:10'
+            'notlp' => 'required|numeric|regex:/^[a-zA-Z\s]+$/|digits_between:10,12'
         ], [
             'name.required' => 'Nama wajib diisi',
             'email.required' => 'Email Wajib diisi',
@@ -57,7 +57,9 @@ class rolepenjualcontroller extends Controller
             'alamat_toko.required' => 'Alamat Toko wajib diisi',
             'alamat_toko.max' => 'Alamat Toko maksimal 100 karakter',
             'notlp.required' => 'Nomor Telepon wajib diisi',
-            'notlp.min' => 'Nomor Telepon minimal 10 karakter'
+            'notlp.numeric'=> 'Nomor Telepon Harus Berupa Angka',
+            'notlp.regex'=> 'Format nomor telepon tidak valid.',
+            'notlp.digits_between' => 'Nomor Telepon harus memiliki panjang antara 10 hingga 12 digit.'
         ]);
 
         $user = User::create([

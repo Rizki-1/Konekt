@@ -361,15 +361,15 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Foto Banner</label>
-                                                        {{-- @if ($User->fotoBanner === null) --}}
+                                                        @if ($User->fotoBanner === null)
                                                         <input type="file" name="fotoBanner" class="form-control"
                                                             value="" required>
-                                                        {{-- @else
-                                                            <input type="text" name="fotoBanner"
+                                                        @else
+                                                            <input type="file" name="fotoBanner"
                                                                 class="form-control" value="{{ $User->fotoBanner }}">
                                                             <img src="{{ asset('storage/' . $User->fotoBanner) }}"
                                                                 style="width: 150px; ">
-                                                        @endif --}}
+                                                        @endif 
                                                     </div>
                                                 </div>
 

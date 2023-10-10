@@ -17,8 +17,13 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->role != 'null') {
-            return redirect()->back();
+        if (auth()->check()) {
+            $userRole = auth()->user()->role;
+
+            // Mengecek apakah peran pengguna adalah "admin", "user", atau "penjual"
+            if ($userRole == 'admin' || $userRole == 'user' || $userRole == 'penjual') {
+                return redirect()->back();
+            }
         }
 
         return $next($request);

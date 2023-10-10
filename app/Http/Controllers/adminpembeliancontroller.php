@@ -152,6 +152,7 @@ class adminpembeliancontroller extends Controller
 
         // Menandai pesanan sebagai ditolak
         $dashboardusercontrollers->adminstatus = 'notapproveadmin';
+        $dashboardusercontrollers->pembelianstatus = 'adminnotapprove';
         $dashboardusercontrollers->save();
 
         $notifikasi = notifikasi::where('id', $id)->first();
@@ -212,11 +213,12 @@ class adminpembeliancontroller extends Controller
             }
 
 
-            return redirect()->route('calonpenjual')
-                ->with('success', 'Permintaan penjual login telah ditolak dan data terkait telah dihapus.');
+            return redirect()->route('calonpenjual');
+                // ->with('success', 'Permintaan penjual login telah ditolak dan data terkait telah dihapus.');
         } catch (\Exception $e) {
 
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->back();
+            // ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 

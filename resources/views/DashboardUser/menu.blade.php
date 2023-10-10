@@ -992,7 +992,7 @@
                 {{$penjual->links('pagination::default')}}
             @endif
         </div>
-        @include('layout.footer')
+        {{-- @include('layout.footer') --}}
 
     </main>
 

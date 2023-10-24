@@ -13,7 +13,7 @@
         <tr>
             <td style="padding-top: 20px;">
                 <h2 style="font-size: 24px;">Akun Anda GAGAL dibuat!</h2>
-                <p style="margin-bottom: 20px;">Maaf akun anda tidak berhasil di konfirmasi<a href="{{ route('user.index') }}" style="text-decoration: none; background-color: #007bff; color: #fff; padding: 10px 20px; border-radius: 3px;">Disini</a></p>
+                <p style="margin-bottom: 20px;">Maaf akun anda tidak berhasil di konfirmasi di karekan beberapa data anda tidak relevan anda bisa daftar ulang dengan klik<a href="{{ route('user.index') }}" style="color: cyan">Disini</a></p>
             </td>
         </tr>
     </table>
